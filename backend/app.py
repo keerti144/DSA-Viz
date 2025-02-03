@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
-from algorithms.sort import bubble_sort
-from algorithms.search import linear_search
+from algorithms.sort import *
+from algorithms.search import *
+from algorithms.tree import *
 
 app = Flask(__name__)
 
@@ -11,7 +12,7 @@ def sort_array():
     sorted_array = bubble_sort(array)
     return jsonify({'sorted': sorted_array})
 
-@app.route('/search', methods=['POST'])
+@app.route('/search/linear', methods=['POST'])
 def search_element():
     data = request.json
     array = data.get('array')

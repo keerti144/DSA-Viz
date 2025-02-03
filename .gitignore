@@ -1,2 +1,4 @@
 node_modules/
 .venv/
+backend/firebase-admin-sdk.json
+backend/firebase_condig.py
