@@ -1,0 +1,382 @@
+.vis-exp {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.vis-exp .div {
+    background-image: url(./vis-exp.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 832px;
+    overflow: hidden;
+    position: relative;
+    width: 1280px;
+}
+
+.vis-exp .group {
+    height: 598px;
+    left: 108px;
+    position: absolute;
+    top: 117px;
+    width: 689px;
+}
+
+.vis-exp .overlap-group-wrapper {
+    height: 47px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 424px;
+}
+
+.vis-exp .overlap-group {
+    height: 47px;
+    position: relative;
+    width: 422px;
+}
+
+.vis-exp .rectangle {
+    background-color: #000000;
+    height: 47px;
+    left: 0;
+    opacity: 0.3;
+    position: absolute;
+    top: 0;
+    width: 422px;
+}
+
+.vis-exp .topic-name-visualise {
+    color: #ffffff;
+    font-family: "Advent Pro-Regular", Helvetica;
+    font-size: 36px;
+    font-weight: 400;
+    left: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 394px;
+}
+
+.vis-exp .rectangle-2 {
+    background-color: #000000;
+    border-radius: 30px;
+    height: 488px;
+    left: 0;
+    opacity: 0.3;
+    position: absolute;
+    top: 110px;
+    width: 689px;
+}
+
+.vis-exp .overlap-wrapper {
+    height: 762px;
+    left: 0;
+    position: absolute;
+    top: 85px;
+    width: 81px;
+}
+
+.vis-exp .overlap {
+    height: 762px;
+    position: relative;
+}
+
+.vis-exp .rectangle-3 {
+    background-color: #000000;
+    height: 762px;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    width: 81px;
+}
+
+.vis-exp .div-wrapper {
+    height: 56px;
+    left: 16px;
+    position: absolute;
+    top: 25px;
+    width: 55px;
+}
+
+.vis-exp .overlap-group-2 {
+    height: 56px;
+    position: relative;
+}
+
+.vis-exp .rectangle-4 {
+    background-color: #000000;
+    height: 55px;
+    left: 0;
+    position: absolute;
+    top: 1px;
+    width: 55px;
+}
+
+.vis-exp .group-2 {
+    background-image: url(./details.png);
+    background-size: 100% 100%;
+    height: 50px;
+    left: 2px;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    width: 50px;
+}
+
+.vis-exp .group-wrapper {
+    background-color: #000000;
+    height: 55px;
+    left: 16px;
+    position: absolute;
+    top: 143px;
+    width: 55px;
+}
+
+.vis-exp .group-3 {
+    background-image: url(./test-results.png);
+    background-size: 100% 100%;
+    height: 50px;
+    left: 3px;
+    position: relative;
+    top: 1px;
+    width: 50px;
+}
+
+.vis-exp .group-4 {
+    background-color: #000000;
+    height: 55px;
+    left: 16px;
+    position: absolute;
+    top: 260px;
+    width: 55px;
+}
+
+.vis-exp .group-5 {
+    background-image: url(./eye.png);
+    background-size: 100% 100%;
+    height: 50px;
+    left: 3px;
+    position: relative;
+    width: 50px;
+}
+
+.vis-exp .group-6 {
+    background-color: #000000;
+    height: 55px;
+    left: 16px;
+    position: absolute;
+    top: 392px;
+    width: 55px;
+}
+
+.vis-exp .group-7 {
+    background-image: url(./notifications.png);
+    background-size: 100% 100%;
+    height: 50px;
+    left: 3px;
+    position: relative;
+    top: 4px;
+    width: 50px;
+}
+
+.vis-exp .group-8 {
+    background-color: #000000;
+    height: 55px;
+    left: 16px;
+    position: absolute;
+    top: 524px;
+    width: 55px;
+}
+
+.vis-exp .group-9 {
+    background-image: url(./gears.png);
+    background-size: 100% 100%;
+    height: 50px;
+    left: 4px;
+    position: relative;
+    top: 5px;
+    width: 50px;
+}
+
+.vis-exp .group-10 {
+    background-color: #000000;
+    height: 55px;
+    left: 16px;
+    position: absolute;
+    top: 663px;
+    width: 55px;
+}
+
+.vis-exp .group-11 {
+    background-image: url(./inquiry.png);
+    background-size: 100% 100%;
+    height: 50px;
+    width: 50px;
+}
+
+.vis-exp .group-12 {
+    height: 85px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1280px;
+}
+
+.vis-exp .group-13 {
+    height: 85px;
+    width: 1282px;
+}
+
+.vis-exp .overlap-group-3 {
+    background-color: #000000;
+    height: 85px;
+    position: relative;
+    width: 1280px;
+}
+
+.vis-exp .text-wrapper {
+    color: #ffffff;
+    font-family: "Aguafina Script-Regular", Helvetica;
+    font-size: 36px;
+    font-weight: 400;
+    left: 605px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 20px;
+    white-space: nowrap;
+    width: 157px;
+}
+
+.vis-exp .overlap-2 {
+    border-radius: 30px;
+    height: 45px;
+    left: 26px;
+    position: absolute;
+    top: 20px;
+    width: 45px;
+}
+
+.vis-exp .menu {
+    height: 35px;
+    left: 5px;
+    position: absolute;
+    top: 5px;
+    width: 35px;
+}
+
+.vis-exp .rectangle-5 {
+    background-color: #582d71;
+    border-radius: 30px;
+    height: 45px;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    width: 45px;
+}
+
+.vis-exp .female-user-wrapper {
+    background-color: #1f1425;
+    height: 40px;
+    left: 1214px;
+    position: absolute;
+    top: 34px;
+    width: 40px;
+}
+
+.vis-exp .female-user {
+    height: 31px;
+    left: 0;
+    position: absolute;
+    top: 5px;
+    width: 40px;
+}
+
+.vis-exp .overlap-3 {
+    height: 709px;
+    left: 824px;
+    position: absolute;
+    top: 94px;
+    width: 416px;
+}
+
+.vis-exp .group-14 {
+    height: 709px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 416px;
+}
+
+.vis-exp .rectangle-6 {
+    background-color: #000000;
+    border-radius: 30px;
+    height: 573px;
+    left: 0;
+    opacity: 0.3;
+    position: absolute;
+    top: 136px;
+    width: 414px;
+}
+
+.vis-exp .overlap-4 {
+    border-radius: 40px;
+    height: 103px;
+    left: 92px;
+    position: absolute;
+    top: 0;
+    width: 230px;
+}
+
+.vis-exp .rectangle-7 {
+    background-color: #000000;
+    border-radius: 40px;
+    height: 103px;
+    left: 0;
+    opacity: 0.2;
+    position: absolute;
+    top: 0;
+    width: 230px;
+}
+
+.vis-exp .text-wrapper-2 {
+    color: #ffffff;
+    font-family: "Advent Pro-Regular", Helvetica;
+    font-size: 36px;
+    font-weight: 400;
+    left: 29px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 27px;
+    white-space: nowrap;
+    width: 167px;
+}
+
+.vis-exp .group-15 {
+    background-color: #00000033;
+    border-radius: 25px;
+    height: 50px;
+    left: 0;
+    position: absolute;
+    top: 40px;
+    width: 50px;
+}
+
+.vis-exp .group-16 {
+    background-image: url(./close.png);
+    background-size: 100% 100%;
+    height: 30px;
+    left: 10px;
+    position: absolute;
+    top: 50px;
+    width: 30px;
+}
