@@ -1,0 +1,259 @@
+.start-page {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .start-page .div {
+    background-image: url(./start-page.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 832px;
+    overflow: hidden;
+    position: relative;
+    width: 1280px;
+  }
+  
+  .start-page .group {
+    height: 102px;
+    left: -3px;
+    position: absolute;
+    top: -44px;
+    width: 1282px;
+  }
+  
+  .start-page .overlap {
+    height: 102px;
+    position: relative;
+  }
+  
+  .start-page .overlap-group-wrapper {
+    height: 63px;
+    left: 0;
+    position: absolute;
+    top: 39px;
+    width: 1282px;
+  }
+  
+  .start-page .overlap-group {
+    background-color: #000000;
+    height: 63px;
+    position: relative;
+    width: 1280px;
+  }
+  
+  .start-page .text-wrapper {
+    color: #ffffff;
+    font-family: "Aguafina Script-Regular", Helvetica;
+    font-size: 36px;
+    font-weight: 400;
+    left: 430px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 8px;
+    white-space: nowrap;
+    width: 157px;
+  }
+  
+  .start-page .see-the-logic-master {
+    color: #ffffff;
+    font-family: "Advent Pro-Regular", Helvetica;
+    font-size: 45px;
+    font-weight: 400;
+    left: 498px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    white-space: nowrap;
+    width: 460px;
+  }
+  
+  .start-page .span {
+    color: #ffffff;
+    font-family: "Advent Pro-Regular", Helvetica;
+    font-size: 45px;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  
+  .start-page .text-wrapper-2 {
+    font-size: 30px;
+  }
+  
+  .start-page .overlap-2 {
+    height: 830px;
+    left: 0;
+    position: absolute;
+    top: 59px;
+    width: 1280px;
+  }
+  
+  .start-page .animation {
+    height: 830px;
+    left: 0;
+    opacity: 0.4;
+    position: absolute;
+    top: 0;
+    width: 1280px;
+  }
+  
+  .start-page .group-2 {
+    height: 439px;
+    left: 47px;
+    position: absolute;
+    top: 35px;
+    width: 1203px;
+  }
+  
+  .start-page .overlap-3 {
+    height: 68px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1197px;
+  }
+  
+  .start-page .rectangle {
+    background-color: #000000;
+    border-radius: 20px;
+    height: 68px;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    width: 1173px;
+  }
+  
+  .start-page .ellipse {
+    background-color: #d9d9d9;
+    border-radius: 21px;
+    height: 42px;
+    left: 22px;
+    position: absolute;
+    top: 14px;
+    width: 42px;
+  }
+  
+  .start-page .rectangle-2 {
+    background-color: #9f83af;
+    border-radius: 20px;
+    height: 57px;
+    left: 842px;
+    opacity: 0.3;
+    position: absolute;
+    top: 6px;
+    width: 150px;
+  }
+  
+  .start-page .rectangle-3 {
+    background-color: #9f83af;
+    border-radius: 20px;
+    height: 57px;
+    left: 1011px;
+    opacity: 0.3;
+    position: absolute;
+    top: 5px;
+    width: 150px;
+  }
+  
+  .start-page .text-wrapper-3 {
+    color: #ffffff;
+    font-family: "Advent Pro-Regular", Helvetica;
+    font-size: 32px;
+    font-weight: 400;
+    left: 881px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 12px;
+    white-space: nowrap;
+    width: 111px;
+  }
+  
+  .start-page .text-wrapper-4 {
+    color: #ffffff;
+    font-family: "Advent Pro-Regular", Helvetica;
+    font-size: 32px;
+    font-weight: 400;
+    left: 1042px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 12px;
+    white-space: nowrap;
+    width: 155px;
+  }
+  
+  .start-page .algorize-visualize {
+    color: #ffffff;
+    font-family: "Advent Pro-Bold", Helvetica;
+    font-size: 50px;
+    font-weight: 400;
+    left: 43px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 118px;
+    width: 1077px;
+  }
+  
+  .start-page .text-wrapper-5 {
+    font-weight: 700;
+  }
+  
+  .start-page .text-wrapper-6 {
+    font-family: "Advent Pro-Regular", Helvetica;
+    font-size: 30px;
+  }
+  
+  .start-page .div-wrapper {
+    height: 68px;
+    left: 412px;
+    position: absolute;
+    top: 371px;
+    width: 284px;
+  }
+  
+  .start-page .overlap-group-2 {
+    height: 68px;
+    position: relative;
+    width: 282px;
+  }
+  
+  .start-page .rectangle-4 {
+    background-color: #040a44;
+    border-radius: 30px;
+    height: 65px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 282px;
+  }
+  
+  .start-page .text-wrapper-7 {
+    color: #ffffff;
+    font-family: "Advent Pro-Medium", Helvetica;
+    font-size: 42px;
+    font-weight: 500;
+    left: 29px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 3px;
+    width: 206px;
+  }
+  
+  .start-page .right-arrow {
+    height: 44px;
+    left: 210px;
+    position: absolute;
+    top: 9px;
+    width: 56px;
+  }
+  

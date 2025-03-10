@@ -1,0 +1,411 @@
+.test-interview {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.test-interview .overlap-wrapper {
+    background-image: url(./test-interview.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 832px;
+    overflow: hidden;
+    width: 1280px;
+}
+
+.test-interview .overlap {
+    height: 836px;
+    position: relative;
+    width: 1285px;
+}
+
+.test-interview .overlap-group {
+    height: 836px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1280px;
+}
+
+.test-interview .group {
+    height: 85px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1280px;
+}
+
+.test-interview .overlap-group-wrapper {
+    height: 85px;
+    width: 1282px;
+}
+
+.test-interview .div {
+    background-color: #000000;
+    height: 85px;
+    position: relative;
+    width: 1280px;
+}
+
+.test-interview .text-wrapper {
+    color: #ffffff;
+    font-family: "Aguafina Script-Regular", Helvetica;
+    font-size: 36px;
+    font-weight: 400;
+    left: 605px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 20px;
+    white-space: nowrap;
+    width: 157px;
+}
+
+.test-interview .overlap-2 {
+    border-radius: 30px;
+    height: 45px;
+    left: 26px;
+    position: absolute;
+    top: 20px;
+    width: 45px;
+}
+
+.test-interview .menu {
+    height: 35px;
+    left: 5px;
+    position: absolute;
+    top: 5px;
+    width: 35px;
+}
+
+.test-interview .rectangle {
+    background-color: #582d71;
+    border-radius: 30px;
+    height: 45px;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    width: 45px;
+}
+
+.test-interview .female-user-wrapper {
+    background-color: #1f1425;
+    height: 40px;
+    left: 1214px;
+    position: absolute;
+    top: 34px;
+    width: 40px;
+}
+
+.test-interview .female-user {
+    height: 31px;
+    left: 0;
+    position: absolute;
+    top: 5px;
+    width: 40px;
+}
+
+.test-interview .div-wrapper {
+    height: 762px;
+    left: 0;
+    position: absolute;
+    top: 74px;
+    width: 81px;
+}
+
+.test-interview .overlap-3 {
+    height: 762px;
+    position: relative;
+}
+
+.test-interview .rectangle-2 {
+    background-color: #000000;
+    height: 762px;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    width: 81px;
+}
+
+.test-interview .group-2 {
+    height: 56px;
+    left: 11px;
+    position: absolute;
+    top: 25px;
+    width: 55px;
+}
+
+.test-interview .overlap-group-2 {
+    height: 56px;
+    position: relative;
+}
+
+.test-interview .rectangle-3 {
+    background-color: #000000;
+    height: 55px;
+    left: 0;
+    position: absolute;
+    top: 1px;
+    width: 55px;
+}
+
+.test-interview .group-3 {
+    background-image: url(./details.png);
+    background-size: 100% 100%;
+    height: 50px;
+    left: 2px;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    width: 50px;
+}
+
+.test-interview .group-wrapper {
+    background-color: #000000;
+    height: 55px;
+    left: 11px;
+    position: absolute;
+    top: 143px;
+    width: 55px;
+}
+
+.test-interview .group-4 {
+    background-image: url(./test-results.png);
+    background-size: 100% 100%;
+    height: 50px;
+    left: 3px;
+    position: relative;
+    top: 1px;
+    width: 50px;
+}
+
+.test-interview .group-5 {
+    background-color: #000000;
+    height: 55px;
+    left: 11px;
+    position: absolute;
+    top: 260px;
+    width: 55px;
+}
+
+.test-interview .group-6 {
+    background-image: url(./eye.png);
+    background-size: 100% 100%;
+    height: 50px;
+    left: 3px;
+    position: relative;
+    width: 50px;
+}
+
+.test-interview .group-7 {
+    background-color: #000000;
+    height: 55px;
+    left: 11px;
+    position: absolute;
+    top: 392px;
+    width: 55px;
+}
+
+.test-interview .group-8 {
+    background-image: url(./notifications.png);
+    background-size: 100% 100%;
+    height: 50px;
+    left: 3px;
+    position: relative;
+    top: 4px;
+    width: 50px;
+}
+
+.test-interview .group-9 {
+    background-color: #000000;
+    height: 55px;
+    left: 11px;
+    position: absolute;
+    top: 524px;
+    width: 55px;
+}
+
+.test-interview .group-10 {
+    background-image: url(./gears.png);
+    background-size: 100% 100%;
+    height: 50px;
+    left: 4px;
+    position: relative;
+    top: 5px;
+    width: 50px;
+}
+
+.test-interview .group-11 {
+    background-color: #000000;
+    height: 55px;
+    left: 11px;
+    position: absolute;
+    top: 663px;
+    width: 55px;
+}
+
+.test-interview .group-12 {
+    background-image: url(./inquiry.png);
+    background-size: 100% 100%;
+    height: 50px;
+    width: 50px;
+}
+
+.test-interview .overlap-4 {
+    height: 78px;
+    left: 81px;
+    position: absolute;
+    top: 85px;
+    width: 1204px;
+}
+
+.test-interview .group-13 {
+    height: 78px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1204px;
+}
+
+.test-interview .overlap-5 {
+    height: 78px;
+    position: relative;
+    width: 1198px;
+}
+
+.test-interview .rectangle-4 {
+    background-color: #000000;
+    height: 78px;
+    left: 0;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    width: 1198px;
+}
+
+.test-interview .text-wrapper-2 {
+    color: #ffffff;
+    font-family: "Advent Pro-Regular", Helvetica;
+    font-size: 36px;
+    font-weight: 400;
+    left: 128px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 21px;
+    white-space: nowrap;
+    width: 177px;
+}
+
+.test-interview .text-wrapper-3 {
+    color: #ffffff;
+    font-family: "Advent Pro-Regular", Helvetica;
+    font-size: 36px;
+    font-weight: 400;
+    left: 483px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 21px;
+    white-space: nowrap;
+    width: 177px;
+}
+
+.test-interview .text-wrapper-4 {
+    color: #ffffff;
+    font-family: "Advent Pro-Regular", Helvetica;
+    font-size: 36px;
+    font-weight: 400;
+    left: 863px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 21px;
+    white-space: nowrap;
+    width: 270px;
+}
+
+.test-interview .rectangle-5 {
+    background-color: #000000;
+    height: 67px;
+    left: 807px;
+    opacity: 0.2;
+    position: absolute;
+    top: 3px;
+    width: 366px;
+}
+
+.test-interview .rectangle-6 {
+    background-color: #000000;
+    height: 67px;
+    left: 376px;
+    opacity: 0.2;
+    position: absolute;
+    top: 3px;
+    width: 366px;
+}
+
+.test-interview .rectangle-7 {
+    background-color: #000000;
+    height: 67px;
+    left: 25px;
+    opacity: 0.2;
+    position: absolute;
+    top: 6px;
+    width: 366px;
+}
+
+.test-interview .rectangle-8 {
+    background-color: #000000;
+    height: 549px;
+    left: 105px;
+    opacity: 0.3;
+    position: absolute;
+    top: 247px;
+    width: 1157px;
+}
+
+.test-interview .group-14 {
+    height: 47px;
+    left: 106px;
+    position: absolute;
+    top: 192px;
+    width: 487px;
+}
+
+.test-interview .overlap-6 {
+    height: 47px;
+    position: relative;
+    width: 485px;
+}
+
+.test-interview .rectangle-9 {
+    background-color: #000000;
+    height: 47px;
+    left: 0;
+    opacity: 0.3;
+    position: absolute;
+    top: 0;
+    width: 485px;
+}
+
+.test-interview .topic-name-interview {
+    color: #ffffff;
+    font-family: "Advent Pro-Regular", Helvetica;
+    font-size: 36px;
+    font-weight: 400;
+    left: 11px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 464px;
+}
