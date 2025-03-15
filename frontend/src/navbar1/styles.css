@@ -1,0 +1,47 @@
+.navbar {
+    width: 100%;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  /* Back Button on Left */
+  .back-button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  
+  .back-button:hover {
+    color: #ffcc00;
+  }
+  
+  /* Centered Logo + Tagline */
+  .brand-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .brand-name {
+    font-size: 24px;
+    font-family: "Aguafina Script", cursive;
+  }
+  
+  .tagline {
+    font-size: 16px;
+    color: #ddd;
+  }
+  

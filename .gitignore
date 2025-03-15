@@ -1,4 +1,5 @@
 node_modules/
-backend/.venv/
+backend/venv/
 backend/firebase_key.json
 backend/firebase_config.py
+backend/.env

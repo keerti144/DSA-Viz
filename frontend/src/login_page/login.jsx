@@ -1,67 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
+import Navbar from "../navbar1/Navbar";
 
 export const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    console.log("Logging in with:", username, password);
+    // Add login logic here
+  };
+
   return (
-    <div className="login">
-      <div className="div">
-        <div className="overlap">
-          <div className="rectangle" />
+    <div className="login-container">
+      {/* Importing Navbar */}
+      <Navbar />
 
-          <div className="text-wrapper">Login</div>
+      <div className="login-box">
+        <h2 className="login-title">Login</h2>
 
-          <div className="text-wrapper-2">Username</div>
-
-          <div className="rectangle-2" />
-
-          <div className="rectangle-3" />
-
-          <div className="text-wrapper-3">Enter email/username</div>
-
-          <div className="text-wrapper-4">Password</div>
-
-          <div className="text-wrapper-5">Enter password</div>
-
-          <div className="rectangle-4" />
-
-          <div className="text-wrapper-6">LOGIN</div>
-
-          <div className="text-wrapper-7">Create a new account?</div>
-
-          <div className="rectangle-5" />
-
-          <div className="text-wrapper-8">Sign up</div>
+        <div className="input-group">
+          <label>Username</label>
+          <input
+            type="text"
+            placeholder="Enter email/username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </div>
 
-        <div className="overlap-group">
-          <div className="group">
-            <div className="overlap-2">
-              <div className="overlap-wrapper">
-                <div className="overlap-3">
-                  <div className="overlap-group-wrapper">
-                    <div className="div-wrapper">
-                      <div className="text-wrapper-9">AlgoRize</div>
-                    </div>
-                  </div>
-
-                  <p className="see-the-logic-master">
-                    <span className="span">
-                      <br />
-                    </span>
-
-                    <span className="text-wrapper-10">
-                      See the Logic, Master the Code!
-                    </span>
-                  </p>
-                </div>
-              </div>
-
-              <div className="ellipse" />
-            </div>
-          </div>
-
-          <div className="group-2" />
+        <div className="input-group">
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
+
+        <button className="login-button" onClick={handleLogin}>
+          LOGIN
+        </button>
+
+        <p className="signup-text">
+          Create a new account?{" "}
+          <a href="/signup" className="signup-link">
+            Sign up
+          </a>
+        </p>
       </div>
     </div>
   );

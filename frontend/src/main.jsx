@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { StartPage } from "./startpage/startpage.jsx";
 import { Login } from "./login_page/login.jsx"; 
 import { SignUp } from "./sign_up/signup.jsx"; 
-import { Dashboard } from "./dashboard open/dashboardopen.jsx"; 
+import { DashboardOpen } from "./dashboard open/dashboardopen.jsx"; 
 
 ReactDOM.createRoot(document.getElementById("app")).render(
   <React.StrictMode>
@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("app")).render(
         <Route path="/" element={<StartPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<DashboardOpen />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
