@@ -1,15 +1,20 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import StartPage from "./StartPage";
+import LoginPage from "./LoginPage"; // Make sure it's correctly named!
+import SignupPage from "./SignupPage";
+import Dashboard from "./Dashboard";
 
-const App = () => {
-  const navigate = useNavigate();
-
+function App() {
   return (
-    <div>
-      <h1>Welcome to My App</h1>
-      <button onClick={() => navigate("/login")}>Go to Login</button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<StartPage />} />
+        <Route path="/login_page" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;
