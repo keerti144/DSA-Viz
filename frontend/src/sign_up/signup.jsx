@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import appleInc from "./apple-inc.png";
 import back from "./back.png";
 import microsoft from "./microsoft.png";
-import "./style.css";
+import "./signupstyle.css";
 
 export const SignUp = () => {
   const [formData, setFormData] = useState({
