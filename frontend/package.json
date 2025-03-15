@@ -12,6 +12,7 @@
     "vite": "^6.2.1"
   },
   "dependencies": {
+    "@splinetool/react-spline": "^4.0.0",
     "react-router-dom": "^7.3.0"
   }
 }
