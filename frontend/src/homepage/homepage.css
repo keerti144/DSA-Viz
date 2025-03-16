@@ -20,13 +20,22 @@ body {
     left: 0;
     top: 0;
     height: 100vh;
-    background: #1a102b;
+    background: rgba(26, 16, 43, 0.85); /* Adjusted transparency */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-    gap: 20px;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 50px;
+    transition: width 0.3s ease, background 0.3s ease;
 }
+
+/* When sidebar is open */
+.sidebar.open {
+    width: 250px;
+    background: rgba(26, 16, 43, 100.0); /* Slightly less transparent when open */
+}
+
+
 
 /* Sidebar Buttons */
 .sidebar button {
@@ -39,6 +48,7 @@ body {
     border: none;
     cursor: pointer;
     transition: 0.3s;
+    position: relative;
 }
 
 .sidebar button:hover {
@@ -47,13 +57,41 @@ body {
 }
 
 /* Assign Background Images */
-.home-btn { background-image: url("../assets/homepage.jpg"); }
-.details-btn { background-image: url("../assets/Details.png"); }
-.test-results-btn { background-image: url("../assets/test-results.png"); }
-.eye-btn { background-image: url("../assets/eye.png"); }
-.notifications-btn { background-image: url("../assets/notifications.png"); }
-.gears-btn { background-image: url("../assets/gears.png"); }
-.inquiry-btn { background-image: url("../assets/inquiry.png"); }
+.home-btn { background-image: url("./assets/homepage.png"); }
+.details-btn { background-image: url("./assets/details.png"); }
+.test-results-btn { background-image: url("./assets/test-results.png"); }
+.eye-btn { background-image: url("./assets/eye.png"); }
+.notifications-btn { background-image: url("./assets/notifications.png"); }
+.gears-btn { background-image: url("./assets/gears.png"); }
+.inquiry-btn { background-image: url("./assets/inquiry.png"); }
+
+.sidebar button img {
+    position: absolute; /* Keep the icons in the same position */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Text Labels (hidden by default) */
+.sidebar .label {
+    color: white;
+    font-size: 1rem;
+    margin-left: 20px;
+    opacity: 0; /* Hidden by default */
+    white-space: nowrap;
+    transition: opacity 0.3s ease; /* Smooth fade-in transition */
+}
+
+/* When sidebar is open, show labels */
+.sidebar.open .label {
+    opacity: 1;
+    margin-left: 50px;
+}
+
+/* When sidebar is open, move the icons to the left */
+.sidebar.open button img {
+    margin-left: 10px;
+}
 
 /* Header */
 .header {
@@ -108,6 +146,11 @@ body {
     padding: 20px;
     text-align: center;
     padding-top: 80px; /* To avoid content going under the header */
+    flex-grow: 1;
+    transition: margin-left 0.3s ease-in-out;
+}
+.sidebar.open ~ .main-content {
+    margin-left: 250px;  /* Push content to the right */
 }
 
 /* Search Bar */
@@ -211,3 +254,4 @@ body {
 .about-section:hover {
     background: rgba(255, 255, 255, 0.3);
 }
+

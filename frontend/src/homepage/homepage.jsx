@@ -1,34 +1,57 @@
-import React from "react";
-import femaleUser from "../assets/female-user.png";
-import search from "../dashboard-open/search.png";
-import menuIcon from "../assets/menu.png"; // Add a menu icon
+import React, { useState } from "react";
+import femaleUser from "./assets/female-user.png";
+import search from "./assets/search.png";
+import menuIcon from "./assets/menu.png";
 import "./homepage.css";
 
 export const Homepage = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <div className="homepage">
       {/* Sidebar */}
-      <div className="sidebar">
-        <button className="home-btn"></button>
-        <button className="details-btn"></button>
-        <button className="test-results-btn"></button>
-        <button className="eye-btn"></button>
-        <button className="notifications-btn"></button>
-        <button className="gears-btn"></button>
-        <button className="inquiry-btn"></button>
+      <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+      <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+      <button className="details-btn">
+    <span className="label">Dashboard</span>
+  </button>
+      <button className="details-btn">
+    <span className="label">Dashboard</span>
+  </button>
+  <button className="test-results-btn">
+    <span className="label">Test Yourself</span>
+  </button>
+  <button className="eye-btn">
+    <span className="label">Visualize</span>
+  </button>
+  <button className="notifications-btn">
+    <span className="label">Community</span>
+  </button>
+  <button className="gears-btn">
+    <span className="label">Settings</span>
+  </button>
+  <button className="inquiry-btn">
+    <span className="label">Settings</span>
+  </button>
+</div>
+
       </div>
 
       {/* Header */}
       <div className="header">
-        {/* Menu Button on Left */}
-        <button className="menu-btn">
+        {/* Menu Button */}
+        <button className="menu-btn" onClick={toggleSidebar}>
           <img src={menuIcon} alt="Menu" />
         </button>
 
-        {/* Centered AlgoRize Logo */}
+        {/* Centered Logo */}
         <div className="logo">AlgoRize</div>
 
-        {/* User Icon on Right */}
+        {/* User Icon */}
         <div className="user-profile">
           <img className="user-icon" src={femaleUser} alt="User" />
         </div>
