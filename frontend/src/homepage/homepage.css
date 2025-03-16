@@ -57,13 +57,13 @@ body {
 }
 
 /* Assign Background Images */
-.home-btn { background-image: url("./assets/homepage.png"); }
-.details-btn { background-image: url("./assets/details.png"); }
-.test-results-btn { background-image: url("./assets/test-results.png"); }
-.eye-btn { background-image: url("./assets/eye.png"); }
-.notifications-btn { background-image: url("./assets/notifications.png"); }
-.gears-btn { background-image: url("./assets/gears.png"); }
-.inquiry-btn { background-image: url("./assets/inquiry.png"); }
+.home-btn { background-image: url("../assets/homepage.png"); }
+.details-btn { background-image: url("../assets/details.png"); }
+.test-results-btn { background-image: url("../assets/test-results.png"); }
+.eye-btn { background-image: url("../assets/eye.png"); }
+.notifications-btn { background-image: url("../assets/notifications.png"); }
+.gears-btn { background-image: url("../assets/gears.png"); }
+.inquiry-btn { background-image: url("../assets/inquiry.png"); }
 
 .sidebar button img {
     position: absolute; /* Keep the icons in the same position */
