@@ -1,568 +1,213 @@
-style.css
-.homepage {
-    background-color: transparent;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+/* General Styling */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #2a1b3d, #412d63);
+    color: white;
+    overflow-x: hidden; /* Prevents horizontal scrolling */
     width: 100%;
 }
 
-.homepage .div {
-    background-image: url(./homepage.png);
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 1373px;
-    position: relative;
-    width: 1280px;
+/* Ensure box-sizing is applied globally */
+* {
+    box-sizing: border-box;
 }
 
-.homepage .text-wrapper {
-    color: #ffffff;
-    font-family: "Advent Pro-Bold", Helvetica;
-    font-size: 32px;
-    font-weight: 700;
-    left: 267px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 229px;
-    white-space: nowrap;
-    width: 746px;
-}
-
-.homepage .group {
-    height: 168px;
-    left: 250px;
-    position: absolute;
-    top: 332px;
-    width: 301px;
-}
-
-.homepage .overlap-group {
-    border-radius: 40px;
-    height: 168px;
-    position: relative;
-    width: 299px;
-}
-
-.homepage .rectangle {
-    background-color: #000000;
-    border-radius: 40px;
-    height: 168px;
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    position: fixed;
     left: 0;
-    opacity: 0.4;
-    position: absolute;
     top: 0;
-    width: 299px;
+    height: 100vh;
+    background: #1a102b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    gap: 20px;
 }
 
-.homepage .text-wrapper-2 {
-    color: #ffffff;
-    font-family: "Advent Pro-SemiBoldItalic", Helvetica;
-    font-size: 32px;
-    font-style: italic;
-    font-weight: 600;
-    left: 68px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 43px;
-    width: 162px;
-}
-
-.homepage .overlap-wrapper {
-    height: 168px;
-    left: 780px;
-    position: absolute;
-    top: 322px;
-    width: 301px;
-}
-
-.homepage .text-wrapper-3 {
-    color: #ffffff;
-    font-family: "Advent Pro-SemiBoldItalic", Helvetica;
-    font-size: 32px;
-    font-style: italic;
-    font-weight: 600;
-    left: 56px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 60px;
-    width: 186px;
-}
-
-.homepage .group-2 {
-    height: 43px;
-    left: 302px;
-    position: absolute;
-    top: 136px;
-    width: 734px;
-}
-
-.homepage .search-wrapper {
-    background-color: #1f1425;
-    height: 40px;
-    left: 692px;
-    position: absolute;
-    top: 0;
+/* Sidebar Buttons */
+.sidebar button {
     width: 40px;
-}
-
-.homepage .search {
-    height: 30px;
-    left: 6px;
-    position: absolute;
-    top: 5px;
-    width: 27px;
-}
-
-.homepage .overlap {
     height: 40px;
-    left: 0;
-    position: absolute;
-    top: 3px;
-    width: 675px;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.homepage .rectangle-2 {
-    background-color: #000000;
-    height: 40px;
-    left: 0;
-    opacity: 0.7;
-    position: absolute;
-    top: 0;
-    width: 675px;
+.sidebar button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
 }
 
-.homepage .text-wrapper-4 {
-    color: #ffffff;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 12px;
-    font-weight: 400;
-    left: 256px;
-    letter-spacing: 0;
-    line-height: normal;
-    opacity: 0.5;
-    position: absolute;
-    top: 8px;
-    width: 290px;
-}
+/* Assign Background Images */
+.home-btn { background-image: url("../assets/homepage.jpg"); }
+.details-btn { background-image: url("../assets/Details.png"); }
+.test-results-btn { background-image: url("../assets/test-results.png"); }
+.eye-btn { background-image: url("../assets/eye.png"); }
+.notifications-btn { background-image: url("../assets/notifications.png"); }
+.gears-btn { background-image: url("../assets/gears.png"); }
+.inquiry-btn { background-image: url("../assets/inquiry.png"); }
 
-.homepage .group-3 {
-    height: 267px;
-    left: 116px;
-    position: absolute;
-    top: 923px;
-    width: 1092px;
-}
-
-.homepage .text-wrapper-5 {
-    color: #ffffff;
-    font-family: "Advent Pro-Bold", Helvetica;
-    font-size: 35px;
-    font-weight: 700;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    width: 254px;
-}
-
-.homepage .rectangle-3 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 11px;
-    opacity: 0.4;
-    position: absolute;
-    top: 92px;
-    width: 175px;
-}
-
-.homepage .rectangle-4 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 232px;
-    opacity: 0.4;
-    position: absolute;
-    top: 92px;
-    width: 175px;
-}
-
-.homepage .rectangle-5 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 453px;
-    opacity: 0.4;
-    position: absolute;
-    top: 92px;
-    width: 175px;
-}
-
-.homepage .rectangle-6 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 691px;
-    opacity: 0.4;
-    position: absolute;
-    top: 92px;
-    width: 175px;
-}
-
-.homepage .rectangle-7 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 915px;
-    opacity: 0.4;
-    position: absolute;
-    top: 92px;
-    width: 175px;
-}
-
-.homepage .group-4 {
-    height: 276px;
-    left: 116px;
-    position: absolute;
-    top: 583px;
-    width: 1074px;
-}
-
-.homepage .rectangle-8 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 11px;
-    opacity: 0.4;
-    position: absolute;
-    top: 101px;
-    width: 175px;
-}
-
-.homepage .rectangle-9 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 232px;
-    opacity: 0.4;
-    position: absolute;
-    top: 101px;
-    width: 175px;
-}
-
-.homepage .rectangle-10 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 453px;
-    opacity: 0.4;
-    position: absolute;
-    top: 101px;
-    width: 175px;
-}
-
-.homepage .rectangle-11 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 674px;
-    opacity: 0.4;
-    position: absolute;
-    top: 101px;
-    width: 175px;
-}
-
-.homepage .rectangle-12 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 897px;
-    opacity: 0.4;
-    position: absolute;
-    top: 101px;
-    width: 175px;
-}
-
-.homepage .group-5 {
-    height: 83px;
-    left: 238px;
-    position: absolute;
-    top: 1263px;
-    width: 835px;
-}
-
-.homepage .overlap-2 {
-    height: 24px;
-    left: 286px;
-    position: absolute;
-    top: 0;
-    width: 207px;
-}
-
-.homepage .rectangle-13 {
-    background-color: #030000;
-    height: 20px;
-    left: 0;
-    opacity: 0.3;
-    position: absolute;
-    top: 4px;
-    width: 207px;
-}
-
-.homepage .text-wrapper-6 {
-    color: #ffffff;
-    font-family: "Advent Pro-Bold", Helvetica;
-    font-size: 20px;
-    font-weight: 700;
-    left: 66px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
-    width: 75px;
-}
-
-.homepage .rectangle-14 {
-    background-color: #000000;
-    height: 33px;
-    left: 0;
-    opacity: 0.2;
-    position: absolute;
-    top: 50px;
-    width: 833px;
-}
-
-.homepage .group-wrapper {
-    height: 85px;
-    left: 0;
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: black;
     position: fixed;
     top: 0;
-    width: 1280px;
+    width: 100%;
+    z-index: 1000; /* Ensures it stays above other elements */
 }
 
-.homepage .overlap-group-wrapper {
-    height: 85px;
-    width: 1282px;
+/* Menu Button */
+.menu-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    left: 50px;
 }
 
-.homepage .overlap-group-2 {
-    background-color: #000000;
-    height: 85px;
-    position: relative;
-    width: 1280px;
+.menu-btn img {
+    width: 30px;
 }
 
-.homepage .text-wrapper-7 {
-    color: #ffffff;
-    font-family: "Aguafina Script-Regular", Helvetica;
-    font-size: 36px;
-    font-weight: 400;
-    left: 605px;
-    letter-spacing: 0;
-    line-height: normal;
+/* Centered AlgoRize */
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: "Cursive", sans-serif;
     position: absolute;
-    top: 20px;
-    white-space: nowrap;
-    width: 157px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.homepage .overlap-3 {
-    border-radius: 30px;
-    height: 45px;
-    left: 26px;
-    position: absolute;
-    top: 20px;
-    width: 45px;
+/* User Icon */
+.user-profile {
+    display: flex;
+    align-items: center;
 }
 
-.homepage .menu {
-    height: 35px;
-    left: 5px;
-    position: absolute;
-    top: 5px;
+.user-icon {
     width: 35px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
-.homepage .rectangle-15 {
-    background-color: #582d71;
-    border-radius: 30px;
-    height: 45px;
-    left: 0;
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    width: 45px;
+/* Main Content */
+.main-content {
+    margin-left: 80px; /* Prevents overlapping with sidebar */
+    padding: 20px;
+    text-align: center;
+    padding-top: 80px; /* To avoid content going under the header */
 }
 
-.homepage .female-user-wrapper {
-    background-color: #1f1425;
-    height: 40px;
-    left: 1214px;
-    position: absolute;
-    top: 34px;
-    width: 40px;
+/* Search Bar */
+.search-container {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background: #20162e;
+    border-radius: 20px;
 }
 
-.homepage .female-user {
-    height: 31px;
-    left: 0;
-    position: absolute;
-    top: 5px;
-    width: 40px;
+.search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 1rem;
+    outline: none;
 }
 
-.homepage .div-wrapper {
-    height: 762px;
-    left: 0;
-    position: fixed;
-    top: 70px;
-    width: 81px;
+.search-icon {
+    width: 20px;
+    cursor: pointer;
 }
 
-.homepage .overlap-4 {
-    height: 762px;
-    position: relative;
+/* Welcome Text */
+.welcome-text {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 20px 0;
 }
 
-.homepage .rectangle-16 {
-    background-color: #000000;
-    height: 762px;
-    left: 0;
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    width: 81px;
+/* Buttons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
 }
 
-.homepage .group-6 {
-    height: 56px;
-    left: 11px;
-    position: absolute;
-    top: 25px;
-    width: 55px;
+.topic-button, .challenge-button {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    border: 2px solid white;
+    font-style: italic;
+    transition: 0.3s;
 }
 
-.homepage .overlap-group-3 {
-    height: 56px;
-    position: relative;
+.topic-button:hover, .challenge-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
-.homepage .rectangle-17 {
-    background-color: #000000;
-    height: 55px;
-    left: 0;
-    position: absolute;
-    top: 1px;
-    width: 55px;
+/* Continue Sections */
+.continue-section {
+    margin-top: 40px;
 }
 
-.homepage .group-7 {
-    background-image: url(./details.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 2px;
-    opacity: 0.7;
-    position: absolute;
-    top: 0;
-    width: 50px;
+.continue-section h2 {
+    font-size: 1.5rem;
+    text-align: left;
+    margin-left: 10%;
 }
 
-.homepage .group-8 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 143px;
-    width: 55px;
+.test-boxes, .learning-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
 }
 
-.homepage .group-9 {
-    background-image: url(./test-results.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    top: 1px;
-    width: 50px;
+.test-box, .learning-box {
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    transition: 0.3s;
 }
 
-.homepage .group-10 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 260px;
-    width: 55px;
+.test-box:hover, .learning-box:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.homepage .group-11 {
-    background-image: url(./eye.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    width: 50px;
+/* About Section */
+.about-section {
+    margin-top: 50px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
 }
 
-.homepage .group-12 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 392px;
-    width: 55px;
-}
-
-.homepage .group-13 {
-    background-image: url(./notifications.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    top: 4px;
-    width: 50px;
-}
-
-.homepage .group-14 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 524px;
-    width: 55px;
-}
-
-.homepage .group-15 {
-    background-image: url(./gears.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 4px;
-    position: relative;
-    top: 5px;
-    width: 50px;
-}
-
-.homepage .group-16 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 663px;
-    width: 55px;
-}
-
-.homepage .group-17 {
-    background-image: url(./inquiry.png);
-    background-size: 100% 100%;
-    height: 50px;
-    width: 50px;
+.about-section:hover {
+    background: rgba(255, 255, 255, 0.3);
 }

@@ -26,7 +26,7 @@ export const StartPage = () => {
           and level up your skills—one visualization at a time. Sign up and let’s get coding!
         </p>
 
-        <button className="get-started" onClick={() => navigate("/dashboard")}>Get Started</button>
+        <button className="get-started" onClick={() => navigate("/homepage")}>Get Started</button>
       </div>
     </div>
   );
