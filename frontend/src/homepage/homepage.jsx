@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import femaleUser from "./assets/female-user.png";
-import search from "./assets/search.png";
-import menuIcon from "./assets/menu.png";
+import femaleUser from "../assets/female-user.png";
+import search from "../dashboard-open/search.png";
+import menuIcon from "../assets/menu.png";
 import "./homepage.css";
 
 export const Homepage = () => {
