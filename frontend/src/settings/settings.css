@@ -1,530 +1,176 @@
+/* General Styles */
 .settings {
-    background-color: transparent;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-}
-
-.settings .div {
-    background-image: url(./settings.png);
-    background-position: 50% 50%;
+    background-color: #2e1b50;
+    color: #e0d8f0;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    align-content: center;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 70px;
+    background-color: #1e1230;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sidebar-btn {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    margin-bottom: 20px;
+    cursor: pointer;
     background-size: cover;
-    height: 832px;
-    overflow: hidden;
-    position: relative;
-    width: 1280px;
-}
-
-.settings .group {
-    height: 61px;
-    left: 32px;
-    position: absolute;
-    top: 309px;
-    width: 526px;
-}
-
-.settings .overlap-group {
-    height: 61px;
-    position: relative;
-    width: 524px;
-}
-
-.settings .rectangle {
-    background-color: #000000;
-    height: 61px;
-    left: 96px;
-    opacity: 0.3;
-    position: absolute;
-    top: 0;
-    width: 338px;
-}
-
-.settings .text-wrapper {
-    color: #ffffff;
-    font-family: "Advent Pro-SemiBold", Helvetica;
-    font-size: 48px;
-    font-weight: 600;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    white-space: nowrap;
-    width: 524px;
-}
-
-.settings .overlap {
-    height: 54px;
-    left: 399px;
-    position: absolute;
-    top: 253px;
-    width: 481px;
-}
-
-.settings .text-wrapper-2 {
-    color: #ffffff;
-    font-family: "Advent Pro-Regular", Helvetica;
-    font-size: 32px;
-    font-weight: 400;
-    left: 100px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    white-space: nowrap;
-    width: 281px;
-}
-
-.settings .img {
-    height: 47px;
-    left: 0;
-    position: absolute;
-    top: 7px;
-    width: 481px;
-}
-
-.settings .overlap-wrapper {
-    height: 104px;
-    left: 587px;
-    position: absolute;
-    top: 138px;
-    width: 106px;
-}
-
-.settings .overlap-2 {
-    border-radius: 53px / 52px;
-    height: 104px;
-    position: relative;
-}
-
-.settings .ellipse {
-    background-color: #000000;
-    border-radius: 53px / 52px;
-    height: 104px;
-    left: 0;
-    opacity: 0.3;
-    position: absolute;
-    top: 0;
-    width: 106px;
-}
-
-.settings .female-user {
-    height: 90px;
-    left: 8px;
-    position: absolute;
-    top: 7px;
-    width: 90px;
-}
-
-.settings .overlap-3 {
-    background-color: #0000004c;
-    height: 410px;
-    left: 125px;
-    position: absolute;
-    top: 404px;
-    width: 1117px;
-}
-
-.settings .rectangle-2 {
-    background-color: #000000;
-    height: 50px;
-    left: 24px;
-    opacity: 0.4;
-    position: absolute;
-    top: 12px;
-    width: 1065px;
-}
-
-.settings .rectangle-3 {
-    background-color: #000000;
-    height: 50px;
-    left: 24px;
-    opacity: 0.4;
-    position: absolute;
-    top: 90px;
-    width: 1065px;
-}
-
-.settings .rectangle-4 {
-    background-color: #000000;
-    height: 50px;
-    left: 24px;
-    opacity: 0.4;
-    position: absolute;
-    top: 168px;
-    width: 1065px;
-}
-
-.settings .rectangle-5 {
-    background-color: #000000;
-    height: 50px;
-    left: 24px;
-    opacity: 0.4;
-    position: absolute;
-    top: 246px;
-    width: 1065px;
-}
-
-.settings .rectangle-6 {
-    background-color: #000000;
-    height: 50px;
-    left: 24px;
-    opacity: 0.4;
-    position: absolute;
-    top: 324px;
-    width: 1065px;
-}
-
-.settings .text-wrapper-3 {
-    color: #ffffff;
-    font-family: "Advent Pro-Regular", Helvetica;
-    font-size: 36px;
-    font-weight: 400;
-    left: 416px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 11px;
-    white-space: nowrap;
-    width: 673px;
-}
-
-.settings .text-wrapper-4 {
-    color: #ffffff;
-    font-family: "Advent Pro-Regular", Helvetica;
-    font-size: 36px;
-    font-weight: 400;
-    left: 416px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 89px;
-    white-space: nowrap;
-    width: 673px;
-}
-
-.settings .username {
-    height: 44px;
-    left: 97px;
-    position: absolute;
-    top: 17px;
-    width: 189px;
-}
-
-.settings .text-wrapper-5 {
-    color: #ffffff;
-    font-family: "Advent Pro-Medium", Helvetica;
-    font-size: 48px;
-    font-weight: 500;
-    left: 136px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 83px;
-    white-space: nowrap;
-    width: 238px;
-}
-
-.settings .text-wrapper-6 {
-    color: #ffffff;
-    font-family: "Advent Pro-Medium", Helvetica;
-    font-size: 48px;
-    font-weight: 500;
-    left: 38px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 158px;
-    white-space: nowrap;
-    width: 378px;
-}
-
-.settings .text-wrapper-7 {
-    color: #ffffff;
-    font-family: "Advent Pro-Medium", Helvetica;
-    font-size: 48px;
-    font-weight: 500;
-    left: 117px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 236px;
-    white-space: nowrap;
-    width: 257px;
-}
-
-.settings .text-wrapper-8 {
-    color: #ffffff;
-    font-family: "Advent Pro-Medium", Helvetica;
-    font-size: 48px;
-    font-weight: 500;
-    left: 75px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 314px;
-    white-space: nowrap;
-    width: 342px;
-}
-
-.settings .rectangle-7 {
-    background-color: #000000;
-    height: 398px;
-    left: 452px;
-    position: absolute;
-    top: 12px;
-    width: 10px;
-}
-
-.settings .overlap-group-wrapper {
-    height: 48px;
-    left: 1024px;
-    position: absolute;
-    top: 112px;
-    width: 302px;
-}
-
-.settings .overlap-4 {
-    height: 48px;
-    position: relative;
-    width: 300px;
-}
-
-.settings .text-wrapper-9 {
-    color: #ffffff;
-    font-family: "Advent Pro-Regular", Helvetica;
-    font-size: 36px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 1px;
-    white-space: nowrap;
-    width: 300px;
-}
-
-.settings .rectangle-8 {
-    background-color: #d9d9d9;
-    height: 48px;
-    left: 83px;
-    opacity: 0.3;
-    position: absolute;
-    top: 0;
-    width: 127px;
-}
-
-.settings .div-wrapper {
-    height: 762px;
-    left: 0;
-    position: fixed;
-    top: 85px;
-    width: 81px;
-}
-
-.settings .overlap-5 {
-    height: 762px;
-    position: relative;
-}
-
-.settings .rectangle-9 {
-    background-color: #000000;
-    height: 762px;
-    left: 0;
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    width: 81px;
-}
-
-.settings .group-2 {
-    height: 56px;
-    left: 11px;
-    position: absolute;
-    top: 25px;
-    width: 55px;
-}
-
-.settings .overlap-group-2 {
-    height: 56px;
-    position: relative;
-}
-
-.settings .rectangle-10 {
-    background-color: #000000;
-    height: 55px;
-    left: 0;
-    position: absolute;
-    top: 1px;
-    width: 55px;
-}
-
-.settings .group-3 {
-    background-image: url(./details.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 2px;
-    opacity: 0.7;
-    position: absolute;
-    top: 0;
-    width: 50px;
-}
-
-.settings .group-wrapper {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 143px;
-    width: 55px;
-}
-
-.settings .group-4 {
-    background-image: url(./test-results.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    top: 1px;
-    width: 50px;
-}
-
-.settings .group-5 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 260px;
-    width: 55px;
-}
-
-.settings .group-6 {
-    background-image: url(./eye.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    width: 50px;
-}
-
-.settings .group-7 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 392px;
-    width: 55px;
-}
-
-.settings .group-8 {
-    background-image: url(./notifications.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    top: 4px;
-    width: 50px;
-}
-
-.settings .group-9 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 524px;
-    width: 55px;
-}
-
-.settings .group-10 {
-    background-image: url(./gears.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 4px;
-    position: relative;
-    top: 5px;
-    width: 50px;
-}
-
-.settings .group-11 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 663px;
-    width: 55px;
-}
-
-.settings .group-12 {
-    background-image: url(./inquiry.png);
-    background-size: 100% 100%;
-    height: 50px;
-    width: 50px;
-}
-
-.settings .group-13 {
-    height: 85px;
-    left: 0;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+  
+  .sidebar-btn:hover {
+    opacity: 1;
+  }
+  
+  /* Header */
+  .header {
     position: fixed;
     top: 0;
-    width: 1280px;
-}
+    left: 70px;
+    right: 0;
+    background-color: #10081a;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    color: #e0d8f0;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .signout-btn {
+    background-color: #4c3b68;
+    color: #e0d8f0;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .signout-btn:hover {
+    background-color: #5d3d85;
+  }
+  
+  /* Main Content */
+  .settings-content {
+    margin-top: 60px;
+    margin-left: 35%;
+    padding: 20px;
+    width: 500px;
+    align-content: center;
+    size: auto;
+  }
+  
+  /* Profile Picture */
+  .profile-pic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-pic img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #4c3b68;
+  }
+  
+  .username-label {
+    color: #e0d8f0;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  /* Settings Section */
+  .settings-section {
+    background-color: #1e1230;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .section-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #e0d8f0;
+    margin-bottom: 15px;
+  }
+  
+  /* Settings Items */
+  .settings-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #4c3b68;
+    border-radius: 8px;
+    color: #e0d8f0;
+  }
+  
+  .settings-item input {
+    background-color: transparent;
+    border: none;
+    color: #e0d8f0;
+    text-align: right;
+    width: 50%;
+    outline: none;
+  }
+  
+  .settings-btn {
+    background-color: #5d3d85;
+    color: #e0d8f0;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    justify-content: center;
+  }
+  
+  .button-cover {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.settings .group-14 {
-    height: 85px;
-    width: 1282px;
-}
-
-.settings .overlap-group-3 {
-    background-color: #000000;
-    height: 85px;
-    position: relative;
-    width: 1280px;
-}
-
-.settings .text-wrapper-10 {
-    color: #ffffff;
-    font-family: "Aguafina Script-Regular", Helvetica;
-    font-size: 36px;
-    font-weight: 400;
-    left: 605px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 20px;
-    white-space: nowrap;
-    width: 157px;
-}
-
-.settings .overlap-6 {
-    border-radius: 30px;
-    height: 45px;
-    left: 26px;
-    position: absolute;
-    top: 20px;
-    width: 45px;
-}
-
-.settings .menu {
-    height: 35px;
-    left: 5px;
-    position: absolute;
-    top: 5px;
-    width: 35px;
-}
-
-.settings .rectangle-11 {
-    background-color: #582d71;
-    border-radius: 30px;
-    height: 45px;
-    left: 0;
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    width: 45px;
-}
+  .settings-btn:hover {
+    background-color: #6a3f92;
+  }
+  
+  .delete-btn {
+    background-color: #c0392b;
+  }
+  
+  .delete-btn:hover {
+    background-color: #a52820;
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    .settings-content {
+      width: 90%;
+      margin-left: 70px;
+    }
+  
+    .sidebar-btn {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  

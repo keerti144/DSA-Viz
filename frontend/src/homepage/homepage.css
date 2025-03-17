@@ -18,15 +18,16 @@ body {
     width: 60px;
     position: fixed;
     left: 0;
-    top: 0;
-    height: 100vh;
-    background: rgba(26, 16, 43, 0.85); /* Adjusted transparency */
+    top: 60px; /* Start below the header */
+    height: calc(100vh - 60px); /* Adjust height to avoid overlapping with header */
+    background: rgba(26, 16, 43, 0.85);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 10px;
     gap: 50px;
-    transition: width 0.3s ease, background 0.3s ease;
+    transition: width 0.3s ease;
+    z-index: 10; /* Below header */
 }
 
 /* When sidebar is open */
@@ -35,7 +36,10 @@ body {
     background: rgba(26, 16, 43, 100.0); /* Slightly less transparent when open */
 }
 
-
+.sidebar.open ~ .header {
+    left: 0;
+    width: 100%; /* Keep header full-width even if sidebar opens */
+}
 
 /* Sidebar Buttons */
 .sidebar button {
@@ -49,6 +53,7 @@ body {
     cursor: pointer;
     transition: 0.3s;
     position: relative;
+    
 }
 
 .sidebar button:hover {
@@ -102,10 +107,10 @@ body {
     background: black;
     position: fixed;
     top: 0;
-    width: 100%;
-    z-index: 1000; /* Ensures it stays above other elements */
+    left: 0;
+    width: 100%; /* Full width */
+    z-index: 20; /* Keep header above sidebar */
 }
-
 /* Menu Button */
 .menu-btn {
     background: transparent;
@@ -142,15 +147,17 @@ body {
 
 /* Main Content */
 .main-content {
-    margin-left: 80px; /* Prevents overlapping with sidebar */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center;
     padding: 20px;
-    text-align: center;
-    padding-top: 80px; /* To avoid content going under the header */
-    flex-grow: 1;
-    transition: margin-left 0.3s ease-in-out;
+    padding-top: 80px; /* Ensure content starts below header */
+    transition: transform 0.3s ease;
 }
+
 .sidebar.open ~ .main-content {
-    margin-left: 250px;  /* Push content to the right */
+    transform: translateX(190px); /* Sidebar expands from 60px to 250px */
 }
 
 /* Search Bar */
@@ -183,6 +190,7 @@ body {
     font-size: 2rem;
     font-weight: bold;
     margin: 20px 0;
+    justify-content: center;
 }
 
 /* Buttons */

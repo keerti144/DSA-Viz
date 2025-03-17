@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
-import Navbar from "../navbar1/Navbar";
+import Navbar from "../navbar1/Navbar.jsx";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
