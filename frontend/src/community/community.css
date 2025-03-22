@@ -7,7 +7,7 @@
 }
 
 .community .div {
-    background-image: url(./community.png);
+    background-image: url(../assets/bg.png);
     background-position: 50% 50%;
     background-size: cover;
     height: 1355px;

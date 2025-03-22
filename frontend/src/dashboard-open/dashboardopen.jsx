@@ -2,7 +2,7 @@ import React from "react";
 import femaleUser from "./female-user.png";
 import menu from "./menu.png";
 import search from "./search.png";
-import "../sign_up/signupstyle.css";
+import "./dashboardopen.css";
 
 
 export const DashboardOpen = () => {
