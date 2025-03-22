@@ -1,94 +1,90 @@
 /* General Styles */
+body {
+  margin: 0;
+  font-family: "Advent Pro", sans-serif;
+  background-color: #f4f4f4;
+}
+
+/* Dark Mode Support */
+body.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
 .settings {
   display: flex;
-  background-color: #2e1b50;
-  color: #e0d8f0;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   height: 100vh;
-  font-family: 'Arial', sans-serif;
-  align-content: center;
-  transition: margin-left 0.3s ease;
+  background-image: url("../assets/bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* Sidebar */
-.settings.sidebar-open .settings-content {
-  transform: translateX(190px);
-  transition: transform 0.3s ease;
-}
-
-/* Header */
+/* Header Section */
 .header {
-  position: fixed;
-  top: 0;
-  left: 190px; /* Make space for sidebar */
-  right: 0;
-  background-color: #10081a;
-  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 100; /* Ensures header is above the sidebar */
-  transition: left 0.3s ease;
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
 }
 
-/* When Sidebar is Closed */
-.settings:not(.sidebar-open) .header {
-  left: 70px; /* Adjust for collapsed sidebar */
+.header-left {
+  display: flex;
+  align-items: center;
 }
 
-/* Back Button */
+.menu-btn img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
 .back-btn {
-  background-color: transparent;
-  color: #e0d8f0;
+  background: none;
+  border: none;
+  color: white;
   font-size: 24px;
-  border: none;
   cursor: pointer;
-  transition: color 0.2s ease;
+  margin-left: 15px;
 }
 
-.back-btn:hover {
-  color: #5d3d85;
-}
-
-/* Menu Button */
-.menu-btn {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-/* Logo */
 .logo {
-  color: #e0d8f0;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
-/* Sign Out Button */
 .signout-btn {
-  background-color: #4c3b68;
-  color: #e0d8f0;
-  padding: 8px 16px;
+  background: red;
+  color: white;
+  padding: 10px 15px;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: 0.3s;
 }
 
 .signout-btn:hover {
-  background-color: #5d3d85;
+  background: darkred;
 }
 
-/* Main Content */
+/* Settings Page */
 .settings-content {
-  margin-top: 60px;
-  margin-left: 35%;
-  padding: 20px;
-  width: 500px;
-  align-content: center;
-  transition: margin-left 0.3s ease;
+  margin-top: 80px;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
 }
 
-/* Profile Picture */
 .profile-pic {
   display: flex;
   flex-direction: column;
@@ -97,89 +93,101 @@
 }
 
 .profile-pic img {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  background-color: #4c3b68;
 }
 
 .username-label {
-  color: #e0d8f0;
-  font-size: 18px;
   margin-top: 10px;
+  font-size: 20px;
+  color: white;
 }
 
 /* Settings Section */
 .settings-section {
-  background-color: #1e1230;
+  background: rgba(0, 0, 0, 0.7);
   padding: 20px;
   border-radius: 10px;
+  color: white;
 }
 
 .section-title {
-  font-size: 22px;
-  font-weight: bold;
-  color: #e0d8f0;
+  font-size: 24px;
   margin-bottom: 15px;
 }
 
-/* Settings Items */
 .settings-item {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #4c3b68;
-  border-radius: 8px;
-  color: #e0d8f0;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.settings-item span {
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
 .settings-item input {
-  background-color: transparent;
+  width: 100%;
+  padding: 10px;
   border: none;
-  color: #e0d8f0;
-  text-align: right;
-  width: 50%;
-  outline: none;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #222;
+  color: white;
 }
 
-/* Buttons */
-.settings-btn {
-  background-color: #5d3d85;
-  color: #e0d8f0;
-  padding: 8px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.button-cover {
+/* Dark Mode Toggle */
+.toggle-container {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 22px;
+  width: 100%;
+  height: 100%;
+  transition: 0.4s;
+}
+
+.switch input:checked + .slider {
+  background-color: #2196F3;
+}
+
+.toggle-label {
+  margin-left: 10px;
+}
+
+/* Button */
+.settings-btn {
+  background: #666;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
 }
 
 .settings-btn:hover {
-  background-color: #6a3f92;
-}
-
-.delete-btn {
-  background-color: #c0392b;
-}
-
-.delete-btn:hover {
-  background-color: #a52820;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .settings-content {
-      width: 90%;
-      margin-left: 70px;
-  }
-
-  .header {
-      left: 0; /* Ensure header does not shift on mobile */
-  }
+  background: #888;
 }
