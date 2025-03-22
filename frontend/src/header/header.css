@@ -1,0 +1,63 @@
+/* header.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #10081a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+  
+  .logo {
+    color: #e0d8f0;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .sidebar-toggle-btn {
+    background-color: #4c3b68;
+    color: #e0d8f0;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .sidebar-toggle-btn:hover {
+    background-color: #5d3d85;
+  }
+  
+  .signout-btn {
+    background-color: #4c3b68;
+    color: #e0d8f0;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .signout-btn:hover {
+    background-color: #5d3d85;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 600px) {
+    .header {
+      padding: 10px;
+    }
+  
+    .logo {
+      font-size: 20px;
+    }
+  
+    .sidebar-toggle-btn, .signout-btn {
+      padding: 6px 12px;
+    }
+  }
+  

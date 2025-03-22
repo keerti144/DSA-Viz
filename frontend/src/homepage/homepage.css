@@ -4,98 +4,13 @@ body {
     font-family: "Poppins", sans-serif;
     background: linear-gradient(135deg, #2a1b3d, #412d63);
     color: white;
-    overflow-x: hidden; /* Prevents horizontal scrolling */
+    overflow-x: hidden;
     width: 100%;
 }
 
 /* Ensure box-sizing is applied globally */
 * {
     box-sizing: border-box;
-}
-
-/* Sidebar */
-.sidebar {
-    width: 60px;
-    position: fixed;
-    left: 0;
-    top: 60px; /* Start below the header */
-    height: calc(100vh - 60px); /* Adjust height to avoid overlapping with header */
-    background: rgba(26, 16, 43, 0.85);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
-    gap: 50px;
-    transition: width 0.3s ease;
-    z-index: 10; /* Below header */
-}
-
-/* When sidebar is open */
-.sidebar.open {
-    width: 250px;
-    background: rgba(26, 16, 43, 100.0); /* Slightly less transparent when open */
-}
-
-.sidebar.open ~ .header {
-    left: 0;
-    width: 100%; /* Keep header full-width even if sidebar opens */
-}
-
-/* Sidebar Buttons */
-.sidebar button {
-    width: 40px;
-    height: 40px;
-    background-size: 70%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-    position: relative;
-    
-}
-
-.sidebar button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-}
-
-/* Assign Background Images */
-.home-btn { background-image: url("../assets/homepage.png"); }
-.details-btn { background-image: url("../assets/details.png"); }
-.test-results-btn { background-image: url("../assets/test-results.png"); }
-.eye-btn { background-image: url("../assets/eye.png"); }
-.notifications-btn { background-image: url("../assets/notifications.png"); }
-.gears-btn { background-image: url("../assets/gears.png"); }
-.inquiry-btn { background-image: url("../assets/inquiry.png"); }
-
-.sidebar button img {
-    position: absolute; /* Keep the icons in the same position */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Text Labels (hidden by default) */
-.sidebar .label {
-    color: white;
-    font-size: 1rem;
-    margin-left: 20px;
-    opacity: 0; /* Hidden by default */
-    white-space: nowrap;
-    transition: opacity 0.3s ease; /* Smooth fade-in transition */
-}
-
-/* When sidebar is open, show labels */
-.sidebar.open .label {
-    opacity: 1;
-    margin-left: 50px;
-}
-
-/* When sidebar is open, move the icons to the left */
-.sidebar.open button img {
-    margin-left: 10px;
 }
 
 /* Header */
@@ -108,9 +23,10 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* Full width */
+    width: 100%;
     z-index: 20; /* Keep header above sidebar */
 }
+
 /* Menu Button */
 .menu-btn {
     background: transparent;
@@ -123,7 +39,7 @@ body {
     width: 30px;
 }
 
-/* Centered AlgoRize */
+/* Centered AlgoRize Logo */
 .logo {
     font-size: 1.8rem;
     font-weight: bold;
@@ -156,8 +72,9 @@ body {
     transition: transform 0.3s ease;
 }
 
-.sidebar.open ~ .main-content {
-    transform: translateX(190px); /* Sidebar expands from 60px to 250px */
+/* Shift main content when sidebar is open */
+.sidebar-open {
+    transform: translateX(190px);
 }
 
 /* Search Bar */
@@ -190,7 +107,7 @@ body {
     font-size: 2rem;
     font-weight: bold;
     margin: 20px 0;
-    justify-content: center;
+    text-align: center;
 }
 
 /* Buttons */
@@ -257,9 +174,9 @@ body {
     margin-left: auto;
     margin-right: auto;
     cursor: pointer;
+    text-align: center;
 }
 
 .about-section:hover {
     background: rgba(255, 255, 255, 0.3);
 }
-
