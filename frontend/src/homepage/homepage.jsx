@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "../sidebar/sidebar.jsx";
 import femaleUser from "../assets/female-user.png";
 import search from "../dashboard-open/search.png";
 import menuIcon from "../assets/menu.png";
@@ -7,7 +8,7 @@ import "./homepage.css";
 
 export const Homepage = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const navigate = useNavigate(); // Use navigate for routing
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -15,27 +16,8 @@ export const Homepage = () => {
 
   return (
     <div className="homepage">
-      {/* Sidebar */}
-      <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
-        <button className="details-btn" onClick={() => navigate("/dashboard")}>
-          <span className="label">Dashboard</span>
-        </button>
-        <button className="test-results-btn" onClick={() => navigate("/test")}>
-          <span className="label">Test Yourself</span>
-        </button>
-        <button className="eye-btn" onClick={() => navigate("/visualize")}>
-          <span className="label">Visualize</span>
-        </button>
-        <button className="notifications-btn" onClick={() => navigate("/community")}>
-          <span className="label">Community</span>
-        </button>
-        <button className="gears-btn" onClick={() => navigate("/settings")}>
-          <span className="label">Settings</span>
-        </button>
-        <button className="inquiry-btn" onClick={() => navigate("/inquiry")}>
-          <span className="label">Inquiry</span>
-        </button>
-    </div>
+      {/* Sidebar Component */}
+      <Sidebar isOpen={isSidebarOpen} />
 
       {/* Header */}
       <div className="header">
@@ -49,7 +31,7 @@ export const Homepage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="main-content">
+      <div className={`main-content ${isSidebarOpen ? "sidebar-open" : ""}`}>
         <div className="search-container">
           <input type="text" className="search-input" placeholder="Search here" />
           <img src={search} alt="Search" className="search-icon" />
