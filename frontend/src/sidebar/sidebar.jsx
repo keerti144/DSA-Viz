@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./sidebar.css";
 
+
 const Sidebar = ({ isOpen }) => {
   const navigate = useNavigate();
 
@@ -16,14 +17,15 @@ const Sidebar = ({ isOpen }) => {
       <button className="eye-btn" onClick={() => navigate("/visualize")}>
         <span className="label">Visualize</span>
       </button>
+      
       <button className="notifications-btn" onClick={() => navigate("/community")}>
         <span className="label">Community</span>
       </button>
       <button className="gears-btn" onClick={() => navigate("/settings")}>
         <span className="label">Settings</span>
       </button>
-      <button className="inquiry-btn" onClick={() => navigate("/inquiry")}>
-        <span className="label">Inquiry</span>
+      <button className="inquiry-btn" onClick={() => navigate("/help")}>
+        <span className="label">Help</span>
       </button>
     </div>
   );

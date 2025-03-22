@@ -1,7 +1,7 @@
 import React from "react";
-import femaleUser from "./female-user.png";
-import menu from "./menu.png";
-import "./style.css";
+import femaleUser from "../assets/female-user.png";
+import menu from "../assets/menu.png";
+import "./testmain.css";
 
 export const TestMain = () => {
     return (

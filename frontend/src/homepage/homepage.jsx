@@ -41,7 +41,7 @@ export const Homepage = () => {
 
         {/* Buttons */}
         <div className="button-container">
-          <button className="topic-button" onClick={() => navigate("/dashboard")}>
+          <button className="topic-button" onClick={() => navigate("/visualize")}>
             Start new Topic
           </button>
           <button className="challenge-button" onClick={() => navigate("/test")}>

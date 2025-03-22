@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import femaleUser from "./female-user.png";
-import group43 from "./group-43.png";
-import menu from "./menu.png";
-import "./style.css";
-import username from "./username.png";
+import femaleUser from "../assets/female-user.png";
+// import group43 from "../assets/group-43.png";
+import menu from "../assets/menu.png";
+import "./help.css";
+//import username from "./username.png";
 
 export const Help = () => {
     const [query, setQuery] = useState("");
