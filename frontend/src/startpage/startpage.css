@@ -1,7 +1,8 @@
+/* General Styling */
 .start-page {
   position: relative;
   height: 100vh;
-  background: url("../assets/bg.png") no-repeat center center/cover;
+  background: linear-gradient(135deg, #100c2b 0%, #1c0b3a 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +21,7 @@
 
 .stars {
   background: url("../assets/stars.png") repeat top center;
-  animation: moveStars 50s linear infinite;
+  animation: moveStars 100s linear infinite;
 }
 
 .twinkling {
@@ -29,15 +30,30 @@
   opacity: 0.6;
 }
 
+/* Floating Particles */
+.particle {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: floatUp linear infinite;
+}
+
 @keyframes moveStars {
   from { background-position: 0 0; }
-  to { background-position: -1000px 1000px; }
+  to { background-position: -2000px 2000px; }
 }
 
 @keyframes twinkle {
   0% { opacity: 0.3; }
-  50% { opacity: 0.7; }
+  50% { opacity: 0.8; }
   100% { opacity: 0.3; }
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
 }
 
 /* Content Styling */
@@ -47,37 +63,72 @@
   color: white;
   text-align: center;
   max-width: 600px;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
 }
 
+/* Title */
 .title {
-  font-size: 50px;
+  font-size: 60px;
   font-weight: bold;
+  background: linear-gradient(45deg, #7f00ff, #e100ff); /* Purple Gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  animation: softGlow 3s ease-in-out infinite alternate;
 }
 
+/* Subtle Glow Effect */
+@keyframes softGlow {
+  from { text-shadow: 0 0 8px rgba(127, 0, 255, 0.5); }
+  to { text-shadow: 0 0 12px rgba(127, 0, 255, 0.7); }
+}
+
+/* Subtitle */
 .subtitle {
-  font-size: 24px;
+  font-size: 22px;
+  color: #ddd;
+  margin-bottom: 20px;
+  font-style: italic;
 }
 
+/* Buttons */
 .buttons {
   margin: 20px 0;
 }
 
 .btn, .get-started {
-  background: #040a44;
+  background: linear-gradient(135deg, #c471ed, #f64f59);
   color: white;
   border: none;
-  padding: 12px 20px;
+  padding: 12px 25px;
   margin: 10px;
-  border-radius: 20px;
+  border-radius: 30px;
   font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
-}
-
-.get-started {
-  font-size: 22px;
-  padding: 15px 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn:hover, .get-started:hover {
-  background: #162b6f;
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(196, 113, 237, 0.4);
+}
+
+/* Get Started Button */
+.get-started {
+  font-size: 22px;
+  padding: 15px 35px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+/* Description */
+.description {
+  font-size: 16px;
+  color: #ccc;
+  margin-top: 15px;
+  max-width: 500px;
+  line-height: 1.6;
 }
