@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar1/Navbar.jsx";
-import appleInc from "./apple-inc.png";
-import back from "./back.png";
-import microsoft from "./microsoft.png";
-import "./signupstyle.css";
+import appleInc from "../assets/apple-inc.png";
+import microsoft from "../assets/microsoft.png";
+import google from "./google.jpg"
+import "./signup.css";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -20,6 +20,18 @@ export const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Input validation
+    if (!formData.username || !formData.password || !formData.confirmPassword) {
+      alert("All fields are required.");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
     console.log("Form Data:", formData);
   };
 
@@ -27,14 +39,12 @@ export const SignUp = () => {
     <div className="signup-container">
       {/* Navbar */}
       <Navbar />
-      <div className="sign-up-container">
-
+      <div className="signup-box">
         {/* Form */}
-        <div className="form-wrapper">
-          <p className="form-title">
-            Welcome to AlgoRize! Let’s Make DSA Less ‘Ugh’ and More ‘Whoa!’
-          </p>
-          <h2 className="signup-heading">Sign Up</h2>
+        <p className="form-title">
+          Welcome to AlgoRize! Let’s Make DSA Less ‘Ugh’ and More ‘Whoa!’
+        </p>
+        <h2 className="signup-heading">Sign Up</h2>
 
         <form onSubmit={handleSubmit} className="signup-form">
           <label>Username</label>
@@ -70,15 +80,9 @@ export const SignUp = () => {
           <button type="submit" className="signup-button">Sign Up</button>
         </form>
 
-          {/* Social Logins */}
-          <div className="social-login">
-            <div className="social-icon">
-              <img src={microsoft} alt="Microsoft" />
-            </div>
-            <div className="social-icon">
-              <img src={appleInc} alt="Apple" />
-            </div>
-          </div>
+        {/* Social Logins */}
+        <div className="social-icons">
+          <img src={google} alt="Google" className="social-icon" />
         </div>
 
         {/* Already have an account? */}
