@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar1/Navbar.jsx";
 import appleInc from "../assets/apple-inc.png";
 import microsoft from "../assets/microsoft.png";
+import google from "./google.jpg"
 import "./signup.css";
 
 export const SignUp = () => {
@@ -19,6 +20,18 @@ export const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Input validation
+    if (!formData.username || !formData.password || !formData.confirmPassword) {
+      alert("All fields are required.");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
     console.log("Form Data:", formData);
   };
 
@@ -26,9 +39,11 @@ export const SignUp = () => {
     <div className="signup-container">
       {/* Navbar */}
       <Navbar />
-
-      {/* Signup Box */}
       <div className="signup-box">
+        {/* Form */}
+        <p className="form-title">
+          Welcome to AlgoRize! Let’s Make DSA Less ‘Ugh’ and More ‘Whoa!’
+        </p>
         <h2 className="signup-heading">Sign Up</h2>
 
         <form onSubmit={handleSubmit} className="signup-form">
@@ -65,13 +80,9 @@ export const SignUp = () => {
           <button type="submit" className="signup-button">Sign Up</button>
         </form>
 
-        {/* Social Login */}
-        <div className="social-login">
-          <p className="or-text">or sign up with</p>
-          <div className="social-icons">
-            <img src={microsoft} alt="Microsoft" className="social-icon" />
-            <img src={appleInc} alt="Apple" className="social-icon" />
-          </div>
+        {/* Social Logins */}
+        <div className="social-icons">
+          <img src={google} alt="Google" className="social-icon" />
         </div>
 
         {/* Already have an account? */}
