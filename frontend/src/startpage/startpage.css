@@ -97,38 +97,51 @@
 /* Buttons */
 .buttons {
   margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
-.btn, .get-started {
-  background: linear-gradient(135deg, #c471ed, #f64f59);
+/* Log In Button */
+.btn-login {
+  background: linear-gradient(135deg, #f64f59, #c471ed); /* Pink Gradient */
   color: white;
   border: none;
-  padding: 12px 25px;
-  margin: 10px;
-  border-radius: 30px;
-  font-size: 18px;
+  padding: 8px 20px;
+  border-radius: 25px; /* Rounded corners */
+  font-size: 16px; /* Font size */
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.btn:hover, .get-started:hover {
+.btn-login:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(196, 113, 237, 0.4);
+}
+
+/* Sign Up Button */
+.btn-signup {
+  background: linear-gradient(135deg, #00f2fe, #4facfe); /* Blue Gradient */
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 25px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-signup:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 20px rgba(196, 113, 237, 0.4);
 }
 
 /* Get Started Button */
 .get-started {
-  font-size: 22px;
-  padding: 15px 35px;
   background: linear-gradient(135deg, #4facfe, #00f2fe);
-}
-
-/* Description */
-.description {
+  padding: 12px 30px;
   font-size: 16px;
-  color: #ccc;
-  margin-top: 15px;
-  max-width: 500px;
-  line-height: 1.6;
+  border-radius: 25px;
 }

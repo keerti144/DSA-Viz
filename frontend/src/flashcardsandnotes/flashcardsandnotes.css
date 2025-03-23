@@ -50,7 +50,7 @@
     margin-bottom: 30px;
   }
   
-  .btn {
+  .btns {
     background: linear-gradient(135deg, #7c3a9b, #9d64c0);
     color: white;
     border: none;
@@ -70,7 +70,7 @@
     transition: all 0.3s ease;
   }
   
-  .btn:hover {
+  .btns:hover {
     transform: scale(1.05);
     background-color: #7324bd;
   }
