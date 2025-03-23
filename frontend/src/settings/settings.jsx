@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import femaleUser from "../assets/female-user.png";
 import Sidebar from "../sidebar/sidebar";
-import menuIcon from "../assets/menu.png";
 import { useNavigate } from "react-router-dom";
 import "./settings.css";
 
@@ -13,10 +12,6 @@ export const Settings = () => {
   const [phone, setPhone] = useState("+1 234 567 890");
   const [isDarkMode, setIsDarkMode] = useState(false);
   const navigate = useNavigate();
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
 
   const goBack = () => {
     navigate(-1);
@@ -35,9 +30,6 @@ export const Settings = () => {
       {/* Header */}
       <header className="header">
         <div className="header-left">
-          <button className="menu-btn" onClick={toggleSidebar}>
-            <img src={menuIcon} alt="Menu" />
-          </button>
           <button className="back-btn" onClick={goBack}>
             &#8592;
           </button>

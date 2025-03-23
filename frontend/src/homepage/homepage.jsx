@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar.jsx";
 import femaleUser from "../assets/female-user.png";
 import search from "../dashboard-open/search.png";
-import menuIcon from "../assets/menu.png";
 import "./homepage.css";
 
 export const Homepage = () => {
@@ -16,16 +15,13 @@ export const Homepage = () => {
 
   return (
     <div className="homepage">
-      {/* Sidebar Component */}
-      <Sidebar isOpen={isSidebarOpen} />
+      {/* Sidebar Component with Menu Button Inside */}
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
       {/* Header */}
       <div className="header">
-        <button className="menu-btn" onClick={toggleSidebar}>
-          <img src={menuIcon} alt="Menu" />
-        </button>
         <div className="logo">AlgoRize</div>
-        <div className="user-profile">
+        <div className="user-profile" onClick={() => navigate("/settings")}>
           <img className="user-icon" src={femaleUser} alt="User" />
         </div>
       </div>
@@ -37,12 +33,12 @@ export const Homepage = () => {
           <img src={search} alt="Search" className="search-icon" />
         </div>
 
-        <h1 className="welcome-text">WELCOME!!! SOMENAME!!</h1>
+        <h1 className="welcome-text">WELCOME TO ALGORIZE!!</h1>
 
         {/* Buttons */}
         <div className="button-container">
           <button className="topic-button" onClick={() => navigate("/visualize")}>
-            Start new Topic
+            Start New Topic
           </button>
           <button className="challenge-button" onClick={() => navigate("/test")}>
             Try a Challenge
@@ -51,7 +47,7 @@ export const Homepage = () => {
 
         {/* Continue Learning */}
         <div className="continue-section">
-          <h2>Continue learning</h2>
+          <h2>Continue Learning</h2>
           <div className="learning-boxes">
             <div className="learning-box"></div>
             <div className="learning-box"></div>
@@ -62,7 +58,7 @@ export const Homepage = () => {
 
         {/* Continue Tests */}
         <div className="continue-section">
-          <h2>Continue tests</h2>
+          <h2>Continue Tests</h2>
           <div className="test-boxes">
             <div className="test-box"></div>
             <div className="test-box"></div>
@@ -72,7 +68,7 @@ export const Homepage = () => {
         </div>
 
         {/* About Section */}
-        <div className="about-section">About us</div>
+        <div className="about-section">About Us</div>
       </div>
     </div>
   );
