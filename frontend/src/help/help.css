@@ -1,105 +1,175 @@
+/* Help Page Styling */
 .help {
-    background-color: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-}
-
-.help .div {
-    background-image: url(../assets/bg.png);
-    background-position: center;
-    background-size: cover;
-    height: 100vh;
-    width: 80%;
-    max-width: 1200px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2e1b50, #412d63);
+    color: white;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.help .text-wrapper {
-    color: #ffffff;
-    font-size: 36px;
+/* Help Container */
+.help-container {
+    width: 90%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Header */
+.help-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Back Button */
+.back-btn {
+    background: #6a0dad;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
     font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.back-btn:hover {
+    background: #8b5cf6;
+}
+
+/* Help Title */
+.help-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* Previous Queries Section */
+.previous-queries {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Query Input Section */
+.query-section {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.query-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.query-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.submit-query {
+    background: #6a0dad;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-query:hover {
+    background: #8b5cf6;
+}
+
+/* FAQ Section */
+.faq-section {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.faq-item {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.faq-item h4 {
+    font-size: 18px;
+    color: #ddd;
+    margin-bottom: 5px;
+}
+
+.faq-item.open {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.faq-answer {
+    font-size: 14px;
+    color: #bbb;
+    margin-top: 5px;
+    display: block;
+    animation: slideDown 0.3s ease-in-out;
+}
+
+/* Contact Section */
+.contact-section {
     text-align: center;
     margin-top: 20px;
 }
 
-.help .text-wrapper-2 {
-    color: #ffffff;
-    font-size: 50px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 20px;
+.contact-section a {
+    color: #8b5cf6;
+    text-decoration: none;
 }
 
-/* Previous Help Topics */
-.previous-queries {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    color: #ffffff;
-    text-align: left;
+.contact-section a:hover {
+    text-decoration: underline;
 }
 
-.previous-queries h3 {
-    margin-bottom: 10px;
-    font-size: 24px;
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.previous-queries ul {
-    list-style-type: disc;
-    padding-left: 20px;
-}
-
-.previous-queries li {
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-/* Query Input Section */
-.help .overlap {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-    padding: 10px;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto 20px;
-}
-
-.help .query-input {
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 18px;
-    color: #ffffff;
-    flex-grow: 1;
-    padding: 10px;
-}
-
-.help .query-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-/* Submit Button */
-.help .submit-query {
-    background-color: #6a0dad;
-    color: #ffffff;
-    font-size: 18px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-    margin-top: 10px;
-}
-
-.help .submit-query:hover {
-    background-color: #8b5cf6;
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -1,20 +1,19 @@
-// Header.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./header.css"; // Adjust the path as needed
+import profilePic from "../assets/female-user.png";
+import "./header.css";
 
-const Header = ({ toggleSidebar }) => {
+const Header = () => {
   const navigate = useNavigate();
 
   return (
     <header className="header">
       <div className="logo">AlgoRize</div>
-      <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
-        Toggle Sidebar
-      </button>
-      <button className="signout-btn" onClick={() => navigate("/signout")}>
-        Sign Out
-      </button>
+      <div className="header-right">
+        <button className="profile-btn" onClick={() => navigate("/settings")}>
+          <img src={profilePic} alt="Profile" />
+        </button>
+      </div>
     </header>
   );
 };
