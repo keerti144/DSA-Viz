@@ -22,49 +22,95 @@
     margin-bottom: 30px;
   }
   
-  .action-buttons {
+  .sort-container {
     display: flex;
     justify-content: center;
-    gap: 15px;
     margin-bottom: 30px;
   }
   
-  .btn {
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
+  .sort-select {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #9c56ca;
     color: white;
     border: none;
-    padding: 12px 20px;
     border-radius: 8px;
-    font-size: 16px;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: background-color 0.3s ease;
   }
   
-  .btn:hover {
+  .sort-select:hover {
+    background-color: #00f2fe;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .btns {
+    background: linear-gradient(135deg, #7c3a9b, #9d64c0);
+    color: white;
+    border: none;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .btns:hover {
     transform: scale(1.05);
+    background-color: #7324bd;
   }
   
   .section {
-    margin-top: 30px;
+    margin-top: 50px;
   }
   
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
     justify-content: center;
   }
   
   .card {
     background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
+    padding: 25px;
     border-radius: 12px;
     text-align: center;
     transition: 0.3s ease-in-out;
+    color: #a879ff;
+    font-size: 18px;
+    font-weight: bold;
   }
   
   .card:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: scale(1.05);
+  }
+  
+  .section-title {
+    font-size: 28px;
+    color: #a879ff;
+    margin-bottom: 20px;
+  }
+  
+  .card p {
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
   }
   

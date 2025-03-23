@@ -1,25 +1,39 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './TestNext.css';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
+import './testnext.css';
+import Sidebar from "../sidebar/sidebar.jsx";
+import Header from "../header/header.jsx";
 
 export const TestNext = () => {
-       const navigate = useNavigate();
+  const navigate = useNavigate();  // Initialize navigate function
+
   return (
     <div className="testnext-container">
+      <Header />
+      <Sidebar />
       <h2 className="testnext-header">Choose Your Test Mode</h2>
       
       <div className="testnext-buttons">
-        <Link to="/testmcq" className="testnext-button">
+        <button
+          className="testnext-button"
+          onClick={() => navigate('/testmcq')}  // Navigate to /testmcq
+        >
           MCQ
-        </Link>
+        </button>
         
-        <Link to="/testinterview" className="testnext-button">
+        <button
+          className="testnext-button"
+          onClick={() => navigate('/testinterview')}  // Navigate to /testinterview
+        >
           Interview
-        </Link>
+        </button>
         
-        <Link to="/testdebug" className="testnext-button">
+        <button
+          className="testnext-button"
+          onClick={() => navigate('/testdebug')}  // Navigate to /testdebug
+        >
           Debug
-        </Link>
+        </button>
       </div>
     </div>
   );

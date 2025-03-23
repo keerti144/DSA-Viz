@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #160c25;
 }
 
 /* Header and Sidebar section */
@@ -34,10 +35,15 @@
 }
 
 .text-wrapper {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 36px;
+    font-weight: 700;
+    color: #8d7ea3;
+   
     text-align: center;
-    color: #ffffff;  /* Improved contrast for readability */
+    text-transform: uppercase; /* Added text-transform for a more structured look */
+    letter-spacing: 2px; /* Slight spacing between letters for a modern touch */
+   /* Underline effect */
+    padding-bottom: 15px; /* Improved contrast for readability */
 }
 
 /* DSA Topics Section styles */
@@ -50,7 +56,7 @@
 }
 
 .rectangle-2, .rectangle-3, .rectangle-4, .rectangle-5, .rectangle-6, .rectangle-7, .rectangle-8, .rectangle-9 {
-    background: linear-gradient(135deg, #e0cde9, #ffffffa5);
+    background: linear-gradient(135deg, #e0cde9, #bf9ff8a5);
     padding: 20px;
     width: 200px;
     height: 100px;
