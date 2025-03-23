@@ -10,9 +10,10 @@
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
-    gap: 30px; /* More space between items */
+    gap: 20px; /* Adjusted for better spacing */
     transition: width 0.3s ease;
     z-index: 10;
+    overflow-y: auto; /* Enables scrolling if content overflows */
 }
 
 /* Expanded Sidebar */
@@ -41,7 +42,7 @@
 /* Sidebar Buttons */
 .nav-btn {
     width: 100%;
-    height: 70px; /* Increased height for better spacing */
+    height: 60px; /* Adjusted height */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,7 +50,7 @@
     background: none;
     border: none;
     color: white;
-    font-size: 18px; /* Slightly larger font */
+    font-size: 16px;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
     position: relative;
@@ -68,19 +69,19 @@
 
 /* Sidebar button icons */
 .nav-btn img {
-    width: 35px; /* Increased icon size */
-    height: 35px;
+    width: 30px; /* Adjusted icon size */
+    height: 30px;
     margin-right: 0;
 }
 
 .sidebar.expanded .nav-btn img {
-    margin-right: 15px;
+    margin-right: 12px;
 }
 
 /* Sidebar Labels */
 .label {
     color: white;
-    font-size: 18px; /* Slightly bigger font size */
+    font-size: 16px;
     opacity: 0;
     white-space: nowrap;
     transition: opacity 0.3s ease, margin-left 0.3s;
@@ -88,4 +89,10 @@
 
 .sidebar.expanded .label {
     opacity: 1;
+}
+
+/* Add Spacing for New Features */
+.nav-btn.flashcards-notes,
+.nav-btn.roadmap {
+    margin-top: 15px;
 }

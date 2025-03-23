@@ -10,6 +10,8 @@ import Community from "./community/community";
 import VisMain from "./vismain/vismain";
 import VisNext from "./visnext/visnext";
 import VisAlgo from "./visalgo/visalgo";
+import FlashcardsAndNotes from "./flashcardsandnotes/flashcardsandnotes";
+import Roadmap from "./roadmap/roadmap";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
         <Route path="/visualize" element={<VisMain />} />
         <Route path="/visnext" element={<VisNext />} />
         <Route path="/visalgo" element={<VisAlgo />} />
+        <Route path="/flashcards" element={<FlashcardsAndNotes />} />
+        <Route path="/roadmap" element={<Roadmap />} />
       </Routes>
     </Router>
   );

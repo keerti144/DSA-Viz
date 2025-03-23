@@ -5,8 +5,9 @@ import detailsIcon from "../assets/details.png";
 import testResultsIcon from "../assets/test-results.png";
 import eyeIcon from "../assets/eye.png";
 import notificationsIcon from "../assets/notifications.png";
-import gearsIcon from "../assets/gears.png";
 import inquiryIcon from "../assets/inquiry.png";
+import flashcardsIcon from "../assets/flashcardsandnotes.png";
+import roadmapIcon from "../assets/roadmap.png";
 import "./sidebar.css";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -43,16 +44,22 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <img src={notificationsIcon} alt="Community" />
         {isExpanded && <span className="label">Community</span>}
       </button>
-
-      <button className="nav-btn" onClick={() => navigate("/settings")}>
-        <img src={gearsIcon} alt="Settings" />
-        {isExpanded && <span className="label">Settings</span>}
+      
+      {/* New Features */}
+      <button className="nav-btn flashcards-notes" onClick={() => navigate("/flashcards")}>
+        <img src={flashcardsIcon} alt="Flashcards & Notes" />
+        {isExpanded && <span className="label">Flashcards & Notes</span>}
       </button>
 
+      <button className="nav-btn roadmap" onClick={() => navigate("/roadmap")}>
+        <img src={roadmapIcon} alt="Roadmap" />
+        {isExpanded && <span className="label">Roadmap</span>}
+      </button>
       <button className="nav-btn" onClick={() => navigate("/help")}>
         <img src={inquiryIcon} alt="Help" />
         {isExpanded && <span className="label">Help</span>}
       </button>
+
     </div>
   );
 };
