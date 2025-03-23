@@ -1,371 +1,163 @@
+/* General container styles */
 .test-main {
-    background-color: transparent;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header and Sidebar section */
+.div {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-left: 150px; /* Adjust if needed to align with Sidebar */
+    margin-top: 80px; /* Added to push content down and prevent overlap with the header */
+}
+
+/* "Test Yourself" Section */
+.overlap {
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* Centering the heading */
+    margin-bottom: 30px;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;  /* Darker text color for better readability */
+}
+
+.rectangle {
+    background: rgba(255, 255, 255, 0.1);
+    width: 100px;
+    height: 2px;
+    margin-right: 10px;
+}
+
+.text-wrapper {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;  /* Improved contrast for readability */
+}
+
+/* DSA Topics Section styles */
+.group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;  /* Center rectangles */
+    margin-bottom: 30px;
+}
+
+.rectangle-2, .rectangle-3, .rectangle-4, .rectangle-5, .rectangle-6, .rectangle-7, .rectangle-8, .rectangle-9 {
+    background: linear-gradient(135deg, #e0cde9, #ffffffa5);
+    padding: 20px;
+    width: 200px;
+    height: 100px;
+    border-radius: 8px;
+    display: flex;
     justify-content: center;
-    width: 100%;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.test-main .div {
-    background-image: url(../assets/bg.png);
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 832px;
-    position: relative;
-    width: 1280px;
+.rectangle-2:hover, .rectangle-3:hover, .rectangle-4:hover, .rectangle-5:hover, .rectangle-6:hover, .rectangle-7:hover, .rectangle-8:hover, .rectangle-9:hover {
+    background: linear-gradient(135deg, #a271d5ee, #dca9f5);
+    transform: scale(1.05);
 }
 
-.test-main .overlap {
-    height: 59px;
-    left: 147px;
-    position: absolute;
-    top: 132px;
-    width: 222px;
+.topic-text {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
 }
 
-.test-main .rectangle {
-    background-color: #000000;
-    border-radius: 10px;
-    height: 58px;
-    left: 0;
-    opacity: 0.3;
-    position: absolute;
-    top: 1px;
-    width: 222px;
-}
-
-.test-main .text-wrapper {
+/* "Or" Section */
+.or-section {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 24px;
+    font-weight: bold;
     color: #ffffff;
-    font-family: "Advent Pro-Regular", Helvetica;
-    font-size: 36px;
-    font-weight: 400;
-    left: 29px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
-    width: 193px;
 }
 
-.test-main .group {
-    height: 448px;
-    left: 147px;
-    position: absolute;
-    top: 241px;
-    width: 1056px;
+/* AI Test Button Section */
+.ai-section {
+    text-align: center;
 }
 
-.test-main .rectangle-2 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 0;
-    opacity: 0.4;
-    position: absolute;
-    top: 0;
-    width: 175px;
+.ai-test-button {
+    background: linear-gradient(135deg, #582d71, #9153eb);  /* Matching a sleek blue color */
+    color: white;
+    padding: 18px 40px;  /* Increased padding for a more prominent button */
+    font-size: 18px;
+    font-weight: 600;  /* Bold text for better readability */
+    border-radius: 50px;  /* Rounded corners for a modern look */
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;  /* Smooth transition for hover effects */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);  /* Subtle shadow for depth */
+    margin-bottom: 20px;  /* Spacing from the text below */
+    text-transform: uppercase;  /* Making text uppercase for added impact */
 }
 
-.test-main .rectangle-3 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 0;
-    opacity: 0.4;
-    position: absolute;
-    top: 273px;
-    width: 175px;
+.ai-test-button:hover {
+    background: linear-gradient(135deg, #9153eb, #582d71); /* Darker blue shade on hover */
+    transform: translateY(-3px);  /* Slight raise effect on hover */
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);  /* Enhanced shadow for hover */
 }
 
-.test-main .rectangle-4 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 287px;
-    opacity: 0.4;
-    position: absolute;
-    top: 273px;
-    width: 175px;
+.ai-test-button:focus {
+    outline: none;  /* Remove focus outline for a cleaner look */
+    box-shadow: 0px 0px 0px 4px rgba(38, 143, 255, 0.5);  /* Light blue focus outline */
 }
 
-.test-main .rectangle-5 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 594px;
-    opacity: 0.4;
-    position: absolute;
-    top: 273px;
-    width: 175px;
-}
-
-.test-main .rectangle-6 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 881px;
-    opacity: 0.4;
-    position: absolute;
-    top: 273px;
-    width: 175px;
-}
-
-.test-main .rectangle-7 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 287px;
-    opacity: 0.4;
-    position: absolute;
-    top: 0;
-    width: 175px;
-}
-
-.test-main .rectangle-8 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 594px;
-    opacity: 0.4;
-    position: absolute;
-    top: 0;
-    width: 175px;
-}
-
-.test-main .rectangle-9 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 881px;
-    opacity: 0.4;
-    position: absolute;
-    top: 0;
-    width: 175px;
-}
-
-.test-main .group-wrapper {
-    height: 85px;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 1280px;
-}
-
-.test-main .overlap-group-wrapper {
-    height: 85px;
-    width: 1282px;
-}
-
-.test-main .overlap-group {
-    background-color: #000000;
-    height: 85px;
-    position: relative;
-    width: 1280px;
-}
-
-.test-main .text-wrapper-2 {
+/* AI Description text */
+.ai-description {
+    font-size: 16px;
     color: #ffffff;
-    font-family: "Aguafina Script-Regular", Helvetica;
-    font-size: 36px;
-    font-weight: 400;
-    left: 605px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 20px;
-    white-space: nowrap;
-    width: 157px;
+    margin-top: 10px;
+    font-style: italic;  /* Added for a refined look */
 }
 
-.test-main .overlap-2 {
-    border-radius: 30px;
-    height: 45px;
-    left: 26px;
-    position: absolute;
-    top: 20px;
-    width: 45px;
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .test-main {
+        flex-direction: column;
+    }
+
+    .div {
+        margin-left: 0;
+        padding: 10px;
+        margin-top: 120px; /* Adjusted for mobile devices */
+    }
+
+    .group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .rectangle-2, .rectangle-3, .rectangle-4, .rectangle-5, .rectangle-6, .rectangle-7, .rectangle-8, .rectangle-9 {
+        width: 100%;
+        max-width: 300px;
+        height: 80px;
+    }
 }
 
-.test-main .menu {
-    height: 35px;
-    left: 5px;
-    position: absolute;
-    top: 5px;
-    width: 35px;
-}
+@media (max-width: 480px) {
+    .ai-test-button {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
 
-.test-main .rectangle-10 {
-    background-color: #582d71;
-    border-radius: 30px;
-    height: 45px;
-    left: 0;
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    width: 45px;
-}
+    .text-wrapper {
+        font-size: 18px;
+    }
 
-.test-main .female-user-wrapper {
-    background-color: #1f1425;
-    height: 40px;
-    left: 1214px;
-    position: absolute;
-    top: 34px;
-    width: 40px;
-}
-
-.test-main .female-user {
-    height: 31px;
-    left: 0;
-    position: absolute;
-    top: 5px;
-    width: 40px;
-}
-
-.test-main .overlap-wrapper {
-    height: 762px;
-    left: 0;
-    position: fixed;
-    top: 70px;
-    width: 81px;
-}
-
-.test-main .overlap-3 {
-    height: 762px;
-    position: relative;
-}
-
-.test-main .rectangle-11 {
-    background-color: #000000;
-    height: 762px;
-    left: 0;
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    width: 81px;
-}
-
-.test-main .div-wrapper {
-    height: 56px;
-    left: 11px;
-    position: absolute;
-    top: 25px;
-    width: 55px;
-}
-
-.test-main .overlap-group-2 {
-    height: 56px;
-    position: relative;
-}
-
-.test-main .rectangle-12 {
-    background-color: #000000;
-    height: 55px;
-    left: 0;
-    position: absolute;
-    top: 1px;
-    width: 55px;
-}
-
-.test-main .group-2 {
-    background-image: url(./details.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 2px;
-    opacity: 0.7;
-    position: absolute;
-    top: 0;
-    width: 50px;
-}
-
-.test-main .group-3 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 143px;
-    width: 55px;
-}
-
-.test-main .group-4 {
-    background-image: url(./test-results.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    top: 1px;
-    width: 50px;
-}
-
-.test-main .group-5 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 260px;
-    width: 55px;
-}
-
-.test-main .group-6 {
-    background-image: url(./eye.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    width: 50px;
-}
-
-.test-main .group-7 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 392px;
-    width: 55px;
-}
-
-.test-main .group-8 {
-    background-image: url(./notifications.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    top: 4px;
-    width: 50px;
-}
-
-.test-main .group-9 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 524px;
-    width: 55px;
-}
-
-.test-main .group-10 {
-    background-image: url(./gears.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 4px;
-    position: relative;
-    top: 5px;
-    width: 50px;
-}
-
-.test-main .group-11 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 663px;
-    width: 55px;
-}
-
-.test-main .group-12 {
-    background-image: url(./inquiry.png);
-    background-size: 100% 100%;
-    height: 50px;
-    width: 50px;
+    .topic-text {
+        font-size: 16px;
+    }
 }

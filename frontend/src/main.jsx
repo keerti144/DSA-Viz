@@ -9,10 +9,11 @@ import {Community} from "./community/community.jsx"
 import {TestMain} from "./test main/testmain.jsx"
 import {VisMain} from "./vis main/vismain.jsx"
 import { DashboardOpen } from "./dashboard-open/dashboardopen.jsx"; 
-import Homepage from "./homepage/homepage.jsx";
+import {Homepage} from "./homepage/homepage.jsx";
 import {Help} from "./help/help.jsx"
-import FlashcardsAndNotes from "./flashcardsandnotes/flashcardsandnotes";
-import Roadmap from "./roadmap/roadmap";
+import {FlashcardsAndNotes} from "./flashcardsandnotes/flashcardsandnotes.jsx";
+import {Roadmap} from "./roadmap/roadmap.jsx";
+import {TestNext} from './testnext/testnext.jsx';
 
 
 ReactDOM.createRoot(document.getElementById("app")).render(
@@ -30,7 +31,8 @@ ReactDOM.createRoot(document.getElementById("app")).render(
         <Route path="/dashboard" element={<DashboardOpen />} />
         <Route path="/help" element = {<Help />} />
         <Route path="/flashcards" element={<FlashcardsAndNotes />} />
-                <Route path="/roadmap" element={<Roadmap />} />
+        <Route path="/roadmap" element={<Roadmap />} />
+        <Route path="/testnext" element={<TestNext/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
