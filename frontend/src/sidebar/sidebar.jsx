@@ -46,12 +46,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       </button>
       
       {/* New Features */}
-      <button className="nav-btn flashcards-notes" onClick={() => navigate("/flashcards")}>
+      <button className="nav-btn" onClick={() => navigate("/flashcardsandnotes")}>
         <img src={flashcardsIcon} alt="Flashcards & Notes" />
         {isExpanded && <span className="label">Flashcards & Notes</span>}
       </button>
 
-      <button className="nav-btn roadmap" onClick={() => navigate("/roadmap")}>
+      <button className="nav-btn" onClick={() => navigate("/roadmap")}>
         <img src={roadmapIcon} alt="Roadmap" />
         {isExpanded && <span className="label">Roadmap</span>}
       </button>

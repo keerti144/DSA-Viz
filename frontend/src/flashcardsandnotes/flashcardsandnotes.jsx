@@ -5,7 +5,7 @@ import "./flashcardsandnotes.css";
 
 export const FlashcardsAndNotes = () => {
   return (
-    <div className="flashcards-page">
+    <div className="flashcardsandnotes-page">
       <Header />
       <Sidebar />
       <div className="flashcards-container">
