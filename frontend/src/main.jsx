@@ -7,12 +7,15 @@ import { SignUp } from "./sign_up/signup.jsx";
 import {Settings} from "./settings/settings.jsx"; // Path adjusted based on folder structure
 import {Community} from "./community/community.jsx"
 import {TestMain} from "./test main/testmain.jsx"
-import {VisMain} from "./vis main/vismain.jsx"
+import {VisMain} from "./vismain/vismain.jsx"
 import { DashboardOpen } from "./dashboard-open/dashboardopen.jsx"; 
 import Homepage from "./homepage/homepage.jsx";
 import {Help} from "./help/help.jsx"
-import FlashcardsAndNotes from "./flashcardsandnotes/flashcardsandnotes";
-import Roadmap from "./roadmap/roadmap";
+import {FlashcardsAndNotes} from "./flashcardsandnotes/flashcardsandnotes";
+import {Roadmap} from "./roadmap/roadmap";
+import {VisNext} from "./visnext/visnext.jsx";
+import {VisAlgo} from "./visalgo/visalgo.jsx";
+
 
 
 ReactDOM.createRoot(document.getElementById("app")).render(
@@ -30,7 +33,9 @@ ReactDOM.createRoot(document.getElementById("app")).render(
         <Route path="/dashboard" element={<DashboardOpen />} />
         <Route path="/help" element = {<Help />} />
         <Route path="/flashcards" element={<FlashcardsAndNotes />} />
-                <Route path="/roadmap" element={<Roadmap />} />
+        <Route path="/roadmap" element={<Roadmap />} />
+        <Route path="/visnext" element={<VisNext />} />
+        <Route path="/visalgo" element={<VisAlgo />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
