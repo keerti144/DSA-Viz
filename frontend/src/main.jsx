@@ -11,6 +11,8 @@ import {VisMain} from "./vis main/vismain.jsx"
 import { DashboardOpen } from "./dashboard-open/dashboardopen.jsx"; 
 import Homepage from "./homepage/homepage.jsx";
 import {Help} from "./help/help.jsx"
+import FlashcardsAndNotes from "./flashcardsandnotes/flashcardsandnotes";
+import Roadmap from "./roadmap/roadmap";
 
 
 ReactDOM.createRoot(document.getElementById("app")).render(
@@ -27,6 +29,8 @@ ReactDOM.createRoot(document.getElementById("app")).render(
         <Route path="/visualize" element={<VisMain />} />
         <Route path="/dashboard" element={<DashboardOpen />} />
         <Route path="/help" element = {<Help />} />
+        <Route path="/flashcards" element={<FlashcardsAndNotes />} />
+                <Route path="/roadmap" element={<Roadmap />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
