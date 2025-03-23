@@ -13,40 +13,39 @@
   z-index: 10;
 }
 
-/* Menu Button */
-.menu-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.menu-btn img {
-  width: 30px;
-  height: 30px;
-}
-
-/* Logo */
+/* Center Logo */
 .logo {
-  color: #e0d8f0;
-  font-size: 24px;
+  color: #b392f0; /* Soft purple */
+  font-size: 28px;
   font-weight: bold;
+  font-family: "Aguafina Script", cursive;
+  text-shadow: 2px 2px 8px rgba(179, 146, 240, 0.6);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* Profile Button (Same size as Menu) */
+/* Profile Icon Positioned to the Right */
+.header-right {
+  position: absolute;
+  right: 20px; /* Moves the profile icon to the rightmost */
+}
+
+/* Profile Button */
 .profile-btn {
   background: none;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .profile-btn img {
-  width: 30px;  /* Same size as menu icon */
-  height: 30px;
-  border-radius: 50%; /* Ensures circular shape */
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
   object-fit: cover;
+  border: 2px solid #b392f0;
 }
 
 /* Hover Effect */
