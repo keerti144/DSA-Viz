@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../navbar1/Navbar.jsx";
-import appleInc from "./apple-inc.png";
-import back from "./back.png";
-import microsoft from "./microsoft.png";
+import googleIcon from "./google.jpg";
 import "./signupstyle.css";
 
 export const SignUp = () => {
@@ -24,13 +22,15 @@ export const SignUp = () => {
   return (
     <div className="sign-up">
       <Navbar />
-      <div className="sign-up-container">
+      
 
+      <div className="sign-up-container">
         {/* Form */}
         <div className="form-wrapper">
           <p className="form-title">
             Welcome to AlgoRize! Let’s Make DSA Less ‘Ugh’ and More ‘Whoa!’
           </p>
+          
           <h2 className="signup-heading">Sign Up</h2>
 
           <form onSubmit={handleSubmit} className="signup-form">
@@ -69,13 +69,10 @@ export const SignUp = () => {
             </button>
           </form>
 
-          {/* Social Logins */}
+          {/* Google Sign-In */}
           <div className="social-login">
             <div className="social-icon">
-              <img src={microsoft} alt="Microsoft" />
-            </div>
-            <div className="social-icon">
-              <img src={appleInc} alt="Apple" />
+              <img src={googleIcon} alt="Google" />
             </div>
           </div>
         </div>
