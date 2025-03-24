@@ -1,96 +1,87 @@
-import React from "react";
-import femaleUser from "./female-user.png";
-import menu from "./menu.png";
-import "./style.css";
+import React, { useState } from 'react';
+import './testmcq.css';
 
-export const TestMcq = () => {
-    return (
-        <div className="test-mcq">
-            <div className="div">
-                <div className="group">
-                    <div className="overlap-group">
-                        <div className="rectangle" />
+export const TestMCQ = () => {
+  const questions = [
+    {
+      question: 'question 1',
+      options: ['a', 'b', 'c', 'd'],
+      correctAnswer: 'b',
+    },
+    {
+      question: 'Which language is used for web development?',
+      options: ['Java', 'Python', 'JavaScript', 'C#'],
+      correctAnswer: 'JavaScript',
+    },
+    {
+      question: 'What is the result of 5 + 3?',
+      options: ['5', '8', '15', '10'],
+      correctAnswer: '8',
+    },
+    // Add more questions as needed
+  ];
 
-                        <div className="text-wrapper">MCQ</div>
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState('');
+  const [score, setScore] = useState(0);
+  const [finished, setFinished] = useState(false);
 
-                        <div className="text-wrapper-2">Debugging</div>
+  const handleAnswerSelect = (answer) => {
+    setSelectedAnswer(answer);
+  };
 
-                        <div className="text-wrapper-3">Interview Questions</div>
-                    </div>
-                </div>
+  const handleNextQuestion = () => {
+    if (selectedAnswer === questions[currentQuestion].correctAnswer) {
+      setScore(score + 1);
+    }
 
-                <div className="overlap-wrapper">
-                    <div className="overlap">
-                        <div className="rectangle-2" />
+    const nextQuestion = currentQuestion + 1;
 
-                        <div className="topic-name-MCQ">Topic name&nbsp;&nbsp;- MCQ</div>
-                    </div>
-                </div>
+    if (nextQuestion < questions.length) {
+      setCurrentQuestion(nextQuestion);
+      setSelectedAnswer('');
+    } else {
+      setFinished(true);
+    }
+  };
 
-                <div className="rectangle-3" />
+  const handleRetry = () => {
+    setCurrentQuestion(0);
+    setScore(0);
+    setFinished(false);
+    setSelectedAnswer('');
+  };
 
-                <div className="overlap-group-wrapper">
-                    <div className="overlap-2">
-                        <div className="rectangle-4" />
-
-                        <div className="div-wrapper">
-                            <div className="overlap-group-2">
-                                <div className="rectangle-5" />
-
-                                <div className="group-2" />
-                            </div>
-                        </div>
-
-                        <div className="group-wrapper">
-                            <div className="group-3" />
-                        </div>
-
-                        <div className="group-4">
-                            <div className="group-5" />
-                        </div>
-
-                        <div className="group-6">
-                            <div className="group-7" />
-                        </div>
-
-                        <div className="group-8">
-                            <div className="group-9" />
-                        </div>
-
-                        <div className="group-10">
-                            <div className="group-11" />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="group-12">
-                    <div className="group-13">
-                        <div className="overlap-group-3">
-                            <div className="text-wrapper-4">AlgoRize</div>
-
-                            <div className="overlap-3">
-                                <img className="menu" alt="Menu" src={menu} />
-
-                                <div className="rectangle-6" />
-                            </div>
-
-                            <div className="female-user-wrapper">
-                                <img
-                                    className="female-user"
-                                    alt="Female user"
-                                    src={femaleUser}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="rectangle-7" />
-
-                <div className="rectangle-8" />
-
-                <div className="rectangle-9" />
-            </div>
+  return (
+    <div className="testmcq-container">
+      {!finished ? (
+        <div className="question-container">
+          <h2>{questions[currentQuestion].question}</h2>
+          <div className="options-container">
+            {questions[currentQuestion].options.map((option, index) => (
+              <button
+                key={index}
+                className={`option-button ${selectedAnswer === option ? 'selected' : ''}`}
+                onClick={() => handleAnswerSelect(option)}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+          <button className="next-button" onClick={handleNextQuestion}>
+            Next Question
+          </button>
         </div>
-    );
+      ) : (
+        <div className="result-container">
+          <h2>Your Score: {score} / {questions.length}</h2>
+          <button className="retry-button" onClick={handleRetry}>
+            Retry Test
+          </button>
+        </div>
+      )}
+    </div>
+  );
 };
+
+export default TestMCQ;

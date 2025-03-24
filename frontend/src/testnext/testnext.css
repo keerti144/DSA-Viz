@@ -1,0 +1,80 @@
+/* General container styles */
+.testnext-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #160c25;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif; /* Updated font for a cleaner look */
+}
+
+/* Header styles */
+.testnext-header {
+    font-size: 36px;
+    font-weight: 700;
+    color: #8d7ea3;
+    margin-bottom: 40px;
+    text-align: center;
+    text-transform: uppercase; /* Added text-transform for a more structured look */
+    letter-spacing: 2px; /* Slight spacing between letters for a modern touch */
+    border-bottom: 3px solid #8e4fff; /* Underline effect */
+    padding-bottom: 15px;
+}
+
+/* Button container */
+.testnext-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Button styles */
+.testnext-button {
+    background: linear-gradient(135deg, #9153eb, #582d71);/* Gradient background */
+    color: white;
+    padding: 18px 40px; /* Added more space for a modern look */
+    font-size: 20px; /* Increased font size for prominence */
+    font-weight: 600; /* Slightly bolder font */
+    border-radius: 50px; /* Rounded corners for a sleeker look */
+    width: 220px; /* Increased width for better button appearance */
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    border: none;
+    margin-bottom: 10px;
+}
+
+/* Button hover effect */
+.testnext-button:hover {
+    background: linear-gradient(135deg, #582d71, #9153eb);
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15); /* Stronger shadow for depth */
+}
+
+/* Button focus effect */
+.testnext-button:focus {
+    outline: none;
+    box-shadow: 0px 0px 10px 2px rgba(38, 143, 255, 0.5); /* Focus ring with light blue */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .testnext-container {
+        padding: 10px;
+    }
+
+    .testnext-header {
+        font-size: 28px; /* Smaller font for header on mobile */
+    }
+
+    .testnext-button {
+        width: 80%; /* Buttons take up more width on smaller screens */
+        font-size: 18px; /* Adjusted font size for mobile devices */
+    }
+}
