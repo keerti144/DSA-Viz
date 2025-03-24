@@ -73,7 +73,9 @@
   font-size: 60px;
   font-weight: bold;
   background: linear-gradient(45deg, #7f00ff, #e100ff); /* Purple Gradient */
+
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   text-transform: uppercase;
   letter-spacing: 3px;

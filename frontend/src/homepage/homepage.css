@@ -137,12 +137,14 @@ body {
 /* Continue Sections */
 .continue-section {
     margin-top: 40px;
+    
 }
 
 .continue-section h2 {
     font-size: 1.5rem;
     text-align: left;
     margin-left: 10%;
+    color:white;
 }
 
 .test-boxes, .learning-boxes {
