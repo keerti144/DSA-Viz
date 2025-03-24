@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar.jsx";
 import femaleUser from "../assets/female-user.png";
@@ -6,17 +6,36 @@ import search from "../dashboard-open/search.png";
 import "./homepage.css";
 
 export const Homepage = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  useEffect(() => {
+    const homepage = document.querySelector(".homepage");
+
+    // Create Floating Particles
+    for (let i = 0; i < 15; i++) {
+      let particle = document.createElement("div");
+      particle.className = "particle";
+      particle.style.width = `${Math.random() * 6 + 4}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}vw`;
+      particle.style.top = `${Math.random() * 100}vh`;
+      particle.style.animationDuration = `${Math.random() * 5 + 3}s`;
+      homepage.appendChild(particle);
+    }
+
+    return () => {
+      document.querySelectorAll(".particle").forEach((p) => p.remove());
+    };
+  }, []);
 
   return (
     <div className="homepage">
-      {/* Sidebar Component with Menu Button Inside */}
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      {/* Background Animation */}
+      <div className="stars"></div>
+      <div className="twinkling"></div>
+
+      {/* Sidebar */}
+      <Sidebar />
 
       {/* Header */}
       <div className="header">
@@ -27,7 +46,7 @@ export const Homepage = () => {
       </div>
 
       {/* Main Content */}
-      <div className={`main-content ${isSidebarOpen ? "sidebar-open" : ""}`}>
+      <div className="main-content">
         <div className="search-container">
           <input type="text" className="search-input" placeholder="Search here" />
           <img src={search} alt="Search" className="search-icon" />
@@ -35,7 +54,6 @@ export const Homepage = () => {
 
         <h1 className="welcome-text">WELCOME TO ALGORIZE!!</h1>
 
-        {/* Buttons */}
         <div className="button-container">
           <button className="topic-button" onClick={() => navigate("/visualize")}>
             Start New Topic
@@ -45,7 +63,6 @@ export const Homepage = () => {
           </button>
         </div>
 
-        {/* Continue Learning */}
         <div className="continue-section">
           <h2>Continue Learning</h2>
           <div className="learning-boxes">
@@ -56,7 +73,6 @@ export const Homepage = () => {
           </div>
         </div>
 
-        {/* Continue Tests */}
         <div className="continue-section">
           <h2>Continue Tests</h2>
           <div className="test-boxes">
@@ -67,7 +83,6 @@ export const Homepage = () => {
           </div>
         </div>
 
-        {/* About Section */}
         <div className="about-section">About Us</div>
       </div>
     </div>

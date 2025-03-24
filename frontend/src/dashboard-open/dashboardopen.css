@@ -1,12 +1,12 @@
-/* CSS (dashboardopen.css) */
-
 .dashboard-open {
   display: flex;
   height: 100vh;
-  background: linear-gradient(135deg, #2a1b3d, #412d63);
+  background: linear-gradient(135deg, #251833, #3a2d54);
   color: white;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Dashboard Content */
 .dashboard-content {
   flex: 1;
   padding: 20px;
@@ -15,37 +15,19 @@
   align-items: center;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  background: black;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-}
-
-.logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  font-family: "Cursive", sans-serif;
-}
-
-.user-profile img {
-  width: 35px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
+/* Dashboard Title */
 .dashboard-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
+  font-weight: bold;
   margin-top: 80px;
   text-align: center;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
+/* Progress Section */
 .progress-section {
   display: flex;
   justify-content: space-around;
@@ -53,22 +35,49 @@
   margin: 20px 0;
 }
 
-.streak-box, .leaderboard-box {
-  background: rgba(255, 255, 255, 0.1);
+.streak-box,
+.leaderboard-box {
+  background: rgba(255, 255, 255, 0.15);
   padding: 20px;
   border-radius: 15px;
   text-align: center;
   width: 40%;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Hover Effect */
+.streak-box:hover,
+.leaderboard-box:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.3);
+}
+
+.streak-box h2,
+.leaderboard-box h2 {
+  color: #090213;
+  font-size: 1.5rem;
+}
+
+/* Progress Overview */
 .progress-overview {
   width: 80%;
   background: rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 15px;
   margin-top: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  transition: 0.3s ease-in-out;
 }
 
+/* Hover Effect */
+.progress-overview:hover {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Progress Items */
 .progress-items {
   display: flex;
   justify-content: space-between;
@@ -81,20 +90,40 @@
   border-radius: 10px;
   text-align: center;
   width: 30%;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
 }
 
+/* Hover Effect */
+.progress-item:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+/* Saved Content */
 .saved-content {
   width: 80%;
   background: rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 15px;
   margin-top: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  transition: 0.3s ease-in-out;
 }
 
+/* Hover Effect */
+.saved-content:hover {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Saved Items */
 .saved-items {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
 }
 
 .saved-item {
@@ -103,4 +132,14 @@
   border-radius: 10px;
   width: 30%;
   text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.saved-item:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
 }
