@@ -1,766 +1,106 @@
+/* CSS (dashboardopen.css) */
+
 .dashboard-open {
-    background-color: transparent;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .dashboard-open .div {
-    background-image: url(../assets/bg.png);
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 1373px;
-    overflow: hidden;
-    position: relative;
-    width: 1280px;
-  }
-  
-  .dashboard-open .group {
-    height: 43px;
-    left: 425px;
-    position: absolute;
-    top: 124px;
-    width: 734px;
-  }
-  
-  .dashboard-open .search-wrapper {
-    background-color: #1f1425;
-    height: 40px;
-    left: 692px;
-    position: absolute;
-    top: 0;
-    width: 40px;
-  }
-  
-  .dashboard-open .search {
-    height: 30px;
-    left: 6px;
-    position: absolute;
-    top: 5px;
-    width: 27px;
-  }
-  
-  .dashboard-open .overlap-group {
-    height: 40px;
-    left: 0;
-    position: absolute;
-    top: 3px;
-    width: 675px;
-  }
-  
-  .dashboard-open .rectangle {
-    background-color: #000000;
-    height: 40px;
-    left: 0;
-    opacity: 0.7;
-    position: absolute;
-    top: 0;
-    width: 675px;
-  }
-  
-  .dashboard-open .text-wrapper {
-    color: #ffffff;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 12px;
-    font-weight: 400;
-    left: 256px;
-    letter-spacing: 0;
-    line-height: normal;
-    opacity: 0.5;
-    position: absolute;
-    top: 8px;
-    width: 290px;
-  }
-  
-  .dashboard-open .text-wrapper-2 {
-    color: #ffffff;
-    font-family: "Advent Pro-Bold", Helvetica;
-    font-size: 32px;
-    font-weight: 700;
-    left: 414px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 224px;
-    white-space: nowrap;
-    width: 746px;
-  }
-  
-  .dashboard-open .overlap-wrapper {
-    height: 168px;
-    left: 397px;
-    position: absolute;
-    top: 327px;
-    width: 301px;
-  }
-  
-  .dashboard-open .overlap {
-    border-radius: 40px;
-    height: 168px;
-    position: relative;
-    width: 299px;
-  }
-  
-  .dashboard-open .rectangle-2 {
-    background-color: #000000;
-    border-radius: 40px;
-    height: 168px;
-    left: 0;
-    opacity: 0.4;
-    position: absolute;
-    top: 0;
-    width: 299px;
-  }
-  
-  .dashboard-open .text-wrapper-3 {
-    color: #ffffff;
-    font-family: "Advent Pro-SemiBoldItalic", Helvetica;
-    font-size: 32px;
-    font-style: italic;
-    font-weight: 600;
-    left: 68px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 43px;
-    width: 162px;
-  }
-  
-  .dashboard-open .overlap-group-wrapper {
-    height: 168px;
-    left: 927px;
-    position: absolute;
-    top: 317px;
-    width: 301px;
-  }
-  
-  .dashboard-open .text-wrapper-4 {
-    color: #ffffff;
-    font-family: "Advent Pro-SemiBoldItalic", Helvetica;
-    font-size: 32px;
-    font-style: italic;
-    font-weight: 600;
-    left: 56px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 60px;
-    width: 186px;
-  }
-  
-  .dashboard-open .group-2 {
-    height: 276px;
-    left: 391px;
-    position: absolute;
-    top: 615px;
-    width: 1074px;
-  }
-  
-  .dashboard-open .text-wrapper-5 {
-    color: #ffffff;
-    font-family: "Advent Pro-Bold", Helvetica;
-    font-size: 35px;
-    font-weight: 700;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    width: 254px;
-  }
-  
-  .dashboard-open .rectangle-3 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 11px;
-    opacity: 0.4;
-    position: absolute;
-    top: 101px;
-    width: 175px;
-  }
-  
-  .dashboard-open .rectangle-4 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 232px;
-    opacity: 0.4;
-    position: absolute;
-    top: 101px;
-    width: 175px;
-  }
-  
-  .dashboard-open .rectangle-5 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 453px;
-    opacity: 0.4;
-    position: absolute;
-    top: 101px;
-    width: 175px;
-  }
-  
-  .dashboard-open .rectangle-6 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 674px;
-    opacity: 0.4;
-    position: absolute;
-    top: 101px;
-    width: 175px;
-  }
-  
-  .dashboard-open .rectangle-7 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 897px;
-    opacity: 0.4;
-    position: absolute;
-    top: 101px;
-    width: 175px;
-  }
-  
-  .dashboard-open .group-3 {
-    height: 267px;
-    left: 382px;
-    position: absolute;
-    top: 945px;
-    width: 1092px;
-  }
-  
-  .dashboard-open .rectangle-8 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 11px;
-    opacity: 0.4;
-    position: absolute;
-    top: 92px;
-    width: 175px;
-  }
-  
-  .dashboard-open .rectangle-9 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 232px;
-    opacity: 0.4;
-    position: absolute;
-    top: 92px;
-    width: 175px;
-  }
-  
-  .dashboard-open .rectangle-10 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 453px;
-    opacity: 0.4;
-    position: absolute;
-    top: 92px;
-    width: 175px;
-  }
-  
-  .dashboard-open .rectangle-11 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 691px;
-    opacity: 0.4;
-    position: absolute;
-    top: 92px;
-    width: 175px;
-  }
-  
-  .dashboard-open .rectangle-12 {
-    background-color: #0d0000;
-    border-radius: 30px;
-    height: 175px;
-    left: 915px;
-    opacity: 0.4;
-    position: absolute;
-    top: 92px;
-    width: 175px;
-  }
-  
-  .dashboard-open .group-4 {
-    height: 83px;
-    left: 425px;
-    position: absolute;
-    top: 1266px;
-    width: 835px;
-  }
-  
-  .dashboard-open .overlap-2 {
-    height: 24px;
-    left: 286px;
-    position: absolute;
-    top: 0;
-    width: 207px;
-  }
-  
-  .dashboard-open .rectangle-13 {
-    background-color: #030000;
-    height: 20px;
-    left: 0;
-    opacity: 0.3;
-    position: absolute;
-    top: 4px;
-    width: 207px;
-  }
-  
-  .dashboard-open .text-wrapper-6 {
-    color: #ffffff;
-    font-family: "Advent Pro-Bold", Helvetica;
-    font-size: 20px;
-    font-weight: 700;
-    left: 66px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
-    width: 75px;
-  }
-  
-  .dashboard-open .rectangle-14 {
-    background-color: #000000;
-    height: 33px;
-    left: 0;
-    opacity: 0.2;
-    position: absolute;
-    top: 50px;
-    width: 833px;
-  }
-  
-  .dashboard-open .div-wrapper {
-    height: 847px;
-    left: 0;
-    position: fixed;
-    top: 1px;
-    width: 1280px;
-  }
-  
-  .dashboard-open .overlap-3 {
-    height: 847px;
-    position: relative;
-  }
-  
-  .dashboard-open .rectangle-15 {
-    background-color: #020000;
-    height: 67px;
-    left: 1px;
-    position: absolute;
-    top: 209px;
-    width: 345px;
-  }
-  
-  .dashboard-open .rectangle-16 {
-    background-color: #020000;
-    height: 67px;
-    left: 1px;
-    position: absolute;
-    top: 330px;
-    width: 345px;
-  }
-  
-  .dashboard-open .rectangle-17 {
-    background-color: #020000;
-    height: 67px;
-    left: 0;
-    position: absolute;
-    top: 459px;
-    width: 345px;
-  }
-  
-  .dashboard-open .rectangle-18 {
-    background-color: #020000;
-    height: 67px;
-    left: 0;
-    position: absolute;
-    top: 592px;
-    width: 345px;
-  }
-  
-  .dashboard-open .rectangle-19 {
-    background-color: #020000;
-    height: 67px;
-    left: 0;
-    position: absolute;
-    top: 94px;
-    width: 345px;
-  }
-  
-  .dashboard-open .rectangle-20 {
-    background-color: #020000;
-    height: 67px;
-    left: 0;
-    position: absolute;
-    top: 722px;
-    width: 345px;
-  }
-  
-  .dashboard-open .rectangle-21 {
-    background-color: #000000;
-    height: 762px;
-    left: 0;
-    opacity: 0.5;
-    position: absolute;
-    top: 85px;
-    width: 345px;
-  }
-  
-  .dashboard-open .group-5 {
-    height: 56px;
-    left: 11px;
-    position: absolute;
-    top: 99px;
-    width: 55px;
-  }
-  
-  .dashboard-open .overlap-group-2 {
-    height: 56px;
-    position: relative;
-  }
-  
-  .dashboard-open .rectangle-22 {
-    background-color: #000000;
-    height: 55px;
-    left: 0;
-    position: absolute;
-    top: 1px;
-    width: 55px;
-  }
-  
-  .dashboard-open .group-6 {
-    background-image: url(./details.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 2px;
-    opacity: 0.7;
-    position: absolute;
-    top: 0;
-    width: 50px;
-  }
-  
-  .dashboard-open .group-7 {
-    height: 782px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 1280px;
-  }
-  
-  .dashboard-open .group-8 {
-    height: 85px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 1282px;
-  }
-  
-  .dashboard-open .overlap-group-3 {
-    background-color: #000000;
-    height: 85px;
-    position: relative;
-    width: 1280px;
-  }
-  
-  .dashboard-open .text-wrapper-7 {
-    color: #ffffff;
-    font-family: "Aguafina Script-Regular", Helvetica;
-    font-size: 36px;
-    font-weight: 400;
-    left: 597px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 24px;
-    white-space: nowrap;
-    width: 157px;
-  }
-  
-  .dashboard-open .overlap-4 {
-    border-radius: 30px;
-    height: 45px;
-    left: 18px;
-    position: absolute;
-    top: 24px;
-    width: 45px;
-  }
-  
-  .dashboard-open .menu {
-    height: 35px;
-    left: 5px;
-    position: absolute;
-    top: 5px;
-    width: 35px;
-  }
-  
-  .dashboard-open .rectangle-23 {
-    background-color: #582d71;
-    border-radius: 30px;
-    height: 45px;
-    left: 0;
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    width: 45px;
-  }
-  
-  .dashboard-open .female-user-wrapper {
-    background-color: #1f1425;
-    height: 40px;
-    left: 1206px;
-    position: absolute;
-    top: 38px;
-    width: 40px;
-  }
-  
-  .dashboard-open .female-user {
-    height: 31px;
-    left: 0;
-    position: absolute;
-    top: 5px;
-    width: 40px;
-  }
-  
-  .dashboard-open .group-9 {
-    height: 41px;
-    left: 125px;
-    position: absolute;
-    top: 338px;
-    width: 166px;
-  }
-  
-  .dashboard-open .overlap-5 {
-    background-color: #1f1623;
-    border-radius: 20px;
-    height: 41px;
-    position: relative;
-    width: 164px;
-  }
-  
-  .dashboard-open .text-wrapper-8 {
-    color: #ffffff;
-    font-family: "Advent Pro-Regular", Helvetica;
-    font-size: 32px;
-    font-weight: 400;
-    left: 31px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
-    width: 133px;
-  }
-  
-  .dashboard-open .group-10 {
-    height: 41px;
-    left: 125px;
-    position: absolute;
-    top: 222px;
-    width: 166px;
-  }
-  
-  .dashboard-open .test {
-    color: #ffffff;
-    font-family: "Advent Pro-Regular", Helvetica;
-    font-size: 30px;
-    font-weight: 400;
-    left: 13px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
-    width: 151px;
-  }
-  
-  .dashboard-open .group-11 {
-    height: 41px;
-    left: 125px;
-    position: absolute;
-    top: 103px;
-    width: 166px;
-  }
-  
-  .dashboard-open .text-wrapper-9 {
-    color: #ffffff;
-    font-family: "Advent Pro-Regular", Helvetica;
-    font-size: 32px;
-    font-weight: 400;
-    left: 15px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
-    width: 133px;
-  }
-  
-  .dashboard-open .group-12 {
-    height: 41px;
-    left: 125px;
-    position: absolute;
-    top: 470px;
-    width: 166px;
-  }
-  
-  .dashboard-open .text-wrapper-10 {
-    color: #ffffff;
-    font-family: "Advent Pro-Regular", Helvetica;
-    font-size: 32px;
-    font-weight: 400;
-    left: 15px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
-    width: 149px;
-  }
-  
-  .dashboard-open .group-13 {
-    height: 41px;
-    left: 125px;
-    position: absolute;
-    top: 605px;
-    width: 166px;
-  }
-  
-  .dashboard-open .group-14 {
-    height: 45px;
-    left: 125px;
-    position: absolute;
-    top: 737px;
-    width: 184px;
-  }
-  
-  .dashboard-open .overlap-6 {
-    height: 45px;
-    position: relative;
-    width: 182px;
-  }
-  
-  .dashboard-open .rectangle-24 {
-    background-color: #1f1623;
-    border-radius: 20px;
-    height: 41px;
-    left: 0;
-    position: absolute;
-    top: 4px;
-    width: 164px;
-  }
-  
-  .dashboard-open .text-wrapper-11 {
-    color: #ffffff;
-    font-family: "Advent Pro-Regular", Helvetica;
-    font-size: 32px;
-    font-weight: 400;
-    left: 49px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
-    width: 133px;
-  }
-  
-  .dashboard-open .group-wrapper {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 217px;
-    width: 55px;
-  }
-  
-  .dashboard-open .group-15 {
-    background-image: url(./test-results.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    top: 1px;
-    width: 50px;
-  }
-  
-  .dashboard-open .group-16 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 334px;
-    width: 55px;
-  }
-  
-  .dashboard-open .group-17 {
-    background-image: url(./eye.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    width: 50px;
-  }
-  
-  .dashboard-open .group-18 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 466px;
-    width: 55px;
-  }
-  
-  .dashboard-open .group-19 {
-    background-image: url(./notifications.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    top: 4px;
-    width: 50px;
-  }
-  
-  .dashboard-open .group-20 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 737px;
-    width: 55px;
-  }
-  
-  .dashboard-open .group-21 {
-    background-image: url(./inquiry.png);
-    background-size: 100% 100%;
-    height: 50px;
-    width: 50px;
-  }
-  
-  .dashboard-open .group-22 {
-    background-color: #000000;
-    height: 55px;
-    left: 11px;
-    position: absolute;
-    top: 598px;
-    width: 55px;
-  }
-  
-  .dashboard-open .group-23 {
-    background-image: url(./gears.png);
-    background-size: 100% 100%;
-    height: 50px;
-    left: 3px;
-    position: relative;
-    width: 50px;
-  }
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(135deg, #2a1b3d, #412d63);
+  color: white;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: black;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-family: "Cursive", sans-serif;
+}
+
+.user-profile img {
+  width: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  margin-top: 80px;
+  text-align: center;
+}
+
+.progress-section {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  margin: 20px 0;
+}
+
+.streak-box, .leaderboard-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  width: 40%;
+}
+
+.progress-overview {
+  width: 80%;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.progress-items {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.progress-item {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  width: 30%;
+}
+
+.saved-content {
+  width: 80%;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.saved-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.saved-item {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 10px;
+  width: 30%;
+  text-align: center;
+}
