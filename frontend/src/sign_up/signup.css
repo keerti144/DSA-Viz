@@ -81,7 +81,7 @@
   background-color: #8057c3;
 }
 
-/* Social Login */
+/* Social Login
 .social-icons {
   display: flex;
   justify-content: center;
@@ -98,7 +98,7 @@
 
 .social-icon:hover {
   transform: scale(1.1);
-}
+} */
 
 /* Login Redirect */
 .login-link {
@@ -115,4 +115,51 @@
 
 .login-btn:hover {
   text-decoration: underline;
+}
+
+/* Google Login Button */
+.google-login-btn {
+  background-color: #4285F4; /* Google Blue */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.google-login-btn:hover {
+  background-color: #357AE8; /* Darker Google Blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.google-login-btn:active {
+  background-color: #3367D6; /* Even darker blue when clicked */
+  transform: translateY(2px); /* Slight press-down effect */
+}
+
+/* Google Icon */
+.google-login-btn img {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px; /* Space between icon and text */
+}
+
+/* Optional: Add a small "loading" spinner if the login takes time */
+.loading-spinner {
+  margin-left: 10px;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./styles.css";
 import Navbar from "../navbar1/Navbar.jsx";
+import GoogleLoginButton from "../sign_up/googlesignup";
+import "../sign_up/signup.css"
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -20,10 +22,10 @@ export const Login = () => {
         <h2 className="login-title">Login</h2>
 
         <div className="input-group">
-          <label>Username</label>
+          <label>Email</label>
           <input
             type="text"
-            placeholder="Enter email/username"
+            placeholder="Enter email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -42,6 +44,13 @@ export const Login = () => {
         <button className="login-button" onClick={handleLogin}>
           LOGIN
         </button>
+
+        <br />
+        <br />
+        {/* Social Logins */}
+        <button className="social-button">
+          <GoogleLoginButton />
+         </button>
 
         <p className="signup-text">
           Create a new account?{" "}

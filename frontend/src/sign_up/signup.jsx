@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar1/Navbar.jsx";
-import appleInc from "../assets/apple-inc.png";
-import microsoft from "../assets/microsoft.png";
 import google from "./google.jpg"
 import "./signup.css";
+import GoogleLoginButton from "./googlesignup";  
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -22,7 +21,7 @@ export const SignUp = () => {
     e.preventDefault();
     
     // Input validation
-    if (!formData.username || !formData.password || !formData.confirmPassword) {
+    if (!formData.email || !formData.password || !formData.confirmPassword) {
       alert("All fields are required.");
       return;
     }
@@ -47,13 +46,13 @@ export const SignUp = () => {
         <h2 className="signup-heading">Sign Up</h2>
 
         <form onSubmit={handleSubmit} className="signup-form">
-          <label>Username</label>
+          <label>Email</label>
           <input
             type="text"
             name="username"
-            value={formData.username}
+            value={formData.email}
             onChange={handleChange}
-            placeholder="Enter email/username"
+            placeholder="Enter email"
             className="input-box"
           />
 
@@ -79,11 +78,12 @@ export const SignUp = () => {
 
           <button type="submit" className="signup-button">Sign Up</button>
         </form>
-
+        <br />
+        <br />
         {/* Social Logins */}
-        <div className="social-icons">
-          <img src={google} alt="Google" className="social-icon" />
-        </div>
+        <button className="social-button">
+          <GoogleLoginButton />
+         </button>
 
         {/* Already have an account? */}
         <p className="login-link">
