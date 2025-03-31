@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
 import { StartPage } from "./startpage/startpage.jsx";
 import { Login } from "./login_page/login.jsx"; 
 import { SignUp } from "./sign_up/signup.jsx"; 
