@@ -17,6 +17,8 @@ import {VisNext} from "./visnext/visnext.jsx";
 import {VisAlgo} from "./visalgo/visalgo.jsx";
 import {TestNext} from "./testnext/testnext.jsx";
 import {TestMCQ} from "./test mcq/testmcq.jsx";
+  import {TestAI} from "./test ai/TestAI.jsx"; 
+
 
 
 ReactDOM.createRoot(document.getElementById("app")).render(
@@ -39,6 +41,7 @@ ReactDOM.createRoot(document.getElementById("app")).render(
         <Route path="/visalgo" element={<VisAlgo />} />
         <Route path="/testnext" element={<TestNext />} />
         <Route path="/testmcq" element={<TestMCQ />} />
+        <Route path="/testai" element={<TestAI />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

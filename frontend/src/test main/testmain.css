@@ -3,7 +3,8 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #160c25;
+    background-color: #160c25;  /* Dark background */
+    color: #ffffff;  /* Light text for contrast */
 }
 
 /* Header and Sidebar section */
@@ -24,11 +25,11 @@
     font-size: 50px;
     font-weight: bold;
     text-align: center;
-    color: #ffffff;  /* Darker text color for better readability */
+    color: #ffffff;  /* White text for better readability */
 }
 
 .rectangle {
-    background: rgba(218, 9, 9, 0.1);
+    background: rgba(218, 9, 9, 0.3); /* Slightly darker background */
     width: 100px;
     height: 2px;
     margin-right: 10px;
@@ -37,13 +38,11 @@
 .text-wrapper {
     font-size: 36px;
     font-weight: 700;
-    color: #8d7ea3;
-   
+    color: #d6afd9; /* Lighter purple shade for better contrast */
     text-align: center;
     text-transform: uppercase; /* Added text-transform for a more structured look */
     letter-spacing: 2px; /* Slight spacing between letters for a modern touch */
-   /* Underline effect */
-    padding-bottom: 15px; /* Improved contrast for readability */
+    padding-bottom: 15px; /* Added padding for an underline effect */
 }
 
 /* DSA Topics Section styles */
@@ -56,7 +55,7 @@
 }
 
 .rectangle-2, .rectangle-3, .rectangle-4, .rectangle-5, .rectangle-6, .rectangle-7, .rectangle-8, .rectangle-9 {
-    background: linear-gradient(135deg, #e0cde9, #bf9ff8a5);
+    background: linear-gradient(135deg, #6f42c1, #9b5de5);
     padding: 20px;
     width: 200px;
     height: 100px;
@@ -70,7 +69,7 @@
 }
 
 .rectangle-2:hover, .rectangle-3:hover, .rectangle-4:hover, .rectangle-5:hover, .rectangle-6:hover, .rectangle-7:hover, .rectangle-8:hover, .rectangle-9:hover {
-    background: linear-gradient(135deg, #a271d5ee, #dca9f5);
+    background: linear-gradient(135deg, #4c1d95, #8a47d0);
     transform: scale(1.05);
 }
 
@@ -78,7 +77,7 @@
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    color: #333;
+    color: #fff; /* White text on gradient rectangles for contrast */
 }
 
 /* "Or" Section */
@@ -96,29 +95,29 @@
 }
 
 .ai-test-button {
-    background: linear-gradient(135deg, #582d71, #9153eb);  /* Matching a sleek blue color */
+    background: linear-gradient(135deg, #7f4ab3, #9153eb); /* Matching a sleek purple-blue gradient */
     color: white;
-    padding: 18px 40px;  /* Increased padding for a more prominent button */
+    padding: 18px 40px;
     font-size: 18px;
-    font-weight: 600;  /* Bold text for better readability */
-    border-radius: 50px;  /* Rounded corners for a modern look */
+    font-weight: 600;
+    border-radius: 50px;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;  /* Smooth transition for hover effects */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);  /* Subtle shadow for depth */
-    margin-bottom: 20px;  /* Spacing from the text below */
-    text-transform: uppercase;  /* Making text uppercase for added impact */
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
 .ai-test-button:hover {
-    background: linear-gradient(135deg, #9153eb, #582d71); /* Darker blue shade on hover */
-    transform: translateY(-3px);  /* Slight raise effect on hover */
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);  /* Enhanced shadow for hover */
+    background: linear-gradient(135deg, #9153eb, #7f4ab3);
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 .ai-test-button:focus {
-    outline: none;  /* Remove focus outline for a cleaner look */
-    box-shadow: 0px 0px 0px 4px rgba(38, 143, 255, 0.5);  /* Light blue focus outline */
+    outline: none;
+    box-shadow: 0px 0px 0px 4px rgba(38, 143, 255, 0.5);
 }
 
 /* AI Description text */
@@ -126,7 +125,7 @@
     font-size: 16px;
     color: #ffffff;
     margin-top: 10px;
-    font-style: italic;  /* Added for a refined look */
+    font-style: italic;
 }
 
 /* Mobile responsiveness */
@@ -138,7 +137,7 @@
     .div {
         margin-left: 0;
         padding: 10px;
-        margin-top: 120px; /* Adjusted for mobile devices */
+        margin-top: 120px;
     }
 
     .group {

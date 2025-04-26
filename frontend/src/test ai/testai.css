@@ -1,0 +1,152 @@
+/* General container styles */
+.testai-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #160c25;  /* Dark background */
+    color: #ffffff;  /* Light text for contrast */
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Heading Section */
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #d6afd9; /* Lighter purple shade for contrast */
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Form Section */
+.input-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background for form */
+    border-radius: 10px;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 40px;
+}
+
+.input-form input,
+.input-form select {
+    background-color: #2c1f3b; /* Slightly darker input background */
+    color: #ffffff;
+    border: 1px solid #d6afd9;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.input-form input:focus,
+.input-form select:focus {
+    border-color: #7f4ab3;
+    outline: none;
+}
+
+.input-form button {
+    background: linear-gradient(135deg, #7f4ab3, #9153eb); /* Sleek purple-blue gradient */
+    color: white;
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.input-form button:hover {
+    background: linear-gradient(135deg, #9153eb, #7f4ab3);
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.input-form button:focus {
+    outline: none;
+    box-shadow: 0px 0px 0px 4px rgba(38, 143, 255, 0.5);
+}
+
+/* Label Styles for Inputs */
+label {
+    font-size: 18px;
+    margin-top: 15px;
+    color: #d6afd9;
+}
+
+/* Generated Questions Section */
+.questions-list {
+    margin-top: 40px;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.questions-list h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d6afd9;
+    margin-bottom: 20px;
+}
+
+.question-card {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly darker background for questions */
+    margin: 15px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.question-card p {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.question-card ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 16px;
+    color: #d6afd9;
+}
+
+.question-card li {
+    margin: 5px 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .testai-container {
+        padding: 10px;
+    }
+
+    .input-form {
+        padding: 20px;
+    }
+
+    .questions-list {
+        margin-top: 20px;
+    }
+
+    .input-form input,
+    .input-form select,
+    .input-form button {
+        width: 100%;
+    }
+
+    .question-card p {
+        font-size: 16px;
+    }
+
+    .question-card ul {
+        font-size: 14px;
+    }
+}
