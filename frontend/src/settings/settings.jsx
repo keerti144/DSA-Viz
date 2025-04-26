@@ -3,13 +3,18 @@ import femaleUser from "../assets/female-user.png";
 import Sidebar from "../sidebar/sidebar";
 import { useNavigate } from "react-router-dom";
 import "./settings.css";
+import { auth, signOut } from "../../firebase";  // Adjust path if needed
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
+import { updateProfile } from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from '../../firebase'; 
 
 export const Settings = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [name, setName] = useState("Username");
-  const [fullName, setFullName] = useState("John Doe");
-  const [email, setEmail] = useState("user@example.com");
-  const [phone, setPhone] = useState("+1 234 567 890");
+  const [name, setName] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
   const navigate = useNavigate();
 
@@ -21,6 +26,80 @@ export const Settings = () => {
     setIsDarkMode(!isDarkMode);
     document.body.classList.toggle("dark-mode");
   };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("User signed out successfully!");
+      navigate('/login');  // Redirect them to login page after logout
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+  
+  const handleSave = async () => {
+    try {
+      if (auth.currentUser) {
+        // Update Full Name in Authentication
+        await updateProfile(auth.currentUser, {
+          displayName: fullName,
+        });
+  
+        // Update Username separately in Firestore
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        await setDoc(userRef, {
+          username: name,
+        }, { merge: true });
+  
+        alert("Profile updated successfully!");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Failed to update profile.");
+    }
+  };
+  
+  
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const currentUser = auth.currentUser;
+      console.log("Current User:", currentUser);
+    
+      if (!currentUser) {
+        console.log("No user is signed in yet.");
+        return; // 🔥 Safely exit if no user
+      }
+    
+      const userDocRef = doc(db, "users", currentUser.uid);
+      const userDocSnap = await getDoc(userDocRef);
+    
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        setName(userData.username);
+        setFullName(userData.fullName);
+        setEmail(userData.email);
+      } else {
+        console.log("No user data found!");
+      }
+    };
+    
+
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        console.log("Current User:", currentUser);
+        setEmail(currentUser.email || "No Email");
+        setName(currentUser.displayName || "No Username");
+        setFullName(currentUser.displayName || "No Full Name");  // You can improve later
+      } else {
+        console.log("No user logged in.");
+      }
+    });
+    
+    fetchUserData(); // Fetch user data when component mounts
+
+    return () => unsubscribe(); // Cleanup listener on unmount
+  }, []);
+  
 
   return (
     <div className="settings">
@@ -35,7 +114,7 @@ export const Settings = () => {
           </button>
         </div>
         <div className="logo">AlgoRize</div>
-        <button className="signout-btn">Sign Out</button>
+        <button className="signout-btn" onClick={handleLogout}>Sign Out</button>
       </header>
 
       {/* Main Settings Section */}
@@ -75,14 +154,6 @@ export const Settings = () => {
             />
           </div>
 
-          <div className="settings-item">
-            <span>Phone Number</span>
-            <input
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
 
           <div className="settings-item">
             <span>Theme</span>
@@ -96,7 +167,7 @@ export const Settings = () => {
           </div>
 
           <div className="button-cover">
-            <button className="settings-btn">Change Password</button>
+            <button className="settings-btn" onClick={handleSave}>Save Changes</button>
           </div>
         </section>
       </main>
