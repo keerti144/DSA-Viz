@@ -1,0 +1,71 @@
+.visualizer-container {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+  overflow: hidden;
+}
+
+.visualizer-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background: linear-gradient(120deg, #3a3a5e, #2e2e4d);
+  border-right: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.visualizer-controls {
+  width: 300px;
+  background: #25253a;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.visualizer-controls h2 {
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.control-group label {
+  color: #bbb;
+  font-size: 1rem;
+}
+
+.control-group input[type="range"] {
+  width: 100%;
+  accent-color: #7b5eb4;
+}
+
+.buttons-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.start-button, .reset-button {
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #7b5eb4;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.start-button:hover, .reset-button:hover {
+  background-color: #9f80ff;
+}

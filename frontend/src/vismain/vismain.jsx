@@ -23,6 +23,8 @@ export const VisMain = () => {
             <button onClick={() => navigate("/visnext")}>Merge Sort</button>
             <button onClick={() => navigate("/visnext")}>Quick Sort</button>
             <button onClick={() => navigate("/visnext")}>Insertion Sort</button>
+            <button onClick={() => navigate("/visnext")}>Selection Sort</button>
+
           </div>
         </div>
 
