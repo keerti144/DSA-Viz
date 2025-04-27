@@ -1,32 +1,43 @@
+/* Overall Layout */
 .vis-next {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 80px;
+  flex-direction: row; /* Horizontal layout: Main content and Sidebar */
   background: #1c0b3a;
   height: 100vh;
   color: white;
-  text-align: center;
 }
 
-/* Main Box */
+/* Main Box (Visualization) */
 .main-box {
+  flex: 3; /* Takes 3/4th of the screen width */
   background: rgba(255, 255, 255, 0.1);
   padding: 30px;
   border-radius: 12px;
-  width: 600px;
   transition: transform 0.3s ease;
+  overflow-y: auto; /* Ensure content is scrollable if it overflows */
 }
 
 .main-box.collapsed {
   transform: scale(0.8);
 }
 
-/* Buttons */
+/* Toggle Container (Sidebar) */
+.toggle-container {
+  flex: 1; /* Takes 1/4th of the screen width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: #2b1a47;
+  height: 100vh;
+}
+
 .buttons-container {
   display: flex;
   gap: 15px;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-top: 20px;
 }
 
@@ -45,7 +56,7 @@
   transform: scale(1.05);
 }
 
-/* Extra Sections */
+/* Extra Sections for Code, Algorithm, and Explanation */
 .extra-section {
   background: rgba(255, 255, 255, 0.2);
   padding: 20px;

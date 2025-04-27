@@ -8,7 +8,7 @@ import Settings from "./settings/settings";
 import Help from "./help/help";
 import Community from "./community/community";
 import VisMain from "./vismain/vismain";
-import VisNext from "./visnext/visnext";
+import VisNext from "./visnext/visnext"; // ✅ Corrected: no {}
 import VisAlgo from "./visalgo/visalgo";
 import FlashcardsAndNotes from "./flashcardsandnotes/flashcardsandnotes";
 import Roadmap from "./roadmap/roadmap";
@@ -26,7 +26,7 @@ function App() {
         <Route path="/help" element={<Help />} />
         <Route path="/community" element={<Community />} />
         <Route path="/visualize" element={<VisMain />} />
-        <Route path="/visnext" element={<VisNext />} />
+        <Route path="/visnext/:algorithm" element={<VisNext />} /> {/* ✅ dynamic route */}
         <Route path="/visalgo" element={<VisAlgo />} />
         <Route path="/flashcards" element={<FlashcardsAndNotes />} />
         <Route path="/roadmap" element={<Roadmap />} />
