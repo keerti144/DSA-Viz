@@ -5,16 +5,19 @@
   background: #1c0b3a;
   height: 100vh;
   color: white;
+  padding-top: 60px; /* Account for header height */
 }
 
 /* Main Box (Visualization) */
 .main-box {
-  flex: 3; /* Takes 3/4th of the screen width */
+  flex: 75%; /* Takes 75% of the screen width */
   background: rgba(255, 255, 255, 0.1);
   padding: 30px;
   border-radius: 12px;
   transition: transform 0.3s ease;
   overflow-y: auto; /* Ensure content is scrollable if it overflows */
+  height: calc(100vh - 60px); /* Ensure the content doesn't go below the header */
+  margin-left: 5%; /* Shift the content to the right to make room for the sidebar */
 }
 
 .main-box.collapsed {
@@ -23,22 +26,28 @@
 
 /* Toggle Container (Sidebar) */
 .toggle-container {
-  flex: 1; /* Takes 1/4th of the screen width */
+  flex: 25%; /* Takes 25% of the screen width */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Align buttons to the top */
   align-items: center;
   padding: 20px;
   background: #2b1a47;
   height: 100vh;
+  position: sticky;
+  top: 60px; /* Account for header height */
 }
 
+/* Buttons Container */
 .buttons-container {
   display: flex;
-  gap: 15px;
   flex-direction: column;
+  gap: 15px;
   align-items: center;
   margin-top: 20px;
+  position: sticky;
+  top: 0;
+  width: 100%;
 }
 
 .toggle-btn {
@@ -50,10 +59,14 @@
   font-size: 16px;
   cursor: pointer;
   transition: transform 0.2s ease;
+  width: 100%;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .toggle-btn:hover {
   transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* Extra Sections for Code, Algorithm, and Explanation */
@@ -61,9 +74,10 @@
   background: rgba(255, 255, 255, 0.2);
   padding: 20px;
   border-radius: 12px;
-  width: 600px;
+  width: 100%;
   margin-top: 15px;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .algo-section {
