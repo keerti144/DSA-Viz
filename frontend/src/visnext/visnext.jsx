@@ -1,61 +1,79 @@
-import React, { useState } from "react";
-import Header from "../header/header";
-import Sidebar from "../sidebar/sidebar";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Header from "../header/header.jsx";
+import Sidebar from "../sidebar/sidebar.jsx";
 import "./visnext.css";
 
 export const VisNext = () => {
-  const [activeSection, setActiveSection] = useState(null); // Track selected section
+  const { algorithm } = useParams(); // Get the algorithm name from the URL
+  const [activeSection, setActiveSection] = useState("algo"); // Default to algorithm visualization
 
   const handleClick = (section) => {
-    if (activeSection === section) {
-      setActiveSection(null); // Close if already open
-    } else {
-      setActiveSection(section);
-    }
+    setActiveSection(section);
   };
+
+  useEffect(() => {
+    // You can fetch or render specific content based on the algorithm
+    console.log("Current algorithm:", algorithm);
+  }, [algorithm]);
 
   return (
     <div className="vis-next">
       <Header />
       <Sidebar />
 
-      <div className={`main-box ${activeSection ? "collapsed" : ""}`}>
-        <h1 className="title">Topic Name - Visualize</h1>
+      <div className="main-box">
+        <h1 className="title">{algorithm ? `${algorithm} Visualization` : "Algorithm Visualization"}</h1>
 
-        <div className="buttons-container">
-          <button className="toggle-btn" onClick={() => handleClick("algo")}>
-            Algorithm
-          </button>
-          <button className="toggle-btn" onClick={() => handleClick("code")}>
-            Code
-          </button>
-          <button className="toggle-btn" onClick={() => handleClick("exp")}>
-            Explanation
-          </button>
+        {/* Here you would render the algorithm visualization dynamically */}
+        <div className="visualization-container">
+          {/* Replace this with the actual visualization of the algorithm */}
+          <p>Visualization for {algorithm} goes here!</p>
         </div>
       </div>
 
-      {/* Conditionally Render Sections */}
-      {activeSection === "algo" && (
-        <div className="extra-section algo-section">
-          <h2>Algorithm Visualization</h2>
-          <p>Here, you can see a step-by-step simulation of the algorithm.</p>
-        </div>
-      )}
+      {/* Sidebar for toggling between code, algorithm, and explanation */}
+      <div className="toggle-container">
+        <button className="toggle-btn" onClick={() => handleClick("algo")}>
+          Algorithm
+        </button>
+        <button className="toggle-btn" onClick={() => handleClick("code")}>
+          Code
+        </button>
+        <button className="toggle-btn" onClick={() => handleClick("exp")}>
+          Explanation
+        </button>
 
-      {activeSection === "code" && (
-        <div className="extra-section code-section">
-          <h2>Code Implementation</h2>
-          <p>Here, you can view the code for the selected algorithm.</p>
-        </div>
-      )}
+        {/* Conditional rendering of content based on the active section */}
+        {activeSection === "algo" && (
+          <div className="extra-section">
+            <h2>{algorithm} Algorithm Visualization</h2>
+            {/* Insert the dynamic visualization for the selected algorithm */}
+            <p>Visualization for {algorithm} algorithm goes here.</p>
+          </div>
+        )}
 
-      {activeSection === "exp" && (
-        <div className="extra-section exp-section">
-          <h2>Explanation</h2>
-          <p>This section provides an in-depth explanation of the algorithm.</p>
-        </div>
-      )}
+        {activeSection === "code" && (
+          <div className="extra-section">
+            <h2>{algorithm} Code</h2>
+            {/* Insert code display for the selected algorithm */}
+            <pre>
+              {`// Example code for ${algorithm}`}
+              {/* Add actual code here */}
+            </pre>
+          </div>
+        )}
+
+        {activeSection === "exp" && (
+          <div className="extra-section">
+            <h2>{algorithm} Explanation</h2>
+            {/* Insert the explanation for the selected algorithm */}
+            <p>Explanation for {algorithm} algorithm goes here.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
+
+export default VisNext;
