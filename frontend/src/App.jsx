@@ -1,37 +1,46 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import StartPage from "./StartPage";
-import LoginPage from "./LoginPage";
-import SignupPage from "./SignupPage";
-import Homepage from "./homepage/homepage";
-import Dashboard from "./Dashboard";
-import Settings from "./settings/settings";
-import Help from "./help/help";
-import Community from "./community/community";
-import VisMain from "./vismain/vismain";
-import VisNext from "./visnext/visnext";
-import VisAlgo from "./visalgo/visalgo";
-import FlashcardsAndNotes from "./flashcardsandnotes/flashcardsandnotes";
-import Roadmap from "./roadmap/roadmap";
+import { Routes, Route } from "react-router-dom";
+
+import { StartPage } from "./startpage/startpage.jsx";
+import { Login } from "./login_page/login.jsx";
+import { SignUp } from "./sign_up/signup.jsx";
+
+import { Homepage } from "./homepage/homepage.jsx";
+import { DashboardOpen } from "./dashboard-open/dashboardopen.jsx";
+import { Settings } from "./settings/settings.jsx";
+import { Help } from "./help/help.jsx";
+import { Community } from "./community/community.jsx";
+
+import { VisMain } from "./vismain/vismain.jsx";
+import { VisNext } from "./visnext/visnext.jsx";
+import { VisAlgo } from "./visalgo/visalgo.jsx";
+
+import { FlashcardsAndNotes } from "./flashcardsandnotes/flashcardsandnotes.jsx";
+import { Roadmap } from "./roadmap/roadmap.jsx";
+
+import { TestMain } from "./test main/testmain.jsx";
+import { TestNext } from "./testnext/testnext.jsx";
+import { TestMCQ } from "./test mcq/testmcq.jsx";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<StartPage />} />
-        <Route path="/login_page" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/homepage" element={<Homepage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/help" element={<Help />} />
-        <Route path="/community" element={<Community />} />
-        <Route path="/visualize" element={<VisMain />} />
-        <Route path="/visnext" element={<VisNext />} />
-        <Route path="/visalgo" element={<VisAlgo />} />
-        <Route path="/flashcards" element={<FlashcardsAndNotes />} />
-        <Route path="/roadmap" element={<Roadmap />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<StartPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/homepage" element={<Homepage />} />
+      <Route path="/dashboard" element={<DashboardOpen />} />
+      <Route path="/settings" element={<Settings />} />
+      <Route path="/help" element={<Help />} />
+      <Route path="/community" element={<Community />} />
+      <Route path="/test" element={<TestMain />} />
+      <Route path="/visualize" element={<VisMain />} />
+      <Route path="/visnext/:algorithm" element={<VisNext />} /> {/* dynamic route */}
+      <Route path="/visalgo" element={<VisAlgo />} />
+      <Route path="/flashcards" element={<FlashcardsAndNotes />} />
+      <Route path="/roadmap" element={<Roadmap />} />
+      <Route path="/testnext" element={<TestNext />} />
+      <Route path="/testmcq" element={<TestMCQ />} />
+    </Routes>
   );
 }
 
