@@ -157,7 +157,7 @@ logging.basicConfig(level=logging.DEBUG)
 def login():
     try:
         data = request.json
-        logging.debug("Received login data:", data)
+        logging.debug("Received login data: %s", data)
         email = data.get('email')
         password = data.get('password')
 
@@ -218,6 +218,7 @@ def login():
         else:
             error_message = firebase_response.json().get("error", {}).get("message", "Login failed")
             logging.error("Firebase login failed: %s", error_message)  # Log the error for debugging
+            logging.error("Full Firebase response: %s", firebase_response.json())  # Add this for debugging
             return jsonify({"error": error_message}), 400
 
     except requests.exceptions.RequestException as e:
