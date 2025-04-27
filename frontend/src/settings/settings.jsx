@@ -9,22 +9,30 @@ import { useEffect } from "react";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from '../../firebase'; 
+import { query, collection, where, getDocs } from "firebase/firestore";
+import { getAuth } from "firebase/auth";  // at top of file if not already imported
 
 export const Settings = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [name, setName] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState(null); // Track user authentication state
   const navigate = useNavigate();
 
   const goBack = () => {
     navigate(-1);
   };
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    document.body.classList.toggle("dark-mode");
+
+  const checkUsernameExists = async (newUsername) => {
+    const q = query(collection(db, "users"), where("username", "==", newUsername));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return true; // Username already exists
+    }
+    return false;
   };
 
   const handleLogout = async () => {
@@ -38,69 +46,91 @@ export const Settings = () => {
   };
   
   const handleSave = async () => {
+    // Check if username already exists before saving
+    const usernameExists = await checkUsernameExists(name);
+    if (usernameExists) {
+      setErrorMessage("Username already exists. Please choose a different one.");
+      return;  // Exit the function if username exists
+    }
+
     try {
-      if (auth.currentUser) {
+      if (user) {
         // Update Full Name in Authentication
-        await updateProfile(auth.currentUser, {
-          displayName: fullName,
-        });
-  
+        await updateProfile(user, { displayName: fullName });
+
         // Update Username separately in Firestore
-        const userRef = doc(db, "users", auth.currentUser.uid);
+        const userRef = doc(db, "users", user.uid);
         await setDoc(userRef, {
+          fullName: fullName,
           username: name,
+          email: email,
         }, { merge: true });
-  
+
         alert("Profile updated successfully!");
+        setErrorMessage("");  // Clear error message if successful
       }
     } catch (error) {
       console.error(error);
-      alert("Failed to update profile.");
+      setErrorMessage("Failed to update profile.");
     }
   };
+
   
   
   useEffect(() => {
-    const fetchUserData = async () => {
-      const currentUser = auth.currentUser;
-      console.log("Current User:", currentUser);
+    const fetchUserData = async (uid) => {
+      console.log("Fetching user data for UID:", uid);  // Log when fetching user data
+      try {
+        const userDocRef = doc(db, "users", uid);
+        const userDocSnap = await getDoc(userDocRef);
     
-      if (!currentUser) {
-        console.log("No user is signed in yet.");
-        return; // 🔥 Safely exit if no user
-      }
-    
-      const userDocRef = doc(db, "users", currentUser.uid);
-      const userDocSnap = await getDoc(userDocRef);
-    
-      if (userDocSnap.exists()) {
-        const userData = userDocSnap.data();
-        setName(userData.username);
-        setFullName(userData.fullName);
-        setEmail(userData.email);
-      } else {
-        console.log("No user data found!");
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          console.log("Fetched userData:", userData);  // Log fetched user data
+          setName(userData.username || "");
+          setFullName(userData.fullName || "");
+          setEmail(userData.email || "");
+        } else {
+          console.log("No user data found in Firestore!");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);  // Log any errors
       }
     };
-    
 
+    const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log("Auth state changed:", currentUser); // Log auth state
       if (currentUser) {
-        console.log("Current User:", currentUser);
-        setEmail(currentUser.email || "No Email");
-        setName(currentUser.displayName || "No Username");
-        setFullName(currentUser.displayName || "No Full Name");  // You can improve later
+        console.log("Current auth user:", currentUser);
+        setUser(currentUser);  // Set user in state
+  
+        // Fetch user data from Firestore
+        fetchUserData(currentUser.uid);
       } else {
-        console.log("No user logged in.");
+        console.log("No user signed in. Checking localStorage.");
+  
+        // If no Firebase user, check localStorage for user data
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user) {
+          console.log("Logged-in user from localStorage:", user);
+          setUser(user);  // Set user from localStorage
+  
+          // Fetch user data from Firestore using localStorage user UID
+          fetchUserData(user.uid);
+        } else {
+          console.log("No user info found in localStorage. Redirecting to login.");
+          navigate('/login');
+        }
       }
     });
-    
-    fetchUserData(); // Fetch user data when component mounts
-
-    return () => unsubscribe(); // Cleanup listener on unmount
-  }, []);
   
-
+    // Cleanup the listener when the component is unmounted
+    return () => unsubscribe();
+  }, [navigate]);
+  
+  
+  
   return (
     <div className="settings">
       {/* Sidebar */}
@@ -150,12 +180,12 @@ export const Settings = () => {
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              readOnly
             />
           </div>
 
 
-          <div className="settings-item">
+          {/*<div className="settings-item">
             <span>Theme</span>
             <div className="toggle-container">
               <label className="switch">
@@ -164,7 +194,10 @@ export const Settings = () => {
               </label>
               <span className="toggle-label">{isDarkMode ? "Dark Mode" : "Light Mode"}</span>
             </div>
-          </div>
+          </div> */}
+
+          {/* Display error message if username exists */}
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
 
           <div className="button-cover">
             <button className="settings-btn" onClick={handleSave}>Save Changes</button>
