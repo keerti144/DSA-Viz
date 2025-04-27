@@ -4,7 +4,7 @@ import Header from "../header/header.jsx";
 import Sidebar from "../sidebar/sidebar.jsx";
 import "./visnext.css";
 
-const VisNext = () => {
+export const VisNext = () => {
   const { algorithm } = useParams(); // Get the algorithm name from the URL
   const [activeSection, setActiveSection] = useState("algo"); // Default to algorithm visualization
 
