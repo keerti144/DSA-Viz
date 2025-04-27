@@ -11,6 +11,7 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key")  # Default value if missing
     DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1")  # Converts string to boolean
     FIREBASE_CREDENTIALS_PATH = os.getenv("FIREBASE_CREDENTIALS_PATH")
+    FIREBASE_API_KEY = os.getenv("FIREBASE_API_KEY")
 
     # Ensure the credentials file exists
     if not FIREBASE_CREDENTIALS_PATH or not os.path.exists(FIREBASE_CREDENTIALS_PATH):

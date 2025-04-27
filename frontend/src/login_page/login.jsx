@@ -1,21 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import Navbar from "../navbar1/Navbar.jsx";
 import GoogleLoginButton from "../sign_up/googlesignup";
 import "../sign_up/signup.css"
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
 
 export const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState(""); // fixed name (not username)
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null); // Add a state to track user
+  const auth = getAuth(); // Initialize Firebase Auth
+  const navigate = useNavigate(); // For programmatic navigation
 
-  const handleLogin = () => {
-    console.log("Logging in with:", username, password);
-    // Add login logic here
+
+  
+  useEffect(() => {
+    // Listen for authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("Current auth user:", user);
+        setUser(user); // Store user in state
+      } else {
+        console.log("No user signed in");
+      }
+    });
+    
+    // Cleanup the listener on unmount
+    return () => unsubscribe();
+  }, [auth]);
+
+  const handleLogin = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        console.log("Login success:", data);
+        
+        // Save user info in localStorage
+        localStorage.setItem("user", JSON.stringify(data.user));
+        console.log("User info saved in localStorage:", data.user);
+        
+        // Redirect to homepage/dashboard after successful login
+        navigate("/homepage"); // Use navigate for redirection
+      } else {
+        console.error("Login failed:", data.error);
+        alert(data.error);
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (
     <div className="login-container">
-      {/* Importing Navbar */}
       <Navbar />
 
       <div className="login-box">
@@ -26,8 +73,8 @@ export const Login = () => {
           <input
             type="text"
             placeholder="Enter email"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
@@ -47,10 +94,10 @@ export const Login = () => {
 
         <br />
         <br />
-        {/* Social Logins */}
-        <button className="social-button">
+
+        {/*Google Sign-In Button*/}
           <GoogleLoginButton />
-         </button>
+        
 
         <p className="signup-text">
           Create a new account?{" "}

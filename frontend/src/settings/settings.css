@@ -139,6 +139,13 @@ body.dark-mode {
   color: white;
 }
 
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
 /* Dark Mode Toggle */
 .toggle-container {
   display: flex;
@@ -191,3 +198,5 @@ body.dark-mode {
 .settings-btn:hover {
   background: #888;
 }
+
+
