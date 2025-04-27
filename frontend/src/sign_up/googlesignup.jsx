@@ -14,6 +14,8 @@ const GoogleLoginButton = () => {
       console.log("Google Sign-In Initiated...");  // Debugging
 
       const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' }); // Force account picker
+
       const result = await signInWithPopup(auth, provider);
       const user = result.user;  // Get user info from result
 
@@ -24,7 +26,7 @@ const GoogleLoginButton = () => {
         idToken: await user.getIdToken()
       }));
 
-      
+
       console.log("Firebase Sign-In Successful!", result);  // Debugging
 
       const token = await result.user.getIdToken();

@@ -5,6 +5,7 @@ import GoogleLoginButton from "../sign_up/googlesignup";
 import "../sign_up/signup.css"
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";  // ADD this import at top
 
 
 export const Login = () => {
@@ -14,49 +15,17 @@ export const Login = () => {
   const auth = getAuth(); // Initialize Firebase Auth
   const navigate = useNavigate(); // For programmatic navigation
 
-
-  
-  useEffect(() => {
-    // Listen for authentication state changes
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("Current auth user:", user);
-        setUser(user); // Store user in state
-      } else {
-        console.log("No user signed in");
-      }
-    });
-    
-    // Cleanup the listener on unmount
-    return () => unsubscribe();
-  }, [auth]);
-
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent default form submission
     try {
-      const res = await fetch("http://localhost:5000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        console.log("Login success:", data);
-        
-        // Save user info in localStorage
-        localStorage.setItem("user", JSON.stringify(data.user));
-        console.log("User info saved in localStorage:", data.user);
-        
-        // Redirect to homepage/dashboard after successful login
-        navigate("/homepage"); // Use navigate for redirection
-      } else {
-        console.error("Login failed:", data.error);
-        alert(data.error);
-      }
+      console.log("Trying to login with:", { email, password });
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("Login successful!");
+      // Redirect to homepage after successful login
+      navigate("/homepage"); // Redirect to homepage
     } catch (error) {
       console.error("Error logging in:", error);
+      console.log(error.message);
       alert("Something went wrong. Please try again.");
     }
   };
@@ -71,7 +40,7 @@ export const Login = () => {
         <div className="input-group">
           <label>Email</label>
           <input
-            type="text"
+            type="email"
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
