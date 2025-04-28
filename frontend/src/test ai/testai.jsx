@@ -10,6 +10,8 @@ export const TestAI = () => {
   const [timeSpent, setTimeSpent] = useState(60);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [answers, setAnswers] = useState([]); // Store selected answers
+  const [score, setScore] = useState(0); // Track score
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,7 +28,6 @@ export const TestAI = () => {
         case "stressLevel":
           setStressLevel(value);
           break;
-       
         case "timeSpent":
           setTimeSpent(Number(value));
           break;
@@ -39,8 +40,15 @@ export const TestAI = () => {
     }
   };
 
+  const handleAnswerChange = (questionIndex, selectedOption) => {
+    const newAnswers = [...answers];
+    newAnswers[questionIndex] = selectedOption;
+    setAnswers(newAnswers);
+  };
+
   const handleSubmit = async () => {
     setLoading(true);
+    setScore(0); // Reset score before generating new questions
     try {
       const response = await fetch('http://localhost:5000/generate-questions', {
         method: 'POST',
@@ -58,11 +66,22 @@ export const TestAI = () => {
       });
       const data = await response.json();
       setQuestions(data.questions || []);
+      setAnswers(new Array(data.questions.length).fill('')); // Initialize answers
     } catch (error) {
       console.error('Error fetching questions:', error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleScoreCalculation = () => {
+    let newScore = 0;
+    questions.forEach((q, index) => {
+      if (answers[index] === q.correctAnswer) {
+        newScore += 1; // Increment score for correct answers
+      }
+    });
+    setScore(newScore);
   };
 
   return (
@@ -105,7 +124,6 @@ export const TestAI = () => {
           </select>
         </label>
 
-       
         <label>
           Time (minutes)
           <input 
@@ -138,13 +156,59 @@ export const TestAI = () => {
           <div key={index} className="question-card">
             <p><strong>Q{index + 1}:</strong> {q.question}</p>
             <ul>
-              <li>A. {q.options.A}</li>
-              <li>B. {q.options.B}</li>
-              <li>C. {q.options.C}</li>
-              <li>D. {q.options.D}</li>
+              <li>
+                <input 
+                  type="radio" 
+                  id={`optionA-${index}`} 
+                  name={`question-${index}`} 
+                  value="A" 
+                  checked={answers[index] === 'A'} 
+                  onChange={() => handleAnswerChange(index, 'A')} 
+                />
+                <label htmlFor={`optionA-${index}`}>A. {q.options.A}</label>
+              </li>
+              <li>
+                <input 
+                  type="radio" 
+                  id={`optionB-${index}`} 
+                  name={`question-${index}`} 
+                  value="B" 
+                  checked={answers[index] === 'B'} 
+                  onChange={() => handleAnswerChange(index, 'B')} 
+                />
+                <label htmlFor={`optionB-${index}`}>B. {q.options.B}</label>
+              </li>
+              <li>
+                <input 
+                  type="radio" 
+                  id={`optionC-${index}`} 
+                  name={`question-${index}`} 
+                  value="C" 
+                  checked={answers[index] === 'C'} 
+                  onChange={() => handleAnswerChange(index, 'C')} 
+                />
+                <label htmlFor={`optionC-${index}`}>C. {q.options.C}</label>
+              </li>
+              <li>
+                <input 
+                  type="radio" 
+                  id={`optionD-${index}`} 
+                  name={`question-${index}`} 
+                  value="D" 
+                  checked={answers[index] === 'D'} 
+                  onChange={() => handleAnswerChange(index, 'D')} 
+                />
+                <label htmlFor={`optionD-${index}`}>D. {q.options.D}</label>
+              </li>
             </ul>
           </div>
         ))}
+        {questions.length > 0 && (
+          <button onClick={handleScoreCalculation}>
+            Calculate Score
+          </button>
+        )}
+        {score > 0 && <h3>Your Score: {score} / {questions.length}</h3>}
       </div>
     </div>
   );

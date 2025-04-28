@@ -27,6 +27,7 @@ def get_custom_questions(user_input):
                 
                 
                 Ensure each question has 4 options (A, B, C, D) and specify the correct answer.
+                make sure that the questions generated are based on the difficulty levels specified by the users, so if the energy level is high then suggest harder questions and if stress level is low suggest more critical thinking questions. also make the questions related to computer science.
             """}
         ],
         "temperature": 0.7
