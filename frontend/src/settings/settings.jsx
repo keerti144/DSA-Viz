@@ -20,6 +20,7 @@ export const Settings = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState(null); // Track user authentication state
   const navigate = useNavigate();
+  
 
   const goBack = () => {
     navigate(-1);

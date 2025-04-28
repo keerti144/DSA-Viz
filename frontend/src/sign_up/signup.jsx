@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar1/Navbar.jsx";
-import { auth } from "../../firebase"; // Import Firebase auth
+import { auth, db } from "../../firebase"; // Import Firebase auth
 import { createUserWithEmailAndPassword } from "firebase/auth"; // Import the Firebase method
 import GoogleLoginButton from "./googlesignup";  
 import "./signup.css";
+import { doc, setDoc } from "firebase/firestore";
+
+
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -25,10 +28,12 @@ export const SignUp = () => {
 
   // Function to check if username exists (this should be implemented on your backend)
   const checkUsernameExists = async (username) => {
-    // Make an API request to your backend to check if the username exists
-    const response = await fetch(`http://localhost:5000/auth/check-username?username=${username}`);
-    const data = await response.json();
-    return data.exists; // Assuming the response contains { exists: true/false }
+    const q = query(collection(db, "users"), where("username", "==", username));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return true; // Username already exists
+    }
+    return false;
   };
 
   const handleSubmit = async (e) => {
@@ -54,56 +59,26 @@ export const SignUp = () => {
       } else {
         setUsernameError(""); // Clear previous error
       }
-
-       // Sending user data to your backend API
-       const response = await fetch("http://localhost:5000/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-          username: formData.username,  // Send the username to the backend
-          fullName: formData.fullName,  // Send full name to the backend
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log("User created successfully!", data);
-
-        localStorage.setItem("user", JSON.stringify({
-          uid: data.user.uid,
-          email: data.user.email,
-          idToken: data.user.idToken
-        }));
-        // Save user info in localStorage
-        // Redirect to the homepage or dashboard after sign-up
-        navigate("/homepage");
-      } else {
-        console.error("Signup failed:", data.error);
-        setErrorMessage(data.error || "An error occurred. Please try again.");
-      }
-
-
-
-      {/*
-      // Create user with email and password
-      const result = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      console.log("User created successfully!", result);
-
-      // Get ID token if needed
-      const token = await result.user.getIdToken();
-      console.log("Token: ", token);
       
-      // Redirect to the home page or dashboard after sign-up
-      navigate("/homepage");
-      */}
+      await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      const user = auth.currentUser; // Get the current user
+      console.log("User created successfully!", user);
+
+      navigate("/homepage"); // Redirect to homepage after successful signup
+      if (user) {
+        await setDoc(doc(db, "users", user.uid), {
+          uid: user.uid,
+          fullName: formData.fullName,
+          username: formData.username,
+          email: formData.email,
+        });
+      }
+        console.log("User data saved to Firestore successfully!");
+
     } catch (error) {
       // Firebase error handling
       console.error("Error during signup error:", error);
+      console.log(error.message);
       switch (error.code) {
         case "auth/email-already-in-use":
           setErrorMessage("Email already in use.");
