@@ -5,7 +5,7 @@ import { auth, db } from "../../firebase"; // Import Firebase auth
 import { createUserWithEmailAndPassword } from "firebase/auth"; // Import the Firebase method
 import GoogleLoginButton from "./googlesignup";  
 import "./signup.css";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, query, where, getDoc, doc, setDoc } from "firebase/firestore";
 
 
 
@@ -28,12 +28,15 @@ export const SignUp = () => {
 
   // Function to check if username exists (this should be implemented on your backend)
   const checkUsernameExists = async (username) => {
-    const q = query(collection(db, "users"), where("username", "==", username));
-    const querySnapshot = await getDocs(q);
-    if (!querySnapshot.empty) {
-      return true; // Username already exists
+    try {
+      const q = query(collection(db, "users"), where("username", "==", username));
+      const querySnapshot = await getDocs(q);
+  
+      return !querySnapshot.empty; // If any document matches, username exists
+    } catch (error) {
+      console.error("Error checking username:", error);
+      return false; // To avoid blocking signup if error occurs
     }
-    return false;
   };
 
   const handleSubmit = async (e) => {
