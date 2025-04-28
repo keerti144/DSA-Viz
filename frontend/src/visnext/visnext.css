@@ -1,93 +1,139 @@
 /* Overall Layout */
 .vis-next {
   display: flex;
-  flex-direction: row; /* Horizontal layout: Main content and Sidebar */
+  flex-direction: row;
   background: #1c0b3a;
   height: 100vh;
   color: white;
   padding-top: 60px; /* Account for header height */
+  overflow: hidden;
 }
 
 /* Main Box (Visualization) */
 .main-box {
-  flex: 75%; /* Takes 75% of the screen width */
-  background: rgba(255, 255, 255, 0.1);
+  flex: 75%;
+  background: rgba(255, 255, 255, 0.08);
   padding: 30px;
   border-radius: 12px;
-  transition: transform 0.3s ease;
-  overflow-y: auto; /* Ensure content is scrollable if it overflows */
-  height: calc(100vh - 60px); /* Ensure the content doesn't go below the header */
-  margin-left: 5%; /* Shift the content to the right to make room for the sidebar */
+  height: calc(100vh - 60px); /* Subtract the header height */
+  margin-left: 5%;
+  position: relative;
 }
 
-.main-box.collapsed {
-  transform: scale(0.8);
+.title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-/* Toggle Container (Sidebar) */
+/* Visualization Container */
+.visualization-container {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Sidebar (Toggle Container) */
 .toggle-container {
-  flex: 25%; /* Takes 25% of the screen width */
+  flex: 25%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align buttons to the top */
-  align-items: center;
   padding: 20px;
   background: #2b1a47;
-  height: 100vh;
+  height: 100vh; /* Full viewport height */
   position: sticky;
-  top: 60px; /* Account for header height */
+  top: 60px; /* Keep the sidebar fixed while scrolling */
+  gap: 15px; /* Spacing between sections */
 }
 
-/* Buttons Container */
+/* Buttons Container (Horizontal) */
 .buttons-container {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  flex-direction: row; /* Ensure buttons are horizontal */
+  gap: 7px;
   align-items: center;
-  margin-top: 20px;
-  position: sticky;
-  top: 0;
+  justify-content: flex-start;
   width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
+/* Toggle Buttons */
 .toggle-btn {
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  background: linear-gradient(135deg, #8a2be2, #4facfe);
   border: none;
   color: white;
-  padding: 12px 20px;
+  padding: 8px 14px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   transition: transform 0.2s ease;
-  width: 100%;
-  margin-bottom: 15px;
+  width: auto;
+  text-align: center;
+  flex: 0 0 auto;
+  flex-shrink: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .toggle-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Extra Sections for Code, Algorithm, and Explanation */
+/* Extra Section Styling (Code, Algorithm, Explanation) */
 .extra-section {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 20px;
-  border-radius: 12px;
-  width: 100%;
-  margin-top: 15px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 10px; /* Adjusted to bring text closer to the buttons */
+  height: 60vh; /* Limit height for content to allow scrolling */
+  overflow-y: auto; /* Enable scrolling inside this section */
+  padding-right: 10px; /* Prevent horizontal scrollbar */
 }
 
-.algo-section {
-  background: #ff9a9e;
+pre {
+  background: #333;
+  padding: 10px;
+  border-radius: 8px;
+  font-family: "Courier New", monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
-.code-section {
+h2 {
+  color: #fff;
+  font-size: 20px;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 16px;
+  color: #ddd;
+  line-height: 1.6;
+  margin-top: 0; /* Remove extra margin */
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2b1a47;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8a2be2;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
   background: #4facfe;
-}
-
-.exp-section {
-  background: #fad0c4;
 }
