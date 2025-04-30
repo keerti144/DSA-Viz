@@ -64,11 +64,10 @@ export const VisMain = () => {
           <div className="button-grid">
             <button onClick={() => navigate("/visnext/singlylinkedlist")}>Singly Linked List</button>
             <button onClick={() => navigate("/visnext/doublylinkedlist")}>Doubly Linked List</button>
-            <button onClick={() => navigate("/visnext/circularlinkedlist")}>Circular Linked List</button>
-            <button onClick={() => navigate("/visnext/reverselinkedlist")}>Reverse Linked List</button>
+            <button onClick={() => navigate("/visnext/circularsinglylinkedlist")}>Circular Singly Linked List</button>
+            <button onClick={() => navigate("/visnext/circulardoublylinkedlist")}>Circular Doubly Linked List</button>
           </div>
         </div>
-
       </div>
     </div>
   );
