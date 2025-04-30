@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import LinkedListControls from "../LinkedListControls";
+import LinkedListControls from "../LinkedListControls"; // reusing your controls
+import LinkedListDisplay from "../LinkedListDisplay";   // or you can create a custom display for circular doubly
 
 class Node {
   constructor(value) {
@@ -9,7 +10,7 @@ class Node {
   }
 }
 
-class DoublyLinkedList {
+class CircularDoublyLinkedList {
   constructor() {
     this.head = null;
   }
@@ -17,9 +18,14 @@ class DoublyLinkedList {
   insertFront(value) {
     const newNode = new Node(value);
     if (!this.head) {
+      newNode.next = newNode;
+      newNode.prev = newNode;
       this.head = newNode;
     } else {
+      const tail = this.head.prev;
       newNode.next = this.head;
+      newNode.prev = tail;
+      tail.next = newNode;
       this.head.prev = newNode;
       this.head = newNode;
     }
@@ -28,68 +34,66 @@ class DoublyLinkedList {
   insertBack(value) {
     const newNode = new Node(value);
     if (!this.head) {
+      newNode.next = newNode;
+      newNode.prev = newNode;
       this.head = newNode;
     } else {
-      let current = this.head;
-      while (current.next) {
-        current = current.next;
-      }
-      current.next = newNode;
-      newNode.prev = current;
+      const tail = this.head.prev;
+      newNode.next = this.head;
+      newNode.prev = tail;
+      tail.next = newNode;
+      this.head.prev = newNode;
     }
   }
 
   deleteFront() {
     if (!this.head) return;
-    if (!this.head.next) {
+    if (this.head.next === this.head) {
       this.head = null;
     } else {
+      const tail = this.head.prev;
       this.head = this.head.next;
-      this.head.prev = null;
+      this.head.prev = tail;
+      tail.next = this.head;
     }
   }
 
   deleteBack() {
     if (!this.head) return;
-    if (!this.head.next) {
+    const tail = this.head.prev;
+    if (tail === this.head) {
       this.head = null;
     } else {
-      let current = this.head;
-      while (current.next) {
-        current = current.next;
-      }
-      current.prev.next = null;
+      const newTail = tail.prev;
+      newTail.next = this.head;
+      this.head.prev = newTail;
     }
   }
 
   reverse() {
-    if (!this.head || !this.head.next) return;
+    if (!this.head || this.head.next === this.head) return;
     let current = this.head;
-    let temp = null;
-    while (current) {
-      temp = current.prev;
-      current.prev = current.next;
-      current.next = temp;
+    do {
+      [current.next, current.prev] = [current.prev, current.next];
       current = current.prev;
-    }
-    if (temp) {
-      this.head = temp.prev;
-    }
+    } while (current !== this.head);
+    this.head = this.head.next;
   }
 
   toArray() {
     const result = [];
+    if (!this.head) return result;
     let current = this.head;
-    while (current) {
+    do {
       result.push(current.value);
       current = current.next;
-    }
+    } while (current !== this.head);
     return result;
   }
 }
 
-const DoublyLinkedListVisualizer = () => {
-  const [list] = useState(new DoublyLinkedList());
+const CircularDoublyLinkedListVisualizer = () => {
+  const [list] = useState(new CircularDoublyLinkedList());
   const [nodes, setNodes] = useState([]);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -138,12 +142,8 @@ const DoublyLinkedListVisualizer = () => {
           nodes.map((node, index) => (
             <div key={index} className="node">
               {node}
-              {index !== nodes.length - 1 && (
-                <>
-                  <span className="arrow-right">→</span>
-                  <span className="arrow-left">←</span>
-                </>
-              )}
+              <span className="arrow-right">→</span>
+              <span className="arrow-left">←</span>
             </div>
           ))
         ) : (
@@ -151,6 +151,7 @@ const DoublyLinkedListVisualizer = () => {
         )}
       </div>
 
+      {/* Styles inline */}
       <style>
         {`
           .visualizer-container {
@@ -203,4 +204,4 @@ const DoublyLinkedListVisualizer = () => {
   );
 };
 
-export default DoublyLinkedListVisualizer;
+export default CircularDoublyLinkedListVisualizer;

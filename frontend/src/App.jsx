@@ -21,6 +21,14 @@ import { TestMain } from "./test main/testmain.jsx";
 import { TestNext } from "./testnext/testnext.jsx";
 import { TestMCQ } from "./test mcq/testmcq.jsx";
 
+import SinglyLinkedListVisualizer from "./components/visualizations/linkedlists/singlylinkedlist/singlylinkedlist.jsx";
+import CircularSinglyLinkedListVisualizer from "./components/visualizations/linkedlists/circularsinglylinkedlist/circularsinglylinkedlist.jsx";
+import DoublyLinkedListVisualizer from "./components/visualizations/linkedlists/doublylinkedlist/doublylinkedlist.jsx";
+import CircularDoublyLinkedListVisualizer from "./components/visualizations/linkedlists/circulardoublylinkedlist/circulardoublylinkedlist.jsx";
+
+
+
+
 function App() {
   return (
     <Routes>
@@ -40,6 +48,14 @@ function App() {
       <Route path="/roadmap" element={<Roadmap />} />
       <Route path="/testnext" element={<TestNext />} />
       <Route path="/testmcq" element={<TestMCQ />} />
+
+      <Route path = "/visnext/singlylinkedlist" element={<SinglyLinkedListVisualizer />} />
+      <Route path = "/visnext/circularsinglylinkedlist" element={<CircularSinglyLinkedListVisualizer />} />
+      <Route path = "/visnext/doublylinkedlist" element={<DoublyLinkedListVisualizer />} />
+      <Route path = '/visnext/cirulardoublylinkedlist' element={<CircularDoublyLinkedListVisualizer />} />
+
+      
+
     </Routes>
   );
 }

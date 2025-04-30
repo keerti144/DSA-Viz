@@ -5,11 +5,10 @@ class Node {
   constructor(value) {
     this.value = value;
     this.next = null;
-    this.prev = null;
   }
 }
 
-class DoublyLinkedList {
+class CircularSinglyLinkedList {
   constructor() {
     this.head = null;
   }
@@ -17,10 +16,15 @@ class DoublyLinkedList {
   insertFront(value) {
     const newNode = new Node(value);
     if (!this.head) {
+      newNode.next = newNode;
       this.head = newNode;
     } else {
+      let tail = this.head;
+      while (tail.next !== this.head) {
+        tail = tail.next;
+      }
       newNode.next = this.head;
-      this.head.prev = newNode;
+      tail.next = newNode;
       this.head = newNode;
     }
   }
@@ -28,68 +32,75 @@ class DoublyLinkedList {
   insertBack(value) {
     const newNode = new Node(value);
     if (!this.head) {
+      newNode.next = newNode;
       this.head = newNode;
     } else {
-      let current = this.head;
-      while (current.next) {
-        current = current.next;
+      let tail = this.head;
+      while (tail.next !== this.head) {
+        tail = tail.next;
       }
-      current.next = newNode;
-      newNode.prev = current;
+      tail.next = newNode;
+      newNode.next = this.head;
     }
   }
 
   deleteFront() {
     if (!this.head) return;
-    if (!this.head.next) {
+    if (this.head.next === this.head) {
       this.head = null;
     } else {
+      let tail = this.head;
+      while (tail.next !== this.head) {
+        tail = tail.next;
+      }
       this.head = this.head.next;
-      this.head.prev = null;
+      tail.next = this.head;
     }
   }
 
   deleteBack() {
     if (!this.head) return;
-    if (!this.head.next) {
+    if (this.head.next === this.head) {
       this.head = null;
     } else {
       let current = this.head;
-      while (current.next) {
+      while (current.next.next !== this.head) {
         current = current.next;
       }
-      current.prev.next = null;
+      current.next = this.head;
     }
   }
 
   reverse() {
-    if (!this.head || !this.head.next) return;
+    if (!this.head || this.head.next === this.head) return;
+    let prev = null;
     let current = this.head;
-    let temp = null;
-    while (current) {
-      temp = current.prev;
-      current.prev = current.next;
-      current.next = temp;
-      current = current.prev;
-    }
-    if (temp) {
-      this.head = temp.prev;
-    }
+    let next = null;
+    const start = this.head;
+    do {
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    } while (current !== start);
+    start.next = prev;
+    this.head = prev;
   }
 
   toArray() {
     const result = [];
+    if (!this.head) return result;
     let current = this.head;
-    while (current) {
+    do {
       result.push(current.value);
       current = current.next;
-    }
+    } while (current !== this.head);
     return result;
   }
 }
 
-const DoublyLinkedListVisualizer = () => {
-  const [list] = useState(new DoublyLinkedList());
+const CircularSinglyLinkedListVisualizer = () => {
+  const [list] = useState(new CircularSinglyLinkedList());
   const [nodes, setNodes] = useState([]);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -138,12 +149,7 @@ const DoublyLinkedListVisualizer = () => {
           nodes.map((node, index) => (
             <div key={index} className="node">
               {node}
-              {index !== nodes.length - 1 && (
-                <>
-                  <span className="arrow-right">→</span>
-                  <span className="arrow-left">←</span>
-                </>
-              )}
+              <span className="arrow">→</span>
             </div>
           ))
         ) : (
@@ -175,17 +181,9 @@ const DoublyLinkedListVisualizer = () => {
             min-width: 50px;
             text-align: center;
           }
-          .arrow-right {
+          .arrow {
             position: absolute;
             right: -20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            color: #4b5563;
-          }
-          .arrow-left {
-            position: absolute;
-            left: -20px;
             top: 50%;
             transform: translateY(-50%);
             font-size: 18px;
@@ -203,4 +201,4 @@ const DoublyLinkedListVisualizer = () => {
   );
 };
 
-export default DoublyLinkedListVisualizer;
+export default CircularSinglyLinkedListVisualizer;

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import Button from "../../ui/Button";
 import getBubbleSort from "./getbubblesort";
-import { BackButton } from "../../ui/BackButton";
+import { BackButton } from "../../../ui/BackButton";
 import classes from "../../Sort.module.css";
 
 const BubbleSort = () => {
