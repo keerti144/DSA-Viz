@@ -27,7 +27,7 @@ const LinkedListControls = ({
   return (
     <>
       <div className="controls-container">
-        <h3 className="controls-title">List Controls</h3>
+        <h3 className="controls-title">Linked List Controls</h3>
 
         <div className="controls-row">
           <label>Insert at Front</label>
@@ -84,47 +84,52 @@ const LinkedListControls = ({
         </button>
       </div>
 
-      {/* Inline Style Tag */}
       <style>
         {`
           .controls-container {
-            background-color: #f3f4f6;
-            padding: 16px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            background-color: #1f2937;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            color: #f8fafc;
+            max-width: 500px;
+            margin-bottom: 20px;
           }
 
           .controls-title {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            color: #93c5fd;
           }
 
           .controls-row {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             margin-bottom: 16px;
           }
 
           .input-field {
             flex: 1;
             padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            background-color: #334155;
+            color: #f1f5f9;
           }
 
           .insert-button {
-            background-color: #3b82f6;
+            background-color: #22c55e;
             color: white;
             padding: 8px 12px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
           }
 
           .insert-button:disabled {
-            background-color: #93c5fd;
+            background-color: #86efac;
             cursor: not-allowed;
           }
 
@@ -134,7 +139,7 @@ const LinkedListControls = ({
             color: white;
             padding: 8px 12px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
           }
 
@@ -145,16 +150,16 @@ const LinkedListControls = ({
 
           .reverse-button {
             width: 100%;
-            background-color: #374151;
+            background-color: #3b82f6;
             color: white;
             padding: 8px 12px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
           }
 
           .reverse-button:disabled {
-            background-color: #9ca3af;
+            background-color: #93c5fd;
             cursor: not-allowed;
           }
         `}
