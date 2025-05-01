@@ -26,8 +26,10 @@ const SinglyLinkedListVisualizer = () => {
   };
 
   return (
-    <div className="visualizer">
-      <h2>Singly Linked List</h2>
+    <div style={{ padding: "2rem", backgroundColor: "#0f172a", minHeight: "100vh" }}>
+      <h2 style={{ color: "#f8fafc", fontSize: "2rem", marginBottom: "1rem" }}>
+        Singly Linked List
+      </h2>
 
       <LinkedListControls
         onInsertFront={insertFront}

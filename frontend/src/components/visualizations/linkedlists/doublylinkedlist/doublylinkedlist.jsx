@@ -1,204 +1,48 @@
 import React, { useState } from "react";
 import LinkedListControls from "../LinkedListControls";
-
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.next = null;
-    this.prev = null;
-  }
-}
-
-class DoublyLinkedList {
-  constructor() {
-    this.head = null;
-  }
-
-  insertFront(value) {
-    const newNode = new Node(value);
-    if (!this.head) {
-      this.head = newNode;
-    } else {
-      newNode.next = this.head;
-      this.head.prev = newNode;
-      this.head = newNode;
-    }
-  }
-
-  insertBack(value) {
-    const newNode = new Node(value);
-    if (!this.head) {
-      this.head = newNode;
-    } else {
-      let current = this.head;
-      while (current.next) {
-        current = current.next;
-      }
-      current.next = newNode;
-      newNode.prev = current;
-    }
-  }
-
-  deleteFront() {
-    if (!this.head) return;
-    if (!this.head.next) {
-      this.head = null;
-    } else {
-      this.head = this.head.next;
-      this.head.prev = null;
-    }
-  }
-
-  deleteBack() {
-    if (!this.head) return;
-    if (!this.head.next) {
-      this.head = null;
-    } else {
-      let current = this.head;
-      while (current.next) {
-        current = current.next;
-      }
-      current.prev.next = null;
-    }
-  }
-
-  reverse() {
-    if (!this.head || !this.head.next) return;
-    let current = this.head;
-    let temp = null;
-    while (current) {
-      temp = current.prev;
-      current.prev = current.next;
-      current.next = temp;
-      current = current.prev;
-    }
-    if (temp) {
-      this.head = temp.prev;
-    }
-  }
-
-  toArray() {
-    const result = [];
-    let current = this.head;
-    while (current) {
-      result.push(current.value);
-      current = current.next;
-    }
-    return result;
-  }
-}
+import LinkedListDisplay from "../LinkedListDisplay";
 
 const DoublyLinkedListVisualizer = () => {
-  const [list] = useState(new DoublyLinkedList());
-  const [nodes, setNodes] = useState([]);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [list, setList] = useState([]);
 
-  const updateList = () => {
-    setNodes(list.toArray());
+  const insertFront = (value) => {
+    setList([value, ...list]);
   };
 
-  const handleInsertFront = (value) => {
-    list.insertFront(value);
-    updateList();
+  const insertBack = (value) => {
+    setList([...list, value]);
   };
 
-  const handleInsertBack = (value) => {
-    list.insertBack(value);
-    updateList();
+  const deleteFront = () => {
+    setList(list.slice(1));
   };
 
-  const handleDeleteFront = () => {
-    list.deleteFront();
-    updateList();
+  const deleteBack = () => {
+    setList(list.slice(0, -1));
   };
 
-  const handleDeleteBack = () => {
-    list.deleteBack();
-    updateList();
-  };
-
-  const handleReverse = () => {
-    list.reverse();
-    updateList();
+  const reverseList = () => {
+    setList([...list].reverse());
   };
 
   return (
-    <div className="visualizer-container">
-      <LinkedListControls
-        onInsertFront={handleInsertFront}
-        onInsertBack={handleInsertBack}
-        onDeleteFront={handleDeleteFront}
-        onDeleteBack={handleDeleteBack}
-        onReverse={handleReverse}
-        isAnimating={isAnimating}
-        isEmpty={nodes.length === 0}
-      />
-      <div className="list-display">
-        {nodes.length > 0 ? (
-          nodes.map((node, index) => (
-            <div key={index} className="node">
-              {node}
-              {index !== nodes.length - 1 && (
-                <>
-                  <span className="arrow-right">→</span>
-                  <span className="arrow-left">←</span>
-                </>
-              )}
-            </div>
-          ))
-        ) : (
-          <div className="empty-message">List is Empty</div>
-        )}
-      </div>
+    <div style={{ padding: "2rem", backgroundColor: "#0f172a", minHeight: "100vh" }}>
+      <h2 style={{ color: "#f8fafc", fontSize: "2rem", marginBottom: "1rem" }}>
+        Doubly Linked List
+      </h2>
 
-      <style>
-        {`
-          .visualizer-container {
-            padding: 20px;
-            background: #f0f0f0;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-            margin-top: 20px;
-          }
-          .list-display {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 20px;
-          }
-          .node {
-            position: relative;
-            padding: 16px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            background: #fff;
-            min-width: 50px;
-            text-align: center;
-          }
-          .arrow-right {
-            position: absolute;
-            right: -20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            color: #4b5563;
-          }
-          .arrow-left {
-            position: absolute;
-            left: -20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            color: #4b5563;
-          }
-          .empty-message {
-            color: #9ca3af;
-            font-size: 14px;
-            text-align: center;
-            margin-top: 20px;
-          }
-        `}
-      </style>
+      <LinkedListControls
+        onInsertFront={insertFront}
+        onInsertBack={insertBack}
+        onDeleteFront={deleteFront}
+        onDeleteBack={deleteBack}
+        onReverse={reverseList}
+        isAnimating={false}
+        isEmpty={list.length === 0}
+      />
+
+<LinkedListDisplay list={list} highlightedNodes={[]} isDoubly />
+
     </div>
   );
 };
