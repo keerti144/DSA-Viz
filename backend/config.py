@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 import firebase_admin
-from firebase_admin import credentials
+from firebase_admin import credentials,firestore
 
 # Load environment variables from .env
 load_dotenv()
@@ -21,3 +21,7 @@ class Config:
 if not firebase_admin._apps:
     cred = credentials.Certificate(Config.FIREBASE_CREDENTIALS_PATH)
     firebase_admin.initialize_app(cred)
+
+
+# Create Firestore client
+db = firestore.client()

@@ -1,16 +1,12 @@
 import firebase_admin
 from config import Config
 from flask import Blueprint, request, jsonify
-from firebase_admin import credentials,auth,firestore
+from firebase_admin import auth
 import logging
 
 
-if not firebase_admin._apps:
-    cred = credentials.Certificate(Config.FIREBASE_CREDENTIALS_PATH)
-    firebase_admin.initialize_app(cred)
+from config import Config,db  # ✅ Reuse initialized db from config
 
-# Initialize Firestore
-db = firestore.client()
 
 auth_bp = Blueprint("auth", __name__)  # Authentication blueprint
 
