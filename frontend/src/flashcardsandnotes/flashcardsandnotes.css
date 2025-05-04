@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #0d0a1a;
+    background-color: #160c25;
     min-height: 100vh;
     color: white;
     padding-top: 80px;
@@ -104,7 +104,7 @@
   
   .section-title {
     font-size: 28px;
-    color: #a879ff;
+    color: white;
     margin-bottom: 20px;
   }
   
