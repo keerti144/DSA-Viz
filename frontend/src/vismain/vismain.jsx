@@ -42,10 +42,6 @@ export const VisMain = () => {
           <div className="button-grid">
             <button onClick={() => navigate("/visnext/bst")}>Binary Search Tree</button>
             <button onClick={() => navigate("/visnext/avl")}>AVL Tree</button>
-            <button onClick={() => navigate("/visnext/preorder")}>Preorder Traversal</button>
-            <button onClick={() => navigate("/visnext/inorder")}>Inorder Traversal</button>
-            <button onClick={() => navigate("/visnext/postorder")}>Postorder Traversal</button>
-            <button onClick={() => navigate("/visnext/trie")}>Trie</button>
           </div>
         </div>
 
