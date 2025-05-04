@@ -1,60 +1,54 @@
-import React, { useState, useRef } from "react";
-import Button from "../../ui/Button";
-import getDFS from "./getdfs";
-import { BackButton } from "../../ui/BackButton";
-import classes from "../Graph.module.css";
+import React, { useState } from "react";
+import GraphControls from "../GraphControls";
+import GraphDisplay from "./GraphDisplay";
 
 const DFS = () => {
-  const [graph, setGraph] = useState([]);
-  const [startNode, setStartNode] = useState(0);
-  const nodeRef = useRef(null);
+  const [graph, setGraph] = useState({});
+  const [traversalOrder, setTraversalOrder] = useState([]);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  const generateGraph = () => {
-    const nodes = 6;
-    const newGraph = Array.from({ length: nodes }, () => []);
-    for (let i = 0; i < nodes; i++) {
-      const edges = Math.floor(Math.random() * (nodes - 1)) + 1;
-      for (let j = 0; j < edges; j++) {
-        const target = Math.floor(Math.random() * nodes);
-        if (target !== i && !newGraph[i].includes(target)) {
-          newGraph[i].push(target);
-        }
-      }
-    }
-    setGraph(newGraph);
-  };
-
-  const visualizeDFS = () => {
-    const animations = getDFS(graph, startNode);
-    animations.forEach((node, idx) => {
-      setTimeout(() => {
-        const elements = document.getElementsByClassName(nodeRef.current.className);
-        if (elements[node]) {
-          elements[node].style.backgroundColor = "#ff9800";
-        }
-      }, idx * 500);
+  const addEdge = (from, to) => {
+    setGraph((prevGraph) => {
+      const updated = { ...prevGraph };
+      if (!updated[from]) updated[from] = [];
+      updated[from].push(to);
+      return updated;
     });
   };
 
+  const dfs = (start) => {
+    if (!start || !graph[start]) return;
+    const visited = new Set();
+    const result = [];
+
+    const dfsHelper = (node) => {
+      if (visited.has(node)) return;
+      visited.add(node);
+      result.push(node);
+      for (let neighbor of graph[node] || []) {
+        dfsHelper(neighbor);
+      }
+    };
+
+    dfsHelper(start);
+    setTraversalOrder(result);
+  };
+
   return (
-    <div className={classes.container}>
-      <BackButton />
-      <h2 className={classes.heading}>Depth First Search</h2>
-      <div className={classes.graph}>
-        {graph.map((edges, idx) => (
-          <div
-            key={idx}
-            ref={nodeRef}
-            className={classes.node}
-          >
-            {idx}
-          </div>
-        ))}
-      </div>
-      <div className={classes.button}>
-        <Button onClick={generateGraph}>Generate Graph</Button>
-        <Button onClick={visualizeDFS}>Start DFS</Button>
-      </div>
+    <div style={{ padding: "2rem", backgroundColor: "#0f172a", minHeight: "100vh" }}>
+      <h2 style={{ color: "#f8fafc", fontSize: "2rem", marginBottom: "1rem" }}>
+        DFS Visualizer
+      </h2>
+
+      <GraphControls
+        addEdge={addEdge}
+        dfs={dfs}
+        bfs={() => {}}
+        isAnimating={isAnimating}
+        setIsAnimating={setIsAnimating}
+      />
+
+      <GraphDisplay graph={graph} traversalOrder={traversalOrder} />
     </div>
   );
 };

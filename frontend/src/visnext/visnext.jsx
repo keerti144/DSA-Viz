@@ -55,7 +55,40 @@ export const VisNext = () => {
       explanation: `Bubble Sort is a simple comparison-based algorithm.
 Best Case: O(n) | Average/Worst Case: O(n^2)`,
     },
-
+    singlylinkedlist: {
+      title: "Singly Linked List",
+      steps: `Steps:
+      1. Create a node with a value and pointer to next.
+      2. Insert at front or back by updating pointers.
+      3. Delete from front or back by updating references.
+      4. Traverse by following next pointers.`,
+      code: `class Node:
+      def __init__(self, data):
+          self.data = data
+          self.next = None
+    
+    class SinglyLinkedList:
+      def __init__(self):
+          self.head = None
+    
+      def insert_front(self, data):
+          new_node = Node(data)
+          new_node.next = self.head
+          self.head = new_node
+    
+      def insert_back(self, data):
+          new_node = Node(data)
+          if not self.head:
+              self.head = new_node
+              return
+          last = self.head
+          while last.next:
+              last = last.next
+          last.next = new_node`,
+      explanation: `Singly Linked List is a linear data structure where each node points to the next.
+    Insertion/Deletion: O(1) at front, O(n) at back | Traversal: O(n)`,
+    },
+    
     quicksort: {
       title: "Quick Sort",
       steps: `Steps:
