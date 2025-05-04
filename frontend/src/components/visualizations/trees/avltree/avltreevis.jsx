@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { AVLTree } from './avltree';
-import { getLayoutedElements } from './getLayoutedElements';
 import AvlTreeControls from '../AvlTreeControls';
 import AvlTreeDisplay from '../AvlTreeDisplay';
 

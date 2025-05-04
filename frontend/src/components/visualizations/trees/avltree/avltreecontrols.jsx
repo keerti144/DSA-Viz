@@ -1,8 +1,6 @@
 // src/components/visualizations/trees/AvlTreeControls.jsx
 
 import React, { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 const AvlTreeControls = ({ onInsert }) => {
   const [value, setValue] = useState('');
