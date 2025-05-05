@@ -26,7 +26,7 @@ import CircularSinglyLinkedListVisualizer from "./components/visualizations/link
 import DoublyLinkedListVisualizer from "./components/visualizations/linkedlists/doublylinkedlist/doublylinkedlist.jsx";
 import CircularDoublyLinkedListVisualizer from "./components/visualizations/linkedlists/circulardoublylinkedlist/circulardoublylinkedlist.jsx";
 
-
+import BinarySearch from "./components/visualizations/searching/binarysearch/binarysearch.jsx";
 
 
 function App() {
@@ -54,6 +54,7 @@ function App() {
       <Route path = "/visnext/doublylinkedlist" element={<DoublyLinkedListVisualizer />} />
       <Route path = '/visnext/cirulardoublylinkedlist' element={<CircularDoublyLinkedListVisualizer />} />
 
+      <Route path = '/visnext/bst' element={<BinarySearch />} />
       
 
     </Routes>
