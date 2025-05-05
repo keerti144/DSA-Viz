@@ -8,10 +8,12 @@ export const TestAI = () => {
   const [energyLevel, setEnergyLevel] = useState('High');
   const [stressLevel, setStressLevel] = useState('Low');
   const [timeSpent, setTimeSpent] = useState(60);
+  
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [answers, setAnswers] = useState([]); // Store selected answers
   const [score, setScore] = useState(0); // Track score
+  
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -65,7 +67,11 @@ export const TestAI = () => {
         }),
       });
       const data = await response.json();
-      setQuestions(data.questions || []);
+if (!data.questions || !Array.isArray(data.questions)) {
+  throw new Error("Invalid response format");
+}
+setQuestions(data.questions);
+
       setAnswers(new Array(data.questions.length).fill('')); // Initialize answers
     } catch (error) {
       console.error('Error fetching questions:', error);
@@ -77,12 +83,13 @@ export const TestAI = () => {
   const handleScoreCalculation = () => {
     let newScore = 0;
     questions.forEach((q, index) => {
-      if (answers[index] === q.correctAnswer) {
+      if (answers[index] === q.answer) {
         newScore += 1; // Increment score for correct answers
       }
     });
     setScore(newScore);
   };
+  
 
   return (
     <div className="testai-container">
@@ -92,7 +99,7 @@ export const TestAI = () => {
           Topics (comma separated)
           <input 
             name="topics" 
-            placeholder="e.g. AI, Machine Learning, Blockchain" 
+            placeholder="e.g. Array, Linked List.." 
             onChange={handleChange} 
           />
         </label>
@@ -158,7 +165,7 @@ export const TestAI = () => {
             <ul>
               <li>
                 <input 
-                  type="radio" 
+                  type="checkbox"
                   id={`optionA-${index}`} 
                   name={`question-${index}`} 
                   value="A" 
@@ -169,7 +176,7 @@ export const TestAI = () => {
               </li>
               <li>
                 <input 
-                  type="radio" 
+                  type= "checkbox"
                   id={`optionB-${index}`} 
                   name={`question-${index}`} 
                   value="B" 
@@ -180,7 +187,7 @@ export const TestAI = () => {
               </li>
               <li>
                 <input 
-                  type="radio" 
+                  type="checkbox"
                   id={`optionC-${index}`} 
                   name={`question-${index}`} 
                   value="C" 
@@ -191,7 +198,7 @@ export const TestAI = () => {
               </li>
               <li>
                 <input 
-                  type="radio" 
+                  type="checkbox"
                   id={`optionD-${index}`} 
                   name={`question-${index}`} 
                   value="D" 
@@ -208,7 +215,8 @@ export const TestAI = () => {
             Calculate Score
           </button>
         )}
-        {score > 0 && <h3>Your Score: {score} / {questions.length}</h3>}
+        {questions.length > 0 && <h3>Your Score: {score} / {questions.length}</h3>}
+
       </div>
     </div>
   );
