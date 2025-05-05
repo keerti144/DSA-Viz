@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from config import Config
-from firebase_admin import credentials, initialize_app, _apps
+from firebase_admin import credentials, initialize_app, _apps, firestore
 from app.routes import routes_bp
 from app.auth import auth_bp
 
@@ -19,4 +19,6 @@ def create_app():
     app.register_blueprint(routes_bp)
     app.register_blueprint(auth_bp)
 
+    # Initialize Firestore
+    db = firestore.client()
     return app

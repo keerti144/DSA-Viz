@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+<<<<<<< HEAD
 import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
 import { StartPage } from "./startpage/startpage.jsx";
 import { Login } from "./login_page/login.jsx"; 
@@ -20,10 +21,15 @@ import {TestMCQ} from "./test mcq/testmcq.jsx";
   import {TestAI} from "./test ai/TestAI.jsx"; 
 
 
+=======
+import App from "./App.jsx"; // Import App.jsx
+import { BrowserRouter } from "react-router-dom";
+>>>>>>> 35fbac08ab26d597e299485d51614bc89713a29f
 
 ReactDOM.createRoot(document.getElementById("app")).render(
   <React.StrictMode>
     <BrowserRouter>
+<<<<<<< HEAD
       <Routes>
         <Route path="/" element={<StartPage />} />
         <Route path="/login" element={<Login />} />
@@ -43,11 +49,9 @@ ReactDOM.createRoot(document.getElementById("app")).render(
         <Route path="/testmcq" element={<TestMCQ />} />
         <Route path="/testai" element={<TestAI />} />
       </Routes>
+=======
+      <App />
+>>>>>>> 35fbac08ab26d597e299485d51614bc89713a29f
     </BrowserRouter>
   </React.StrictMode>
-
-  
 );
-
-
-

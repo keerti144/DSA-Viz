@@ -3,6 +3,7 @@ import { auth, GoogleAuthProvider, signInWithPopup } from '../../firebase';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import "./signup.css";
 import googleIcon from './google.jpg';  
+import { signInWithCredential } from 'firebase/auth';
 
 const GoogleLoginButton = () => {
   const [user, setUser] = useState(null);
@@ -13,7 +14,19 @@ const GoogleLoginButton = () => {
       console.log("Google Sign-In Initiated...");  // Debugging
 
       const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' }); // Force account picker
+
       const result = await signInWithPopup(auth, provider);
+      const user = result.user;  // Get user info from result
+
+      // Store in localStorage
+      localStorage.setItem("user", JSON.stringify({
+        uid: user.uid,
+        email: user.email,
+        idToken: await user.getIdToken()
+      }));
+
+
       console.log("Firebase Sign-In Successful!", result);  // Debugging
 
       const token = await result.user.getIdToken();

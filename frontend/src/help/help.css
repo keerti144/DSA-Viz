@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #2e1b50, #412d63);
+    background-color: #0d0a1a;
     color: white;
     padding: 20px;
 }
@@ -61,6 +61,16 @@
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.previous-queries ul {
+    padding-left: 20px; /* Align bullets */
+    list-style-position: inside; /* Place bullets inside the box */
+}
+
+.previous-queries li {
+    margin-bottom: 10px; /* Space between list items */
+    font-size: 16px; /* Optional: Adjust font size */
 }
 
 /* Query Input Section */

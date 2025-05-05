@@ -1,12 +1,12 @@
 .dashboard-open {
   display: flex;
   height: 100vh;
-  background: linear-gradient(135deg, #251833, #3a2d54);
+  background-color: #160c25;
   color: white;
   font-family: "Poppins", sans-serif;
 }
 
-/* Dashboard Content */
+/*Dashboard Content*/
 .dashboard-content {
   flex: 1;
   padding: 20px;
@@ -15,19 +15,28 @@
   align-items: center;
 }
 
-/* Dashboard Title */
 .dashboard-title {
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   font-weight: bold;
   margin-top: 80px;
   text-align: center;
   text-transform: uppercase;
-  background: linear-gradient(90deg, #ff9a9e, #fad0c4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  position: relative;
+  color: white;
 }
 
-/* Progress Section */
+.dashboard-title::after {
+  content: '';
+  display: block;
+  height: 5px;
+  width: 60%;
+  margin: 10px auto 0;
+  background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+  border-radius: 2px;
+}
+
+
+/*Progress Section*/
 .progress-section {
   display: flex;
   justify-content: space-around;
@@ -143,3 +152,23 @@
   background: rgba(255, 255, 255, 0.3);
   box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
 }
+
+.streak-box h2 {
+  color: white; /* Change heading color to white */
+}
+
+.leaderboard-box h2 {
+  color: white; /* Change heading color to white */
+}
+
+.saved-content h2 {
+  color: white; /* Change heading color to white */
+}
+
+
+/* For headings within "Your Performance" and other similar sections */
+.dashboard-content h2 {
+  color: white !important;
+}
+
+

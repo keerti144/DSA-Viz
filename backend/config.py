@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 import firebase_admin
-from firebase_admin import credentials
+from firebase_admin import credentials,firestore
 
 # Load environment variables from .env
 load_dotenv()
@@ -11,6 +11,7 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key")  # Default value if missing
     DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1")  # Converts string to boolean
     FIREBASE_CREDENTIALS_PATH = os.getenv("FIREBASE_CREDENTIALS_PATH")
+    FIREBASE_API_KEY = os.getenv("FIREBASE_API_KEY")
 
     # Ensure the credentials file exists
     if not FIREBASE_CREDENTIALS_PATH or not os.path.exists(FIREBASE_CREDENTIALS_PATH):
@@ -20,3 +21,7 @@ class Config:
 if not firebase_admin._apps:
     cred = credentials.Certificate(Config.FIREBASE_CREDENTIALS_PATH)
     firebase_admin.initialize_app(cred)
+
+
+# Create Firestore client
+db = firestore.client()
