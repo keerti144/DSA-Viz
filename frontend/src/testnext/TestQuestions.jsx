@@ -20,6 +20,13 @@ const TestQuestions = () => {
   const [testComplete, setTestComplete] = useState(false);
 
   useEffect(() => {
+    // Check if user is logged in
+    const uid = localStorage.getItem('uid');
+    if (!uid) {
+      setError('Please log in to take the test');
+      return;
+    }
+
     const fetchQuestions = async () => {
       try {
         const questionsRef = collection(db, 'questions');
@@ -69,6 +76,19 @@ const TestQuestions = () => {
 
   const handleNextQuestion = async () => {
     const question = questions[currentQuestion];
+    const uid = localStorage.getItem('uid');
+    
+    if (!uid) {
+      console.error('No user ID found in localStorage');
+      // Still proceed with the test even if performance update fails
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(prev => prev + 1);
+        setSelectedAnswer('');
+      } else {
+        setTestComplete(true);
+      }
+      return;
+    }
     
     try {
       // Call the submit-answer endpoint
@@ -78,14 +98,15 @@ const TestQuestions = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          uid: localStorage.getItem('uid'), // Assuming you store user ID in localStorage
+          uid: uid,
           question_id: question.id,
           selected_option: selectedAnswer,
         }),
       });
 
       if (!response.ok) {
-        console.error('Failed to update performance:', await response.text());
+        const errorData = await response.json();
+        console.error('Failed to update performance:', errorData);
       }
 
       // Update local score

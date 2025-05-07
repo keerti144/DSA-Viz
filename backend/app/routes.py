@@ -37,7 +37,7 @@ def submit_answer():
 
         question_data = question_doc.to_dict()
         logger.debug(f"Question data: {question_data}")
-        correct_answer = question_data.get("answer")  # Changed from expected_answer to answer
+        correct_answer = question_data.get("answer")
         topic = question_data.get("topic")
         points = question_data.get("points", 0)
         difficulty = question_data.get("difficulty", "medium")
@@ -110,7 +110,7 @@ def submit_answer():
         overall_stats = user_data["overall_stats"]
 
         # Convert topic to title case to ensure consistency
-        topic = topic.title()  # This will convert 'python basics' to 'Python Basics'
+        topic = topic.title()
         logger.debug(f"Using topic: {topic}")
 
         # Update stats for this topic
@@ -193,7 +193,7 @@ def submit_answer():
             logger.error(f"Error saving to Firestore: {str(e)}")
             logger.error(f"Traceback: {traceback.format_exc()}")
             return jsonify({"error": "Failed to save performance data"}), 500
-
+        
         return jsonify({
             "correct": is_correct,
             "awardedPoints": awarded_points,
