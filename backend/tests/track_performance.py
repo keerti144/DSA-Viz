@@ -8,14 +8,12 @@ def update_user_performance(uid, topic, is_correct, points_awarded):
     user_doc = user_ref.get()
 
     if not user_doc.exists:
-        print(f"User {uid} not found.")
-        return
+        return False, f"User {uid} not found."
 
     user_data = user_doc.to_dict()
     performance = user_data.get("performance", {})
 
     if topic not in performance:
-        # Initialize topic performance
         performance[topic] = {
             "totalQuestions": 0,
             "correctAnswers": 0,
@@ -23,20 +21,17 @@ def update_user_performance(uid, topic, is_correct, points_awarded):
             "accuracy": 0
         }
 
-    # Update the topic performance
-    topic_data = performance[topic]
-    topic_data["totalQuestions"] += 1
+    topic_stats = performance[topic]
+    topic_stats["totalQuestions"] += 1
     if is_correct:
-        topic_data["correctAnswers"] += 1
-        topic_data["totalPoints"] += points_awarded
+        topic_stats["correctAnswers"] += 1
+        topic_stats["totalPoints"] += points_awarded
 
-    # Calculate accuracy
-    topic_data["accuracy"] = round(
-        (topic_data["correctAnswers"] / topic_data["totalQuestions"]) * 100, 2
+    topic_stats["accuracy"] = round(
+        (topic_stats["correctAnswers"] / topic_stats["totalQuestions"]) * 100, 2
     )
 
-    # Save back to Firestore
-    performance[topic] = topic_data
+    performance[topic] = topic_stats
     user_ref.update({"performance": performance})
 
-    print(f"Updated performance for user {uid} on topic {topic}")
+    return True, f"Performance updated for user {uid} on topic {topic}"

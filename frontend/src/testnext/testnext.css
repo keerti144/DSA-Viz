@@ -1,80 +1,376 @@
 /* General container styles */
 .testnext-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #160c25;
-    padding: 20px;
-    font-family: 'Roboto', sans-serif; /* Updated font for a cleaner look */
+    align-items: center;
+    padding: 2rem;
+}
+
+.testnext-content {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* Header styles */
 .testnext-header {
-    font-size: 36px;
-    font-weight: 700;
-    color: #8d7ea3;
-    margin-bottom: 40px;
+    color: #ffffff;
     text-align: center;
-    text-transform: uppercase; /* Added text-transform for a more structured look */
-    letter-spacing: 2px; /* Slight spacing between letters for a modern touch */
-    border-bottom: 3px solid #8e4fff; /* Underline effect */
-    padding-bottom: 15px;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: 600;
+    background: linear-gradient(45deg, #00ff88, #00a1ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Button container */
-.testnext-buttons {
+.topic-display {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.test-config {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+}
+
+.config-section {
+    margin-bottom: 2rem;
+}
+
+.config-section h3 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.difficulty-buttons,
+.test-mode-buttons {
     display: flex;
-    flex-direction: column;
-    gap: 25px;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.difficulty-btn,
+.test-mode-btn {
+    padding: 0.8rem 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 120px;
+}
+
+.difficulty-btn:hover,
+.test-mode-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.difficulty-btn.selected,
+.test-mode-btn.selected {
+    background: linear-gradient(45deg, #00ff88, #00a1ff);
+    border-color: transparent;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.question-count {
+    display: flex;
     align-items: center;
+    gap: 1rem;
     justify-content: center;
 }
 
-/* Button styles */
-.testnext-button {
-    background: linear-gradient(135deg, #9153eb, #582d71);/* Gradient background */
-    color: white;
-    padding: 18px 40px; /* Added more space for a modern look */
-    font-size: 20px; /* Increased font size for prominence */
-    font-weight: 600; /* Slightly bolder font */
-    border-radius: 50px; /* Rounded corners for a sleeker look */
-    width: 220px; /* Increased width for better button appearance */
-    text-align: center;
-    text-transform: uppercase;
+.question-count button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    font-size: 1.2rem;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.question-count button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.question-count button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.question-count span {
+    color: #ffffff;
+    font-size: 1.5rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+.start-test-btn {
+    width: 100%;
+    padding: 1rem;
     border: none;
-    margin-bottom: 10px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #00ff88, #00a1ff);
+    color: #1a1a1a;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 2rem;
 }
 
-/* Button hover effect */
-.testnext-button:hover {
-    background: linear-gradient(135deg, #582d71, #9153eb);
-    transform: translateY(-5px); /* Slight lift effect on hover */
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15); /* Stronger shadow for depth */
+.start-test-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
 }
 
-/* Button focus effect */
-.testnext-button:focus {
-    outline: none;
-    box-shadow: 0px 0px 10px 2px rgba(38, 143, 255, 0.5); /* Focus ring with light blue */
+.start-test-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Question Display Styles */
+.test-info {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.difficulty-badge,
+.mode-badge {
+    padding: 0.5rem 1rem;
+    background: rgba(250, 208, 196, 0.2);
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #00ff88, #00a1ff);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    position: absolute;
+    right: 0;
+    top: -25px;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.question-container {
+    color: #ffffff;
+}
+
+.question-text {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.option-btn {
+    padding: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.option-btn.selected {
+    background: linear-gradient(45deg, #00ff88, #00a1ff);
+    border-color: transparent;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+    border: none;
+    border-radius: 8px;
+    color: #160c25;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: scale(1.02);
+}
+
+.submit-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.results {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+.results h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #00ff88, #00a1ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.results p {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.loading,
+.error {
+    text-align: center;
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.error {
+    color: #ff4444;
+}
+
+.results-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    text-align: center;
+}
+
+.results-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #fad0c4;
+}
+
+.results-container p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.results-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.restart-btn,
+.back-btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.restart-btn {
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+    color: #160c25;
+}
+
+.back-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.restart-btn:hover,
+.back-btn:hover {
+    transform: scale(1.05);
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .testnext-container {
-        padding: 10px;
+        padding: 1rem;
     }
 
-    .testnext-header {
-        font-size: 28px; /* Smaller font for header on mobile */
+    .testnext-content {
+        padding: 1.5rem;
     }
 
-    .testnext-button {
-        width: 80%; /* Buttons take up more width on smaller screens */
-        font-size: 18px; /* Adjusted font size for mobile devices */
+    .difficulty-buttons,
+    .test-mode-buttons {
+        flex-direction: column;
+    }
+
+    .difficulty-btn,
+    .test-mode-btn {
+        width: 100%;
+    }
+
+    .question-text {
+        font-size: 1.2rem;
+    }
+
+    .option-btn {
+        padding: 0.8rem;
+    }
+
+    .results h2 {
+        font-size: 1.5rem;
+    }
+
+    .results p {
+        font-size: 1rem;
     }
 }

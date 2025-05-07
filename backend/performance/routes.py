@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify
 from firebase_admin import firestore
-from app import db
 from datetime import datetime
 import logging
 import traceback
@@ -9,13 +8,10 @@ import traceback
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-routes_bp = Blueprint("routes", __name__)  # Blueprint for API routes
+db = firestore.client()
+test_routes = Blueprint("test_routes", __name__)
 
-@routes_bp.route("/")
-def home():
-    return "Hello, World!"
-
-@routes_bp.route("/submit-answer", methods=['POST'])
+@test_routes.route('/submit-answer', methods=['POST'])
 def submit_answer():
     try:
         data = request.json
@@ -37,7 +33,7 @@ def submit_answer():
 
         question_data = question_doc.to_dict()
         logger.debug(f"Question data: {question_data}")
-        correct_answer = question_data.get("answer")  # Changed from expected_answer to answer
+        correct_answer = question_data.get("expected_answer")  # Changed from expected_answer to answer
         topic = question_data.get("topic")
         points = question_data.get("points", 0)
         difficulty = question_data.get("difficulty", "medium")

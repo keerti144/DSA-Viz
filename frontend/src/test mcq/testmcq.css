@@ -1,85 +1,154 @@
 .testmcq-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #160c25;
-    min-height: 100vh;
-  }
-  
-  .question-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .options-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .option-button {
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: #a782f7;
-    border: 2px solid #a782f7;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .option-button:hover {
-    background-color: #8773b2;
-  }
-  
-  .option-button.selected {
-    background-color: #e3d9f8;
-  }
-  
-  .next-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: #9153eb;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .next-button:hover {
-    background-color: #7a3bdb;
-  }
-  
-  .result-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .retry-button {
-    margin-top: 20px;
-    padding: 12px 24px;
-    font-size: 18px;
-    background-color: #582d71;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .retry-button:hover {
-    background-color: #9153eb;
-    transform: translateY(-3px);
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-  }
+  display: flex;
+  min-height: 100vh;
+  background-color: #160c25;
+  color: white;
+}
+
+.testmcq-content {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 250px; /* Adjust based on your sidebar width */
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.loading, .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.error {
+  color: #ff6b6b;
+}
+
+.question-container {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 15px;
+  margin-top: 2rem;
+}
+
+.progress-bar {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #fad0c4;
+  font-size: 1.1rem;
+}
+
+.question-container h2 {
+  margin-bottom: 2rem;
+  color: white;
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.option-button {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.option-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.option-button.selected {
+  border-color: #fad0c4;
+  background: rgba(250, 208, 196, 0.2);
+}
+
+.next-button {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+  border: none;
+  border-radius: 8px;
+  color: #160c25;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.next-button:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.next-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.result-container {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 15px;
+  margin-top: 2rem;
+}
+
+.result-container h2 {
+  color: #fad0c4;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.result-container h3 {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.result-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.retry-button,
+.dashboard-button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.retry-button {
+  background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+  color: #160c25;
+}
+
+.dashboard-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid #fad0c4;
+}
+
+.retry-button:hover,
+.dashboard-button:hover {
+  transform: scale(1.05);
+}
   
