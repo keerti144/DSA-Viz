@@ -4,6 +4,8 @@ from app import db
 from datetime import datetime
 import logging
 import traceback
+import ast
+import re
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -14,6 +16,65 @@ routes_bp = Blueprint("routes", __name__)  # Blueprint for API routes
 @routes_bp.route("/")
 def home():
     return "Hello, World!"
+
+@routes_bp.route("/api/user/<uid>/performance", methods=['GET'])
+def get_user_performance(uid):
+    try:
+        logger.debug(f"Fetching performance for user: {uid}")
+        user_ref = db.collection("users").document(uid)
+        user_doc = user_ref.get()
+
+        if not user_doc.exists:
+            logger.debug(f"Creating new user document for: {uid}")
+            user_data = {
+                "performance": {},
+                "overall_stats": {
+                    "totalQuestions": 0,
+                    "correctAnswers": 0,
+                    "totalPoints": 0,
+                    "currentStreak": 0,
+                    "longestStreak": 0,
+                    "lastAttemptDate": None
+                },
+                "attempt_history": []
+            }
+            user_ref.set(user_data)
+            return jsonify(user_data), 200
+
+        user_data = user_doc.to_dict()
+        logger.debug(f"User data: {user_data}")
+        return jsonify(user_data), 200
+    except Exception as e:
+        logger.error(f"Error in get_user_performance: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({"error": str(e)}), 500
+
+@routes_bp.route("/api/leaderboard", methods=['GET'])
+def get_leaderboard():
+    try:
+        logger.debug("Fetching leaderboard data")
+        users_ref = db.collection("users")
+        users = users_ref.stream()
+        
+        leaderboard_data = []
+        for user in users:
+            user_data = user.to_dict()
+            if "overall_stats" in user_data:
+                leaderboard_data.append({
+                    "user_id": user.id,
+                    "username": user_data.get("username", "Anonymous"),
+                    "level": user_data.get("level", 1),
+                    "xp_points": user_data.get("overall_stats", {}).get("totalPoints", 0)
+                })
+        
+        # Sort by XP points in descending order
+        leaderboard_data.sort(key=lambda x: x["xp_points"], reverse=True)
+        logger.debug(f"Leaderboard data: {leaderboard_data}")
+        return jsonify(leaderboard_data), 200
+    except Exception as e:
+        logger.error(f"Error in get_leaderboard: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({"error": str(e)}), 500
 
 @routes_bp.route("/submit-answer", methods=['POST'])
 def submit_answer():
@@ -45,14 +106,35 @@ def submit_answer():
         logger.debug(f"Correct answer: {correct_answer}, Topic: {topic}, Points: {points}, Difficulty: {difficulty}")
         logger.debug(f"Selected option: {selected_option}")
 
-        # Add validation for correct_answer
-        if correct_answer is None:
-            logger.error(f"Question {question_id} has no answer field")
-            return jsonify({"error": "Question has no answer field"}), 400
-
-        # Evaluate the answer
+        # Evaluate the answer based on question type
         try:
-            is_correct = selected_option.strip().lower() == correct_answer.strip().lower()
+            if question_data.get("type") == "debugging":
+                # For debugging questions, check if the submitted code runs successfully
+                try:
+                    # Extract code from the answer using regex
+                    code_match = re.search(r'```(?:python)?\s*(.*?)\s*```', selected_option, re.DOTALL)
+                    if code_match:
+                        submitted_code = code_match.group(1)
+                    else:
+                        # If no code block found, use the entire answer
+                        submitted_code = selected_option
+
+                    # Parse the code to check for syntax errors
+                    ast.parse(submitted_code)
+                    
+                    # If we get here, the code is syntactically valid
+                    is_correct = True
+                    logger.debug("Debugging answer evaluation - Code is syntactically valid")
+                except SyntaxError as e:
+                    logger.error(f"Syntax error in submitted code: {str(e)}")
+                    is_correct = False
+                except Exception as e:
+                    logger.error(f"Error evaluating code: {str(e)}")
+                    is_correct = False
+            else:
+                # For MCQ and interview questions, do exact string comparison
+                is_correct = selected_option.strip().lower() == correct_answer.strip().lower()
+                logger.debug(f"Standard answer evaluation - Correct: {is_correct}")
         except AttributeError as e:
             logger.error(f"Error comparing answers: {str(e)}")
             logger.error(f"selected_option type: {type(selected_option)}, value: {selected_option}")

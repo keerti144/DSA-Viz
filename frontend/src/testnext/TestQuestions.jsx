@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { useAuth } from '../contexts/AuthContext';
 import './testnext.css';
 import Sidebar from "../sidebar/sidebar.jsx";
 import Header from "../header/header.jsx";
@@ -9,7 +10,8 @@ import Header from "../header/header.jsx";
 const TestQuestions = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { difficulty, questionCount, testMode } = location.state || {};
+  const { currentUser } = useAuth();
+  const { difficulty, questionCount, testMode, topic } = location.state || {};
 
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -18,57 +20,109 @@ const TestQuestions = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [testComplete, setTestComplete] = useState(false);
+  const [feedback, setFeedback] = useState(null);
+  const [originalCode, setOriginalCode] = useState('');
+  const [showAnswer, setShowAnswer] = useState(false);
 
   useEffect(() => {
     // Check if user is logged in
-    const uid = localStorage.getItem('uid');
-    if (!uid) {
+    console.log('Current user:', currentUser);
+    if (!currentUser) {
+      console.error('No user found in AuthContext');
       setError('Please log in to take the test');
+      setLoading(false);
       return;
     }
 
     const fetchQuestions = async () => {
       try {
+        console.log('Starting to fetch questions with params:', { 
+          difficulty, 
+          testMode, 
+          questionCount, 
+          topic 
+        });
+        
         const questionsRef = collection(db, 'questions');
-        const q = query(
-          questionsRef,
-          where('difficulty', '==', difficulty),
-          where('type', '==', testMode),
-          limit(questionCount)
-        );
+        let q;
+
+        // Map testMode to the correct type in Firestore
+        let questionType = testMode;
+        if (testMode === 'coding') {
+          questionType = 'debugging';
+        }
+
+        if (topic) {
+          console.log('Filtering questions by topic:', topic);
+          // If topic is specified, filter by topic
+          q = query(
+            questionsRef,
+            where('difficulty', '==', difficulty),
+            where('type', '==', questionType),
+            where('topic', '==', topic.toLowerCase()),
+            limit(questionCount)
+          );
+        } else {
+          console.log('No topic specified, fetching all topics');
+          // If no topic specified, get questions for all topics
+          q = query(
+            questionsRef,
+            where('difficulty', '==', difficulty),
+            where('type', '==', questionType),
+            limit(questionCount)
+          );
+        }
+
+        console.log('Executing Firestore query with filters:', {
+          difficulty,
+          type: questionType,
+          topic: topic ? topic.toLowerCase() : 'all',
+          limit: questionCount
+        });
 
         const querySnapshot = await getDocs(q);
+        console.log('Query completed, documents found:', querySnapshot.size);
+
         const fetchedQuestions = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         }));
 
         console.log('Fetched questions:', fetchedQuestions);
-        console.log('Query parameters:', { difficulty, testMode, questionCount });
 
         if (fetchedQuestions.length === 0) {
-          console.error('No questions found for criteria:', { difficulty, testMode, questionCount });
-          setError('No questions found for the selected criteria');
+          console.error('No questions found for criteria:', { 
+            difficulty, 
+            testMode: questionType, 
+            questionCount, 
+            topic 
+          });
+          setError(`No questions found for ${topic || 'selected topic'} with ${difficulty} difficulty`);
+          setLoading(false);
           return;
         }
 
         // Shuffle questions
         const shuffled = fetchedQuestions.sort(() => Math.random() - 0.5);
         setQuestions(shuffled);
+        setLoading(false);
       } catch (err) {
+        console.error('Error in fetchQuestions:', err);
         setError('Error fetching questions: ' + err.message);
-      } finally {
         setLoading(false);
       }
     };
 
     if (!difficulty || !questionCount || !testMode) {
-      navigate('/test-next');
+      console.error('Missing required parameters:', { difficulty, questionCount, testMode });
+      setError('Missing test parameters');
+      setLoading(false);
+      navigate('/testnext');
       return;
     }
 
     fetchQuestions();
-  }, [difficulty, questionCount, testMode, navigate]);
+  }, [difficulty, questionCount, testMode, topic, navigate, currentUser]);
 
   const handleAnswerSelect = (answer) => {
     setSelectedAnswer(answer);
@@ -76,14 +130,14 @@ const TestQuestions = () => {
 
   const handleNextQuestion = async () => {
     const question = questions[currentQuestion];
-    const uid = localStorage.getItem('uid');
     
-    if (!uid) {
-      console.error('No user ID found in localStorage');
+    if (!currentUser) {
+      console.error('No user found in AuthContext');
       // Still proceed with the test even if performance update fails
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(prev => prev + 1);
         setSelectedAnswer('');
+        setShowAnswer(false);
       } else {
         setTestComplete(true);
       }
@@ -98,43 +152,60 @@ const TestQuestions = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          uid: uid,
+          uid: currentUser.uid,
           question_id: question.id,
           selected_option: selectedAnswer,
         }),
       });
 
+      const data = await response.json();
+      
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Failed to update performance:', errorData);
+        console.error('Failed to update performance:', data);
+        setFeedback({ type: 'error', message: data.error || 'Failed to submit answer' });
+        return;
       }
+
+      // Show the correct answer
+      setShowAnswer(true);
 
       // Update local score
-      if (selectedAnswer === question.answer) {
+      if (data.correct) {
         setScore(prev => prev + question.points);
+        setFeedback({ 
+          type: 'success', 
+          message: question.type === 'debugging' 
+            ? 'Great job! Your solution is correct.' 
+            : 'Correct answer!' 
+        });
+      } else {
+        setFeedback({ 
+          type: 'error', 
+          message: question.type === 'debugging'
+            ? 'Your solution has some issues. Check the correct answer below.'
+            : 'Incorrect answer. Check the correct answer below.'
+        });
       }
 
-      // Move to next question or complete test
-      if (currentQuestion < questions.length - 1) {
-        setCurrentQuestion(prev => prev + 1);
-        setSelectedAnswer('');
-      } else {
-        setTestComplete(true);
-      }
+      // Move to next question or complete test after a delay
+      setTimeout(() => {
+        if (currentQuestion < questions.length - 1) {
+          setCurrentQuestion(prev => prev + 1);
+          setSelectedAnswer('');
+          setShowAnswer(false);
+          setFeedback(null);
+        } else {
+          setTestComplete(true);
+        }
+      }, 5000); // Show answer for 5 seconds
     } catch (error) {
       console.error('Error updating performance:', error);
-      // Still proceed with the test even if performance update fails
-      if (currentQuestion < questions.length - 1) {
-        setCurrentQuestion(prev => prev + 1);
-        setSelectedAnswer('');
-      } else {
-        setTestComplete(true);
-      }
+      setFeedback({ type: 'error', message: 'Failed to submit answer. Please try again.' });
     }
   };
 
   const handleRetry = () => {
-    navigate('/testnext');
+    navigate('/testnext', { replace: true });
   };
 
   if (loading) {
@@ -168,8 +239,8 @@ const TestQuestions = () => {
           <div className="results">
             <h2>Your Score: {score}</h2>
             <p>Total Questions: {questions.length}</p>
-            <p>Correct Answers: {Math.round(score / questions[0].points)}</p>
-            <p>Accuracy: {Math.round((score / (questions.length * questions[0].points)) * 100)}%</p>
+            <p>Correct Answers: {Math.round(score / (questions[0]?.points || 1))}</p>
+            <p>Accuracy: {Math.round((score / (questions.length * (questions[0]?.points || 1))) * 100)}%</p>
           </div>
           <button className="start-test-btn" onClick={handleRetry}>
             Try Another Test
@@ -180,6 +251,134 @@ const TestQuestions = () => {
   }
 
   const question = questions[currentQuestion];
+  if (!question) {
+    return (
+      <div className="testnext-container">
+        <div className="testnext-content">
+          <div className="error">No question data available</div>
+          <button className="start-test-btn" onClick={handleRetry}>
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const renderQuestionContent = () => {
+    switch (question.type) {
+      case 'mcq':
+        return (
+          <>
+            <h2 className="question-text">{question.question}</h2>
+            <div className="options-container">
+              {question.options?.map((option, index) => (
+                <button
+                  key={index}
+                  className={`option-btn ${selectedAnswer === option ? 'selected' : ''}`}
+                  onClick={() => handleAnswerSelect(option)}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+            {showAnswer && (
+              <div className="correct-answer">
+                <h3>Correct Answer:</h3>
+                <p>{question.answer}</p>
+              </div>
+            )}
+          </>
+        );
+      case 'debugging':
+        return (
+          <>
+            <h2 className="question-text">{question.question}</h2>
+            <div className="debug-container">
+              <div className="debug-section">
+                <h3>Original Code (with bug):</h3>
+                <div className="code-container">
+                  <pre className="code-block">{question.code}</pre>
+                </div>
+              </div>
+              
+              <div className="debug-section">
+                <h3>Your Solution:</h3>
+                <div className="debug-instructions">
+                  <p>Fix the code above by:</p>
+                  <ol>
+                    <li>Copy the original code</li>
+                    <li>Make your changes to fix the bug</li>
+                    <li>Submit your solution</li>
+                  </ol>
+                  <p className="hint">💡 Tip: Look for common issues like off-by-one errors, incorrect conditions, or missing edge cases</p>
+                </div>
+                <div className="code-editor-container">
+                  <textarea
+                    className="code-editor"
+                    value={selectedAnswer}
+                    onChange={(e) => setSelectedAnswer(e.target.value)}
+                    placeholder="Paste the original code here and fix it..."
+                    rows={12}
+                    spellCheck="false"
+                  />
+                </div>
+              </div>
+              {showAnswer && (
+                <div className="debug-section correct-answer">
+                  <h3>Correct Solution:</h3>
+                  <div className="code-container">
+                    <pre className="code-block">{question.answer}</pre>
+                  </div>
+                  {question.explanation && (
+                    <div className="answer-explanation">
+                      <h4>Explanation:</h4>
+                      <p>{question.explanation}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            {feedback && (
+              <div className={`feedback ${feedback.type}`}>
+                {feedback.message}
+              </div>
+            )}
+          </>
+        );
+      case 'interview':
+        return (
+          <>
+            <h2 className="question-text">{question.question}</h2>
+            <textarea
+              className="answer-textarea"
+              value={selectedAnswer}
+              onChange={(e) => setSelectedAnswer(e.target.value)}
+              placeholder="Type your answer here..."
+              rows={6}
+            />
+            {showAnswer && (
+              <div className="correct-answer">
+                <h3>Sample Answer:</h3>
+                <p>{question.answer}</p>
+                {question.explanation && (
+                  <div className="answer-explanation">
+                    <h4>Key Points:</h4>
+                    <p>{question.explanation}</p>
+                  </div>
+                )}
+              </div>
+            )}
+            {feedback && (
+              <div className={`feedback ${feedback.type}`}>
+                {feedback.message}
+              </div>
+            )}
+          </>
+        );
+      default:
+        return <div className="error">Unsupported question type</div>;
+    }
+  };
 
   return (
     <div className="testnext-container">
@@ -204,20 +403,7 @@ const TestQuestions = () => {
         </div>
 
         <div className="question-container">
-          <h2 className="question-text">{question.question}</h2>
-          
-          <div className="options-container">
-            {question.options.map((option, index) => (
-              <button
-                key={index}
-                className={`option-btn ${selectedAnswer === option ? 'selected' : ''}`}
-                onClick={() => handleAnswerSelect(option)}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
-
+          {renderQuestionContent()}
           <button 
             className="start-test-btn"
             onClick={handleNextQuestion}

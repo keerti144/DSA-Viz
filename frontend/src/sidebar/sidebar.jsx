@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import menuIcon from "../assets/menu.png";
 import detailsIcon from "../assets/details.png";
 import testResultsIcon from "../assets/test-results.png";
@@ -25,10 +25,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <img src={menuIcon} alt="Menu" />
       </button>
 
-      <button className="nav-btn" onClick={() => navigate("/dashboard")}>
+      <Link to="/dashboard" className="sidebar-link">
         <img src={detailsIcon} alt="Dashboard" />
         {isExpanded && <span className="label">Dashboard</span>}
-      </button>
+      </Link>
 
       <button className="nav-btn" onClick={() => navigate("/test")}>
         <img src={testResultsIcon} alt="Test Yourself" />
