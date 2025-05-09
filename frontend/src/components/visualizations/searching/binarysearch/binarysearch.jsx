@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
-import Button from "../../ui/Button";
+
 import getBinarySearch from "./getbinarysearch";
-import { BackButton } from "../../ui/BackButton";
+
 import classes from "../Searching.module.css";
 
 const BinarySearch = () => {

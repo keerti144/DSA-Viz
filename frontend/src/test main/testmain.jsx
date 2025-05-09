@@ -4,22 +4,23 @@ import Sidebar from "../sidebar/sidebar.jsx";
 import Header from "../header/header.jsx";
 import { useNavigate } from "react-router-dom";
 
-
 export const TestMain = () => {
     const navigate = useNavigate();
 
-
-
     const topics = [
-        { name: "Array", path: "/array" },
-        { name: "Linked List", path: "/linked-list" },
-        { name: "Graph", path: "/graph" },
-        { name: "Trees", path: "/trees" },
-        { name: "Stack", path: "/stack" },
-        { name: "Queue", path: "/queue" },
-        { name: "Heap", path: "/heap" },
-        { name: "Dynamic Programming", path: "/dynamic-programming" }
+        { name: "Arrays", path: "/testnext" },
+        { name: "Linked List", path: "/testnext" },
+        { name: "Graph", path: "/testnext" },
+        { name: "Trees", path: "/testnext" },
+        { name: "Stack", path: "/testnext" },
+        { name: "Queue", path: "/testnext" },
+        { name: "Heap", path: "/testnext" },
+        { name: "Dynamic Programming", path: "/testnext" }
     ];
+
+    const handleTopicClick = (topic) => {
+        navigate("/testnext", { state: { topic: topic.name } });
+    };
 
     return (
         <div className="test-main">
@@ -44,7 +45,7 @@ export const TestMain = () => {
                         <div
                             key={index}
                             className={`rectangle-${index + 2}`}
-                            onClick={() => navigate("/testnext")}
+                            onClick={() => handleTopicClick(topic)}
                         >
                             <span className="topic-text">{topic.name}</span>
                         </div>
