@@ -79,210 +79,104 @@ def get_leaderboard():
 @routes_bp.route("/submit-answer", methods=['POST'])
 def submit_answer():
     try:
-        data = request.json
-        logger.debug(f"Received data: {data}")
-        uid = data.get("uid")
-        question_id = data.get("question_id")
-        selected_option = data.get("selected_option")
-
-        if not all([uid, question_id, selected_option]):
-            return jsonify({"error": "Missing fields"}), 400
-
-        # Get question from Firestore using question_id as document ID
-        question_ref = db.collection("questions").document(question_id)
-        question_doc = question_ref.get()
-
-        if not question_doc.exists:
-            logger.error(f"Question not found: {question_id}")
-            return jsonify({"error": "Question not found"}), 404
-
-        question_data = question_doc.to_dict()
-        logger.debug(f"Question data: {question_data}")
-        correct_answer = question_data.get("answer")
-        topic = question_data.get("topic")
-        points = question_data.get("points", 0)
-        difficulty = question_data.get("difficulty", "medium")
-
-        logger.debug(f"Correct answer: {correct_answer}, Topic: {topic}, Points: {points}, Difficulty: {difficulty}")
-        logger.debug(f"Selected option: {selected_option}")
-
-        # Evaluate the answer based on question type
-        try:
-            if question_data.get("type") == "debugging":
-                # For debugging questions, check if the submitted code runs successfully
-                try:
-                    # Extract code from the answer using regex
-                    code_match = re.search(r'```(?:python)?\s*(.*?)\s*```', selected_option, re.DOTALL)
-                    if code_match:
-                        submitted_code = code_match.group(1)
-                    else:
-                        # If no code block found, use the entire answer
-                        submitted_code = selected_option
-
-                    # Parse the code to check for syntax errors
-                    ast.parse(submitted_code)
-                    
-                    # If we get here, the code is syntactically valid
-                    is_correct = True
-                    logger.debug("Debugging answer evaluation - Code is syntactically valid")
-                except SyntaxError as e:
-                    logger.error(f"Syntax error in submitted code: {str(e)}")
-                    is_correct = False
-                except Exception as e:
-                    logger.error(f"Error evaluating code: {str(e)}")
-                    is_correct = False
-            else:
-                # For MCQ and interview questions, do exact string comparison
-                is_correct = selected_option.strip().lower() == correct_answer.strip().lower()
-                logger.debug(f"Standard answer evaluation - Correct: {is_correct}")
-        except AttributeError as e:
-            logger.error(f"Error comparing answers: {str(e)}")
-            logger.error(f"selected_option type: {type(selected_option)}, value: {selected_option}")
-            logger.error(f"correct_answer type: {type(correct_answer)}, value: {correct_answer}")
-            return jsonify({"error": "Invalid answer format"}), 400
-
-        awarded_points = points if is_correct else 0
-        logger.debug(f"Answer evaluation - Correct: {is_correct}, Points awarded: {awarded_points}")
-
-        # Get user document
-        user_ref = db.collection("users").document(uid)
-        user_doc = user_ref.get()
+        data = request.get_json()
+        user_id = data.get('user_id')
+        question_id = data.get('question_id')
+        selected_answer = data.get('selected_answer')
         
-        # Initialize user document if it doesn't exist
-        if not user_doc.exists:
-            logger.debug(f"Creating new user document for: {uid}")
-            user_data = {
-                "performance": {},
-                "overall_stats": {
-                    "totalQuestions": 0,
-                    "correctAnswers": 0,
-                    "totalPoints": 0,
-                    "currentStreak": 0,
-                    "longestStreak": 0,
-                    "lastAttemptDate": None
-                },
-                "attempt_history": []
-            }
-            user_ref.set(user_data)
-        else:
-            user_data = user_doc.to_dict()
-            logger.debug(f"User data before update: {user_data}")
+        if not all([user_id, question_id, selected_answer]):
+            return jsonify({'error': 'Missing required fields'}), 400
             
-            # Initialize performance tracking if it doesn't exist
-            if "performance" not in user_data:
-                logger.debug("Initializing performance tracking")
-                user_data["performance"] = {}
-                
-            if "overall_stats" not in user_data:
-                logger.debug("Initializing overall stats")
-                user_data["overall_stats"] = {
-                    "totalQuestions": 0,
-                    "correctAnswers": 0,
-                    "totalPoints": 0,
-                    "currentStreak": 0,
-                    "longestStreak": 0,
-                    "lastAttemptDate": None
-                }
-                
-            if "attempt_history" not in user_data:
-                logger.debug("Initializing attempt history")
-                user_data["attempt_history"] = []
-
-        performance = user_data["performance"]
-        overall_stats = user_data["overall_stats"]
-
-        # Convert topic to title case to ensure consistency
-        topic = topic.title()
-        logger.debug(f"Using topic: {topic}")
-
-        # Update stats for this topic
-        if topic not in performance:
-            logger.debug(f"Initializing stats for topic: {topic}")
-            performance[topic] = {
-                "totalQuestions": 0,
-                "correctAnswers": 0,
-                "totalPoints": 0,
-                "accuracy": 0,
-                "byDifficulty": {
-                    "easy": {"attempted": 0, "correct": 0},
-                    "medium": {"attempted": 0, "correct": 0},
-                    "hard": {"attempted": 0, "correct": 0}
-                }
-            }
-
-        topic_stats = performance[topic]
-        logger.debug(f"Topic stats before update: {topic_stats}")
-
-        # Update topic-specific stats
-        topic_stats["totalQuestions"] += 1
-        if is_correct:
-            topic_stats["correctAnswers"] += 1
-            topic_stats["totalPoints"] += awarded_points
+        # Get question data from Firestore
+        question_ref = db.collection('questions').document(question_id)
+        question_data = question_ref.get().to_dict()
         
-        # Update difficulty-specific stats
-        topic_stats["byDifficulty"][difficulty]["attempted"] += 1
-        if is_correct:
-            topic_stats["byDifficulty"][difficulty]["correct"] += 1
-
-        topic_stats["accuracy"] = round(
-            (topic_stats["correctAnswers"] / topic_stats["totalQuestions"]) * 100
-        )
-        topic_stats["lastUpdated"] = datetime.utcnow().isoformat()
-
-        logger.debug(f"Topic stats after update: {topic_stats}")
-
-        # Update overall stats
-        overall_stats["totalQuestions"] += 1
-        if is_correct:
-            overall_stats["correctAnswers"] += 1
-            overall_stats["totalPoints"] += awarded_points
-            overall_stats["currentStreak"] += 1
-            overall_stats["longestStreak"] = max(
-                overall_stats["longestStreak"],
-                overall_stats["currentStreak"]
-            )
-        else:
-            overall_stats["currentStreak"] = 0
-
-        overall_stats["lastAttemptDate"] = datetime.utcnow().isoformat()
-
-        logger.debug(f"Overall stats after update: {overall_stats}")
-
-        # Add attempt to history
-        attempt_history = user_data["attempt_history"]
-        attempt_history.append({
-            "question_id": question_id,
-            "topic": topic,
-            "difficulty": difficulty,
-            "selected_option": selected_option,
-            "is_correct": is_correct,
-            "points_awarded": awarded_points,
-            "timestamp": datetime.utcnow().isoformat()
-        })
-        # Keep only last 100 attempts
-        attempt_history = attempt_history[-100:]
-
-        logger.debug("Saving updates to Firestore")
-        try:
-            # Save all updates back to user
-            user_ref.update({
-                "performance": performance,
-                "overall_stats": overall_stats,
-                "attempt_history": attempt_history
+        if not question_data:
+            return jsonify({'error': 'Question not found'}), 404
+            
+        # Get the correct answer based on question type
+        question_type = question_data.get('type')
+        if question_type == 'coding':
+            correct_answer = question_data.get('answer')
+        else:  # For MCQ and interview questions
+            correct_answer = question_data.get('expected_answer') or question_data.get('answer')
+            
+        if not correct_answer:
+            return jsonify({'error': 'Question has no answer field'}), 400
+            
+        # Evaluate answer based on question type
+        is_correct = False
+        if question_type == 'coding':
+            # For coding questions, check for syntax errors
+            try:
+                # Basic syntax check
+                compile(selected_answer, '<string>', 'exec')
+                is_correct = True
+            except SyntaxError:
+                is_correct = False
+        elif question_type == 'interview':
+            # For interview questions, use keyword matching
+            selected_answer = selected_answer.lower()
+            correct_answer = correct_answer.lower()
+            keywords = [word for word in correct_answer.split() if len(word) > 3]
+            matches = sum(1 for keyword in keywords if keyword in selected_answer)
+            is_correct = matches >= len(keywords) * 0.7  # 70% keyword match required
+        else:  # MCQ questions
+            # For MCQ, use exact string comparison
+            is_correct = selected_answer == correct_answer
+            
+        # Update user performance
+        performance_ref = db.collection('performance').document(user_id)
+        performance = performance_ref.get()
+        
+        if not performance.exists:
+            # Initialize performance data if it doesn't exist
+            performance_ref.set({
+                'total_questions': 0,
+                'correct_answers': 0,
+                'incorrect_answers': 0,
+                'total_points': 0,
+                'topics': {}
             })
-            logger.debug("Updates saved successfully")
-        except Exception as e:
-            logger.error(f"Error saving to Firestore: {str(e)}")
-            logger.error(f"Traceback: {traceback.format_exc()}")
-            return jsonify({"error": "Failed to save performance data"}), 500
+            performance = performance_ref.get()
+            
+        performance_data = performance.to_dict()
+        
+        # Update overall statistics
+        performance_data['total_questions'] = performance_data.get('total_questions', 0) + 1
+        if is_correct:
+            performance_data['correct_answers'] = performance_data.get('correct_answers', 0) + 1
+            performance_data['total_points'] = performance_data.get('total_points', 0) + question_data.get('points', 0)
+        else:
+            performance_data['incorrect_answers'] = performance_data.get('incorrect_answers', 0) + 1
+            
+        # Update topic-specific statistics
+        topic = question_data.get('topic', 'general')
+        if topic not in performance_data['topics']:
+            performance_data['topics'][topic] = {
+                'total_questions': 0,
+                'correct_answers': 0,
+                'incorrect_answers': 0,
+                'total_points': 0
+            }
+            
+        topic_stats = performance_data['topics'][topic]
+        topic_stats['total_questions'] += 1
+        if is_correct:
+            topic_stats['correct_answers'] += 1
+            topic_stats['total_points'] += question_data.get('points', 0)
+        else:
+            topic_stats['incorrect_answers'] += 1
+            
+        # Save updated performance data
+        performance_ref.set(performance_data)
         
         return jsonify({
-            "correct": is_correct,
-            "awardedPoints": awarded_points,
-            "updatedPerformance": topic_stats,
-            "overallStats": overall_stats
-        }), 200
+            'is_correct': is_correct,
+            'correct_answer': correct_answer,
+            'explanation': question_data.get('explanation', '')
+        })
+        
     except Exception as e:
-        logger.error(f"Error in submit_answer: {str(e)}")
-        logger.error(f"Traceback: {traceback.format_exc()}")
-        return jsonify({"error": str(e)}), 500
+        print(f"Error in submit_answer: {str(e)}")
+        return jsonify({'error': str(e)}), 500

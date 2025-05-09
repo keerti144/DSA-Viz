@@ -32,11 +32,21 @@
 }
 
 .topic-display {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
     border-radius: 10px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.topic-display h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin: 0;
+    background: linear-gradient(45deg, #00ff88, #00a1ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .test-config {
@@ -492,4 +502,17 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.no-topic-selected {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.no-topic-selected p {
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
 }

@@ -152,9 +152,9 @@ const TestQuestions = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          uid: currentUser.uid,
+          user_id: currentUser.uid,
           question_id: question.id,
-          selected_option: selectedAnswer,
+          selected_answer: selectedAnswer,
         }),
       });
 
@@ -170,12 +170,14 @@ const TestQuestions = () => {
       setShowAnswer(true);
 
       // Update local score
-      if (data.correct) {
+      if (data.is_correct) {
         setScore(prev => prev + question.points);
         setFeedback({ 
           type: 'success', 
           message: question.type === 'debugging' 
             ? 'Great job! Your solution is correct.' 
+            : question.type === 'interview'
+            ? 'Good answer! You covered the key points.'
             : 'Correct answer!' 
         });
       } else {
@@ -183,24 +185,25 @@ const TestQuestions = () => {
           type: 'error', 
           message: question.type === 'debugging'
             ? 'Your solution has some issues. Check the correct answer below.'
+            : question.type === 'interview'
+            ? 'Your answer could be improved. Check the key points below.'
             : 'Incorrect answer. Check the correct answer below.'
         });
       }
-
-      // Move to next question or complete test after a delay
-      setTimeout(() => {
-        if (currentQuestion < questions.length - 1) {
-          setCurrentQuestion(prev => prev + 1);
-          setSelectedAnswer('');
-          setShowAnswer(false);
-          setFeedback(null);
-        } else {
-          setTestComplete(true);
-        }
-      }, 5000); // Show answer for 5 seconds
     } catch (error) {
       console.error('Error updating performance:', error);
       setFeedback({ type: 'error', message: 'Failed to submit answer. Please try again.' });
+    }
+  };
+
+  const handleProceedToNext = () => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(prev => prev + 1);
+      setSelectedAnswer('');
+      setShowAnswer(false);
+      setFeedback(null);
+    } else {
+      setTestComplete(true);
     }
   };
 
@@ -295,7 +298,7 @@ const TestQuestions = () => {
             <h2 className="question-text">{question.question}</h2>
             <div className="debug-container">
               <div className="debug-section">
-                <h3>Original Code (with bug):</h3>
+                <h3>Code with Bug:</h3>
                 <div className="code-container">
                   <pre className="code-block">{question.code}</pre>
                 </div>
@@ -304,37 +307,23 @@ const TestQuestions = () => {
               <div className="debug-section">
                 <h3>Your Solution:</h3>
                 <div className="debug-instructions">
-                  <p>Fix the code above by:</p>
-                  <ol>
-                    <li>Copy the original code</li>
-                    <li>Make your changes to fix the bug</li>
-                    <li>Submit your solution</li>
-                  </ol>
-                  <p className="hint">💡 Tip: Look for common issues like off-by-one errors, incorrect conditions, or missing edge cases</p>
+                  <p>Explain what's wrong with the code and how you would fix it:</p>
+                  <p className="hint">💡 Tip: Focus on explaining the bug, its impact, and your approach to fixing it</p>
                 </div>
-                <div className="code-editor-container">
-                  <textarea
-                    className="code-editor"
-                    value={selectedAnswer}
-                    onChange={(e) => setSelectedAnswer(e.target.value)}
-                    placeholder="Paste the original code here and fix it..."
-                    rows={12}
-                    spellCheck="false"
-                  />
-                </div>
+                <textarea
+                  className="answer-textarea"
+                  value={selectedAnswer}
+                  onChange={(e) => setSelectedAnswer(e.target.value)}
+                  placeholder="Explain the bug and your solution..."
+                  rows={6}
+                />
               </div>
               {showAnswer && (
                 <div className="debug-section correct-answer">
-                  <h3>Correct Solution:</h3>
-                  <div className="code-container">
-                    <pre className="code-block">{question.answer}</pre>
+                  <h3>Solution Explanation:</h3>
+                  <div className="answer-explanation">
+                    <p>{question.explanation}</p>
                   </div>
-                  {question.explanation && (
-                    <div className="answer-explanation">
-                      <h4>Explanation:</h4>
-                      <p>{question.explanation}</p>
-                    </div>
-                  )}
                 </div>
               )}
             </div>
@@ -359,7 +348,7 @@ const TestQuestions = () => {
             {showAnswer && (
               <div className="correct-answer">
                 <h3>Sample Answer:</h3>
-                <p>{question.answer}</p>
+                <p>{question.expected_answer}</p>
                 {question.explanation && (
                   <div className="answer-explanation">
                     <h4>Key Points:</h4>
@@ -404,13 +393,22 @@ const TestQuestions = () => {
 
         <div className="question-container">
           {renderQuestionContent()}
-          <button 
-            className="start-test-btn"
-            onClick={handleNextQuestion}
-            disabled={!selectedAnswer}
-          >
-            {currentQuestion === questions.length - 1 ? 'Finish Test' : 'Next Question'}
-          </button>
+          {!showAnswer ? (
+            <button 
+              className="start-test-btn"
+              onClick={handleNextQuestion}
+              disabled={!selectedAnswer}
+            >
+              Submit Answer
+            </button>
+          ) : (
+            <button 
+              className="start-test-btn"
+              onClick={handleProceedToNext}
+            >
+              {currentQuestion === questions.length - 1 ? 'Finish Test' : 'Next Question'}
+            </button>
+          )}
         </div>
       </div>
     </div>
