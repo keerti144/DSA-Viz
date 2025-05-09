@@ -1,10 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, collection, getDocs } from "firebase/firestore";
 import Sidebar from "../sidebar/sidebar.jsx";
 import Header from "../header/header.jsx";
-import femaleUser from "../assets/female-user.png";
+import {
+    Box,
+    Container,
+    Grid,
+    Paper,
+    Typography,
+    CircularProgress,
+    List,
+    ListItem,
+    ListItemText,
+    Divider,
+} from '@mui/material';
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ResponsiveContainer,
+} from 'recharts';
 import "./dashboardopen.css";
 
 export const DashboardOpen = () => {
@@ -12,24 +33,53 @@ export const DashboardOpen = () => {
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(true);
   const [performanceData, setPerformanceData] = useState(null);
+  const [leaderboard, setLeaderboard] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchPerformanceData = async () => {
+    const fetchData = async () => {
       try {
         const db = getFirestore();
         const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
         
         if (userDoc.exists()) {
           const data = userDoc.data();
-          setPerformanceData({
+          // Format the performance data
+          const formattedData = {
             performance: data.performance || {},
-            overall_stats: data.overall_stats || {},
+            overall_stats: {
+              totalPoints: data.overall_stats?.totalPoints || 0,
+              currentStreak: data.overall_stats?.currentStreak || 0,
+              longestStreak: data.overall_stats?.longestStreak || 0,
+              level: Math.floor((data.overall_stats?.totalPoints || 0) / 100) + 1
+            },
             attempt_history: data.attempt_history || []
-          });
+          };
+          setPerformanceData(formattedData);
         }
+
+        // Fetch leaderboard data
+        const usersRef = collection(db, "users");
+        const usersSnapshot = await getDocs(usersRef);
+        const leaderboardData = [];
+        
+        usersSnapshot.forEach((doc) => {
+          const userData = doc.data();
+          if (userData.overall_stats) {
+            leaderboardData.push({
+              user_id: doc.id,
+              username: userData.username || "Anonymous",
+              level: Math.floor((userData.overall_stats.totalPoints || 0) / 100) + 1,
+              xp_points: userData.overall_stats.totalPoints || 0
+            });
+          }
+        });
+        
+        // Sort by XP points
+        leaderboardData.sort((a, b) => b.xp_points - a.xp_points);
+        setLeaderboard(leaderboardData);
       } catch (err) {
-        setError('Failed to load performance data');
+        setError('Failed to load dashboard data');
         console.error(err);
       } finally {
         setLoading(false);
@@ -37,31 +87,9 @@ export const DashboardOpen = () => {
     };
 
     if (currentUser) {
-      fetchPerformanceData();
+      fetchData();
     }
   }, [currentUser]);
-
-  // Calculate best and worst topics
-  const getTopicAnalysis = () => {
-    if (!performanceData?.performance) return { best: "N/A", worst: "N/A" };
-    
-    const topics = Object.entries(performanceData.performance);
-    if (topics.length === 0) return { best: "N/A", worst: "N/A" };
-
-    const sortedTopics = topics.sort((a, b) => b[1].accuracy - a[1].accuracy);
-    return {
-      best: sortedTopics[0][0],
-      worst: sortedTopics[sortedTopics.length - 1][0]
-    };
-  };
-
-  // Calculate overall completion
-  const getOverallCompletion = () => {
-    if (!performanceData?.overall_stats) return 0;
-    const { totalQuestions } = performanceData.overall_stats;
-    // Assuming there are 100 total questions in the system
-    return Math.min(Math.round((totalQuestions / 100) * 100), 100);
-  };
 
   if (loading) {
     return (
@@ -87,76 +115,136 @@ export const DashboardOpen = () => {
     );
   }
 
-  const topicAnalysis = getTopicAnalysis();
-  const overallCompletion = getOverallCompletion();
+  const chartData = Object.entries(performanceData?.performance || {}).map(([topic, stats]) => ({
+    topic,
+    completion: stats.accuracy || 0
+  }));
 
   return (
     <div className="dashboard-open">
       <Header />
       <Sidebar />
-      
-      {/* Header
-      <div className="header">
-        <div className="logo">AlgoRize</div>
-        <div className="user-profile" onClick={() => navigate("/settings")}> 
-          <img className="user-icon" src={femaleUser} alt="User" />
-        </div>
-      </div> */}
-
-      {/* Main Content */}
       <div className="dashboard-content">
         <h1 className="dashboard-title">Your Progress Dashboard</h1>
         
-        {/* Streak & Leaderboard */}
-        <div className="progress-section">
-          <div className="streak-box">
-            <h2>Streak</h2>
-            <p>Days Active: <span>{performanceData?.overall_stats?.currentStreak || 0}</span></p>
-            <p>Points Earned: <span>{performanceData?.overall_stats?.totalPoints || 0}</span></p>
-          </div>
-          <div className="leaderboard-box">
-            <h2>Performance Stats</h2>
-            <p>Questions Attempted: <span>{performanceData?.overall_stats?.totalQuestions || 0}</span></p>
-            <p>Accuracy: <span>{performanceData?.overall_stats?.totalQuestions > 0 
-              ? Math.round((performanceData.overall_stats.correctAnswers / performanceData.overall_stats.totalQuestions) * 100) 
-              : 0}%</span></p>
-          </div>
-        </div>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Grid container spacing={3}>
+            {/* User Stats */}
+            <Grid item xs={12} md={4}>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', bgcolor: 'rgba(255, 255, 255, 0.1)' }}>
+                <Typography variant="h6" gutterBottom color="white">
+                  Your Stats
+                </Typography>
+                <List>
+                  <ListItem>
+                    <ListItemText
+                      primary="Current Level"
+                      secondary={`Level ${performanceData?.overall_stats?.level || 1}`}
+                      primaryTypographyProps={{ color: 'white' }}
+                      secondaryTypographyProps={{ color: '#b388ff' }}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText
+                      primary="XP Points"
+                      secondary={performanceData?.overall_stats?.totalPoints || 0}
+                      primaryTypographyProps={{ color: 'white' }}
+                      secondaryTypographyProps={{ color: '#b388ff' }}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText
+                      primary="Current Streak"
+                      secondary={`${performanceData?.overall_stats?.currentStreak || 0} days`}
+                      primaryTypographyProps={{ color: 'white' }}
+                      secondaryTypographyProps={{ color: '#b388ff' }}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText
+                      primary="Longest Streak"
+                      secondary={`${performanceData?.overall_stats?.longestStreak || 0} days`}
+                      primaryTypographyProps={{ color: 'white' }}
+                      secondaryTypographyProps={{ color: '#b388ff' }}
+                    />
+                  </ListItem>
+                </List>
+              </Paper>
+            </Grid>
 
-        {/* Progress Overview */}
-        <div className="progress-overview">
-          <h2>Your Performance</h2>
-          <div className="progress-items">
-            <div className="progress-item">
-              <p>Best at:</p>
-              <span>{topicAnalysis.best}</span>
-            </div>
-            <div className="progress-item">
-              <p>Needs Improvement:</p>
-              <span>{topicAnalysis.worst}</span>
-            </div>
-            <div className="progress-item">
-              <p>Overall Completion:</p>
-              <span>{overallCompletion}%</span>
-            </div>
-          </div>
-        </div>
+            {/* Topic Completion Chart */}
+            <Grid item xs={12} md={8}>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', bgcolor: 'rgba(255, 255, 255, 0.1)' }}>
+                <Typography variant="h6" gutterBottom color="white">
+                  Topic Completion
+                </Typography>
+                {chartData.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart
+                      data={chartData}
+                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                      <XAxis dataKey="topic" stroke="#fff" />
+                      <YAxis domain={[0, 100]} stroke="#fff" />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: '#1e1230',
+                          border: '1px solid #6a3f92',
+                          color: '#fff'
+                        }}
+                      />
+                      <Legend />
+                      <Line
+                        type="monotone"
+                        dataKey="completion"
+                        stroke="#b388ff"
+                        name="Completion %"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <Typography variant="body1" align="center" sx={{ mt: 2 }} color="white">
+                    No topic completion data available
+                  </Typography>
+                )}
+              </Paper>
+            </Grid>
 
-        {/* Recent Attempts */}
-        <div className="saved-content">
-          <h2>📝 Recent Attempts</h2>
-          <div className="saved-items">
-            {performanceData?.attempt_history?.slice(-3).reverse().map((attempt, index) => (
-              <div key={index} className="saved-item">
-                <div>{attempt.topic}</div>
-                <div style={{ color: attempt.is_correct ? '#4CAF50' : '#f44336' }}>
-                  {attempt.is_correct ? '✓' : '✗'} {attempt.difficulty}
-                </div>
-                <div>Points: {attempt.points_awarded}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+            {/* Leaderboard */}
+            <Grid item xs={12}>
+              <Paper sx={{ p: 2, bgcolor: 'rgba(255, 255, 255, 0.1)' }}>
+                <Typography variant="h6" gutterBottom color="white">
+                  Leaderboard
+                </Typography>
+                <List>
+                  {leaderboard.length > 0 ? (
+                    leaderboard.map((entry, index) => (
+                      <React.Fragment key={entry.user_id || index}>
+                        <ListItem>
+                          <ListItemText
+                            primary={`#${index + 1} ${entry.username}`}
+                            secondary={`Level ${entry.level} - ${entry.xp_points} XP`}
+                            primaryTypographyProps={{ color: 'white' }}
+                            secondaryTypographyProps={{ color: '#b388ff' }}
+                          />
+                        </ListItem>
+                        {index < leaderboard.length - 1 && <Divider sx={{ bgcolor: 'rgba(255, 255, 255, 0.1)' }} />}
+                      </React.Fragment>
+                    ))
+                  ) : (
+                    <ListItem>
+                      <ListItemText 
+                        primary="No leaderboard data available"
+                        primaryTypographyProps={{ color: 'white' }}
+                      />
+                    </ListItem>
+                  )}
+                </List>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
       </div>
     </div>
   );

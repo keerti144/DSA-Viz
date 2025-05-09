@@ -1,34 +1,48 @@
 /* Header Styling */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #10081a;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 60px;
-  z-index: 10;
+  background-color: rgba(30, 18, 48, 0.95);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 /* Center Logo */
 .logo {
-  color: #b392f0; /* Soft purple */
-  font-size: 28px;
-  font-weight: bold;
-  font-family: "Aguafina Script", cursive;
-  text-shadow: 2px 2px 8px rgba(179, 146, 240, 0.6);
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(45deg, #8a2be2, #9370db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  transform: translateX(-50%) scale(1.05);
+  text-shadow: 2px 2px 8px rgba(138, 43, 226, 0.4);
 }
 
 /* Profile Icon Positioned to the Right */
 .header-right {
-  position: absolute;
-  right: 20px; /* Moves the profile icon to the rightmost */
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 /* Profile Button */
@@ -36,19 +50,23 @@
   background: none;
   border: none;
   cursor: pointer;
-  display: flex;
-  align-items: center;
+  padding: 5px;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.profile-btn:hover {
+  transform: scale(1.1);
 }
 
 .profile-btn img {
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #b392f0;
+  border: 2px solid #8a2be2;
+  transition: border-color 0.2s;
 }
 
-/* Hover Effect */
 .profile-btn:hover img {
-  opacity: 0.8;
+  border-color: #9370db;
 }

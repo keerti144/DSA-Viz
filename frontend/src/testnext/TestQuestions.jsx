@@ -152,9 +152,11 @@ const TestQuestions = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_id: currentUser.uid,
+          uid: currentUser.uid,
           question_id: question.id,
-          selected_answer: selectedAnswer,
+          selected_option: selectedAnswer,
+          topic: question.topic,
+          difficulty: question.difficulty
         }),
       });
 
@@ -169,9 +171,9 @@ const TestQuestions = () => {
       // Show the correct answer
       setShowAnswer(true);
 
-      // Update local score
-      if (data.is_correct) {
-        setScore(prev => prev + question.points);
+      // Update local score based on the response
+      if (data.correct) {
+        setScore(prev => prev + data.awardedPoints);
         setFeedback({ 
           type: 'success', 
           message: question.type === 'debugging' 

@@ -3,10 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box } from '@mui/material';
-import Navbar from './components/Navbar';
-import Dashboard from './components/Dashboard';
-import CommunityForum from './components/CommunityForum';
-import TimeBoundChallenges from './components/TimeBoundChallenges';
 import { AuthProvider } from './contexts/AuthContext';
 
 import { StartPage } from "./startpage/startpage.jsx";
@@ -35,10 +31,14 @@ const theme = createTheme({
     palette: {
         mode: 'dark',
         primary: {
-            main: '#90caf9',
+            main: '#5d3d85', // Purple theme color
         },
         secondary: {
-            main: '#f48fb1',
+            main: '#6a3f92', // Lighter purple
+        },
+        background: {
+            default: '#160c25', // Dark purple background
+            paper: '#1e1230', // Slightly lighter purple for cards
         },
     },
 });
@@ -49,17 +49,13 @@ function App() {
             <CssBaseline />
             <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
                 <AuthProvider>
-                    <Navbar />
-                    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                    <Box component="main" sx={{ flexGrow: 1 }}>
                         <Routes>
                             <Route path="/" element={<StartPage />} />
-                            <Route path="/dashboard" element={<Dashboard />} />
-                            <Route path="/forum" element={<CommunityForum />} />
-                            <Route path="/challenges" element={<TimeBoundChallenges />} />
+                            <Route path="/dashboard" element={<DashboardOpen />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/signup" element={<SignUp />} />
                             <Route path="/homepage" element={<Homepage />} />
-                            <Route path="/dashboard-open" element={<DashboardOpen />} />
                             <Route path="/settings" element={<Settings />} />
                             <Route path="/help" element={<Help />} />
                             <Route path="/community" element={<Community />} />
@@ -71,11 +67,11 @@ function App() {
                             <Route path="/roadmap" element={<Roadmap />} />
                             <Route path="/testnext" element={<TestNext />} />
                             <Route path="/testmcq" element={<TestMCQ />} />
-                            <Route path="/visnext/singlylinkedlist" element={<SinglyLinkedListVisualizer />} />
-                            <Route path="/visnext/circularsinglylinkedlist" element={<CircularSinglyLinkedListVisualizer />} />
-                            <Route path="/visnext/doublylinkedlist" element={<DoublyLinkedListVisualizer />} />
-                            <Route path="/visnext/cirulardoublylinkedlist" element={<CircularDoublyLinkedListVisualizer />} />
                             <Route path="/test-questions" element={<TestQuestions />} />
+                            <Route path="/singly-linked-list" element={<SinglyLinkedListVisualizer />} />
+                            <Route path="/circular-singly-linked-list" element={<CircularSinglyLinkedListVisualizer />} />
+                            <Route path="/doubly-linked-list" element={<DoublyLinkedListVisualizer />} />
+                            <Route path="/circular-doubly-linked-list" element={<CircularDoublyLinkedListVisualizer />} />
                         </Routes>
                     </Box>
                 </AuthProvider>
