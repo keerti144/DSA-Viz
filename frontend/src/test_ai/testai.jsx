@@ -177,7 +177,24 @@ export const TestAI = () => {
         <div className="testai-container">
             <h1>Generate Your AI Test</h1>
 
-            {!questions.length && (
+            {loading && (
+                <div className="loading-screen">
+                    <div className="loading-content">
+                        <div className="loading-animation">
+                            <div className="loading-circle"></div>
+                            <div className="loading-circle"></div>
+                            <div className="loading-circle"></div>
+                        </div>
+                        <h2 className="loading-text">Crafting Your Perfect Test</h2>
+                        <p className="loading-subtext">Analyzing your preferences and generating questions...</p>
+                        <div className="loading-progress">
+                            <div className="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {!questions.length && !loading && (
                 <div className="input-form">
                     <label>
                         Topics (Select multiple)
