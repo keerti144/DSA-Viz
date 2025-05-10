@@ -1,236 +1,286 @@
-import React, { useState, useEffect } from 'react';
-import BaseVisualization from '../BaseVisualization';
+import React, { useState } from 'react';
 import './SortingVisualization.css';
+import AlgoSidebar from '../AlgoSidebar';
 
-const SortingVisualization = ({ algorithm, title, timeComplexity, spaceComplexity, code, explanation }) => {
-    const [array, setArray] = useState([]);
-    const [isVisualizing, setIsVisualizing] = useState(false);
-
-    const generateArray = (size) => {
-        const newArray = Array.from({ length: size }, () =>
-            Math.floor(Math.random() * 100) + 1
-        );
-        setArray(newArray);
-        return newArray;
-    };
-
-    const visualize = async (arr, speed) => {
-        setIsVisualizing(true);
-        const bars = document.getElementsByClassName('array-bar');
-        const arrayCopy = [...arr];
-
-        switch (algorithm) {
-            case 'quicksort':
-                await quickSort(arrayCopy, 0, arrayCopy.length - 1, bars, speed);
-                break;
-            case 'mergesort':
-                await mergeSort(arrayCopy, 0, arrayCopy.length - 1, bars, speed);
-                break;
-            case 'insertionsort':
-                await insertionSort(arrayCopy, bars, speed);
-                break;
-            case 'selectionsort':
-                await selectionSort(arrayCopy, bars, speed);
-                break;
-            default:
-                break;
-        }
-
-        // Mark all bars as sorted
-        Array.from(bars).forEach(bar => {
-            bar.classList.add('sorted');
-        });
-        setIsVisualizing(false);
-    };
-
-    // QuickSort implementation
-    const quickSort = async (arr, low, high, bars, speed) => {
-        if (low < high) {
-            const pivotIndex = await partition(arr, low, high, bars, speed);
-            await quickSort(arr, low, pivotIndex - 1, bars, speed);
-            await quickSort(arr, pivotIndex + 1, high, bars, speed);
-        }
-    };
-
-    const partition = async (arr, low, high, bars, speed) => {
-        const pivot = arr[high];
-        let i = low - 1;
-
-        for (let j = low; j < high; j++) {
-            bars[j].classList.add('comparing');
-            bars[high].classList.add('comparing');
-            await new Promise(resolve => setTimeout(resolve, speed));
-
-            if (arr[j] < pivot) {
-                i++;
-                bars[i].classList.add('swapping');
-                bars[j].classList.add('swapping');
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-                updateBar(bars[i], arr[i]);
-                updateBar(bars[j], arr[j]);
-                await new Promise(resolve => setTimeout(resolve, speed));
-                bars[i].classList.remove('swapping');
-                bars[j].classList.remove('swapping');
+function getStepsBubbleSort(array) {
+    const steps = [];
+    const arr = array.slice();
+    steps.push({ arr: arr.slice(), highlights: [], type: 'start' });
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length - i - 1; j++) {
+            steps.push({ arr: arr.slice(), highlights: [j, j + 1], type: 'compare', indices: [j, j + 1] });
+            if (arr[j] > arr[j + 1]) {
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                steps.push({ arr: arr.slice(), highlights: [j, j + 1], type: 'swap', indices: [j, j + 1] });
             }
-
-            bars[j].classList.remove('comparing');
-            bars[high].classList.remove('comparing');
         }
+    }
+    steps.push({ arr: arr.slice(), highlights: [], type: 'done' });
+    return steps;
+}
 
-        bars[i + 1].classList.add('swapping');
-        bars[high].classList.add('swapping');
-        [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
-        updateBar(bars[i + 1], arr[i + 1]);
-        updateBar(bars[high], arr[high]);
-        await new Promise(resolve => setTimeout(resolve, speed));
-        bars[i + 1].classList.remove('swapping');
-        bars[high].classList.remove('swapping');
-
-        return i + 1;
-    };
-
-    // MergeSort implementation
-    const mergeSort = async (arr, left, right, bars, speed) => {
-        if (left < right) {
-            const mid = Math.floor((left + right) / 2);
-            await mergeSort(arr, left, mid, bars, speed);
-            await mergeSort(arr, mid + 1, right, bars, speed);
-            await merge(arr, left, mid, right, bars, speed);
+function getStepsInsertionSort(array) {
+    const steps = [];
+    const arr = array.slice();
+    steps.push({ arr: arr.slice(), highlights: [], type: 'start' });
+    for (let i = 1; i < arr.length; i++) {
+        let key = arr[i];
+        let j = i - 1;
+        steps.push({ arr: arr.slice(), highlights: [i], type: 'key', indices: [i] });
+        while (j >= 0 && arr[j] > key) {
+            steps.push({ arr: arr.slice(), highlights: [j, j + 1], type: 'compare', indices: [j, j + 1] });
+            arr[j + 1] = arr[j];
+            steps.push({ arr: arr.slice(), highlights: [j, j + 1], type: 'move', indices: [j, j + 1] });
+            j--;
         }
-    };
+        arr[j + 1] = key;
+        steps.push({ arr: arr.slice(), highlights: [j + 1], type: 'insert', indices: [j + 1] });
+    }
+    steps.push({ arr: arr.slice(), highlights: [], type: 'done' });
+    return steps;
+}
 
-    const merge = async (arr, left, mid, right, bars, speed) => {
-        const leftArray = arr.slice(left, mid + 1);
-        const rightArray = arr.slice(mid + 1, right + 1);
-        let i = 0, j = 0, k = left;
+function getStepsSelectionSort(array) {
+    const steps = [];
+    const arr = array.slice();
+    steps.push({ arr: arr.slice(), highlights: [], type: 'start' });
+    for (let i = 0; i < arr.length - 1; i++) {
+        let minIdx = i;
+        steps.push({ arr: arr.slice(), highlights: [i], type: 'select', indices: [i] });
+        for (let j = i + 1; j < arr.length; j++) {
+            steps.push({ arr: arr.slice(), highlights: [minIdx, j], type: 'compare', indices: [minIdx, j] });
+            if (arr[j] < arr[minIdx]) {
+                minIdx = j;
+                steps.push({ arr: arr.slice(), highlights: [minIdx], type: 'newmin', indices: [minIdx] });
+            }
+        }
+        if (minIdx !== i) {
+            [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
+            steps.push({ arr: arr.slice(), highlights: [i, minIdx], type: 'swap', indices: [i, minIdx] });
+        }
+    }
+    steps.push({ arr: arr.slice(), highlights: [], type: 'done' });
+    return steps;
+}
 
-        while (i < leftArray.length && j < rightArray.length) {
-            bars[k].classList.add('comparing');
-            await new Promise(resolve => setTimeout(resolve, speed));
-
-            if (leftArray[i] <= rightArray[j]) {
-                arr[k] = leftArray[i];
+function getStepsMergeSort(array) {
+    const steps = [];
+    const arr = array.slice();
+    steps.push({ arr: arr.slice(), highlights: [], type: 'start' });
+    function mergeSort(arr, l, r) {
+        if (l >= r) return;
+        const m = Math.floor((l + r) / 2);
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+        merge(arr, l, m, r);
+    }
+    function merge(arr, l, m, r) {
+        let left = arr.slice(l, m + 1);
+        let right = arr.slice(m + 1, r + 1);
+        let i = 0, j = 0, k = l;
+        while (i < left.length && j < right.length) {
+            steps.push({ arr: arr.slice(), highlights: [k], type: 'merge', indices: [k] });
+            if (left[i] <= right[j]) {
+                arr[k] = left[i];
                 i++;
             } else {
-                arr[k] = rightArray[j];
+                arr[k] = right[j];
                 j++;
             }
-            updateBar(bars[k], arr[k]);
-            bars[k].classList.remove('comparing');
             k++;
         }
-
-        while (i < leftArray.length) {
-            arr[k] = leftArray[i];
-            updateBar(bars[k], arr[k]);
-            i++;
-            k++;
+        while (i < left.length) {
+            steps.push({ arr: arr.slice(), highlights: [k], type: 'merge', indices: [k] });
+            arr[k++] = left[i++];
         }
-
-        while (j < rightArray.length) {
-            arr[k] = rightArray[j];
-            updateBar(bars[k], arr[k]);
-            j++;
-            k++;
+        while (j < right.length) {
+            steps.push({ arr: arr.slice(), highlights: [k], type: 'merge', indices: [k] });
+            arr[k++] = right[j++];
         }
-    };
+    }
+    mergeSort(arr, 0, arr.length - 1);
+    steps.push({ arr: arr.slice(), highlights: [], type: 'done' });
+    return steps;
+}
 
-    // InsertionSort implementation
-    const insertionSort = async (arr, bars, speed) => {
-        for (let i = 1; i < arr.length; i++) {
-            const key = arr[i];
-            let j = i - 1;
-
-            bars[i].classList.add('comparing');
-            await new Promise(resolve => setTimeout(resolve, speed));
-
-            while (j >= 0 && arr[j] > key) {
-                bars[j].classList.add('swapping');
-                bars[j + 1].classList.add('swapping');
-                arr[j + 1] = arr[j];
-                updateBar(bars[j + 1], arr[j + 1]);
-                await new Promise(resolve => setTimeout(resolve, speed));
-                bars[j].classList.remove('swapping');
-                bars[j + 1].classList.remove('swapping');
-                j--;
+function getStepsQuickSort(array) {
+    const steps = [];
+    const arr = array.slice();
+    steps.push({ arr: arr.slice(), highlights: [], type: 'start' });
+    function quickSort(arr, l, r) {
+        if (l < r) {
+            const pi = partition(arr, l, r);
+            quickSort(arr, l, pi - 1);
+            quickSort(arr, pi + 1, r);
+        }
+    }
+    function partition(arr, l, r) {
+        let pivot = arr[r];
+        let i = l - 1;
+        for (let j = l; j < r; j++) {
+            steps.push({ arr: arr.slice(), highlights: [j, r], type: 'compare', indices: [j, r] });
+            if (arr[j] < pivot) {
+                i++;
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+                steps.push({ arr: arr.slice(), highlights: [i, j], type: 'swap', indices: [i, j] });
             }
+        }
+        [arr[i + 1], arr[r]] = [arr[r], arr[i + 1]];
+        steps.push({ arr: arr.slice(), highlights: [i + 1, r], type: 'swap', indices: [i + 1, r] });
+        return i + 1;
+    }
+    quickSort(arr, 0, arr.length - 1);
+    steps.push({ arr: arr.slice(), highlights: [], type: 'done' });
+    return steps;
+}
 
-            arr[j + 1] = key;
-            updateBar(bars[j + 1], key);
-            bars[i].classList.remove('comparing');
+const algoToSteps = {
+    bubblesort: getStepsBubbleSort,
+    insertionsort: getStepsInsertionSort,
+    selectionsort: getStepsSelectionSort,
+    mergesort: getStepsMergeSort,
+    quicksort: getStepsQuickSort,
+};
+
+function getStepExplanation(type, indices, arr, algorithm) {
+    switch (type) {
+        case 'start':
+            return 'Ready to start ' + (algorithm ? algorithm.replace('sort', 'Sort') : 'sorting') + '.';
+        case 'compare':
+            return `Comparing elements at positions ${indices[0] + 1} and ${indices[1] + 1}.`;
+        case 'swap':
+            return `Swapping elements at positions ${indices[0] + 1} and ${indices[1] + 1}.`;
+        case 'move':
+            return `Moving element at position ${indices[0] + 1} to position ${indices[1] + 1}.`;
+        case 'insert':
+            return `Inserting key at position ${indices[0] + 1}.`;
+        case 'key':
+            return `Current key for insertion is at position ${indices[0] + 1}.`;
+        case 'select':
+            return `Selecting minimum for this pass at position ${indices[0] + 1}.`;
+        case 'newmin':
+            return `New minimum found at position ${indices[0] + 1}.`;
+        case 'merge':
+            return `Merging subarrays, updating position ${indices[0] + 1}.`;
+        case 'done':
+            return 'Sorting complete!';
+        default:
+            return '';
+    }
+}
+
+function getRandomArray(size = 7) {
+    return Array.from({ length: size }, () => Math.floor(Math.random() * 90) + 10);
+}
+
+const SortingVisualization = ({ algorithm, title, code, explanation, pseudocode }) => {
+    const [array, setArray] = useState([]);
+    const [steps, setSteps] = useState([]);
+    const [stepIdx, setStepIdx] = useState(0);
+    const [input, setInput] = useState("");
+
+    const current = steps[stepIdx] || { arr: array, highlights: [], type: 'start', indices: [] };
+
+    const handleAdd = () => {
+        if (input !== "" && !isNaN(Number(input))) {
+            setArray([...array, Number(input)]);
+            setInput("");
         }
     };
 
-    // SelectionSort implementation
-    const selectionSort = async (arr, bars, speed) => {
-        for (let i = 0; i < arr.length - 1; i++) {
-            let minIdx = i;
-            bars[i].classList.add('comparing');
-
-            for (let j = i + 1; j < arr.length; j++) {
-                bars[j].classList.add('comparing');
-                await new Promise(resolve => setTimeout(resolve, speed));
-
-                if (arr[j] < arr[minIdx]) {
-                    if (minIdx !== i) bars[minIdx].classList.remove('comparing');
-                    minIdx = j;
-                } else {
-                    bars[j].classList.remove('comparing');
-                }
-            }
-
-            if (minIdx !== i) {
-                bars[i].classList.add('swapping');
-                bars[minIdx].classList.add('swapping');
-                [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
-                updateBar(bars[i], arr[i]);
-                updateBar(bars[minIdx], arr[minIdx]);
-                await new Promise(resolve => setTimeout(resolve, speed));
-                bars[i].classList.remove('swapping');
-                bars[minIdx].classList.remove('swapping');
-            }
-
-            bars[i].classList.remove('comparing');
-            bars[i].classList.add('sorted');
+    const handleSort = () => {
+        if (algoToSteps[algorithm] && array.length > 1) {
+            const generated = algoToSteps[algorithm](array);
+            setSteps(generated);
+            setStepIdx(0);
         }
-        bars[arr.length - 1].classList.add('sorted');
     };
 
-    const updateBar = (bar, value) => {
-        bar.style.height = `${value}%`;
-        bar.querySelector('.bar-value').textContent = value;
+    const handleNext = () => setStepIdx((idx) => Math.min(idx + 1, steps.length - 1));
+    const handlePrev = () => setStepIdx((idx) => Math.max(idx - 1, 0));
+    const handleReset = () => {
+        setSteps([]);
+        setStepIdx(0);
+        setArray([]);
+        setInput("");
+    };
+    const handleRestart = () => setStepIdx(0);
+    const handleRandom = () => {
+        const randArr = getRandomArray();
+        setArray(randArr);
+        setSteps([]);
+        setStepIdx(0);
     };
 
-    const customRender = () => (
-        <div className="array-container">
-            {array.map((value, index) => (
-                <div
-                    key={index}
-                    className="array-bar"
-                    style={{
-                        height: `${value}%`,
-                        width: `${100 / array.length}%`,
-                    }}
-                >
-                    <span className="bar-value">{value}</span>
-                </div>
-            ))}
-        </div>
-    );
+    // For sidebar: show step explanation in words
+    const stepExplanation = steps.length > 0
+        ? getStepExplanation(current.type, current.indices || [], current.arr, algorithm)
+        : 'Add elements and click Sort It to start visualizing.';
 
     return (
-        <BaseVisualization
-            title={title}
-            algorithm={algorithm}
-            timeComplexity={timeComplexity}
-            spaceComplexity={spaceComplexity}
-            stability={algorithm === 'mergesort' || algorithm === 'insertionsort' ? 'Stable' : 'Unstable'}
-            generateArray={generateArray}
-            visualize={visualize}
-            code={code}
-            explanation={explanation}
-            customRender={customRender}
-        />
+        <div style={{ display: 'flex', width: '100%', height: '100%' }}>
+            <div className="sort-visualizer-layout" style={{ flex: 1 }}>
+                <div className="sort-visualizer-main">
+                    <h2>{title}</h2>
+                    <div className="input-row" style={{ marginBottom: 24 }}>
+                        <input
+                            value={input}
+                            onChange={e => setInput(e.target.value)}
+                            placeholder="Enter number"
+                            onKeyDown={e => e.key === "Enter" && handleAdd()}
+                            style={{ borderRadius: 8, border: '1px solid #a879ff', padding: '8px 12px', fontSize: 16, marginRight: 8 }}
+                        />
+                        <button onClick={handleAdd} style={{ borderRadius: 8, background: '#a879ff', color: '#fff', border: 'none', padding: '8px 16px', marginRight: 8 }}>Add</button>
+                        <button onClick={handleRandom} style={{ borderRadius: 8, background: '#6a3f92', color: '#fff', border: 'none', padding: '8px 16px', marginRight: 8 }}>Random</button>
+                        <button onClick={handleSort} style={{ borderRadius: 8, background: '#5d3d85', color: '#fff', border: 'none', padding: '8px 16px', marginRight: 8 }} disabled={array.length < 2}>Sort It</button>
+                        <button onClick={handleReset} style={{ borderRadius: 8, background: '#2d1850', color: '#fff', border: 'none', padding: '8px 16px' }}>Reset</button>
+                    </div>
+                    {array.length === 0 && (
+                        <div style={{ color: '#a879ff', fontSize: 20, margin: '2rem 0', textAlign: 'center', fontWeight: 500 }}>
+                            Add elements to start visualizing.
+                        </div>
+                    )}
+                    <div className="bars" style={{ display: 'flex', alignItems: 'flex-end', height: 300, margin: '2rem 0', justifyContent: 'center' }}>
+                        {(current.arr || []).map((val, idx) => (
+                            <div
+                                key={idx}
+                                className={`bar${current.highlights && current.highlights.includes(idx) ? " highlight" : ""}`}
+                                style={{
+                                    height: `${val * 3 + 20}px`,
+                                    width: '36px',
+                                    margin: '0 10px',
+                                    background: current.highlights && current.highlights.includes(idx) ? '#e879f9' : '#a879ff',
+                                    color: '#fff',
+                                    display: 'flex',
+                                    alignItems: 'flex-end',
+                                    justifyContent: 'center',
+                                    borderRadius: '10px',
+                                    fontWeight: 600,
+                                    fontSize: 18,
+                                    boxShadow: current.highlights && current.highlights.includes(idx) ? '0 0 16px #e879f9' : '0 2px 8px #0002',
+                                    transition: 'height 0.3s, background 0.3s',
+                                }}
+                            >
+                                {val}
+                            </div>
+                        ))}
+                    </div>
+                    {steps.length > 0 && (
+                        <div className="controls" style={{ marginBottom: 16, display: 'flex', gap: 12, justifyContent: 'center' }}>
+                            <button onClick={handlePrev} disabled={stepIdx === 0} style={{ borderRadius: 8, background: stepIdx === 0 ? '#444' : '#a879ff', color: '#fff', border: 'none', padding: '8px 16px' }}>Previous</button>
+                            <button onClick={handleNext} disabled={stepIdx === steps.length - 1} style={{ borderRadius: 8, background: stepIdx === steps.length - 1 ? '#444' : '#a879ff', color: '#fff', border: 'none', padding: '8px 16px' }}>Next</button>
+                            <button onClick={handleRestart} disabled={steps.length === 0} style={{ borderRadius: 8, background: steps.length === 0 ? '#444' : '#6a3f92', color: '#fff', border: 'none', padding: '8px 16px' }}>Restart</button>
+                        </div>
+                    )}
+                    <div className="explanation" style={{ minHeight: 32, marginTop: 8, textAlign: 'center', color: '#e879f9', fontWeight: 500, fontSize: 18 }}>
+                        {stepExplanation}
+                    </div>
+                </div>
+            </div>
+            <div style={{ width: 340, minWidth: 320 }}>
+                <AlgoSidebar algorithm={pseudocode} code={code} explanation={explanation} />
+            </div>
+        </div>
     );
 };
 
