@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { motion } from 'framer-motion';
+import clsx from 'clsx';
 import './notesgenerator.css';
 
 const NotesGenerator = () => {
@@ -76,6 +78,20 @@ const NotesGenerator = () => {
         setGeneratedNotes('');
     };
 
+    // Animation variants
+    const cardVariants = {
+        hidden: { opacity: 0, y: 40, scale: 0.98 },
+        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, type: 'spring', bounce: 0.18 } },
+    };
+    const headingVariants = {
+        hidden: { opacity: 0, y: -40, scale: 0.98 },
+        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, type: 'spring', bounce: 0.18 } },
+    };
+    const buttonVariants = {
+        hover: { scale: 1.05, boxShadow: '0 4px 16px #a678f244' },
+        tap: { scale: 0.97 },
+    };
+
     if (loading) {
         return (
             <div className="loading-screen">
@@ -98,7 +114,8 @@ const NotesGenerator = () => {
     if (showNotes) {
         return (
             <div className="notes-generator-container full-width">
-                {toast && <div className="custom-toast pop-in">{toast}</div>}
+                <div className="parallax-bg" />
+                {toast && <motion.div className="custom-toast pop-in" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }}>{toast}</motion.div>}
                 <div className="generated-notes fade-in">
                     <h2 className="slide-in">Generated Notes</h2>
                     <div className="notes-content">
@@ -126,9 +143,23 @@ const NotesGenerator = () => {
 
     return (
         <div className="notes-generator-container full-width">
-            {toast && <div className="custom-toast pop-in">{toast}</div>}
-            <h1 className="pop-in">AI Notes Generator</h1>
-            <form className="notes-form fade-in" onSubmit={handleSubmit}>
+            <div className="parallax-bg" />
+            {toast && <motion.div className="custom-toast pop-in" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }}>{toast}</motion.div>}
+            <motion.h1
+                className="pop-in"
+                variants={headingVariants}
+                initial="hidden"
+                animate="visible"
+            >
+                AI Notes Generator
+            </motion.h1>
+            <motion.form
+                className="notes-form fade-in"
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                onSubmit={handleSubmit}
+            >
                 <div className="form-group">
                     <label htmlFor="topic">Topic</label>
                     <input
@@ -312,7 +343,7 @@ const NotesGenerator = () => {
                 <button type="submit" className="generate-button rainbow pop-in">
                     Generate Notes
                 </button>
-            </form>
+            </motion.form>
         </div>
     );
 };
