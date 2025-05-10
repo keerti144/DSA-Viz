@@ -1,0 +1,43 @@
+.algo-sidebar {
+    background: #1e1230;
+    color: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    width: 320px;
+    min-height: 300px;
+}
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.tabs button {
+    flex: 1;
+    background: #2d1850;
+    color: #fff;
+    border: none;
+    border-radius: 6px 6px 0 0;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.tabs button.active {
+    background: linear-gradient(90deg, #a879ff 60%, #f64f59 100%);
+    color: #fff;
+}
+
+.tab-content {
+    background: #22113a;
+    border-radius: 0 0 8px 8px;
+    padding: 12px;
+    min-height: 180px;
+    font-size: 15px;
+    overflow-x: auto;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+}

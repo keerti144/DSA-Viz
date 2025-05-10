@@ -1,0 +1,53 @@
+.array-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 400px;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.array-bar {
+    background-color: #3498db;
+    margin: 0 1px;
+    transition: height 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.bar-value {
+    position: absolute;
+    bottom: -20px;
+    font-size: 12px;
+    color: #2c3e50;
+}
+
+/* Bar states */
+.array-bar.comparing {
+    background-color: #e74c3c;
+}
+
+.array-bar.swapping {
+    background-color: #f1c40f;
+}
+
+.array-bar.sorted {
+    background-color: #2ecc71;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .array-container {
+        height: 300px;
+        padding: 0.5rem;
+    }
+
+    .bar-value {
+        font-size: 10px;
+        bottom: -15px;
+    }
+} 

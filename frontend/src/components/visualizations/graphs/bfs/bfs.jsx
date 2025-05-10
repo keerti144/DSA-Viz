@@ -1,60 +1,41 @@
-import React, { useState } from "react";
-import GraphControls from "../GraphControls";
-import GraphDisplay from "./GraphDisplay";
+import React from 'react';
+import GraphVisualization from '../GraphVisualization';
 
 const BFS = () => {
-  const [graph, setGraph] = useState({});
-  const [traversalOrder, setTraversalOrder] = useState([]);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  const addEdge = (from, to) => {
-    setGraph((prevGraph) => {
-      const updated = { ...prevGraph };
-      if (!updated[from]) updated[from] = [];
-      updated[from].push(to);
-      return updated;
-    });
-  };
-
-  const bfs = (start) => {
-    if (!start || !graph[start]) return;
-    const visited = new Set();
+    const code = `function bfs(graph, start) {
     const queue = [start];
+    const visited = new Set([start]);
     const result = [];
 
     while (queue.length > 0) {
-      const node = queue.shift();
-      if (!visited.has(node)) {
-        visited.add(node);
-        result.push(node);
-        for (let neighbor of graph[node] || []) {
-          if (!visited.has(neighbor)) {
-            queue.push(neighbor);
-          }
+        const current = queue.shift();
+        result.push(current);
+
+        for (const neighbor of graph[current]) {
+            if (!visited.has(neighbor)) {
+                visited.add(neighbor);
+                queue.push(neighbor);
+            }
         }
-      }
     }
+    return result;
+}`;
 
-    setTraversalOrder(result);
-  };
+    const explanation = `Breadth-First Search (BFS) is a graph traversal algorithm that explores all vertices 
+    at the present depth before moving on to vertices at the next depth level. It's particularly useful 
+    for finding the shortest path between two vertices in an unweighted graph. BFS uses a queue data 
+    structure to keep track of vertices to visit.`;
 
-  return (
-    <div style={{ padding: "2rem", backgroundColor: "#0f172a", minHeight: "100vh" }}>
-      <h2 style={{ color: "#f8fafc", fontSize: "2rem", marginBottom: "1rem" }}>
-        BFS Visualizer
-      </h2>
-
-      <GraphControls
-        addEdge={addEdge}
-        dfs={() => {}}
-        bfs={bfs}
-        isAnimating={isAnimating}
-        setIsAnimating={setIsAnimating}
-      />
-
-      <GraphDisplay graph={graph} traversalOrder={traversalOrder} />
-    </div>
-  );
+    return (
+        <GraphVisualization
+            algorithm="bfs"
+            title="Breadth-First Search (BFS)"
+            timeComplexity="O(V + E)"
+            spaceComplexity="O(V)"
+            code={code}
+            explanation={explanation}
+        />
+    );
 };
 
 export default BFS;

@@ -1,0 +1,66 @@
+.dfs-visualizer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: #1a1a1a;
+    min-height: 100vh;
+    color: #fff;
+}
+
+.dfs-visualizer h2 {
+    color: #4a90e2;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.graph-display {
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    background: #2a2a2a;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 2rem;
+    position: relative;
+}
+
+.node {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #4a90e2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.node.visited {
+    background: #4caf50;
+}
+
+.node.current {
+    background: #ffa726;
+}
+
+.edge {
+    position: absolute;
+    background: #666;
+    height: 2px;
+    transform-origin: left center;
+    pointer-events: none;
+}
+
+.edge.visited {
+    background: #4caf50;
+}
+
+.edge.current {
+    background: #ffa726;
+}

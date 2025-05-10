@@ -1,56 +1,41 @@
-import React, { useState } from "react";
-import GraphControls from "../GraphControls";
-import GraphDisplay from "./GraphDisplay";
+import React from 'react';
+import GraphVisualization from '../GraphVisualization';
 
 const DFS = () => {
-  const [graph, setGraph] = useState({});
-  const [traversalOrder, setTraversalOrder] = useState([]);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  const addEdge = (from, to) => {
-    setGraph((prevGraph) => {
-      const updated = { ...prevGraph };
-      if (!updated[from]) updated[from] = [];
-      updated[from].push(to);
-      return updated;
-    });
-  };
-
-  const dfs = (start) => {
-    if (!start || !graph[start]) return;
+    const code = `function dfs(graph, start) {
     const visited = new Set();
     const result = [];
 
-    const dfsHelper = (node) => {
-      if (visited.has(node)) return;
-      visited.add(node);
-      result.push(node);
-      for (let neighbor of graph[node] || []) {
-        dfsHelper(neighbor);
-      }
-    };
+    function traverse(current) {
+        visited.add(current);
+        result.push(current);
 
-    dfsHelper(start);
-    setTraversalOrder(result);
-  };
+        for (const neighbor of graph[current]) {
+            if (!visited.has(neighbor)) {
+                traverse(neighbor);
+            }
+        }
+    }
 
-  return (
-    <div style={{ padding: "2rem", backgroundColor: "#0f172a", minHeight: "100vh" }}>
-      <h2 style={{ color: "#f8fafc", fontSize: "2rem", marginBottom: "1rem" }}>
-        DFS Visualizer
-      </h2>
+    traverse(start);
+    return result;
+}`;
 
-      <GraphControls
-        addEdge={addEdge}
-        dfs={dfs}
-        bfs={() => {}}
-        isAnimating={isAnimating}
-        setIsAnimating={setIsAnimating}
-      />
+    const explanation = `Depth-First Search (DFS) is a graph traversal algorithm that explores as far as possible 
+    along each branch before backtracking. It's particularly useful for exploring all vertices in a graph 
+    and can be implemented using either recursion or a stack. DFS is often used in maze solving, 
+    topological sorting, and detecting cycles in graphs.`;
 
-      <GraphDisplay graph={graph} traversalOrder={traversalOrder} />
-    </div>
-  );
+    return (
+        <GraphVisualization
+            algorithm="dfs"
+            title="Depth-First Search (DFS)"
+            timeComplexity="O(V + E)"
+            spaceComplexity="O(V)"
+            code={code}
+            explanation={explanation}
+        />
+    );
 };
 
 export default DFS;

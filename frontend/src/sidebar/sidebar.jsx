@@ -25,42 +25,47 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <img src={menuIcon} alt="Menu" />
       </button>
 
-      <Link to="/dashboard" className="sidebar-link">
-        <img src={detailsIcon} alt="Dashboard" />
-        {isExpanded && <span className="label">Dashboard</span>}
-      </Link>
+      <div className="sidebar-links">
+        <Link to="/dashboard" className="sidebar-link">
+          <img src={detailsIcon} alt="Dashboard" />
+          {isExpanded && <span className="label">Dashboard</span>}
+        </Link>
 
-      <button className="nav-btn" onClick={() => navigate("/test")}>
-        <img src={testResultsIcon} alt="Test Yourself" />
-        {isExpanded && <span className="label">Test Yourself</span>}
-      </button>
+        <button className="nav-btn" onClick={() => navigate("/test")}>
+          <img src={testResultsIcon} alt="Test Yourself" />
+          {isExpanded && <span className="label">Test Yourself</span>}
+        </button>
 
-      <button className="nav-btn" onClick={() => navigate("/visualize")}>
-        <img src={eyeIcon} alt="Visualize" />
-        {isExpanded && <span className="label">Visualize</span>}
-      </button>
+        <button className="nav-btn" onClick={() => navigate("/testai")}>
+          <img src={testResultsIcon} alt="Test with AI" />
+          {isExpanded && <span className="label">Test with AI</span>}
+        </button>
 
-      <button className="nav-btn" onClick={() => navigate("/community")}>
-        <img src={notificationsIcon} alt="Community" />
-        {isExpanded && <span className="label">Community</span>}
-      </button>
-      
-      {/* New Features */}
-      <button className="nav-btn" onClick={() => navigate("/flashcards")}>
-  <img src={flashcardsIcon} alt="Flashcards & Notes" />
-  {isExpanded && <span className="label">Flashcards & Notes</span>}
-</button>
+        <button className="nav-btn" onClick={() => navigate("/visualize")}>
+          <img src={eyeIcon} alt="Visualize" />
+          {isExpanded && <span className="label">Visualize</span>}
+        </button>
 
+        <button className="nav-btn" onClick={() => navigate("/community")}>
+          <img src={notificationsIcon} alt="Community" />
+          {isExpanded && <span className="label">Community</span>}
+        </button>
 
-      <button className="nav-btn" onClick={() => navigate("/roadmap")}>
-        <img src={roadmapIcon} alt="Roadmap" />
-        {isExpanded && <span className="label">Roadmap</span>}
-      </button>
-      <button className="nav-btn" onClick={() => navigate("/help")}>
-        <img src={inquiryIcon} alt="Help" />
-        {isExpanded && <span className="label">Help</span>}
-      </button>
+        <button className="nav-btn" onClick={() => navigate("/flashcards")}>
+          <img src={flashcardsIcon} alt="Flashcards & Notes" />
+          {isExpanded && <span className="label">Flashcards & Notes</span>}
+        </button>
 
+        <button className="nav-btn" onClick={() => navigate("/roadmap")}>
+          <img src={roadmapIcon} alt="Roadmap" />
+          {isExpanded && <span className="label">Roadmap</span>}
+        </button>
+
+        <button className="nav-btn" onClick={() => navigate("/help")}>
+          <img src={inquiryIcon} alt="Help" />
+          {isExpanded && <span className="label">Help</span>}
+        </button>
+      </div>
     </div>
   );
 };

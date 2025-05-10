@@ -1,0 +1,65 @@
+.tree-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 1rem 0;
+    overflow: auto;
+}
+
+.tree-canvas {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Node states */
+.node {
+    transition: all 0.3s ease;
+}
+
+.node-visited {
+    fill: #2ecc71;
+}
+
+.node-current {
+    fill: #e74c3c;
+}
+
+.node-unvisited {
+    fill: #3498db;
+}
+
+/* Edge styles */
+.edge {
+    stroke: #666;
+    stroke-width: 2;
+}
+
+.edge-traversed {
+    stroke: #2ecc71;
+    stroke-width: 3;
+}
+
+/* Node value styles */
+.node-value {
+    fill: white;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .tree-container {
+        padding: 1rem;
+    }
+
+    .tree-canvas {
+        width: 100%;
+        height: auto;
+    }
+}

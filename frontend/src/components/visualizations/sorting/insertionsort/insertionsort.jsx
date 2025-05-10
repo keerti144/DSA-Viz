@@ -1,80 +1,43 @@
-import React, { useState, useRef } from "react";
-import Button from "../../ui/Button";
-import getInsertionSort from "./getinsertionsort";
-import { BackButton } from "../../ui/BackButton";
-import classes from "../../Sort.module.css";
+import React from 'react';
+import SortingVisualization from '../SortingVisualization';
 
 const InsertionSort = () => {
-  const ANIMATION_SPEED = 50;
-  const NUMBER_OF_BAR = 35;
-  const SECONDARY_COLOR = "#707070";
-  const PRIMARY_COLOR = "white";
-  const [array, setArray] = useState([]);
-  const arraybarRef = useRef(null);
+    const code = `function insertionSort(arr) {
+    for (let i = 1; i < arr.length; i++) {
+        const key = arr[i];
+        let j = i - 1;
 
-  const generateRandomArray = () => {
-    const newArray = [];
-    for (let i = 0; i < NUMBER_OF_BAR; i++) {
-      newArray.push(Math.floor(Math.random() * (100 - 5 + 1) + 5));
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
     }
-    setArray(newArray);
-  };
+}`;
 
-  const insertionSort = () => {
-    const animations = getInsertionSort(array);
-    console.log(animations);
+    const explanation = `InsertionSort is a simple sorting algorithm that builds the final sorted array one item 
+    at a time. It is much less efficient on large lists than more advanced algorithms such as quicksort, heapsort, 
+    or merge sort. However, insertion sort provides several advantages:
 
-    for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName(arraybarRef.current.className);
-      const isColorChange = i % 3 !== 2;
+    Key characteristics:
+    - Time complexity: O(n²) in worst and average cases
+    - Best case time complexity: O(n) when array is already sorted
+    - Space complexity: O(1)
+    - Stable sorting algorithm
+    - In-place sorting algorithm
+    - Efficient for small data sets
+    - Adaptive: efficient for data sets that are already substantially sorted`;
 
-      if (isColorChange) {
-        const [barOneIdx, barTwoIdx] = animations[i];
-        const barOneStyle = arrayBars[barOneIdx].style;
-        const barTwoStyle = arrayBars[barTwoIdx].style;
-        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-        setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
-        }, i * ANIMATION_SPEED);
-      } else {
-        setTimeout(() => {
-          const [barOneIdx, newHeight] = animations[i];
-          const barOneStyle = arrayBars[barOneIdx].style;
-          arrayBars[barOneIdx].innerHTML = newHeight;
-          barOneStyle.height = `${newHeight * (window.innerHeight / 125)}px`;
-        }, i * ANIMATION_SPEED);
-      }
-    }
-  };
-
-  return (
-    <div className={classes.container}>
-      <BackButton />
-      <div className={classes.heading}>Insertion Sort</div>
-      <div className={classes.array}>
-        {array.map((value, index) => (
-          <div
-            className={classes.arraybar}
-            ref={arraybarRef}
-            key={index}
-            style={{
-              backgroundColor: PRIMARY_COLOR,
-              height: `${value * (window.innerHeight / 125)}px`,
-              width: `${window.innerWidth / (2.2 * array.length)}px`,
-              fontSize: `${window.innerWidth / (3.3 * array.length)}px`,
-            }}
-          >
-            {value}
-          </div>
-        ))}
-      </div>
-      <div className={classes.button}>
-        <Button onClick={generateRandomArray}>Generate Numbers</Button>
-        <Button onClick={insertionSort}>Start InsertionSort</Button>
-      </div>
-    </div>
-  );
+    return (
+        <SortingVisualization
+            algorithm="insertionsort"
+            title="Insertion Sort"
+            timeComplexity="O(n²)"
+            spaceComplexity="O(1)"
+            code={code}
+            explanation={explanation}
+        />
+    );
 };
 
 export default InsertionSort;
