@@ -1,0 +1,61 @@
+.stack-visualizer-layout {
+    display: flex;
+    gap: 32px;
+}
+
+.stack-visualizer-main {
+    flex: 1;
+}
+
+.input-row {
+    margin-bottom: 16px;
+}
+
+.stack-box {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    min-height: 220px;
+    margin: 24px 0;
+}
+
+.stack-node {
+    width: 60px;
+    height: 40px;
+    background: #a879ff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 6px 0;
+    border-radius: 8px;
+    position: relative;
+    transition: background 0.3s;
+}
+
+.stack-node.highlight {
+    background: #f64f59;
+}
+
+.stack-top {
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ff69b4;
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.controls button {
+    margin: 0 6px;
+}
+
+.explanation {
+    margin-top: 16px;
+    color: #ff69b4;
+}

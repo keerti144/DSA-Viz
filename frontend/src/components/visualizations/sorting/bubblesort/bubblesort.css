@@ -1,0 +1,44 @@
+/* Bubble Sort specific styles */
+.array-bar {
+    transition: all 0.3s ease;
+}
+
+.array-bar.comparing {
+    background-color: #e74c3c;
+    transform: scale(1.1);
+}
+
+.array-bar.swapping {
+    background-color: #2ecc71;
+    transform: scale(1.2);
+}
+
+.array-bar.sorted {
+    background-color: #3498db;
+}
+
+/* Animation for bubble effect */
+@keyframes bubble {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.array-bar.bubble {
+    animation: bubble 0.5s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .array-bar {
+        font-size: 0.6rem;
+    }
+}

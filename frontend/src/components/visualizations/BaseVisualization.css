@@ -1,0 +1,229 @@
+html,
+body,
+#root {
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: #160c25;
+    overflow-y: auto !important;
+}
+
+.base-vis-layout {
+    display: flex;
+    width: 100%;
+    min-height: 600px;
+    background: #1a1333;
+    border-radius: 18px;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+}
+
+.base-vis-main {
+    flex: 2;
+    padding: 2rem 2rem 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #22184a;
+    border-radius: 18px 0 0 18px;
+    overflow-y: auto;
+}
+
+.base-vis-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.base-vis-header h1 {
+    color: #c299fc;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.base-vis-info {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    color: #bdb7e3;
+    font-size: 1rem;
+}
+
+.base-vis-controls {
+    display: flex;
+    gap: 0.7rem;
+    margin-bottom: 1.2rem;
+    align-items: center;
+}
+
+.base-vis-input {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    background: #2d225a;
+    color: #e0d7ff;
+    outline: none;
+    transition: box-shadow 0.2s;
+}
+
+.base-vis-input:focus {
+    box-shadow: 0 0 0 2px #a084e8;
+}
+
+.base-vis-btn {
+    background: linear-gradient(90deg, #a084e8 0%, #6f4cc7 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-weight: 500;
+}
+
+.base-vis-btn:hover {
+    background: linear-gradient(90deg, #c299fc 0%, #a084e8 100%);
+    transform: translateY(-2px) scale(1.04);
+}
+
+.base-vis-step-controls {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.base-vis-visualization {
+    width: 100%;
+    min-height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background: #f8f9fa08;
+    border-radius: 12px;
+    padding: 2rem 1rem 1.5rem 1rem;
+    box-shadow: 0 2px 12px rgba(80, 60, 160, 0.08);
+}
+
+.array-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.3rem;
+    width: 100%;
+    height: 220px;
+    justify-content: center;
+}
+
+.array-bar {
+    background: linear-gradient(180deg, #a084e8 0%, #6f4cc7 100%);
+    border-radius: 6px 6px 0 0;
+    width: 28px;
+    margin: 0 2px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    transition: height 0.3s, background 0.2s;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(160, 132, 232, 0.08);
+}
+
+.bar-value {
+    position: absolute;
+    bottom: -22px;
+    color: #bdb7e3;
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 0 1px 2px #22184a;
+}
+
+.base-vis-sidebar {
+    flex: 1;
+    background: #2d225a;
+    border-radius: 0 18px 18px 0;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 320px;
+    overflow-y: auto;
+}
+
+.base-vis-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+}
+
+.base-vis-tabs button {
+    background: linear-gradient(90deg, #a084e8 0%, #6f4cc7 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.base-vis-tabs button.active,
+.base-vis-tabs button:hover {
+    background: linear-gradient(90deg, #c299fc 0%, #a084e8 100%);
+    color: #22184a;
+    transform: scale(1.06);
+}
+
+.sidebar-section {
+    background: #22184a;
+    border-radius: 10px;
+    padding: 1.2rem 1rem;
+    color: #e0d7ff;
+    font-size: 1.05rem;
+    box-shadow: 0 2px 8px rgba(80, 60, 160, 0.08);
+    min-height: 180px;
+}
+
+.sidebar-section h2 {
+    color: #c299fc;
+    font-size: 1.2rem;
+    margin-bottom: 0.7rem;
+}
+
+.sidebar-section pre {
+    background: #2d225a;
+    color: #bdb7e3;
+    border-radius: 6px;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+    overflow-x: auto;
+}
+
+.sidebar-section p {
+    color: #e0d7ff;
+    line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+    .base-vis-layout {
+        flex-direction: column;
+        min-height: unset;
+    }
+
+    .base-vis-main,
+    .base-vis-sidebar {
+        border-radius: 18px;
+        min-width: unset;
+        padding: 1.2rem;
+        overflow-y: auto;
+    }
+
+    .base-vis-sidebar {
+        margin-top: 1.5rem;
+    }
+}

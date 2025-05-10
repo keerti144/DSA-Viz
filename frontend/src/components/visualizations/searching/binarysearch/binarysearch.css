@@ -1,0 +1,126 @@
+.binary-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: #1a1a1a;
+    min-height: 100vh;
+    color: #fff;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+.input-group {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+}
+
+.target-input {
+    flex: 1;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 2px solid #4a90e2;
+    border-radius: 4px;
+    background: #2a2a2a;
+    color: #fff;
+}
+
+.target-input:disabled {
+    border-color: #666;
+    background: #333;
+}
+
+.control-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #4a90e2;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover:not(:disabled) {
+    background: #357abd;
+    transform: translateY(-2px);
+}
+
+.control-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+}
+
+.array-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    height: 400px;
+    background: #2a2a2a;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.array-bar {
+    background: #4a90e2;
+    margin: 0 2px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+}
+
+.array-bar.found {
+    background: #4caf50;
+}
+
+.bar-value {
+    position: absolute;
+    bottom: -25px;
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+.info-panel {
+    background: #2a2a2a;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.info-panel h3 {
+    margin: 0 0 1rem 0;
+    color: #4a90e2;
+}
+
+.info-panel p {
+    margin: 0.5rem 0;
+    color: #ccc;
+}
+
+.info-panel .result {
+    color: #4caf50;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+.info-panel .note {
+    color: #ffa726;
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+.info-panel p:last-child {
+    margin-bottom: 0;
+}

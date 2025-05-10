@@ -1,7 +1,5 @@
 import React, { useState, useRef } from "react";
-import Button from "../../ui/Button";
 import getLinearSearch from "./getlinearsearch";
-import { BackButton } from "../../ui/BackButton";
 import classes from "../Searching.module.css";
 
 const LinearSearch = () => {
@@ -28,7 +26,6 @@ const LinearSearch = () => {
 
   return (
     <div className={classes.container}>
-      <BackButton />
       <h2 className={classes.heading}>Linear Search</h2>
 
       <div className={classes.arrayContainer}>
@@ -51,8 +48,8 @@ const LinearSearch = () => {
           placeholder="Enter target"
           className={classes.input}
         />
-        <Button onClick={generateArray}>Generate Array</Button>
-        <Button onClick={visualizeSearch}>Start Search</Button>
+        <button onClick={generateArray}>Generate Array</button>
+        <button onClick={visualizeSearch}>Start Search</button>
       </div>
     </div>
   );

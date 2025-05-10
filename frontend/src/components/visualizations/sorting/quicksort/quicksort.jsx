@@ -1,80 +1,52 @@
-import React, { useState, useRef } from "react";
-import Button from "../../ui/Button";
-import getQuickSort from "./getquicksort";
-import { BackButton } from "../../ui/BackButton";
-import classes from "../../Sort.module.css";
+import React from 'react';
+import SortingVisualization from '../SortingVisualization';
 
 const QuickSort = () => {
-  const ANIMATION_SPEED = 50;
-  const NUMBER_OF_BAR = 35;
-  const SECONDARY_COLOR = "#707070";
-  const PRIMARY_COLOR = "white";
-  const [array, setArray] = useState([]);
-  const arraybarRef = useRef(null);
-
-  const generateRandomArray = () => {
-    const newArray = [];
-    for (let i = 0; i < NUMBER_OF_BAR; i++) {
-      newArray.push(Math.floor(Math.random() * (100 - 5 + 1) + 5));
+    const code = `function quickSort(arr, low, high) {
+    if (low < high) {
+        const pivotIndex = partition(arr, low, high);
+        quickSort(arr, low, pivotIndex - 1);
+        quickSort(arr, pivotIndex + 1, high);
     }
-    setArray(newArray);
-  };
+}
 
-  const quickSort = () => {
-    const animations = getQuickSort(array);
-    console.log(animations);
+function partition(arr, low, high) {
+    const pivot = arr[high];
+    let i = low - 1;
 
-    for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName(arraybarRef.current.className);
-      const isColorChange = i % 3 !== 2;
-
-      if (isColorChange) {
-        const [barOneIdx, barTwoIdx] = animations[i];
-        const barOneStyle = arrayBars[barOneIdx].style;
-        const barTwoStyle = arrayBars[barTwoIdx].style;
-        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-        setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
-        }, i * ANIMATION_SPEED);
-      } else {
-        setTimeout(() => {
-          const [barOneIdx, newHeight] = animations[i];
-          const barOneStyle = arrayBars[barOneIdx].style;
-          arrayBars[barOneIdx].innerHTML = newHeight;
-          barOneStyle.height = `${newHeight * (window.innerHeight / 125)}px`;
-        }, i * ANIMATION_SPEED);
-      }
+    for (let j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
     }
-  };
 
-  return (
-    <div className={classes.container}>
-      <BackButton />
-      <div className={classes.heading}>Quick Sort</div>
-      <div className={classes.array}>
-        {array.map((value, index) => (
-          <div
-            className={classes.arraybar}
-            ref={arraybarRef}
-            key={index}
-            style={{
-              backgroundColor: PRIMARY_COLOR,
-              height: `${value * (window.innerHeight / 125)}px`,
-              width: `${window.innerWidth / (2.2 * array.length)}px`,
-              fontSize: `${window.innerWidth / (3.3 * array.length)}px`,
-            }}
-          >
-            {value}
-          </div>
-        ))}
-      </div>
-      <div className={classes.button}>
-        <Button onClick={generateRandomArray}>Generate Numbers</Button>
-        <Button onClick={quickSort}>Start QuickSort</Button>
-      </div>
-    </div>
-  );
+    [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+    return i + 1;
+}`;
+
+    const explanation = `QuickSort is a highly efficient, comparison-based, divide-and-conquer sorting algorithm. 
+    It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays 
+    according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively. 
+    This process continues until the entire array is sorted.
+
+    Key characteristics:
+    - Average time complexity: O(n log n)
+    - Worst-case time complexity: O(n²)
+    - Space complexity: O(log n)
+    - Not stable
+    - In-place sorting algorithm`;
+
+    return (
+        <SortingVisualization
+            algorithm="quicksort"
+            title="Quick Sort"
+            timeComplexity="O(n log n) average, O(n²) worst"
+            spaceComplexity="O(log n)"
+            code={code}
+            explanation={explanation}
+        />
+    );
 };
 
 export default QuickSort;

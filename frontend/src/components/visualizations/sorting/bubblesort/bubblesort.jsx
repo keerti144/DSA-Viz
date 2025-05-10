@@ -1,80 +1,64 @@
-import React, { useState, useRef } from "react";
-import Button from "../../ui/Button";
-import getBubbleSort from "./getbubblesort";
-import { BackButton } from "../../../ui/BackButton";
-import classes from "../../Sort.module.css";
+import React from 'react';
+import BaseVisualization from '../BaseVisualization';
 
-const BubbleSort = () => {
-  const ANIMATION_SPEED = 50;
-  const NUMBER_OF_BAR = 35;
-  const SECONDARY_COLOR = "#707070";
-  const PRIMARY_COLOR = "white";
-  const [array, setArray] = useState([]);
-  const arraybarRef = useRef(null);
+const algorithmSteps = `1. Start at the beginning of the array.
+2. Compare each pair of adjacent elements.
+3. Swap them if they are in the wrong order.
+4. Continue until the end of the array.
+5. Repeat for all elements until no swaps are needed.`;
 
-  const generateRandomArray = () => {
-    const newArray = [];
-    for (let i = 0; i < NUMBER_OF_BAR; i++) {
-      newArray.push(Math.floor(Math.random() * (100 - 5 + 1) + 5));
-    }
-    setArray(newArray);
-  };
-
-  const bubbleSort = () => {
-    const animations = getBubbleSort(array);
-    console.log(animations);
-
-    for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName(arraybarRef.current.className);
-      const isColorChange = i % 3 !== 2;
-
-      if (isColorChange) {
-        const [barOneIdx, barTwoIdx] = animations[i];
-        const barOneStyle = arrayBars[barOneIdx].style;
-        const barTwoStyle = arrayBars[barTwoIdx].style;
-        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-        setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
-        }, i * ANIMATION_SPEED);
-      } else {
-        setTimeout(() => {
-          const [barOneIdx, newHeight] = animations[i];
-          const barOneStyle = arrayBars[barOneIdx].style;
-          arrayBars[barOneIdx].innerHTML = newHeight;
-          barOneStyle.height = `${newHeight * (window.innerHeight / 125)}px`;
-        }, i * ANIMATION_SPEED);
+const code = `function bubbleSort(arr) {
+  let n = arr.length;
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = 0; j < n - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
       }
     }
-  };
+  }
+  return arr;
+}`;
 
-  return (
-    <div className={classes.container}>
-      <BackButton />
-      <div className={classes.heading}>Bubble Sort</div>
-      <div className={classes.array}>
-        {array.map((value, index) => (
-          <div
-            className={classes.arraybar}
-            ref={arraybarRef}
-            key={index}
-            style={{
-              backgroundColor: PRIMARY_COLOR,
-              height: `${value * (window.innerHeight / 125)}px`,
-              width: `${window.innerWidth / (2.2 * array.length)}px`,
-              fontSize: `${window.innerWidth / (3.3 * array.length)}px`,
-            }}
-          >
-            {value}
-          </div>
-        ))}
-      </div>
-      <div className={classes.button}>
-        <Button onClick={generateRandomArray}>Generate Numbers</Button>
-        <Button onClick={bubbleSort}>Start BubbleSort</Button>
-      </div>
-    </div>
-  );
+const explanation = `Bubble Sort is a simple comparison-based algorithm. It repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted.\nBest Case: O(n) | Average/Worst Case: O(n^2)`;
+
+// Step-by-step generator for Bubble Sort
+function bubbleSortSteps(inputArr) {
+  const arr = [...inputArr];
+  const steps = [];
+  let n = arr.length;
+  let swapped;
+  steps.push([...arr]);
+  for (let i = 0; i < n - 1; i++) {
+    swapped = false;
+    for (let j = 0; j < n - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        swapped = true;
+      }
+      steps.push([...arr]);
+    }
+    if (!swapped) break;
+  }
+  return steps;
+}
+
+const generateArray = (size) => {
+  return Array.from({ length: size }, () => Math.floor(Math.random() * 50) + 1);
 };
+
+const BubbleSort = () => (
+  <BaseVisualization
+    title="Bubble Sort"
+    algorithm="bubblesort"
+    timeComplexity="O(n^2)"
+    spaceComplexity="O(1)"
+    stability="Stable"
+    generateArray={generateArray}
+    visualize={bubbleSortSteps}
+    code={code}
+    explanation={explanation}
+    algorithmSteps={algorithmSteps}
+  />
+);
 
 export default BubbleSort;

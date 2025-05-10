@@ -26,6 +26,8 @@ import CircularSinglyLinkedListVisualizer from "./components/visualizations/link
 import DoublyLinkedListVisualizer from "./components/visualizations/linkedlists/doublylinkedlist/doublylinkedlist.jsx";
 import CircularDoublyLinkedListVisualizer from "./components/visualizations/linkedlists/circulardoublylinkedlist/circulardoublylinkedlist.jsx";
 import TestQuestions from "./testnext/TestQuestions.jsx";
+import TopicDetail from "./roadmap/TopicDetail.jsx";
+import TestAI from "./test_ai/testai.jsx";
 
 const theme = createTheme({
     palette: {
@@ -60,11 +62,13 @@ function App() {
                             <Route path="/help" element={<Help />} />
                             <Route path="/community" element={<Community />} />
                             <Route path="/test" element={<TestMain />} />
+                            <Route path="/testai" element={<TestAI />} />
                             <Route path="/visualize" element={<VisMain />} />
                             <Route path="/visnext/:algorithm" element={<VisNext />} />
                             <Route path="/visalgo" element={<VisAlgo />} />
                             <Route path="/flashcards" element={<FlashcardsAndNotes />} />
                             <Route path="/roadmap" element={<Roadmap />} />
+                            <Route path="/roadmap/:topic" element={<TopicDetail />} />
                             <Route path="/testnext" element={<TestNext />} />
                             <Route path="/testmcq" element={<TestMCQ />} />
                             <Route path="/test-questions" element={<TestQuestions />} />

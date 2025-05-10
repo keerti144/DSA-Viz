@@ -1,8 +1,21 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import "./VisualizerLayout.css";
+import SortingVisualization from './sorting/SortingVisualization';
+import StackVisualizer from './stack/StackVisualizer';
+import QueueVisualizer from './queue/QueueVisualizer';
+// import TreeVisualizer, LinkedListVisualizer as needed
 
-const VisualizerLayout = () => {
+const visualizerMap = {
+  bubblesort: () => <SortingVisualization title="Bubble Sort" algorithm={bubbleSortSteps} code={bubbleSortCode} explanation={bubbleSortExplanation} />,
+  insertionsort: () => <SortingVisualization title="Insertion Sort" algorithm={insertionSortSteps} code={insertionSortCode} explanation={insertionSortExplanation} />,
+  stack: () => <StackVisualizer />,
+  queue: () => <QueueVisualizer />,
+  // Add tree, linked list, etc. here
+};
+
+const VisualizerLayout = ({ algorithm }) => {
+  const Visualizer = visualizerMap[algorithm?.toLowerCase()] || (() => <div>Select an algorithm</div>);
   return (
     <div className="visualizer-container">
       {/* Center Visualization Area */}
