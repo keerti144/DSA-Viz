@@ -263,3 +263,100 @@ def format_mcq_questions(questions_text):
         print(f"Error in format_mcq_questions: {e}")
         print("Full traceback:", traceback.format_exc())
         return []
+
+def generate_notes(topic, prompt_details, target_audience='beginner', note_format='bullet', 
+                  depth='summary', reference_type='textbook', language_tone='formal'):
+    try:
+        print("\nStarting generate_notes function")
+        print(f"API Key present: {bool(GROQ_API_KEY)}")
+        
+        if not GROQ_API_KEY:
+            raise Exception("Groq API key is not configured")
+
+        url = "https://api.groq.com/openai/v1/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {GROQ_API_KEY}",
+            "Content-Type": "application/json"
+        }
+
+        # Construct the prompt based on user preferences
+        prompt = f"""You are an expert technical educator, skilled at generating in-depth, structured academic notes. Your goal is to produce high-quality study material that aligns with the following input:
+
+---
+🧠 **Topic**: {topic}
+
+🔍 **Specific Focus**: {prompt_details}
+
+🎯 **Target Audience**: {target_audience}
+📑 **Preferred Format**: {note_format}
+📘 **Depth**: {depth}
+📚 **Reference Style**: {reference_type}
+🗣️ **Language/Tone**: {language_tone}
+---
+
+🔧 **Instructions**:
+- Structure content to include **core concepts**, **related subtopics**, and **logical progression**.
+- Ensure it is **engaging**, **factually correct**, and suitable for the selected **audience level**.
+- If the topic involves **programming** or **technical implementations**, include **relevant, runnable code snippets** with **comments** and **clear explanation**.
+- Provide **examples, analogies**, or **case studies** where applicable.
+- If `note_format` is:
+  - `bullet`, use **clear, concise points**
+  - `paragraph`, write in **coherent, readable prose**
+  - `flashcard`, give **Q&A style summaries** per concept
+
+🧠 **Quality Expectations**:
+- Avoid shallow or vague descriptions.
+- Avoid repeating obvious statements.
+- Do not assume prior knowledge beyond the target audience's level.
+- Use structured headings, subheadings, or markdown elements if helpful.
+- Stay aligned to academic integrity and instructional value.
+
+🎁 **Output**:
+Please return only the final notes content. Do not include meta-commentary, apologies, or disclaimers. Format clearly and keep it focused on maximum learning effectiveness.
+"""
+
+
+        print("\nConstructed prompt:")
+        print(prompt)
+
+        data = {
+            "model": "llama-3.3-70b-versatile",
+            "messages": [
+                {"role": "system", "content": "You are an expert educator and note-taking specialist. Your task is to generate comprehensive, well-structured notes based on the given requirements."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.7,
+            "max_tokens": 4000,
+            "top_p": 1,
+            "stream": False
+        }
+
+        print("\nSending request to Groq API")
+        response = requests.post(url, headers=headers, json=data)
+        print(f"Response status code: {response.status_code}")
+        
+        if response.status_code != 200:
+            error_message = f"Groq API error: {response.status_code}"
+            try:
+                error_details = response.json()
+                error_message += f" - {error_details}"
+            except:
+                error_message += f" - {response.text}"
+            print(f"Error response: {error_message}")
+            raise Exception(error_message)
+
+        response_data = response.json()
+        print("\nReceived response from Groq API")
+        
+        if "choices" not in response_data or not response_data["choices"]:
+            print("Invalid response format:", response_data)
+            raise Exception("Invalid response format from Groq API")
+
+        notes = response_data["choices"][0]["message"]["content"]
+        print("\nSuccessfully extracted notes from response")
+        return notes
+
+    except Exception as e:
+        print(f"\nError in generate_notes: {e}")
+        print("Full traceback:", traceback.format_exc())
+        raise Exception("Failed to generate notes")

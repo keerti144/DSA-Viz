@@ -28,6 +28,7 @@ import CircularDoublyLinkedListVisualizer from "./components/visualizations/link
 import TestQuestions from "./testnext/TestQuestions.jsx";
 import TopicDetail from "./roadmap/TopicDetail.jsx";
 import TestAI from "./test_ai/testai.jsx";
+import NotesGenerator from "./notes_generator/notesgenerator.jsx";
 
 const theme = createTheme({
     palette: {
@@ -76,6 +77,7 @@ function App() {
                             <Route path="/circular-singly-linked-list" element={<CircularSinglyLinkedListVisualizer />} />
                             <Route path="/doubly-linked-list" element={<DoublyLinkedListVisualizer />} />
                             <Route path="/circular-doubly-linked-list" element={<CircularDoublyLinkedListVisualizer />} />
+                            <Route path="/notes-generator" element={<NotesGenerator />} />
                         </Routes>
                     </Box>
                 </AuthProvider>

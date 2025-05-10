@@ -56,6 +56,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           {isExpanded && <span className="label">Flashcards & Notes</span>}
         </button>
 
+        <button className="nav-btn" onClick={() => navigate("/notes-generator")}>
+          <img src={flashcardsIcon} alt="AI Notes Generator" />
+          {isExpanded && <span className="label">AI Notes Generator</span>}
+        </button>
+
         <button className="nav-btn" onClick={() => navigate("/roadmap")}>
           <img src={roadmapIcon} alt="Roadmap" />
           {isExpanded && <span className="label">Roadmap</span>}
