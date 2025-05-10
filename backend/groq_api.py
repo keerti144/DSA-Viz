@@ -147,36 +147,36 @@ def calculate_num_questions(time_spent, energy_level, stress_level):
         if time_spent == 0:
             base_questions = 3  # Minimum questions for zero time
         elif time_spent < 15:
-            base_questions = 3  # Minimum questions for very short time
+            base_questions = 5  # Minimum questions for very short time
         elif time_spent < 30:
-            base_questions = 5  # Short session
+            base_questions = 15  # Short session
         elif time_spent < 45:
-            base_questions = 8  # Medium-short session
+            base_questions = 20  # Medium-short session
         elif time_spent < 60:
-            base_questions = 10  # Medium session
+            base_questions = 25  # Medium session
         elif time_spent < 90:
-            base_questions = 12  # Medium-long session
+            base_questions = 35  # Medium-long session
         else:
-            base_questions = 15  # Long session
+            base_questions = 40  # Long session
 
         # Energy level adjustments
         energy_level = energy_level.lower()
         if energy_level == "high":
-            base_questions += 2  # More questions for high energy
+            base_questions += 6  # More questions for high energy
         elif energy_level == "low":
-            base_questions -= 1  # Fewer questions for low energy
+            base_questions -= 5  # Fewer questions for low energy
 
         # Stress level adjustments
         stress_level = stress_level.lower()
         if stress_level == "high":
-            base_questions -= 2  # Fewer questions for high stress
+            base_questions -= 4  # Fewer questions for high stress
         elif stress_level == "low":
-            base_questions += 1  # More questions for low stress
+            base_questions += 5  # More questions for low stress
 
         # Ensure questions are within reasonable bounds
         min_questions = 3
         max_questions = 20
-        final_questions = max(min_questions, min(base_questions, max_questions))
+        final_questions = max(min_questions, base_questions)
 
         print(f"\nQuestion calculation details:")
         print(f"Time spent: {time_spent} minutes")

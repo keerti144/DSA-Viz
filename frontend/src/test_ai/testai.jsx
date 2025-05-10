@@ -162,6 +162,17 @@ export const TestAI = () => {
         return () => clearInterval(timer);
     }, [timeLeft, showResults]);
 
+    const handleExitTest = () => {
+        if (window.confirm('Are you sure you want to exit the test? Your progress will be lost.')) {
+            setQuestions([]);
+            setAnswers([]);
+            setScore(0);
+            setShowResults(false);
+            setCurrentPage(0);
+            setTimeLeft(null);
+        }
+    };
+
     return (
         <div className="testai-container">
             <h1>Generate Your AI Test</h1>
@@ -186,57 +197,112 @@ export const TestAI = () => {
                         <small>Hold Ctrl/Cmd to select multiple topics</small>
                     </label>
 
-                    <label>
-                        Difficulty
-                        <select name="difficulty" value={difficulty} onChange={handleChange}>
-                            <option value="Easy">Easy</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Hard">Hard</option>
-                        </select>
-                    </label>
+                    <div>
+                        <span className="button-group-label">Difficulty Level</span>
+                        <div className="button-group">
+                            <button
+                                type="button"
+                                className={`option-button difficulty-easy ${difficulty === 'Easy' ? 'selected' : ''}`}
+                                onClick={() => setDifficulty('Easy')}
+                            >
+                                Easy
+                            </button>
+                            <button
+                                type="button"
+                                className={`option-button difficulty-medium ${difficulty === 'Medium' ? 'selected' : ''}`}
+                                onClick={() => setDifficulty('Medium')}
+                            >
+                                Medium
+                            </button>
+                            <button
+                                type="button"
+                                className={`option-button difficulty-hard ${difficulty === 'Hard' ? 'selected' : ''}`}
+                                onClick={() => setDifficulty('Hard')}
+                            >
+                                Hard
+                            </button>
+                        </div>
+                    </div>
 
-                    <label>
-                        Energy Level
-                        <select name="energyLevel" value={energyLevel} onChange={handleChange}>
-                            <option value="Low">Low</option>
-                            <option value="Medium">Medium</option>
-                            <option value="High">High</option>
-                        </select>
-                    </label>
+                    <div>
+                        <span className="button-group-label">Energy Level</span>
+                        <div className="button-group">
+                            <button
+                                type="button"
+                                className={`option-button energy-low ${energyLevel === 'Low' ? 'selected' : ''}`}
+                                onClick={() => setEnergyLevel('Low')}
+                            >
+                                Low
+                            </button>
+                            <button
+                                type="button"
+                                className={`option-button energy-medium ${energyLevel === 'Medium' ? 'selected' : ''}`}
+                                onClick={() => setEnergyLevel('Medium')}
+                            >
+                                Medium
+                            </button>
+                            <button
+                                type="button"
+                                className={`option-button energy-high ${energyLevel === 'High' ? 'selected' : ''}`}
+                                onClick={() => setEnergyLevel('High')}
+                            >
+                                High
+                            </button>
+                        </div>
+                    </div>
 
-                    <label>
-                        Stress Level
-                        <select name="stressLevel" value={stressLevel} onChange={handleChange}>
-                            <option value="Low">Low</option>
-                            <option value="Medium">Medium</option>
-                            <option value="High">High</option>
-                        </select>
-                    </label>
+                    <div>
+                        <span className="button-group-label">Stress Level</span>
+                        <div className="button-group">
+                            <button
+                                type="button"
+                                className={`option-button stress-low ${stressLevel === 'Low' ? 'selected' : ''}`}
+                                onClick={() => setStressLevel('Low')}
+                            >
+                                Low
+                            </button>
+                            <button
+                                type="button"
+                                className={`option-button stress-medium ${stressLevel === 'Medium' ? 'selected' : ''}`}
+                                onClick={() => setStressLevel('Medium')}
+                            >
+                                Medium
+                            </button>
+                            <button
+                                type="button"
+                                className={`option-button stress-high ${stressLevel === 'High' ? 'selected' : ''}`}
+                                onClick={() => setStressLevel('High')}
+                            >
+                                High
+                            </button>
+                        </div>
+                    </div>
 
                     <label>
                         Time (minutes)
                         <input
-                            name="timeSpent"
                             type="number"
+                            name="timeSpent"
                             value={timeSpent}
                             onChange={handleChange}
-                            min="30"
+                            min="1"
                             max="120"
                         />
                     </label>
 
-                    <label>
-                        Challenge Mode
+                    <label className="checkbox-label">
                         <input
-                            name="challengeMode"
                             type="checkbox"
+                            name="challengeMode"
                             checked={challengeMode}
                             onChange={handleChange}
                         />
+                        <span className="emoji">🎯</span>
+                        <span>Enable Challenge Mode {challengeMode ? '🔥' : '💪'}</span>
                     </label>
 
                     <button onClick={handleSubmit} disabled={loading}>
-                        {loading ? "Generating..." : "Generate Questions"}
+                        {loading ? 'Generating Questions...' : 'Start Test'}
                     </button>
 
                     {error && <div className="error-message">{error}</div>}
@@ -245,7 +311,15 @@ export const TestAI = () => {
 
             {questions.length > 0 && !showResults && (
                 <div className="questions-container">
-                    <div className="timer">Time Left: {formatTime(timeLeft)}</div>
+                    <div className="timer-container">
+                        <div className="timer">Time Left: {formatTime(timeLeft)}</div>
+                        <button 
+                            className="exit-test-button"
+                            onClick={handleExitTest}
+                        >
+                            Exit Test
+                        </button>
+                    </div>
 
                     <div className="question-card">
                         <div className="question-header">
@@ -312,13 +386,17 @@ export const TestAI = () => {
                         ))}
                     </div>
 
-                    <button onClick={() => {
-                        setQuestions([]);
-                        setAnswers([]);
-                        setScore(0);
-                        setShowResults(false);
-                        setCurrentPage(0);
-                    }}>
+                    <button 
+                        className="start-new-test"
+                        onClick={() => {
+                            setQuestions([]);
+                            setAnswers([]);
+                            setScore(0);
+                            setShowResults(false);
+                            setCurrentPage(0);
+                        }}
+                    >
+                        <span>🔄</span>
                         Start New Test
                     </button>
                 </div>
