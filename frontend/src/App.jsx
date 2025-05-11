@@ -28,6 +28,7 @@ import CircularDoublyLinkedListVisualizer from "./components/visualizations/link
 import TestQuestions from "./testnext/TestQuestions.jsx";
 import TopicDetail from "./roadmap/TopicDetail.jsx";
 import TestAI from "./test_ai/testai.jsx";
+import NotesGenerator from "./notes_generator/notesgenerator.jsx";
 import SearchingVisualization from "./components/visualizations/searching/SearchingVisualization.jsx";
 import TreeVisualization from "./components/visualizations/trees/TreeVisualization.jsx";
 
@@ -64,7 +65,7 @@ function App() {
                             <Route path="/help" element={<Help />} />
                             <Route path="/community" element={<Community />} />
                             <Route path="/test" element={<TestMain />} />
-                            <Route path="/ai-test" element={<TestAI />} />
+                            <Route path="/testai" element={<TestAI />} />
                             <Route path="/visualize" element={<VisMain />} />
                             <Route path="/visnext/:algorithm" element={<VisNext />} />
                             <Route path="/visalgo" element={<VisAlgo />} />
@@ -78,6 +79,7 @@ function App() {
                             <Route path="/circular-singly-linked-list" element={<CircularSinglyLinkedListVisualizer />} />
                             <Route path="/doubly-linked-list" element={<DoublyLinkedListVisualizer />} />
                             <Route path="/circular-doubly-linked-list" element={<CircularDoublyLinkedListVisualizer />} />
+                            <Route path="/notes-generator" element={<NotesGenerator />} />
                             <Route path="/visnext/binarysearch" element={<SearchingVisualization algorithm="binarysearch" />} />
                             <Route path="/visnext/linearsearch" element={<SearchingVisualization algorithm="linearsearch" />} />
                             <Route path="/visnext/bst" element={<TreeVisualization algorithm="binary" title="Binary Search Tree" />} />

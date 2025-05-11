@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "react-router-dom": "^7.3.0"
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.10.5",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.3.0",
+    "remark-gfm": "^4.0.1"
   }
 }
