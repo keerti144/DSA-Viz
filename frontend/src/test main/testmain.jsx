@@ -59,7 +59,7 @@ export const TestMain = () => {
                 <div className="ai-section">
                     <button
                         className="ai-test-button"
-                        onClick={() => navigate("/ai-test")}
+                        onClick={() => navigate("/testai")}
                     >
                         Test with AI
                     </button>
