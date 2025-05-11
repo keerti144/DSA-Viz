@@ -6,12 +6,12 @@ import "./vismain.css";
 
 export const VisMain = () => {
   const navigate = useNavigate();
-  
+
   return (
     <div className="vis-main">
       <Header />
       <Sidebar />
-      
+
       <div className="vis-container">
         <h1 className="vis-title">Visualize Algorithms</h1>
 
@@ -45,12 +45,12 @@ export const VisMain = () => {
           </div>
         </div>
 
-        {/* Graph Algorithms */}
+        {/* Stack & Queue Algorithms */}
         <div className="category">
-          <h2>Graph Algorithms</h2>
+          <h2>Stack & Queue</h2>
           <div className="button-grid">
-            <button onClick={() => navigate("/visnext/bfs")}>Breadth First Search (BFS)</button>
-            <button onClick={() => navigate("/visnext/dfs")}>Depth First Search (DFS)</button>
+            <button onClick={() => navigate("/visnext/stack")}>Stack</button>
+            <button onClick={() => navigate("/visnext/queue")}>Queue</button>
           </div>
         </div>
 

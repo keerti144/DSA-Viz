@@ -29,6 +29,8 @@ import TestQuestions from "./testnext/TestQuestions.jsx";
 import TopicDetail from "./roadmap/TopicDetail.jsx";
 import TestAI from "./test_ai/testai.jsx";
 import NotesGenerator from "./notes_generator/notesgenerator.jsx";
+import SearchingVisualization from "./components/visualizations/searching/SearchingVisualization.jsx";
+import TreeVisualization from "./components/visualizations/trees/TreeVisualization.jsx";
 
 const theme = createTheme({
     palette: {
@@ -78,6 +80,10 @@ function App() {
                             <Route path="/doubly-linked-list" element={<DoublyLinkedListVisualizer />} />
                             <Route path="/circular-doubly-linked-list" element={<CircularDoublyLinkedListVisualizer />} />
                             <Route path="/notes-generator" element={<NotesGenerator />} />
+                            <Route path="/visnext/binarysearch" element={<SearchingVisualization algorithm="binarysearch" />} />
+                            <Route path="/visnext/linearsearch" element={<SearchingVisualization algorithm="linearsearch" />} />
+                            <Route path="/visnext/bst" element={<TreeVisualization algorithm="binary" title="Binary Search Tree" />} />
+                            <Route path="/visnext/avl" element={<TreeVisualization algorithm="avl" title="AVL Tree" />} />
                         </Routes>
                     </Box>
                 </AuthProvider>

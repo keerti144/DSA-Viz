@@ -1,164 +1,402 @@
-import React, { useState, useEffect, useRef } from 'react';
-import BaseVisualization from '../BaseVisualization';
+import React, { useState, useRef, useEffect } from 'react';
+import AlgoSidebar from '../AlgoSidebar';
+import '../BaseVisualization.css';
 import './TreeVisualization.css';
 
-const TreeVisualization = ({ algorithm, title, timeComplexity, spaceComplexity, code, explanation }) => {
-    const canvasRef = useRef(null);
-    const [tree, setTree] = useState(null);
-    const [isVisualizing, setIsVisualizing] = useState(false);
+function getRandomArray(size = 10) {
+    return Array.from({ length: size }, () => Math.floor(Math.random() * 90) + 10);
+}
 
-    const generateArray = (size) => {
-        // Generate a balanced binary tree with 'size' nodes
-        const values = Array.from({ length: size }, (_, i) =>
-            Math.floor(Math.random() * 100) + 1
-        ).sort((a, b) => a - b);
-
-        const buildTree = (arr, start, end) => {
-            if (start > end) return null;
-            const mid = Math.floor((start + end) / 2);
-            return {
-                value: arr[mid],
-                left: buildTree(arr, start, mid - 1),
-                right: buildTree(arr, mid + 1, end),
-                x: 0, // Will be set during drawing
-                y: 0, // Will be set during drawing
-                visited: false,
-                current: false
-            };
-        };
-
-        const root = buildTree(values, 0, values.length - 1);
-        setTree(root);
-        return root;
-    };
-
-    const drawTree = (ctx, node, x, y, level, visited = new Set(), current = null) => {
-        if (!node) return;
-
-        const nodeRadius = 20;
-        const levelHeight = 80;
-        const nodeSpacing = 200 / Math.pow(2, level);
-
-        // Update node position
-        node.x = x;
-        node.y = y;
-
-        // Draw edges to children
-        if (node.left) {
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.lineTo(x - nodeSpacing, y + levelHeight);
-            ctx.strokeStyle = '#666';
-            ctx.stroke();
+// BST insert (returns steps for visualization)
+function getBSTSteps(values) {
+    const steps = [];
+    let root = null;
+    function insert(node, value, path = []) {
+        if (!node) {
+            const newNode = { value, left: null, right: null, path: [...path, value] };
+            return newNode;
         }
-        if (node.right) {
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.lineTo(x + nodeSpacing, y + levelHeight);
-            ctx.strokeStyle = '#666';
-            ctx.stroke();
-        }
-
-        // Draw node
-        ctx.beginPath();
-        ctx.arc(x, y, nodeRadius, 0, 2 * Math.PI);
-
-        // Color based on state
-        if (current === node) {
-            ctx.fillStyle = '#e74c3c'; // Current node
-        } else if (visited.has(node)) {
-            ctx.fillStyle = '#2ecc71'; // Visited node
+        if (value < node.value) {
+            node.left = insert(node.left, value, [...path, node.value]);
         } else {
-            ctx.fillStyle = '#3498db'; // Unvisited node
+            node.right = insert(node.right, value, [...path, node.value]);
         }
+        return node;
+    }
+    let currentTree = null;
+    for (let i = 0; i < values.length; i++) {
+        currentTree = insert(JSON.parse(JSON.stringify(currentTree)), values[i]);
+        steps.push({
+            tree: JSON.parse(JSON.stringify(currentTree)),
+            inserted: values[i],
+            step: i + 1,
+            total: values.length
+        });
+    }
+    return steps;
+}
 
-        ctx.fill();
-        ctx.strokeStyle = '#2c3e50';
-        ctx.stroke();
-
-        // Draw node value
-        ctx.fillStyle = 'white';
-        ctx.font = '14px Arial';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(node.value.toString(), x, y);
-
-        // Recursively draw children
-        if (node.left) {
-            drawTree(ctx, node.left, x - nodeSpacing, y + levelHeight, level + 1, visited, current);
-        }
-        if (node.right) {
-            drawTree(ctx, node.right, x + nodeSpacing, y + levelHeight, level + 1, visited, current);
-        }
-    };
-
-    const visualize = async (root, speed) => {
-        setIsVisualizing(true);
-        const ctx = canvasRef.current.getContext('2d');
-        const visited = new Set();
-
-        const traverse = async (node, order = 'inorder') => {
-            if (!node) return;
-
-            if (order === 'preorder') {
-                visited.add(node);
-                drawTree(ctx, root, 350, 50, 0, visited, node);
-                await new Promise(resolve => setTimeout(resolve, speed));
-            }
-
-            await traverse(node.left, order);
-
-            if (order === 'inorder') {
-                visited.add(node);
-                drawTree(ctx, root, 350, 50, 0, visited, node);
-                await new Promise(resolve => setTimeout(resolve, speed));
-            }
-
-            await traverse(node.right, order);
-
-            if (order === 'postorder') {
-                visited.add(node);
-                drawTree(ctx, root, 350, 50, 0, visited, node);
-                await new Promise(resolve => setTimeout(resolve, speed));
-            }
+// AVL insert (returns steps for visualization, including rotations)
+function getAVLSteps(values) {
+    const steps = [];
+    function clone(node) {
+        if (!node) return null;
+        return {
+            value: node.value,
+            left: clone(node.left),
+            right: clone(node.right),
+            height: node.height,
         };
-
-        await traverse(root, algorithm === 'avl' ? 'inorder' : 'preorder');
-        setIsVisualizing(false);
-    };
-
-    useEffect(() => {
-        if (canvasRef.current && tree) {
-            const ctx = canvasRef.current.getContext('2d');
-            drawTree(ctx, tree, 350, 50, 0);
+    }
+    function height(node) {
+        return node ? node.height : 0;
+    }
+    function updateHeight(node) {
+        if (node) node.height = 1 + Math.max(height(node.left), height(node.right));
+    }
+    function getBalance(node) {
+        return node ? height(node.left) - height(node.right) : 0;
+    }
+    function rightRotate(y) {
+        const x = y.left;
+        const T2 = x.right;
+        x.right = y;
+        y.left = T2;
+        updateHeight(y);
+        updateHeight(x);
+        return x;
+    }
+    function leftRotate(x) {
+        const y = x.right;
+        const T2 = y.left;
+        y.left = x;
+        x.right = T2;
+        updateHeight(x);
+        updateHeight(y);
+        return y;
+    }
+    function insert(node, value, stepList, path = []) {
+        if (!node) {
+            const newNode = { value, left: null, right: null, height: 1 };
+            return newNode;
         }
-    }, [tree]);
+        if (value < node.value) {
+            node.left = insert(node.left, value, stepList, [...path, node.value]);
+        } else if (value > node.value) {
+            node.right = insert(node.right, value, stepList, [...path, node.value]);
+        } else {
+            return node;
+        }
+        updateHeight(node);
+        const balance = getBalance(node);
+        // Left Left
+        if (balance > 1 && value < node.left.value) {
+            stepList.push({
+                tree: clone(node),
+                inserted: value,
+                rotation: 'Right Rotation (LL)',
+                rotateNode: node.value,
+                step: stepList.length + 1,
+                total: values.length
+            });
+            return rightRotate(node);
+        }
+        // Right Right
+        if (balance < -1 && value > node.right.value) {
+            stepList.push({
+                tree: clone(node),
+                inserted: value,
+                rotation: 'Left Rotation (RR)',
+                rotateNode: node.value,
+                step: stepList.length + 1,
+                total: values.length
+            });
+            return leftRotate(node);
+        }
+        // Left Right
+        if (balance > 1 && value > node.left.value) {
+            stepList.push({
+                tree: clone(node),
+                inserted: value,
+                rotation: 'Left-Right Rotation (LR)',
+                rotateNode: node.value,
+                step: stepList.length + 1,
+                total: values.length
+            });
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+        // Right Left
+        if (balance < -1 && value < node.right.value) {
+            stepList.push({
+                tree: clone(node),
+                inserted: value,
+                rotation: 'Right-Left Rotation (RL)',
+                rotateNode: node.value,
+                step: stepList.length + 1,
+                total: values.length
+            });
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
+        }
+        return node;
+    }
+    let root = null;
+    for (let i = 0; i < values.length; i++) {
+        root = insert(root, values[i], steps);
+        steps.push({
+            tree: clone(root),
+            inserted: values[i],
+            rotation: null,
+            rotateNode: null,
+            step: steps.length + 1,
+            total: values.length
+        });
+    }
+    return steps;
+}
 
-    const customRender = () => (
-        <div className="tree-container">
-            <canvas
-                ref={canvasRef}
-                width={700}
-                height={600}
-                className="tree-canvas"
-            />
-        </div>
-    );
+// Helper to clone a tree node
+function clone(node) {
+    if (!node) return null;
+    return {
+        value: node.value,
+        left: clone(node.left),
+        right: clone(node.right),
+        height: node.height,
+    };
+}
 
-    return (
-        <BaseVisualization
-            title={title}
-            algorithm={algorithm}
-            timeComplexity={timeComplexity}
-            spaceComplexity={spaceComplexity}
-            stability="N/A"
-            generateArray={generateArray}
-            visualize={visualize}
-            code={code}
-            explanation={explanation}
-            customRender={customRender}
-        />
-    );
+// Generate traversal steps for BST insertion
+function getBSTInsertSteps(root, value) {
+    const steps = [];
+    let current = root ? clone(root) : null;
+    let path = [];
+    let node = current;
+    let parent = null;
+    let dir = null;
+    // Traverse to insertion point
+    while (node) {
+        path.push(node.value);
+        steps.push({
+            tree: clone(current),
+            highlight: [...path],
+            inserted: value,
+            atNode: node.value,
+            insertedYet: false,
+        });
+        parent = node;
+        if (value < node.value) {
+            dir = 'left';
+            node = node.left;
+        } else {
+            dir = 'right';
+            node = node.right;
+        }
+    }
+    // Insert the node
+    if (!parent) {
+        current = { value, left: null, right: null };
+    } else {
+        if (dir === 'left') parent.left = { value, left: null, right: null };
+        else parent.right = { value, left: null, right: null };
+    }
+    steps.push({
+        tree: clone(current),
+        highlight: [...path, value],
+        inserted: value,
+        atNode: value,
+        insertedYet: true,
+    });
+    return steps;
+}
+
+// Generate traversal steps for AVL insertion (with rotations)
+function getAVLInsertSteps(root, value) {
+    // For simplicity, use the same traversal as BST for now, but can be extended for AVL rotations
+    // (Full AVL step-by-step with rotations is more complex, but can be added similarly)
+    // For now, highlight the path and show the rotation if it happens after insertion
+    // TODO: Add step-by-step rotation visualization
+    return getBSTInsertSteps(root, value);
+}
+
+const sidebarData = {
+    binary: {
+        algorithm: `Insert(node, value):\n  if node is null:\n    return new Node(value)\n  if value < node.value:\n    node.left = Insert(node.left, value)\n  else:\n    node.right = Insert(node.right, value)\n  return node`,
+        code: `class Node {\n  constructor(value) {\n    this.value = value;\n    this.left = null;\n    this.right = null;\n  }\n}\nfunction insert(node, value) {\n  if (!node) return new Node(value);\n  if (value < node.value) node.left = insert(node.left, value);\n  else node.right = insert(node.right, value);\n  return node;\n}`,
+        explanation: `A Binary Search Tree (BST) is a binary tree where each node has a value greater than all values in its left subtree and less than all values in its right subtree. Insertion is done by traversing the tree and placing the new value in the correct position.`
+    },
+    avl: {
+        algorithm: `Insert(node, value):\n  if node is null:\n    return new Node(value)\n  if value < node.value:\n    node.left = Insert(node.left, value)\n  else:\n    node.right = Insert(node.right, value)\n  Update height\n  Get balance\n  If unbalanced, rotate (LL, RR, LR, RL)\n  return node`,
+        code: `// AVL insert with rotations\nfunction insert(node, value) {\n  // ... standard BST insert ...\n  // Update height, check balance\n  // Perform rotations if needed\n  return node;\n}`,
+        explanation: `An AVL Tree is a self-balancing BST. After each insertion, the tree checks the balance factor of each node and performs rotations (left, right, left-right, right-left) to keep the tree balanced. This ensures O(log n) operations.`
+    }
 };
 
-export default TreeVisualization; 
+export default function TreeVisualization({ algorithm, title }) {
+    const [input, setInput] = useState("");
+    const [root, setRoot] = useState(null);
+    const [steps, setSteps] = useState([]);
+    const [stepIdx, setStepIdx] = useState(0);
+    const [inserting, setInserting] = useState(false);
+    const [pendingValue, setPendingValue] = useState(null);
+
+    const sidebar = sidebarData[algorithm] || {};
+
+    // Start insertion process
+    const handleInsert = () => {
+        const value = parseInt(input.trim());
+        if (isNaN(value)) return;
+        setPendingValue(value);
+        setSteps(
+            algorithm === 'avl'
+                ? getAVLInsertSteps(root, value)
+                : getBSTInsertSteps(root, value)
+        );
+        setStepIdx(0);
+        setInserting(true);
+        setInput("");
+    };
+
+    // Step controls
+    const handleNext = () => {
+        if (stepIdx < steps.length - 1) setStepIdx(stepIdx + 1);
+        else if (inserting && stepIdx === steps.length - 1) {
+            // Finalize insertion
+            setRoot(steps[steps.length - 1].tree);
+            setInserting(false);
+            setSteps([]);
+            setStepIdx(0);
+            setPendingValue(null);
+        }
+    };
+    const handlePrev = () => {
+        if (stepIdx > 0) setStepIdx(stepIdx - 1);
+    };
+    const handleReset = () => {
+        setRoot(null);
+        setSteps([]);
+        setStepIdx(0);
+        setInserting(false);
+        setPendingValue(null);
+        setInput("");
+    };
+
+    // Tree rendering (SVG)
+    function renderTree(node, x, y, level, xOffset, highlightPath) {
+        if (!node) return null;
+        const nodeRadius = 22;
+        const yStep = 80;
+        const children = [];
+        if (node.left) {
+            children.push(
+                <line
+                    key={node.value + '-l'}
+                    x1={x}
+                    y1={y}
+                    x2={x - xOffset}
+                    y2={y + yStep}
+                    stroke="#aaa"
+                    strokeWidth={2}
+                />
+            );
+        }
+        if (node.right) {
+            children.push(
+                <line
+                    key={node.value + '-r'}
+                    x1={x}
+                    y1={y}
+                    x2={x + xOffset}
+                    y2={y + yStep}
+                    stroke="#aaa"
+                    strokeWidth={2}
+                />
+            );
+        }
+        const isHighlighted = highlightPath && highlightPath.includes(node.value);
+        return (
+            <g key={node.value + '-' + x + '-' + y}>
+                {children}
+                <circle
+                    cx={x}
+                    cy={y}
+                    r={nodeRadius}
+                    fill={isHighlighted ? '#e879f9' : '#a879ff'}
+                    stroke={isHighlighted ? '#d726a4' : '#5d3d85'}
+                    strokeWidth={isHighlighted ? 5 : 3}
+                />
+                <text
+                    x={x}
+                    y={y}
+                    textAnchor="middle"
+                    alignmentBaseline="middle"
+                    fontSize="18"
+                    fill="#fff"
+                    fontWeight="bold"
+                >
+                    {node.value}
+                </text>
+                {node.left && renderTree(node.left, x - xOffset, y + yStep, level + 1, xOffset / 1.7, highlightPath)}
+                {node.right && renderTree(node.right, x + xOffset, y + yStep, level + 1, xOffset / 1.7, highlightPath)}
+            </g>
+        );
+    }
+
+    // Scrollable layout
+    return (
+        <div className="base-vis-layout" style={{ overflow: 'auto', maxHeight: '100vh' }}>
+            <div className="base-vis-main" style={{ overflow: 'auto', maxHeight: '100vh' }}>
+                <div className="base-vis-header">
+                    <h1>{title}</h1>
+                </div>
+                <div className="base-vis-controls" style={{ overflowX: 'auto' }}>
+                    <input
+                        type="text"
+                        value={input}
+                        onChange={e => setInput(e.target.value)}
+                        placeholder="Enter value"
+                        className="base-vis-input"
+                        disabled={inserting}
+                        onKeyDown={e => e.key === 'Enter' && handleInsert()}
+                    />
+                    <button onClick={handleInsert} className="base-vis-btn" disabled={inserting || !input.trim()}>Insert</button>
+                    <button onClick={handleReset} className="base-vis-btn">Reset</button>
+                </div>
+                <div className="base-vis-controls" style={{ overflowX: 'auto' }}>
+                    <button onClick={handlePrev} className="base-vis-btn" disabled={stepIdx === 0 || !inserting}>Previous</button>
+                    <span style={{ color: '#e879f9', fontWeight: 500, fontSize: 18, margin: '0 1rem' }}>
+                        {inserting ? `Step ${stepIdx + 1} / ${steps.length}` : 'Ready for next insertion'}
+                    </span>
+                    <button onClick={handleNext} className="base-vis-btn" disabled={!inserting}>Next</button>
+                </div>
+                <div className="base-vis-visualization" style={{ minHeight: 320, display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto' }}>
+                    {(!root && !inserting) ? (
+                        <div style={{ color: '#e879f9', fontWeight: 500, fontSize: 20, margin: '2rem 0' }}>Insert values to build the tree</div>
+                    ) : (
+                        <svg width={900} height={500} style={{ background: 'none' }}>
+                            {inserting
+                                ? renderTree(steps[stepIdx]?.tree, 450, 50, 0, 180, steps[stepIdx]?.highlight)
+                                : renderTree(root, 450, 50, 0, 180, null)
+                            }
+                        </svg>
+                    )}
+                </div>
+                <div style={{ minHeight: 32, marginTop: 8, textAlign: 'center', color: '#e879f9', fontWeight: 500, fontSize: 18, overflowX: 'auto' }}>
+                    {inserting && steps.length > 0 && (
+                        <>
+                            Inserting: <b>{pendingValue}</b> (Step {stepIdx + 1} of {steps.length})
+                        </>
+                    )}
+                </div>
+            </div>
+            <div className="base-vis-sidebar" style={{ overflowY: 'auto', maxHeight: '100vh' }}>
+                <AlgoSidebar
+                    algorithm={sidebar.algorithm}
+                    code={sidebar.code}
+                    explanation={sidebar.explanation}
+                />
+            </div>
+        </div>
+    );
+} 
