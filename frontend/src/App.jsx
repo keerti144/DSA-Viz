@@ -64,7 +64,7 @@ function App() {
                             <Route path="/help" element={<Help />} />
                             <Route path="/community" element={<Community />} />
                             <Route path="/test" element={<TestMain />} />
-                            <Route path="/testai" element={<TestAI />} />
+                            <Route path="/ai-test" element={<TestAI />} />
                             <Route path="/visualize" element={<VisMain />} />
                             <Route path="/visnext/:algorithm" element={<VisNext />} />
                             <Route path="/visalgo" element={<VisAlgo />} />

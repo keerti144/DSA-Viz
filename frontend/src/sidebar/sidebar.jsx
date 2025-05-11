@@ -36,11 +36,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           {isExpanded && <span className="label">Test Yourself</span>}
         </button>
 
-        <button className="nav-btn" onClick={() => navigate("/testai")}>
-          <img src={testResultsIcon} alt="Test with AI" />
-          {isExpanded && <span className="label">Test with AI</span>}
-        </button>
-
         <button className="nav-btn" onClick={() => navigate("/visualize")}>
           <img src={eyeIcon} alt="Visualize" />
           {isExpanded && <span className="label">Visualize</span>}
