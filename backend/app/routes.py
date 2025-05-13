@@ -1,17 +1,26 @@
 from flask import Blueprint, request, jsonify
 from firebase_admin import firestore
-from app import db
+from app.db import db
 from datetime import datetime
 import logging
 import traceback
 import ast
 import re
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from flask_cors import CORS
+import os
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 routes_bp = Blueprint("routes", __name__)  # Blueprint for API routes
+CORS(routes_bp)  # Enable CORS for all routes in this blueprint
+
+# Initialize Firestore
+db = firestore.client()
 
 @routes_bp.route("/")
 def home():
@@ -260,3 +269,89 @@ def submit_answer():
         logger.error(f"Error in submit_answer: {str(e)}")
         logger.error(f"Traceback: {traceback.format_exc()}")
         return jsonify({'error': str(e)}), 500
+
+@routes_bp.route("/help-queries", methods=['GET'])
+def get_help_queries():
+    try:
+        # Get the latest help queries from Firestore
+        queries_ref = db.collection('help_queries')
+        queries = queries_ref.order_by('timestamp', direction=firestore.Query.DESCENDING).limit(5).stream()
+        
+        # Convert to list of dictionaries
+        help_queries = []
+        for query in queries:
+            query_data = query.to_dict()
+            help_queries.append({
+                'id': query.id,
+                'question': query_data.get('query', ''),  # Changed from 'query' to 'question' to match frontend
+                'answer': query_data.get('answer', ''),
+                'timestamp': query_data.get('timestamp').isoformat() if query_data.get('timestamp') else None,
+                'status': query_data.get('status', 'pending'),
+                'email': query_data.get('email', 'No email provided')
+            })
+            
+        return jsonify(help_queries)
+    except Exception as e:
+        logger.error(f"Error in get_help_queries: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({'error': 'Failed to fetch help queries'}), 500
+
+@routes_bp.route("/send-help-query", methods=['POST'])
+def send_help_query():
+    try:
+        data = request.get_json()
+        query = data.get('query')
+        email = data.get('email', 'No email provided')
+        
+        if not query:
+            return jsonify({'error': 'Query is required'}), 400
+            
+        # Store in Firestore
+        query_data = {
+            'query': query,  # This will be displayed as 'question' in the frontend
+            'email': email,
+            'timestamp': datetime.now(),
+            'status': 'pending',
+            'answer': ''  # Initialize empty answer
+        }
+        db.collection('help_queries').add(query_data)
+        
+        # Send email notification
+        msg = MIMEMultipart()
+        msg['From'] = 'your-email@gmail.com'  # Replace with your email
+        msg['To'] = 'officialkeerti14@gmail.com'
+        msg['Subject'] = 'New Help Query'
+        
+        body = f"""
+        New help query received:
+        
+        Query: {query}
+        From: {email}
+        Time: {datetime.now()}
+        """
+        
+        msg.attach(MIMEText(body, 'plain'))
+        
+        # Send email (you'll need to configure your email settings)
+        # server = smtplib.SMTP('smtp.gmail.com', 587)
+        # server.starttls()
+        # server.login('your-email@gmail.com', 'your-password')
+        # server.send_message(msg)
+        # server.quit()
+        
+        return jsonify({'message': 'Query submitted successfully'})
+    except Exception as e:
+        logger.error(f"Error in send_help_query: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({'error': 'Failed to send help query'}), 500
+
+@routes_bp.route("/help-queries/<query_id>", methods=['DELETE'])
+def delete_help_query(query_id):
+    try:
+        # Delete the query from Firestore
+        db.collection('help_queries').document(query_id).delete()
+        return jsonify({'message': 'Query deleted successfully'})
+    except Exception as e:
+        logger.error(f"Error in delete_help_query: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({'error': 'Failed to delete help query'}), 500
