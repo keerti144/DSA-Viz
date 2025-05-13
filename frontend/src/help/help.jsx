@@ -5,6 +5,7 @@ import "./help.css";
 
 export const Help = () => {
     const [query, setQuery] = useState("");
+    const [email, setEmail] = useState("");
     const [openFAQ, setOpenFAQ] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
@@ -16,7 +17,11 @@ export const Help = () => {
 
     useEffect(() => {
         fetchHelpQueries();
-    }, []);
+        // Set email from current user if available
+        if (currentUser?.email) {
+            setEmail(currentUser.email);
+        }
+    }, [currentUser]);
 
     const fetchHelpQueries = async () => {
         try {
@@ -52,7 +57,6 @@ export const Help = () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            // Remove the deleted query from the state
             setHelpQueries(helpQueries.filter(q => q.id !== queryId));
             setSubmitStatus({ 
                 type: 'success', 
@@ -92,6 +96,11 @@ export const Help = () => {
             return;
         }
 
+        if (!email.trim()) {
+            setSubmitStatus({ type: 'error', message: 'Please provide your email address' });
+            return;
+        }
+
         setIsSubmitting(true);
         setSubmitStatus(null);
 
@@ -104,7 +113,7 @@ export const Help = () => {
                 },
                 body: JSON.stringify({
                     query: query.trim(),
-                    user_email: currentUser.email
+                    email: email.trim()
                 }),
             });
 
@@ -115,7 +124,6 @@ export const Help = () => {
             const data = await response.json();
             setSubmitStatus({ type: 'success', message: 'Query sent successfully! We\'ll get back to you soon.' });
             setQuery('');
-            // Refresh help queries after successful submission
             fetchHelpQueries();
         } catch (error) {
             console.error('Error submitting query:', error);
@@ -187,16 +195,27 @@ export const Help = () => {
                     )}
                 </div>
 
-                {/* Search Section */}
+                {/* Query Form Section */}
                 <div className="query-section">
-                    <input
-                        type="text"
-                        className="query-input"
-                        placeholder="Type your query here..."
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        disabled={isSubmitting}
-                    />
+                    <div className="query-input-group">
+                        {/*
+                        <input
+                            type="email"
+                            className="email-input"
+                            placeholder="Your email address"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            disabled={isSubmitting || !!currentUser?.email}
+                        />*/}
+                        <textarea
+                            className="query-input"
+                            placeholder="Type your query here..."
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            disabled={isSubmitting}
+                            rows={4}
+                        />
+                    </div>
                     <button 
                         className="submit-query"
                         onClick={handleSubmitQuery}

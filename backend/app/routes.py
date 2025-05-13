@@ -11,6 +11,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask_cors import CORS
 import os
+from config import Config
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -308,36 +309,75 @@ def send_help_query():
             
         # Store in Firestore
         query_data = {
-            'query': query,  # This will be displayed as 'question' in the frontend
+            'query': query,
             'email': email,
             'timestamp': datetime.now(),
             'status': 'pending',
-            'answer': ''  # Initialize empty answer
+            'answer': ''
         }
-        db.collection('help_queries').add(query_data)
+        query_ref = db.collection('help_queries').add(query_data)
         
-        # Send email notification
-        msg = MIMEMultipart()
-        msg['From'] = 'your-email@gmail.com'  # Replace with your email
-        msg['To'] = 'officialkeerti14@gmail.com'
-        msg['Subject'] = 'New Help Query'
-        
-        body = f"""
-        New help query received:
-        
-        Query: {query}
-        From: {email}
-        Time: {datetime.now()}
-        """
-        
-        msg.attach(MIMEText(body, 'plain'))
-        
-        # Send email (you'll need to configure your email settings)
-        # server = smtplib.SMTP('smtp.gmail.com', 587)
-        # server.starttls()
-        # server.login('your-email@gmail.com', 'your-password')
-        # server.send_message(msg)
-        # server.quit()
+        # Only attempt to send emails if email configuration is available
+        if all([Config.MAIL_USERNAME, Config.MAIL_PASSWORD]):
+            try:
+                # Send email notification to admin
+                msg = MIMEMultipart()
+                msg['From'] = Config.MAIL_DEFAULT_SENDER
+                msg['To'] = Config.ADMIN_EMAIL
+                msg['Subject'] = 'New Help Query'
+                
+                body = f"""
+                New help query received:
+                
+                Query: {query}
+                From: {email}
+                Time: {datetime.now()}
+                Query ID: {query_ref[1].id}
+                
+                You can reply to this query using the admin dashboard.
+                """
+                
+                msg.attach(MIMEText(body, 'plain'))
+                
+                # Send email to admin
+                server = smtplib.SMTP(Config.MAIL_SERVER, Config.MAIL_PORT)
+                server.starttls()
+                server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
+                server.send_message(msg)
+                server.quit()
+                
+                # Send confirmation email to user if email is provided
+                if email and email != 'No email provided':
+                    user_msg = MIMEMultipart()
+                    user_msg['From'] = Config.MAIL_DEFAULT_SENDER
+                    user_msg['To'] = email
+                    user_msg['Subject'] = 'Help Query Received - AlgoRize'
+                    
+                    user_body = f"""
+                    Thank you for contacting AlgoRize support!
+                    
+                    We have received your query:
+                    {query}
+                    
+                    Our team will review your query and get back to you as soon as possible.
+                    You can check the status of your query in the help section of the application.
+                    
+                    Best regards,
+                    AlgoRize Support Team
+                    """
+                    
+                    user_msg.attach(MIMEText(user_body, 'plain'))
+                    
+                    server = smtplib.SMTP(Config.MAIL_SERVER, Config.MAIL_PORT)
+                    server.starttls()
+                    server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
+                    server.send_message(user_msg)
+                    server.quit()
+            except Exception as email_error:
+                logger.error(f"Error sending email: {str(email_error)}")
+                logger.error(f"Email error traceback: {traceback.format_exc()}")
+                # Continue with the response even if email fails
+                pass
         
         return jsonify({'message': 'Query submitted successfully'})
     except Exception as e:
@@ -355,3 +395,73 @@ def delete_help_query(query_id):
         logger.error(f"Error in delete_help_query: {str(e)}")
         logger.error(f"Traceback: {traceback.format_exc()}")
         return jsonify({'error': 'Failed to delete help query'}), 500
+
+@routes_bp.route("/help-queries/<query_id>/reply", methods=['POST'])
+def reply_to_query(query_id):
+    try:
+        data = request.get_json()
+        answer = data.get('answer')
+        
+        if not answer:
+            return jsonify({'error': 'Answer is required'}), 400
+            
+        # Get the query from Firestore
+        query_ref = db.collection('help_queries').document(query_id)
+        query_doc = query_ref.get()
+        
+        if not query_doc.exists:
+            return jsonify({'error': 'Query not found'}), 404
+            
+        query_data = query_doc.to_dict()
+        user_email = query_data.get('email')
+        
+        # Update the query with the answer
+        query_ref.update({
+            'answer': answer,
+            'status': 'answered',
+            'answered_at': datetime.now()
+        })
+        
+        # Only attempt to send email if email configuration is available
+        if all([Config.MAIL_USERNAME, Config.MAIL_PASSWORD]) and user_email and user_email != 'No email provided':
+            try:
+                msg = MIMEMultipart()
+                msg['From'] = Config.MAIL_DEFAULT_SENDER
+                msg['To'] = user_email
+                msg['Subject'] = 'Response to Your Help Query - AlgoRize'
+                
+                body = f"""
+                Hello,
+                
+                We have responded to your help query:
+                
+                Your Query:
+                {query_data.get('query')}
+                
+                Our Response:
+                {answer}
+                
+                Thank you for using AlgoRize!
+                
+                Best regards,
+                AlgoRize Support Team
+                """
+                
+                msg.attach(MIMEText(body, 'plain'))
+                
+                server = smtplib.SMTP(Config.MAIL_SERVER, Config.MAIL_PORT)
+                server.starttls()
+                server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
+                server.send_message(msg)
+                server.quit()
+            except Exception as email_error:
+                logger.error(f"Error sending reply email: {str(email_error)}")
+                logger.error(f"Email error traceback: {traceback.format_exc()}")
+                # Continue with the response even if email fails
+                pass
+        
+        return jsonify({'message': 'Reply sent successfully'})
+    except Exception as e:
+        logger.error(f"Error in reply_to_query: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({'error': 'Failed to send reply'}), 500
