@@ -110,27 +110,100 @@
 /* Signup Button */
 .signup-button {
   width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
-  color: white;
+  padding: 18px 36px;
+  background: linear-gradient(135deg, #8a2be2 0%, #9370db 50%, #b388ff 100%);
+  color: #fff;
   font-size: 18px;
-  font-weight: 600;
-  border: none;
-  border-radius: 12px;
+  font-weight: 700;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-top: 20px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  box-shadow: 0 0 25px rgba(138, 43, 226, 0.5),
+              0 0 50px rgba(138, 43, 226, 0.3),
+              inset 0 0 25px rgba(255, 255, 255, 0.15);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+}
+
+.signup-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: shine 3s infinite;
+}
+
+.signup-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  padding: 2px;
+  background: linear-gradient(135deg, #b388ff, #8a2be2, #9370db);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .signup-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 35px rgba(138, 43, 226, 0.7),
+              0 0 70px rgba(138, 43, 226, 0.4),
+              inset 0 0 35px rgba(255, 255, 255, 0.25);
+  background: linear-gradient(135deg, #9370db 0%, #8a2be2 50%, #b388ff 100%);
+  letter-spacing: 2.5px;
+}
+
+.signup-button:hover::after {
+  opacity: 1;
+}
+
+.signup-button:hover::before {
+  left: 100%;
+  animation: none;
 }
 
 .signup-button:active {
-  transform: translateY(0);
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.5),
+              0 0 40px rgba(138, 43, 226, 0.3),
+              inset 0 0 20px rgba(255, 255, 255, 0.15);
+  letter-spacing: 2px;
+}
+
+.signup-button:disabled {
+  background: linear-gradient(135deg, #666 0%, #888 50%, #999 100%);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+@keyframes shine {
+  0% {
+    left: -50%;
+  }
+  20%, 100% {
+    left: 150%;
+  }
 }
 
 /* Login Redirect */
@@ -200,6 +273,19 @@
   background: linear-gradient(135deg, #6a1b9a 0%, #7b4b9a 100%);
   cursor: not-allowed;
   opacity: 0.8;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 25px rgba(138, 43, 226, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(138, 43, 226, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 25px rgba(138, 43, 226, 0.5);
+  }
 }
 
 /* Success Message */
