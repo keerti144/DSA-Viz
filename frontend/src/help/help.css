@@ -17,14 +17,14 @@
 
 /* Help Container */
 .help-container {
-    background: rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(14px);
-    border-radius: 18px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    background: rgba(34, 24, 52, 0.7);
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.2);
+    border: 1.5px solid #a879ff;
     padding: 2.7rem 2.2rem;
-    border: 2px solid rgba(147,112,219,0.13);
-    margin-bottom: 2.7rem;
-    transition: box-shadow 0.3s;
+    margin-bottom: 0;
 }
 
 /* Header */
@@ -55,20 +55,25 @@
 /* Help Title */
 .help-title {
     margin: 0;
-    font-size: 2.2rem;
-    font-weight: 900;
-    letter-spacing: 2px;
+    font-size: 2.7rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
-    background: linear-gradient(90deg, #8a2be2 0%, #fff 40%, #9370db 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-    text-shadow: 0 4px 32px #8a2be288, 0 0 12px #fff2;
-    white-space: nowrap;
-    display: block;
+    color: #e0cde9;
     text-align: left;
     position: relative;
+    padding-bottom: 12px;
+}
+
+.help-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #a879ff, #ffb6ff);
+    box-shadow: 0 0 12px #a879ff99;
+    margin-top: 10px;
 }
 
 .help-title-divider {
@@ -270,12 +275,13 @@
 
 /* Contact Section (Dark Theme) */
 .contact-section {
-    background: rgba(255,255,255,0.13);
+    background: rgba(34,24,52,0.7);
     border-radius: 12px;
     box-shadow: 0 2px 12px #0001;
     border: 1.5px solid #9370db22;
     padding: 1.7rem;
     text-align: center;
+    margin-bottom: 0;
 }
 
 .contact-section h3 {

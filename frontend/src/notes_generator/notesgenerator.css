@@ -1005,4 +1005,27 @@
 /* Ensure the heading is white */
 .notes-generator-container .overlap {
     color: #e0cde9 !important;
+}
+
+.rectangle-2 {
+    background: linear-gradient(135deg, rgba(88,45,113,0.85) 0%, rgba(145,83,235,0.65) 100%);
+    backdrop-filter: blur(6px);
+    border-radius: 18px;
+    box-shadow: 0 6px 24px 0 rgba(40, 20, 60, 0.18), 0 1.5px 8px 0 #582d7144;
+    border: 1.5px solid rgba(145, 83, 235, 0.22);
+    padding: 0;
+    width: 220px;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.22s cubic-bezier(.4,2,.6,1), box-shadow 0.22s cubic-bezier(.4,2,.6,1), background 0.22s;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Remove underline from .text-wrapper for flashcard headings */
+.text-wrapper.no-underline::after {
+    display: none;
 } 
