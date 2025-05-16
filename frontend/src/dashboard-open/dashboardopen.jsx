@@ -125,7 +125,9 @@ export const DashboardOpen = () => {
       <Header />
       <Sidebar />
       <div className="dashboard-content">
-        <h1 className="dashboard-title">Your Progress Dashboard</h1>
+        <div className="overlap">
+          <h1 className="text-wrapper">Your Progress Dashboard</h1>
+        </div>
         
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>

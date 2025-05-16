@@ -178,7 +178,7 @@ export const Roadmap = () => {
       <Header />
       <Sidebar />
       <div className="roadmap-container">
-        <h1 className="title">Roadmap</h1>
+        <h1 className="text-wrapper">Roadmap</h1>
         <div className="action-buttons">
           <button className="btn" onClick={openModal}>Create Your Own</button>
         </div>
