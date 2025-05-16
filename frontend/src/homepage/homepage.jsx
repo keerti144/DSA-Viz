@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar.jsx";
+import Header from "../header/header.jsx";
 import femaleUser from "../assets/female-user.png";
 import search from "../dashboard-open/search.png";
 import "./homepage.css";
@@ -31,13 +32,7 @@ export const Homepage = () => {
       <div className="twinkling"></div>
 
       <Sidebar />
-
-      <div className="header">
-        <div className="logo">AlgoRize</div>
-        <div className="user-profile" onClick={() => navigate("/settings")}>
-          <img className="user-icon" src={femaleUser} alt="User" />
-        </div>
-      </div>
+      <Header />
 
       <div className="main-content">
         <div className="search-container">
