@@ -35,7 +35,7 @@ export const Login = () => {
       <Navbar />
 
       <div className="login-box">
-        <h2 className="login-title">Login</h2>
+        <h2 className="login-title">LOGIN</h2>
 
         <div className="input-group">
           <label>Email</label>

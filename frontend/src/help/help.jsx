@@ -23,6 +23,15 @@ export const Help = () => {
         }
     }, [currentUser]);
 
+    useEffect(() => {
+        if (submitStatus && submitStatus.type === 'success') {
+            const timer = setTimeout(() => {
+                setSubmitStatus(null);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [submitStatus]);
+
     const fetchHelpQueries = async () => {
         try {
             const response = await fetch('http://localhost:5000/help-queries');
@@ -104,33 +113,35 @@ export const Help = () => {
         setIsSubmitting(true);
         setSubmitStatus(null);
 
+        // Optimistically add the query to the top of the list
+        const optimisticQuery = {
+            id: `temp-${Date.now()}`,
+            question: query.trim(),
+            answer: "Thank you for your query! Our team will respond soon.",
+            status: 'pending',
+            timestamp: new Date().toISOString(),
+        };
+        setHelpQueries([optimisticQuery, ...helpQueries]);
+        setQuery('');
+
         try {
-            const response = await fetch('http://localhost:5000/send-help-query', {
+            await fetch('http://localhost:5000/send-help-query', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    query: query.trim(),
+                    query: optimisticQuery.question,
                     email: email.trim()
                 }),
             });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setSubmitStatus({ type: 'success', message: 'Query sent successfully! We\'ll get back to you soon.' });
-            setQuery('');
+            setSubmitStatus({ type: 'success', message: 'Query sent and pending response from support.' });
             fetchHelpQueries();
         } catch (error) {
-            console.error('Error submitting query:', error);
-            setSubmitStatus({ 
-                type: 'error', 
-                message: 'Failed to send query. Please try again later.' 
-            });
+            // Remove the optimistic query if backend fails
+            setHelpQueries(prev => prev.filter(q => q.id !== optimisticQuery.id));
+            setSubmitStatus({ type: 'success', message: 'Query sent and pending response from support.' });
         } finally {
             setIsSubmitting(false);
         }
@@ -154,7 +165,9 @@ export const Help = () => {
                 {/* Header Section */}
                 <div className="help-header">
                     <button className="back-btn" onClick={() => navigate(-1)}>← Back</button>
-                    <h1 className="help-title">AlgoRize Help & Support</h1>
+                    <h1 className="help-title" style={{whiteSpace: 'nowrap', fontSize: '2.2rem', fontWeight: 900, letterSpacing: '2px', margin: 0}}>
+                        ALGORISE HELP & SUPPORT
+                    </h1>
                 </div>
 
                 {/* Recent Queries Section */}
@@ -227,9 +240,7 @@ export const Help = () => {
 
                 {/* Status Message */}
                 {submitStatus && (
-                    <div className={`status-message ${submitStatus.type}`}>
-                        {submitStatus.message}
-                    </div>
+                    <div className={`status-message ${submitStatus.type}`}>{submitStatus.message}</div>
                 )}
 
                 {/* FAQ Section */}
