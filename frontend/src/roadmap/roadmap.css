@@ -20,6 +20,7 @@
   font-weight: 800;
   background: linear-gradient(90deg, #a879ff, #f64f59);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 40px;
   text-transform: uppercase;
@@ -386,4 +387,36 @@
   align-items: center;
   justify-content: center;
   margin-right: 0;
+}
+
+.overlap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+  margin-bottom: 36px;
+  position: relative;
+}
+
+.text-wrapper {
+  font-size: 2.7rem;
+  font-weight: 800;
+  color: #e0cde9;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.text-wrapper::after {
+  content: '';
+  display: block;
+  margin: 0 auto;
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #a879ff, #ffb6ff);
+  box-shadow: 0 0 12px #a879ff99;
+  margin-top: 10px;
 }

@@ -4,90 +4,104 @@
     flex-direction: column;
     min-height: 100vh;
     background-color: #160c25;
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
 }
 
 /* Header and Sidebar section */
 .div {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    margin-left: 50px; /* Adjust if needed to align with Sidebar */
-    margin-top: 80px; /* Added to push content down and prevent overlap with the header */
+    padding: 24px 16px 16px 70px;
+    margin-top: 0;
+    align-items: center;
 }
 
 /* "Test Yourself" Section */
 .overlap {
     display: flex;
     align-items: center;
-    justify-content: center;  /* Centering the heading */
-    margin-bottom: 30px;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    color: #ffffff;  /* Darker text color for better readability */
-}
-
-.rectangle {
-    background: rgba(218, 9, 9, 0.1);
-    width: 100px;
-    height: 2px;
-    margin-right: 10px;
+    justify-content: center;
+    margin-top: 80px;
+    margin-bottom: 36px;
+    position: relative;
 }
 
 .text-wrapper {
-    font-size: 36px;
-    font-weight: 700;
-    color: #8d7ea3;
-   
+    font-size: 2.7rem;
+    font-weight: 800;
+    color: #e0cde9;
     text-align: center;
-    text-transform: uppercase; /* Added text-transform for a more structured look */
-    letter-spacing: 2px; /* Slight spacing between letters for a modern touch */
-   /* Underline effect */
-    padding-bottom: 15px; /* Improved contrast for readability */
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    position: relative;
+    padding-bottom: 12px;
+}
+.text-wrapper::after {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    width: 80px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #a879ff, #ffb6ff);
+    box-shadow: 0 0 12px #a879ff99;
+    margin-top: 10px;
+}
+
+.rectangle {
+    display: none;
 }
 
 /* DSA Topics Section styles */
 .group {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;  /* Center rectangles */
-    margin-bottom: 30px;
+    gap: 28px;
+    justify-content: center;
+    margin-bottom: 36px;
 }
 
 .rectangle-2, .rectangle-3, .rectangle-4, .rectangle-5, .rectangle-6, .rectangle-7, .rectangle-8, .rectangle-9 {
-    background: linear-gradient(135deg, #e0cde9, #bf9ff8a5);
-    padding: 20px;
-    width: 200px;
-    height: 100px;
-    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(88,45,113,0.85) 0%, rgba(145,83,235,0.65) 100%);
+    backdrop-filter: blur(6px);
+    border-radius: 18px;
+    box-shadow: 0 6px 24px 0 rgba(40, 20, 60, 0.18), 0 1.5px 8px 0 #582d7144;
+    border: 1.5px solid rgba(145, 83, 235, 0.22);
+    padding: 0;
+    width: 220px;
+    height: 110px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.22s cubic-bezier(.4,2,.6,1), box-shadow 0.22s cubic-bezier(.4,2,.6,1), background 0.22s;
+    position: relative;
+    overflow: hidden;
 }
-
 .rectangle-2:hover, .rectangle-3:hover, .rectangle-4:hover, .rectangle-5:hover, .rectangle-6:hover, .rectangle-7:hover, .rectangle-8:hover, .rectangle-9:hover {
-    background: linear-gradient(135deg, #a271d5ee, #dca9f5);
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #582d71 0%, #9153eb 100%);
+    box-shadow: 0 12px 32px 0 #582d7199, 0 2px 12px 0 #9153eb99;
+    transform: translateY(-6px) scale(1.045);
 }
 
 .topic-text {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 1.25rem;
+    font-weight: 700;
     text-align: center;
-    color: #333;
+    color: #e0cde9;
+    letter-spacing: 1.2px;
+    z-index: 1;
+    text-shadow: 0 1px 8px #160c2580, 0 0.5px 2px #9153eb33;
 }
 
 /* "Or" Section */
 .or-section {
     text-align: center;
-    margin: 20px 0;
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffffff;
+    margin: 24px 0 10px 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e0cde9;
+    letter-spacing: 1.5px;
 }
 
 /* AI Test Button Section */
@@ -96,80 +110,84 @@
 }
 
 .ai-test-button {
-    background: linear-gradient(135deg, #582d71, #9153eb);  /* Matching a sleek blue color */
-    color: white;
-    padding: 18px 40px;  /* Increased padding for a more prominent button */
-    font-size: 18px;
-    font-weight: 600;  /* Bold text for better readability */
-    border-radius: 50px;  /* Rounded corners for a modern look */
+    background: linear-gradient(135deg, #a879ff 0%, #ffb6ff 100%);
+    color: #2d1a4d;
+    padding: 20px 48px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    border-radius: 60px;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;  /* Smooth transition for hover effects */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);  /* Subtle shadow for depth */
-    margin-bottom: 20px;  /* Spacing from the text below */
-    text-transform: uppercase;  /* Making text uppercase for added impact */
+    transition: all 0.22s cubic-bezier(.4,2,.6,1);
+    box-shadow: 0 4px 24px #a879ff55, 0 1.5px 8px #ffb6ff55;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    outline: none;
 }
-
 .ai-test-button:hover {
-    background: linear-gradient(135deg, #9153eb, #582d71); /* Darker blue shade on hover */
-    transform: translateY(-3px);  /* Slight raise effect on hover */
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);  /* Enhanced shadow for hover */
+    background: linear-gradient(135deg, #ffb6ff 0%, #a879ff 100%);
+    color: #582d71;
+    box-shadow: 0 8px 32px #ffb6ff99, 0 2px 12px #a879ff99;
+    transform: translateY(-4px) scale(1.04);
 }
-
 .ai-test-button:focus {
-    outline: none;  /* Remove focus outline for a cleaner look */
-    box-shadow: 0px 0px 0px 4px rgba(38, 143, 255, 0.5);  /* Light blue focus outline */
+    outline: none;
+    box-shadow: 0 0 0 4px #a879ff55, 0 8px 32px #ffb6ff99;
 }
 
 /* AI Description text */
 .ai-description {
-    font-size: 16px;
-    color: #ffffff;
+    font-size: 1.08rem;
+    color: #e0cde9;
     margin-top: 10px;
-    font-style: italic;  /* Added for a refined look */
+    font-style: italic;
+    letter-spacing: 0.5px;
 }
 
 /* Mobile responsiveness */
-@media (max-width: 768px) {
-    .test-main {
-        flex-direction: column;
-    }
-
+@media (max-width: 900px) {
     .div {
         margin-left: 0;
         padding: 10px;
-        margin-top: 120px; /* Adjusted for mobile devices */
+        margin-top: 120px;
     }
-
+    .group {
+        gap: 18px;
+    }
+    .rectangle-2, .rectangle-3, .rectangle-4, .rectangle-5, .rectangle-6, .rectangle-7, .rectangle-8, .rectangle-9 {
+        width: 95vw;
+        max-width: 320px;
+        height: 90px;
+    }
+}
+@media (max-width: 600px) {
+    .text-wrapper {
+        font-size: 1.2rem;
+    }
     .group {
         flex-direction: column;
         align-items: center;
+        gap: 12px;
     }
-
     .rectangle-2, .rectangle-3, .rectangle-4, .rectangle-5, .rectangle-6, .rectangle-7, .rectangle-8, .rectangle-9 {
-        width: 100%;
-        max-width: 300px;
-        height: 80px;
+        width: 98vw;
+        max-width: 98vw;
+        height: 70px;
+        padding: 0;
     }
-}
-
-@media (max-width: 480px) {
     .ai-test-button {
-        padding: 12px 24px;
-        font-size: 14px;
+        padding: 12px 18px;
+        font-size: 1rem;
     }
-
-    .text-wrapper {
-        font-size: 18px;
-    }
-
-    .topic-text {
-        font-size: 16px;
+    .ai-description {
+        font-size: 0.95rem;
     }
 }
 
 /* Ensure the "Test Yourself" heading is white */
 .test-main .overlap {
-    color: white !important;  /* Force the color to be white */
+    color: #e0cde9 !important;
 }
 
