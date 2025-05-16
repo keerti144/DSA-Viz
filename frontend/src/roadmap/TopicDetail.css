@@ -12,18 +12,28 @@
     max-width: 900px;
     width: 90%;
     margin: 20px auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    text-align: center;
+    padding: 24px 18px;
+    background: rgba(34, 24, 52, 0.7);
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px rgba(80, 60, 120, 0.13);
+    text-align: left;
+    color: #fff;
 }
 
 .topic-detail-container h1 {
-    font-size: 36px;
-    font-weight: bold;
+    font-size: 2.3rem;
+    font-weight: 800;
     color: #a879ff;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.topic-detail-container > p:first-of-type {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #e0cde9;
+    font-size: 1.1rem;
 }
 
 .btn {
@@ -43,15 +53,17 @@
 }
 
 .level-section {
-    margin: 20px 0;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
+    margin: 24px 0;
+    padding: 22px 24px;
+    background: rgba(255, 255, 255, 0.09);
+    border-radius: 1.1rem;
+    box-shadow: 0 2px 10px rgba(80, 60, 120, 0.08);
     text-align: left;
+    border: 1.5px solid #a879ff22;
 }
 
 .level-header {
-    font-size: 24px;
+    font-size: 1.3rem;
     font-weight: bold;
     color: #a879ff;
     margin-bottom: 10px;
@@ -62,20 +74,77 @@
 }
 
 .level-time {
-    font-size: 16px;
-    color: #dddddd;
+    font-size: 1rem;
+    color: #b99cff;
     margin-bottom: 10px;
 }
 
 .subtopic-list {
-    margin: 0;
-    padding: 0 0 0 20px;
-    list-style: none;
+    margin: 0 0 1.2rem 0;
+    padding: 0 0 0 1.5rem;
+    list-style: disc;
+    color: #fff;
 }
 
 .subtopic-list li {
-    margin-bottom: 6px;
-    font-size: 16px;
+    margin-bottom: 7px;
+    font-size: 1.08rem;
     color: #fff;
-    opacity: 0.9;
+    opacity: 0.95;
+    line-height: 1.6;
+}
+
+.topic-detail-container strong {
+    color: #fff;
+    font-weight: 700;
+}
+
+.topic-detail-container h2, .topic-detail-container h3, .topic-detail-container h4 {
+    color: #a879ff;
+    margin: 1.2rem 0 0.7rem 0;
+    font-weight: 700;
+}
+
+.topic-detail-container p {
+    margin: 0.7rem 0;
+    color: #e0cde9;
+    font-size: 1.08rem;
+    line-height: 1.7;
+}
+
+.detail-card {
+    margin: 28px 0;
+    padding: 22px 24px;
+    background: rgba(255, 255, 255, 0.09);
+    border-radius: 1.1rem;
+    box-shadow: 0 2px 10px rgba(80, 60, 120, 0.08);
+    text-align: left;
+    border: 1.5px solid #a879ff22;
+    color: #fff;
+}
+
+.detail-card-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #a879ff;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #a879ff, #f64f59);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.detail-card-list {
+    margin: 0 0 1.2rem 0;
+    padding: 0 0 0 1.5rem;
+    list-style: disc;
+    color: #fff;
+}
+
+.detail-card-list li {
+    margin-bottom: 7px;
+    font-size: 1.08rem;
+    color: #fff;
+    opacity: 0.95;
+    line-height: 1.6;
 }
