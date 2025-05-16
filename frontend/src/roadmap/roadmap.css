@@ -396,6 +396,7 @@
   margin-top: 80px;
   margin-bottom: 36px;
   position: relative;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
 }
 
 .text-wrapper {
@@ -407,6 +408,7 @@
   letter-spacing: 2.5px;
   position: relative;
   padding-bottom: 12px;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
 }
 
 .text-wrapper::after {

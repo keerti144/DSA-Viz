@@ -3,7 +3,7 @@
     min-height: 100vh;
     overflow: hidden;
     z-index: 0;
-    background: linear-gradient(120deg, #1c1533 0%, #30214f 100%);
+    background: #160c25;
 }
 .notes-generator-container::before,
 .notes-generator-container::after {
@@ -50,9 +50,7 @@
     top: 0; left: 0; right: 0; bottom: 0;
     z-index: 2;
     pointer-events: none;
-    background: radial-gradient(circle at 70% 20%, #a678f244 0%, transparent 60%),
-                radial-gradient(circle at 20% 80%, #b79ffb33 0%, transparent 70%),
-                linear-gradient(120deg, #1c1533 0%, #30214f 100%);
+    background: #160c25;
     will-change: transform;
     animation: parallax-bg 30s linear infinite alternate;
 }
@@ -518,7 +516,7 @@
     padding: 2.5rem 0;
     align-items: center;
     justify-content: flex-start;
-    background: linear-gradient(120deg, #1c1533 0%, #30214f 100%);
+    background: #160c25;
     padding-bottom: 4rem;
     overflow-x: hidden;
     position: relative;
@@ -531,7 +529,7 @@
     z-index: 0;
     background: radial-gradient(circle at 70% 20%, #a678f244 0%, transparent 60%),
                 radial-gradient(circle at 20% 80%, #b79ffb33 0%, transparent 70%),
-                linear-gradient(120deg, #1c1533 0%, #30214f 100%);
+                #160c25;
     pointer-events: none;
     will-change: transform;
     animation: parallax-bg 30s linear infinite alternate;
@@ -963,4 +961,48 @@
 /* Section transitions */
 .input-group, .notes-form, .generated-notes {
     transition: box-shadow 0.3s, background 0.3s, border 0.3s;
+}
+
+/* Add the exact heading styles from test main */
+.overlap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+    margin-bottom: 36px;
+    position: relative;
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
+
+.text-wrapper {
+    font-size: 2.7rem;
+    font-weight: 800;
+    color: #e0cde9;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    position: relative;
+    padding-bottom: 12px;
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
+
+.text-wrapper::after {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    width: 80px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #a879ff, #ffb6ff);
+    box-shadow: 0 0 12px #a879ff99;
+    margin-top: 10px;
+}
+
+.rectangle {
+    display: none;
+}
+
+/* Ensure the heading is white */
+.notes-generator-container .overlap {
+    color: #e0cde9 !important;
 } 
