@@ -1,14 +1,24 @@
 /* General Styles */
 body {
   margin: 0;
-  font-family: "Advent Pro", sans-serif;
-  background-color: #f4f4f4;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #1a102b 0%, #2d1b4e 100%);
+  color: white;
+  min-height: 100vh;
 }
 
-/* Dark Mode Support */
-body.dark-mode {
-  background-color: #121212;
-  color: white;
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(147, 112, 219, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .settings {
@@ -16,11 +26,8 @@ body.dark-mode {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
-  background-image: url("../assets/bg.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding: 80px 20px 20px;
 }
 
 /* Header Section */
@@ -30,17 +37,21 @@ body.dark-mode {
   align-items: center;
   width: 100%;
   padding: 1rem 2rem;
-  background-color: rgba(0, 0, 0, 0.7);
+  background: rgba(30, 18, 48, 0.95);
   color: white;
   position: fixed;
   top: 0;
   left: 0;
   height: 60px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
 }
 
 .header-left {
   display: flex;
   align-items: center;
+  gap: 15px;
 }
 
 .menu-btn img {
@@ -55,148 +66,175 @@ body.dark-mode {
   color: white;
   font-size: 24px;
   cursor: pointer;
-  margin-left: 15px;
+  transition: transform 0.2s;
+}
+
+.back-btn:hover {
+  transform: scale(1.1);
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
+  background: linear-gradient(45deg, #8a2be2, #9370db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .signout-btn {
-  background: red;
+  background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
   color: white;
-  padding: 10px 15px;
+  padding: 8px 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .signout-btn:hover {
-  background: darkred;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(138, 43, 226, 0.3);
 }
 
-/* Settings Page */
+/* Settings Content */
 .settings-content {
-  margin-top: 80px;
-  text-align: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
+  margin-top: 20px;
 }
 
 .profile-pic {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .profile-pic img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
+  border: 3px solid #8a2be2;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.profile-pic img:hover {
+  transform: scale(1.05);
 }
 
 .username-label {
-  margin-top: 10px;
-  font-size: 20px;
+  margin-top: 15px;
+  font-size: 24px;
+  font-weight: 600;
   color: white;
+  text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
 }
 
 /* Settings Section */
 .settings-section {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 20px;
-  border-radius: 10px;
-  color: white;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .section-title {
   font-size: 24px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
+  color: white;
+  text-align: center;
+  font-weight: 600;
 }
 
 .settings-item {
   display: flex;
   flex-direction: column;
-  text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .settings-item span {
   font-size: 16px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .settings-item input {
   width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
   font-size: 16px;
-  background-color: #222;
-  color: white;
+  transition: all 0.3s ease;
 }
 
-.error-message {
-  color: red;
-  font-size: 14px;
-  margin-top: 10px;
-  font-weight: bold;
+.settings-item input:focus {
+  outline: none;
+  border-color: #8a2be2;
+  box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
 }
 
-/* Dark Mode Toggle */
-.toggle-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.settings-item input:read-only {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 22px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  background-color: #ccc;
-  border-radius: 22px;
+/* Save Button */
+.save-btn {
   width: 100%;
-  height: 100%;
-  transition: 0.4s;
-}
-
-.switch input:checked + .slider {
-  background-color: #2196F3;
-}
-
-.toggle-label {
-  margin-left: 10px;
-}
-
-/* Button */
-.settings-btn {
-  background: #666;
+  padding: 14px;
+  background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
   color: white;
-  padding: 10px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  width: 100%;
+  transition: all 0.3s ease;
+  margin-top: 20px;
 }
 
-.settings-btn:hover {
-  background: #888;
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(138, 43, 226, 0.3);
+}
+
+/* Error Message */
+.error-message {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .settings {
+    padding: 70px 15px 15px;
+  }
+  
+  .settings-content {
+    padding: 0 10px;
+  }
+  
+  .settings-section {
+    padding: 20px;
+  }
+  
+  .profile-pic img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .username-label {
+    font-size: 20px;
+  }
 }
 
 
