@@ -180,7 +180,7 @@ export const Roadmap = () => {
       <div className="roadmap-container">
         <h1 className="text-wrapper">Roadmap</h1>
         <div className="action-buttons">
-          <button className="btn" onClick={openModal}>Create Your Own</button>
+          <button className="btn" onClick={openModal}>Generate Roadmap</button>
         </div>
         <div className="section">
           <h2>Recommended Roadmaps</h2>
