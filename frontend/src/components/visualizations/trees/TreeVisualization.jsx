@@ -211,13 +211,203 @@ function getBSTInsertSteps(root, value) {
     return steps;
 }
 
+// Helper to get tree depth
+function getTreeDepth(node) {
+    if (!node) return 0;
+    return 1 + Math.max(getTreeDepth(node.left), getTreeDepth(node.right));
+}
+
 // Generate traversal steps for AVL insertion (with rotations)
 function getAVLInsertSteps(root, value) {
-    // For simplicity, use the same traversal as BST for now, but can be extended for AVL rotations
-    // (Full AVL step-by-step with rotations is more complex, but can be added similarly)
-    // For now, highlight the path and show the rotation if it happens after insertion
-    // TODO: Add step-by-step rotation visualization
-    return getBSTInsertSteps(root, value);
+    // We'll use a local AVL insert that records each step
+    const steps = [];
+    function clone(node) {
+        if (!node) return null;
+        return {
+            value: node.value,
+            left: clone(node.left),
+            right: clone(node.right),
+            height: node.height,
+        };
+    }
+    function height(node) {
+        return node ? node.height : 0;
+    }
+    function updateHeight(node) {
+        if (node) node.height = 1 + Math.max(height(node.left), height(node.right));
+    }
+    function getBalance(node) {
+        return node ? height(node.left) - height(node.right) : 0;
+    }
+    function rightRotate(y) {
+        const x = y.left;
+        const T2 = x.right;
+        x.right = y;
+        y.left = T2;
+        updateHeight(y);
+        updateHeight(x);
+        return x;
+    }
+    function leftRotate(x) {
+        const y = x.right;
+        const T2 = y.left;
+        y.left = x;
+        x.right = T2;
+        updateHeight(x);
+        updateHeight(y);
+        return y;
+    }
+    function insert(node, value, path = []) {
+        if (!node) {
+            const newNode = { value, left: null, right: null, height: 1 };
+            steps.push({
+                tree: clone(newNode),
+                inserted: value,
+                rotation: null,
+                rotateNode: null,
+                step: steps.length + 1,
+                highlight: [...path, value],
+                insertedYet: true,
+            });
+            return newNode;
+        }
+        if (value < node.value) {
+            node.left = insert(node.left, value, [...path, node.value]);
+        } else if (value > node.value) {
+            node.right = insert(node.right, value, [...path, node.value]);
+        } else {
+            // Duplicate, do nothing
+            steps.push({
+                tree: clone(node),
+                inserted: value,
+                rotation: null,
+                rotateNode: null,
+                step: steps.length + 1,
+                highlight: [...path, value],
+                insertedYet: false,
+            });
+            return node;
+        }
+        updateHeight(node);
+        const balance = getBalance(node);
+        // Left Left
+        if (balance > 1 && value < node.left.value) {
+            // Step before rotation
+            steps.push({
+                tree: clone(node),
+                inserted: value,
+                rotation: 'Right Rotation (LL)',
+                rotateNode: node.value,
+                step: steps.length + 1,
+                highlight: [...path, node.value],
+                insertedYet: true,
+                beforeRotation: true,
+            });
+            // Step after rotation
+            const rotated = rightRotate(node);
+            steps.push({
+                tree: clone(rotated),
+                inserted: value,
+                rotation: 'Right Rotation (LL)',
+                rotateNode: node.value,
+                step: steps.length + 1,
+                highlight: [...path, node.value],
+                insertedYet: true,
+                afterRotation: true,
+            });
+            return rotated;
+        }
+        // Right Right
+        if (balance < -1 && value > node.right.value) {
+            steps.push({
+                tree: clone(node),
+                inserted: value,
+                rotation: 'Left Rotation (RR)',
+                rotateNode: node.value,
+                step: steps.length + 1,
+                highlight: [...path, node.value],
+                insertedYet: true,
+                beforeRotation: true,
+            });
+            const rotated = leftRotate(node);
+            steps.push({
+                tree: clone(rotated),
+                inserted: value,
+                rotation: 'Left Rotation (RR)',
+                rotateNode: node.value,
+                step: steps.length + 1,
+                highlight: [...path, node.value],
+                insertedYet: true,
+                afterRotation: true,
+            });
+            return rotated;
+        }
+        // Left Right
+        if (balance > 1 && value > node.left.value) {
+            steps.push({
+                tree: clone(node),
+                inserted: value,
+                rotation: 'Left-Right Rotation (LR)',
+                rotateNode: node.value,
+                step: steps.length + 1,
+                highlight: [...path, node.value],
+                insertedYet: true,
+                beforeRotation: true,
+            });
+            node.left = leftRotate(node.left);
+            const rotated = rightRotate(node);
+            steps.push({
+                tree: clone(rotated),
+                inserted: value,
+                rotation: 'Left-Right Rotation (LR)',
+                rotateNode: node.value,
+                step: steps.length + 1,
+                highlight: [...path, node.value],
+                insertedYet: true,
+                afterRotation: true,
+            });
+            return rotated;
+        }
+        // Right Left
+        if (balance < -1 && value < node.right.value) {
+            steps.push({
+                tree: clone(node),
+                inserted: value,
+                rotation: 'Right-Left Rotation (RL)',
+                rotateNode: node.value,
+                step: steps.length + 1,
+                highlight: [...path, node.value],
+                insertedYet: true,
+                beforeRotation: true,
+            });
+            node.right = rightRotate(node.right);
+            const rotated = leftRotate(node);
+            steps.push({
+                tree: clone(rotated),
+                inserted: value,
+                rotation: 'Right-Left Rotation (RL)',
+                rotateNode: node.value,
+                step: steps.length + 1,
+                highlight: [...path, node.value],
+                insertedYet: true,
+                afterRotation: true,
+            });
+            return rotated;
+        }
+        // Normal step
+        steps.push({
+            tree: clone(node),
+            inserted: value,
+            rotation: null,
+            rotateNode: null,
+            step: steps.length + 1,
+            highlight: [...path, node.value],
+            insertedYet: true,
+        });
+        return node;
+    }
+    let newRoot = insert(root, value);
+    return steps;
 }
 
 const sidebarData = {
@@ -287,6 +477,8 @@ export default function TreeVisualization({ algorithm, title }) {
         if (!node) return null;
         const nodeRadius = 22;
         const yStep = 80;
+        // Dynamically shrink xOffset as tree gets deeper
+        const dynamicXOffset = xOffset / (level + 1.2);
         const children = [];
         if (node.left) {
             children.push(
@@ -294,7 +486,7 @@ export default function TreeVisualization({ algorithm, title }) {
                     key={node.value + '-l'}
                     x1={x}
                     y1={y}
-                    x2={x - xOffset}
+                    x2={x - dynamicXOffset}
                     y2={y + yStep}
                     stroke="#aaa"
                     strokeWidth={2}
@@ -307,7 +499,7 @@ export default function TreeVisualization({ algorithm, title }) {
                     key={node.value + '-r'}
                     x1={x}
                     y1={y}
-                    x2={x + xOffset}
+                    x2={x + dynamicXOffset}
                     y2={y + yStep}
                     stroke="#aaa"
                     strokeWidth={2}
@@ -337,11 +529,17 @@ export default function TreeVisualization({ algorithm, title }) {
                 >
                     {node.value}
                 </text>
-                {node.left && renderTree(node.left, x - xOffset, y + yStep, level + 1, xOffset / 1.7, highlightPath)}
-                {node.right && renderTree(node.right, x + xOffset, y + yStep, level + 1, xOffset / 1.7, highlightPath)}
+                {node.left && renderTree(node.left, x - dynamicXOffset, y + yStep, level + 1, xOffset, highlightPath)}
+                {node.right && renderTree(node.right, x + dynamicXOffset, y + yStep, level + 1, xOffset, highlightPath)}
             </g>
         );
     }
+
+    // Calculate dynamic SVG size
+    const currentTree = inserting ? steps[stepIdx]?.tree : root;
+    const treeDepth = getTreeDepth(currentTree);
+    const svgWidth = Math.max(900, Math.pow(2, treeDepth) * 60);
+    const svgHeight = Math.max(500, treeDepth * 100 + 100);
 
     // Scrollable layout
     return (
@@ -374,10 +572,10 @@ export default function TreeVisualization({ algorithm, title }) {
                     {(!root && !inserting) ? (
                         <div style={{ color: '#e879f9', fontWeight: 500, fontSize: 20, margin: '2rem 0' }}>Insert values to build the tree</div>
                     ) : (
-                        <svg width={900} height={500} style={{ background: 'none' }}>
+                        <svg width={svgWidth} height={svgHeight} style={{ background: 'none' }}>
                             {inserting
-                                ? renderTree(steps[stepIdx]?.tree, 450, 50, 0, 180, steps[stepIdx]?.highlight)
-                                : renderTree(root, 450, 50, 0, 180, null)
+                                ? renderTree(steps[stepIdx]?.tree, svgWidth / 2, 50, 0, svgWidth / 4, steps[stepIdx]?.highlight)
+                                : renderTree(root, svgWidth / 2, 50, 0, svgWidth / 4, null)
                             }
                         </svg>
                     )}
