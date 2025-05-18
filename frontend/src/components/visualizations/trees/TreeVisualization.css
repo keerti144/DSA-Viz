@@ -1,61 +1,65 @@
+/* Modernized Tree Visualization Styles */
 .tree-container {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    background: #f8f9fa;
-    border-radius: 8px;
-    margin: 1rem 0;
+    background: #18122B;
+    border-radius: 16px;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 24px #0002;
     overflow: auto;
 }
 
 .tree-canvas {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #231942;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px #0003;
 }
 
 /* Node states */
 .node {
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(.4, 2, .6, 1);
 }
 
 .node-visited {
-    fill: #2ecc71;
+    fill: #22d3ee;
 }
 
 .node-current {
-    fill: #e74c3c;
+    fill: #e879f9;
 }
 
 .node-unvisited {
-    fill: #3498db;
+    fill: #a879ff;
 }
 
 /* Edge styles */
 .edge {
-    stroke: #666;
-    stroke-width: 2;
+    stroke: #a879ff;
+    stroke-width: 2.5;
+    opacity: 0.85;
 }
 
 .edge-traversed {
-    stroke: #2ecc71;
-    stroke-width: 3;
+    stroke: #e879f9;
+    stroke-width: 3.5;
 }
 
 /* Node value styles */
 .node-value {
-    fill: white;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
+    fill: #fff;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 16px;
     text-anchor: middle;
     dominant-baseline: middle;
+    font-weight: 600;
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .tree-container {
-        padding: 1rem;
+        padding: 0.5rem;
     }
 
     .tree-canvas {

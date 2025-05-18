@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import LinkedListControls from "../LinkedListControls";
 import LinkedListDisplay from "../LinkedListDisplay";
+import AlgoSidebar from '../../AlgoSidebar';
+import '../../linkedlists/LinkedListControls.css';
 
 const OP_NONE = null;
 const OP_INSERT_FRONT = "insertFront";
@@ -54,6 +56,13 @@ function getSteps(list, op, value) {
   return steps;
 }
 
+const sidebarData = {
+  title: 'Circular Singly Linked List',
+  algorithm: `Insert at Front: O(1)\nInsert at Back: O(1)\nDelete at Front: O(1)\nDelete at Back: O(n)\nReverse: O(n)`,
+  code: `class Node {\n  constructor(val) {\n    this.val = val;\n    this.next = null;\n  }\n}\n// ...`,
+  explanation: 'A circular singly linked list connects the last node back to the first, forming a circle.'
+};
+
 const CircularSinglyLinkedListVisualizer = () => {
   const [list, setList] = useState([]);
   const [stepMode, setStepMode] = useState(false);
@@ -94,38 +103,48 @@ const CircularSinglyLinkedListVisualizer = () => {
   const isAnimating = stepMode;
 
   return (
-    <div style={{ padding: "2rem", backgroundColor: "#0f172a", minHeight: "100vh" }}>
-      <h2 style={{ color: "#f8fafc", fontSize: "2rem", marginBottom: "1rem" }}>
-        Circular Singly Linked List
-      </h2>
-
-      <LinkedListControls
-        onInsertFront={handleInsertFront}
-        onInsertBack={handleInsertBack}
-        onDeleteFront={handleDeleteFront}
-        onDeleteBack={handleDeleteBack}
-        onReverse={handleReverse}
-        isAnimating={isAnimating}
-        isEmpty={list.length === 0}
-      />
-
-      <div style={{ display: 'flex', gap: 16, margin: '1rem 0' }}>
-        {stepMode && (
-          <>
-            <button onClick={handlePrev} disabled={stepIdx === 0} className="insert-button">Previous</button>
-            <button onClick={handleNext} className="insert-button">Next</button>
-            <span style={{ color: '#e879f9', fontWeight: 500, fontSize: 18 }}>
-              Step {stepIdx + 1} / {steps.length}
-            </span>
-          </>
-        )}
+    <div className="base-vis-layout">
+      <div className="base-vis-main" style={{ paddingTop: '0.5rem' }}>
+        <div className="base-vis-header" style={{ marginBottom: '1.2rem' }}>
+          <h1>Circular Singly Linked List</h1>
+        </div>
+        <div className="base-vis-controls">
+          <LinkedListControls
+            onInsertFront={handleInsertFront}
+            onInsertBack={handleInsertBack}
+            onDeleteFront={handleDeleteFront}
+            onDeleteBack={handleDeleteBack}
+            onReverse={handleReverse}
+            isAnimating={isAnimating}
+            isEmpty={list.length === 0}
+          />
+        </div>
+        <div className="base-vis-step-controls">
+          {stepMode && (
+            <>
+              <button onClick={handlePrev} disabled={stepIdx === 0} className="insert-button">Previous</button>
+              <button onClick={handleNext} className="insert-button">Next</button>
+              <span style={{ color: '#e879f9', fontWeight: 500, fontSize: 18 }}>
+                Step {stepIdx + 1} / {steps.length}
+              </span>
+            </>
+          )}
+        </div>
+        <div style={{ marginTop: 24 }}>
+          <LinkedListDisplay
+            list={stepMode ? steps[stepIdx].list : list}
+            highlightedNodes={stepMode ? steps[stepIdx].highlight : []}
+            isCircular={true}
+          />
+        </div>
       </div>
-
-      <LinkedListDisplay
-        list={stepMode ? steps[stepIdx].list : list}
-        highlightedNodes={stepMode ? steps[stepIdx].highlight : []}
-        isCircular={true}
-      />
+      <div className="base-vis-sidebar">
+        <AlgoSidebar
+          algorithm={sidebarData.algorithm}
+          code={sidebarData.code}
+          explanation={sidebarData.explanation}
+        />
+      </div>
     </div>
   );
 };
