@@ -2,8 +2,25 @@ body, html {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: "Advent Pro";
-  
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #1a102b 0%, #2d1b4e 100%);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(147, 112, 219, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .login-container {
@@ -11,115 +28,165 @@ body, html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
-  height: 100vh;  /* Full viewport height */
-  width: 100vw;   /* Full viewport width */
-  
-  background-image: url('../assets/bg.png'); /* Adjust path */
-  background-size: cover;  /* Ensure image fully covers */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* No tiling */
-  background-attachment: fixed; /* Keeps it fixed */
+  min-height: 100vh;
+  width: 100vw;
+  position: relative;
+  z-index: 1;
 }
 
-
 .login-box {
-  width: 32.75rem;
-  height: 33.3125rem;
-  flex-shrink: 0;
-  border-radius: 1.875rem;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 40px;
+  width: 100%;
+  max-width: 420px;
   border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 40px 32px;
   text-align: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 80px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .login-title {
-  color: #ffffff;
+  color: #fff;
   font-size: 2.25rem;
-  margin-bottom: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  background: linear-gradient(45deg, #8a2be2, #9370db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 15px;
-  
+  margin-bottom: 18px;
 }
 
 .input-group label {
-  color: #ffffff;
-  font-size: 19px;
-  margin-bottom: 5px;
+  color: rgba(255,255,255,0.9);
+  font-size: 16px;
+  margin-bottom: 6px;
+  font-weight: 500;
 }
 
 .input-group input {
-  flex-shrink: 0;
-  width: 95%;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
-  background-color: #2b2b2b;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
+  font-size: 16px;
   outline: none;
-  align-self: center;
-  
-  border-top-width: 1.88px;
-  border-bottom-width: 1.88px;
-  margin-top: 12px;
-  margin-bottom: 25px;
+  transition: all 0.3s ease;
+  margin-bottom: 8px;
+}
 
+.input-group input:focus {
+  border-color: #8a2be2;
+  box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.input-group input::placeholder {
+  color: rgba(255,255,255,0.5);
 }
 
 .login-button {
-  background-color: #9e9e9e;
-  color: #000;
+  background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
+  color: #fff;
   font-size: 18px;
-  font-weight: bold;
-  padding: 12px;
-  border-radius: 8px;
+  font-weight: 600;
+  padding: 16px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
   width: 100%;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .login-button:hover {
-  background-color: #bdbdbd;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+}
+
+.login-button:active {
+  transform: translateY(0);
 }
 
 .signup-text {
-  color: #ffffff;
-  margin-top: 15px;
-  font-size: 17px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 18px;
+  font-size: 16px;
 }
 
 .signup-link {
-  color: #6e6b70;
+  color: #9370db;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 17px;
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 5px;
+  transition: all 0.3s ease;
 }
 
 .signup-link:hover {
-  text-decoration: underline;
+  color: #8a2be2;
+  text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
 }
 
 .branding {
   margin-top: 20px;
   text-align: center;
+  color: rgba(255,255,255,0.5);
+  font-size: 15px;
 }
 
-.brand-name {
-  font-size: 36px;
-  color: #ffffff;
-  font-family: "Aguafina Script", cursive;
+/* Error Message */
+.error-message {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
+  animation: shake 0.5s ease-in-out;
 }
 
-.tagline {
-  font-size: 18px;
-  color: #ffffff;
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-box {
+    max-width: 95%;
+    padding: 28px 10px;
+    margin-top: 60px;
+  }
+  .login-title {
+    font-size: 1.7rem;
+    margin-bottom: 18px;
+  }
+  .login-button {
+    padding: 14px;
+    font-size: 16px;
+  }
 }

@@ -30,13 +30,16 @@ const LinkedListControls = ({
         <h3 className="controls-title">Linked List Controls</h3>
 
         <div className="controls-row">
-          <label>Insert at Front</label>
-          <input
-            type="checkbox"
-            checked={insertAtFront}
-            onChange={() => setInsertAtFront(!insertAtFront)}
-            disabled={isAnimating}
-          />
+          <label style={{ marginRight: 8 }}>Insert at Front</label>
+          <label className="toggle-switch">
+            <input
+              type="checkbox"
+              checked={insertAtFront}
+              onChange={() => setInsertAtFront(!insertAtFront)}
+              disabled={isAnimating}
+            />
+            <span className="toggle-slider" />
+          </label>
         </div>
 
         <div className="controls-row">
@@ -83,87 +86,6 @@ const LinkedListControls = ({
           Reverse List
         </button>
       </div>
-
-      <style>
-        {`
-          .controls-container {
-            background-color: #1f2937;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            color: #f8fafc;
-            max-width: 500px;
-            margin-bottom: 20px;
-          }
-
-          .controls-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #93c5fd;
-          }
-
-          .controls-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-          }
-
-          .input-field {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #475569;
-            border-radius: 8px;
-            background-color: #334155;
-            color: #f1f5f9;
-          }
-
-          .insert-button {
-            background-color: #22c55e;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-          }
-
-          .insert-button:disabled {
-            background-color: #86efac;
-            cursor: not-allowed;
-          }
-
-          .delete-button {
-            flex: 1;
-            background-color: #ef4444;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-          }
-
-          .delete-button:disabled {
-            background-color: #fca5a5;
-            cursor: not-allowed;
-          }
-
-          .reverse-button {
-            width: 100%;
-            background-color: #3b82f6;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-          }
-
-          .reverse-button:disabled {
-            background-color: #93c5fd;
-            cursor: not-allowed;
-          }
-        `}
-      </style>
     </>
   );
 };

@@ -159,20 +159,16 @@ export const Roadmap = () => {
 
   const renderCards = (data, sectionName) =>
     data.map((item, index) => {
-      const id = `${sectionName}-${index}`;
-      const isExpanded = expandedCard === id;
       return (
-        <div className={`card ${isExpanded ? 'expanded' : ''}`} key={index} onClick={() => toggleCard(sectionName, index, item)}>
-          {/* Add roadmap image for DSA card */}
-          {item.title === 'Mastering DSA' && <img src={roadmapImg} alt="DSA Roadmap" className="roadmap-image" />}
+        <div className="card" key={index}>
+          <div className="card-icon">{item.title === 'Mastering DSA' ? <span>&lt;/&gt;</span> : <span>📚</span>}</div>
           <h3>{item.title}</h3>
           <p>{item.description}</p>
           <span className="tag">{item.tag}</span>
-          {isExpanded && (
-            <div className="card-content">
-              <p>{item.content}</p>
-            </div>
-          )}
+          <hr className="card-divider" />
+          <button className="card-action-btn" onClick={() => navigate(`/roadmap/${encodeURIComponent(item.title)}`)}>
+            Start Learning &rarr;
+          </button>
         </div>
       );
     });
@@ -182,9 +178,9 @@ export const Roadmap = () => {
       <Header />
       <Sidebar />
       <div className="roadmap-container">
-        <h1 className="title">Roadmap</h1>
+        <h1 className="text-wrapper">Roadmap</h1>
         <div className="action-buttons">
-          <button className="btn" onClick={openModal}>Create Your Own</button>
+          <button className="btn" onClick={openModal}>Generate Roadmap</button>
         </div>
         <div className="section">
           <h2>Recommended Roadmaps</h2>

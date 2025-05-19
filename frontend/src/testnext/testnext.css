@@ -1,7 +1,7 @@
 /* General container styles */
 .testnext-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    background-color: #160c25;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,44 +9,55 @@
 }
 
 .testnext-content {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
+    background: rgba(34, 24, 52, 0.7);
+    box-shadow: 0 2px 12px 0 rgba(80, 60, 120, 0.10);
+    border-radius: 1.5rem;
+    border: 1.5px solid #5d4a7f;
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    position: relative;
+    z-index: 10;
     padding: 2rem;
-    width: 100%;
-    max-width: 800px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    width: auto;
+    max-width: 700px;
+    margin: 4rem auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeInUp 0.8s cubic-bezier(.4,2,.6,1);
 }
 
 /* Header styles */
 .testnext-header {
-    color: #ffffff;
+    color: #e0cde9;
     text-align: center;
     margin-bottom: 2rem;
     font-size: 2.5rem;
-    font-weight: 600;
-    background: linear-gradient(45deg, #00ff88, #00a1ff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    letter-spacing: 2px;
 }
 
 .topic-display {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(168, 121, 255, 0.08);
     padding: 1.5rem;
     border-radius: 10px;
     margin-bottom: 2rem;
     text-align: center;
+    color: #e0cde9;
 }
 
 .topic-display h2 {
-    color: #ffffff;
+    color: #a879ff;
     font-size: 1.5rem;
     margin: 0;
-    background: linear-gradient(45deg, #00ff88, #00a1ff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
 }
 
 .test-config {
@@ -72,32 +83,35 @@
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .difficulty-btn,
 .test-mode-btn {
     padding: 0.8rem 1.5rem;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(168, 121, 255, 0.18);
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
+    color: #e0cde9;
     cursor: pointer;
     transition: all 0.3s ease;
-    flex: 1;
     min-width: 120px;
+    font-size: 1.15rem;
 }
 
 .difficulty-btn:hover,
 .test-mode-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, #a879ff 0%, #ffb6ff 100%);
+    color: #2d1a4d;
     transform: translateY(-2px);
 }
 
 .difficulty-btn.selected,
 .test-mode-btn.selected {
-    background: linear-gradient(45deg, #00ff88, #00a1ff);
-    border-color: transparent;
-    color: #1a1a1a;
+    background: linear-gradient(135deg, #a879ff 0%, #ffb6ff 100%);
+    border-color: #a879ff;
+    color: #2d1a4d;
     font-weight: 600;
 }
 
@@ -112,16 +126,17 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
+    border: 2px solid #a879ff44;
+    background: rgba(168, 121, 255, 0.13);
+    color: #e0cde9;
     font-size: 1.2rem;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .question-count button:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, #a879ff 0%, #ffb6ff 100%);
+    color: #2d1a4d;
 }
 
 .question-count button:disabled {
@@ -130,27 +145,29 @@
 }
 
 .question-count span {
-    color: #ffffff;
+    color: #e0cde9;
     font-size: 1.5rem;
     min-width: 50px;
     text-align: center;
 }
 
 .start-test-btn {
-    width: 100%;
-    padding: 1rem;
+    padding: 1rem 2.5rem;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(45deg, #00ff88, #00a1ff);
-    color: #1a1a1a;
+    background: linear-gradient(135deg, #a879ff 0%, #ffb6ff 100%);
+    color: #2d1a4d;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 800;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 2rem;
+    align-self: center;
 }
 
 .start-test-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #ffb6ff 0%, #a879ff 100%);
+    color: #2d1a4d;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
 }
@@ -219,24 +236,25 @@
 
 .option-btn {
     padding: 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(168, 121, 255, 0.18);
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
+    color: #e0cde9;
     text-align: left;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .option-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, #a879ff 0%, #ffb6ff 100%);
+    color: #2d1a4d;
     transform: translateX(5px);
 }
 
 .option-btn.selected {
-    background: linear-gradient(45deg, #00ff88, #00a1ff);
-    border-color: transparent;
-    color: #1a1a1a;
+    background: linear-gradient(135deg, #a879ff 0%, #ffb6ff 100%);
+    color: #2d1a4d;
+    border-color: #a879ff;
     font-weight: 600;
 }
 
@@ -273,10 +291,10 @@
 .results h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, #00ff88, #00a1ff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: none;
+    color: #a879ff;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
 }
 
 .results p {
@@ -309,7 +327,7 @@
 .results-container h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: #fad0c4;
+    color: #a879ff;
 }
 
 .results-container p {
@@ -334,13 +352,13 @@
 }
 
 .restart-btn {
-    background: linear-gradient(90deg, #ff9a9e, #fad0c4);
-    color: #160c25;
+    background: linear-gradient(90deg, #a879ff, #ffb6ff);
+    color: #2d1a4d;
 }
 
 .back-btn {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: rgba(168, 121, 255, 0.13);
+    color: #e0cde9;
 }
 
 .restart-btn:hover,

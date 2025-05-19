@@ -125,13 +125,15 @@ export const DashboardOpen = () => {
       <Header />
       <Sidebar />
       <div className="dashboard-content">
-        <h1 className="dashboard-title">Your Progress Dashboard</h1>
+        <div className="overlap">
+          <h1 className="text-wrapper">Your Progress Dashboard</h1>
+        </div>
         
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
             {/* User Stats */}
             <Grid item xs={12} md={4}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', bgcolor: 'rgba(255, 255, 255, 0.1)' }}>
+              <Paper className="streak-box" sx={{ p: 2, display: 'flex', flexDirection: 'column', bgcolor: 'transparent' }}>
                 <Typography variant="h6" gutterBottom color="white">
                   Your Stats
                 </Typography>
@@ -174,7 +176,7 @@ export const DashboardOpen = () => {
 
             {/* Topic Completion Chart */}
             <Grid item xs={12} md={8}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', bgcolor: 'rgba(255, 255, 255, 0.1)' }}>
+              <Paper className="progress-overview" sx={{ p: 2, display: 'flex', flexDirection: 'column', bgcolor: 'transparent' }}>
                 <Typography variant="h6" gutterBottom color="white">
                   Topic Completion
                 </Typography>
@@ -213,7 +215,7 @@ export const DashboardOpen = () => {
 
             {/* Leaderboard */}
             <Grid item xs={12}>
-              <Paper sx={{ p: 2, bgcolor: 'rgba(255, 255, 255, 0.1)' }}>
+              <Paper className="leaderboard-box" sx={{ p: 2, bgcolor: 'transparent' }}>
                 <Typography variant="h6" gutterBottom color="white">
                   Leaderboard
                 </Typography>

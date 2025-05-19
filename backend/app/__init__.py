@@ -1,20 +1,19 @@
 from flask import Flask
 from flask_cors import CORS
 from config import Config
-from firebase_admin import credentials, initialize_app, _apps, firestore
-
-# Firebase Initialization (Only if not initialized)
-if not _apps:
-    cred = credentials.Certificate(Config.FIREBASE_CREDENTIALS_PATH)
-    initialize_app(cred)
-
-# Initialize Firestore
-db = firestore.client()
+from firebase_admin import credentials, initialize_app
+import firebase_admin
 
 def create_app():
+    # Initialize Flask app
     app = Flask(__name__)
     app.config.from_object(Config)
-    CORS(app)  # Enable CORS for frontend
+    CORS(app)  # Enable CORS for all routes
+
+    # Initialize Firebase Admin if not already initialized
+    if not firebase_admin._apps:
+        cred = credentials.Certificate(Config.FIREBASE_CREDENTIALS_PATH)
+        initialize_app(cred)
 
     # Register Blueprints
     from app.routes import routes_bp

@@ -18,27 +18,56 @@
 }
 
 /* Page Title */
-.vis-title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #a879ff;
-  margin-bottom: 30px;
+.overlap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 36px;
+  position: relative;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
+.text-wrapper {
+  font-size: 2.7rem;
+  font-weight: 800;
+  color: #e0cde9;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  position: relative;
+  padding-bottom: 12px;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
+.text-wrapper::after {
+  content: '';
+  display: block;
+  margin: 0 auto;
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #a879ff, #ffb6ff);
+  box-shadow: 0 0 12px #a879ff99;
+  margin-top: 10px;
 }
 
 /* Category Styling */
 .category {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
+  background: rgba(34, 24, 52, 0.7);
+  border-radius: 1.5rem;
+  padding: 2rem 1.5rem;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 24px 0 #a879ff22, 0 1.5px 8px #a879ff11;
+  border: 1.5px solid #a879ff;
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  transition: box-shadow 0.25s, border 0.25s, background 0.25s;
 }
 
 .category h2 {
-  font-size: 28px;
-  color: #f0f0f0;
-  margin-bottom: 15px;
+  font-size: 1.7rem;
+  color: #fff;
+  margin-bottom: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 /* Grid Layout for Buttons */
@@ -51,20 +80,25 @@
 
 /* Buttons */
 .button-grid button {
-  background: linear-gradient(135deg, #582d71, #9153eb);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 16px;
+  background: linear-gradient(135deg, #a879ff 0%, #9153eb 100%);
+  color: #fff;
+  border: 1.5px solid #a879ff;
+  padding: 15px 0;
+  border-radius: 12px;
+  font-size: 1.13rem;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
-  font-weight: bold;
+  font-weight: 600;
+  box-shadow: 0 2px 8px #a879ff22;
+  transition: all 0.2s cubic-bezier(.4,2,.6,1);
+  outline: none;
 }
 
 .button-grid button:hover {
-  background: linear-gradient(135deg, #9153eb, #582d71);
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #9153eb 0%, #a879ff 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px #a879ff33;
+  transform: scale(1.06);
+  border-color: #ffb6ff;
 }
 
 /* Responsive */

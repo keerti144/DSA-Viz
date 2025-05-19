@@ -29,26 +29,37 @@
   align-items: center;
 }
 
-.dashboard-title {
-  font-size: 2.3rem;
-  font-weight: bold;
+.overlap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 80px;
+  margin-bottom: 36px;
+  position: relative;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
+.text-wrapper {
+  font-size: 2.7rem;
+  font-weight: 800;
+  color: #e0cde9;
   text-align: center;
   text-transform: uppercase;
+  letter-spacing: 2.5px;
   position: relative;
-  color: white;
+  padding-bottom: 12px;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
 }
-
-.dashboard-title::after {
+.text-wrapper::after {
   content: '';
   display: block;
-  height: 5px;
-  width: 60%;
-  margin: 10px auto 0;
-  background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+  margin: 0 auto;
+  width: 80px;
+  height: 4px;
   border-radius: 2px;
+  background: linear-gradient(90deg, #a879ff, #ffb6ff);
+  box-shadow: 0 0 12px #a879ff99;
+  margin-top: 10px;
 }
-
 
 /*Progress Section*/
 .progress-section {
@@ -59,28 +70,40 @@
 }
 
 .streak-box,
-.leaderboard-box {
-  background: rgba(255, 255, 255, 0.15);
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-  width: 40%;
-  transition: 0.3s ease-in-out;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+.leaderboard-box,
+.progress-overview,
+.saved-content {
+  background: rgba(34, 24, 52, 0.7);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 24px 0 #a879ff22, 0 1.5px 8px #a879ff11;
+  border: 1.5px solid #a879ff;
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  transition: box-shadow 0.25s, border 0.25s, background 0.25s, transform 0.2s;
+  color: #fff;
+  padding: 2rem 1.5rem;
+  margin-bottom: 24px;
 }
 
-/* Hover Effect */
 .streak-box:hover,
-.leaderboard-box:hover {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.3);
+.leaderboard-box:hover,
+.progress-overview:hover,
+.saved-content:hover {
+  transform: scale(1.03);
+  background: rgba(34, 24, 52, 0.85);
+  box-shadow: 0 8px 32px 0 #a879ff33;
+  border-color: #ffb6ff;
 }
 
 .streak-box h2,
-.leaderboard-box h2 {
-  color: #090213;
+.leaderboard-box h2,
+.progress-overview h2,
+.saved-content h2 {
+  color: #fff !important;
   font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 1.2rem;
 }
 
 /* Progress Overview */
@@ -94,12 +117,6 @@
   transition: 0.3s ease-in-out;
 }
 
-/* Hover Effect */
-.progress-overview:hover {
-  transform: scale(1.02);
-  background: rgba(255, 255, 255, 0.2);
-}
-
 /* Progress Items */
 .progress-items {
   display: flex;
@@ -107,21 +124,26 @@
   margin-top: 10px;
 }
 
-.progress-item {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  width: 30%;
-  font-weight: bold;
-  transition: 0.3s ease-in-out;
+.progress-item,
+.saved-item {
+  background: rgba(168, 121, 255, 0.13);
+  border-radius: 1rem;
+  border: 1.5px solid #a879ff44;
+  color: #fff;
+  font-weight: 600;
+  padding: 1.1rem 0.7rem;
+  margin: 0.5rem 0;
+  box-shadow: 0 2px 8px #a879ff11;
+  transition: box-shadow 0.2s, background 0.2s, border 0.2s, transform 0.2s;
 }
 
-/* Hover Effect */
-.progress-item:hover {
+.progress-item:hover,
+.saved-item:hover {
+  background: linear-gradient(135deg, #a879ff 0%, #ffb6ff 100%);
+  color: #2d1a4d;
+  border-color: #a879ff;
   transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px #a879ff33;
 }
 
 /* Saved Content */
@@ -135,36 +157,12 @@
   transition: 0.3s ease-in-out;
 }
 
-/* Hover Effect */
-.saved-content:hover {
-  transform: scale(1.02);
-  background: rgba(255, 255, 255, 0.2);
-}
-
 /* Saved Items */
 .saved-items {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
-}
-
-.saved-item {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 10px;
-  border-radius: 10px;
-  width: 30%;
-  text-align: center;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-}
-
-/* Hover Effect */
-.saved-item:hover {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
 }
 
 .streak-box h2 {
@@ -178,7 +176,6 @@
 .saved-content h2 {
   color: white; /* Change heading color to white */
 }
-
 
 /* For headings within "Your Performance" and other similar sections */
 .dashboard-content h2 {

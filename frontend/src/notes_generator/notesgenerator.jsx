@@ -4,6 +4,8 @@ import remarkGfm from 'remark-gfm';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import './notesgenerator.css';
+import Header from '../header/header';
+import Sidebar from '../sidebar/sidebar';
 
 const NotesGenerator = () => {
     const [topic, setTopic] = useState('');
@@ -94,6 +96,11 @@ const NotesGenerator = () => {
 
     if (loading) {
         return (
+            <div style={{ display: 'flex', minHeight: '100vh', background: '#160c25' }}>
+                <Sidebar />
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    <Header />
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div className="loading-screen">
                 <div className="loading-content pop-in">
                     <div className="loading-animation">
@@ -105,6 +112,9 @@ const NotesGenerator = () => {
                     <p className="loading-subtext">Analyzing your preferences and generating comprehensive notes...</p>
                     <div className="loading-progress">
                         <div className="progress-bar"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,6 +123,11 @@ const NotesGenerator = () => {
 
     if (showNotes) {
         return (
+            <div style={{ display: 'flex', minHeight: '100vh', background: '#160c25' }}>
+                <Sidebar />
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    <Header />
+                    <div style={{ flex: 1 }}>
             <div className="notes-generator-container full-width">
                 <div className="parallax-bg" />
                 {toast && <motion.div className="custom-toast pop-in" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }}>{toast}</motion.div>}
@@ -135,6 +150,9 @@ const NotesGenerator = () => {
                             </svg>
                             Generate New Notes
                         </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -142,17 +160,19 @@ const NotesGenerator = () => {
     }
 
     return (
+        <div style={{ display: 'flex', minHeight: '100vh', background: '#160c25' }}>
+            <Sidebar />
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <Header />
+                <div style={{ flex: 1 }}>
         <div className="notes-generator-container full-width">
             <div className="parallax-bg" />
             {toast && <motion.div className="custom-toast pop-in" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }}>{toast}</motion.div>}
-            <motion.h1
-                className="pop-in"
-                variants={headingVariants}
-                initial="hidden"
-                animate="visible"
-            >
-                AI Notes Generator
-            </motion.h1>
+                        <div className="overlap">
+                            <div className="rectangle" />
+                            <div className="text-wrapper">AI Notes Generator</div>
+                            <div className="rectangle" />
+                        </div>
             <motion.form
                 className="notes-form fade-in"
                 variants={cardVariants}
@@ -344,6 +364,9 @@ const NotesGenerator = () => {
                     Generate Notes
                 </button>
             </motion.form>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

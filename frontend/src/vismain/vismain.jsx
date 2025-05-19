@@ -13,7 +13,7 @@ export const VisMain = () => {
       <Sidebar />
 
       <div className="vis-container">
-        <h1 className="vis-title">Visualize Algorithms</h1>
+        <h1 className="text-wrapper">Visualize Algorithms</h1>
 
         {/* Sorting Algorithms */}
         <div className="category">
