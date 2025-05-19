@@ -28,7 +28,6 @@ const LinkedListControls = ({
     <>
       <div className="controls-container">
         <h3 className="controls-title">Linked List Controls</h3>
-
         <div className="controls-row">
           <label style={{ marginRight: 8 }}>Insert at Front</label>
           <label className="toggle-switch">
@@ -40,9 +39,6 @@ const LinkedListControls = ({
             />
             <span className="toggle-slider" />
           </label>
-        </div>
-
-        <div className="controls-row">
           <input
             type="number"
             value={value}
@@ -59,9 +55,6 @@ const LinkedListControls = ({
           >
             Insert
           </button>
-        </div>
-
-        <div className="controls-row">
           <button
             onClick={onDeleteFront}
             disabled={isAnimating || isEmpty}
@@ -76,15 +69,14 @@ const LinkedListControls = ({
           >
             Delete Back
           </button>
+          <button
+            onClick={onReverse}
+            disabled={isAnimating || isEmpty}
+            className="reverse-button"
+          >
+            Reverse List
+          </button>
         </div>
-
-        <button
-          onClick={onReverse}
-          disabled={isAnimating || isEmpty}
-          className="reverse-button"
-        >
-          Reverse List
-        </button>
       </div>
     </>
   );
