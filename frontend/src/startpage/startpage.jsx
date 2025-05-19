@@ -45,10 +45,10 @@ export const StartPage = () => {
         <p className="subtitle">See the Logic, Master the Code!</p>
 
         <div className="buttons">
-          <button className="btn" onClick={() => navigate("/login")}>
+          <button className="btn-login" onClick={() => navigate("/login")}>
             Log In
           </button>
-          <button className="btn" onClick={() => navigate("/signup")}>
+          <button className="btn-signup" onClick={() => navigate("/signup")}>
             Sign Up
           </button>
         </div>
