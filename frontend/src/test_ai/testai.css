@@ -729,7 +729,7 @@ small {
 .energy-medium.selected {
     background: rgba(255, 165, 2, 0.1);
     box-shadow: 0 0 15px rgba(255, 165, 2, 0.2);
-}
+    }
 
 .energy-high {
     border-color: #00ff88;
@@ -825,7 +825,7 @@ small {
     justify-content: center;
     gap: 0.5rem;
     margin-bottom: 2rem;
-}
+    }
 
 .loading-circle {
     width: 20px;
@@ -867,9 +867,9 @@ small {
 
 .loading-subtext {
     color: #b0b3b8;
-    font-size: 1rem;
+        font-size: 1rem;
     margin-bottom: 2rem;
-}
+    }
 
 .loading-progress {
     width: 100%;
@@ -885,7 +885,7 @@ small {
     background: linear-gradient(90deg, #8a2be2, #9370db);
     border-radius: 3px;
     animation: progress 2s ease-in-out infinite;
-}
+    }
 
 @keyframes progress {
     0% {

@@ -3,9 +3,10 @@ import re
 import os
 import traceback
 import json
+from config import Config
 
-# Your Groq API key
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", "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")
+# Get Groq API key from Config
+GROQ_API_KEY = Config.GROQ_API_KEY
 
 def get_custom_questions(user_input):
     try:

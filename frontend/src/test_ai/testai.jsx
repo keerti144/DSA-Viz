@@ -329,7 +329,7 @@ export const TestAI = () => {
             {questions.length > 0 && !showResults && (
                 <div className="questions-container">
                     <div className="timer-container">
-                        <div className="timer">Time Left: {formatTime(timeLeft)}</div>
+                    <div className="timer">Time Left: {formatTime(timeLeft)}</div>
                         <button 
                             className="exit-test-button"
                             onClick={handleExitTest}
@@ -406,11 +406,11 @@ export const TestAI = () => {
                     <button 
                         className="start-new-test"
                         onClick={() => {
-                            setQuestions([]);
-                            setAnswers([]);
-                            setScore(0);
-                            setShowResults(false);
-                            setCurrentPage(0);
+                        setQuestions([]);
+                        setAnswers([]);
+                        setScore(0);
+                        setShowResults(false);
+                        setCurrentPage(0);
                         }}
                     >
                         <span>🔄</span>

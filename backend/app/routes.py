@@ -12,6 +12,7 @@ from email.mime.multipart import MIMEMultipart
 from flask_cors import CORS
 import os
 from config import Config
+from groq_api import generate_notes, get_custom_questions
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -465,3 +466,48 @@ def reply_to_query(query_id):
         logger.error(f"Error in reply_to_query: {str(e)}")
         logger.error(f"Traceback: {traceback.format_exc()}")
         return jsonify({'error': 'Failed to send reply'}), 500
+
+@routes_bp.route("/generate-notes", methods=['POST'])
+def generate_notes_endpoint():
+    try:
+        data = request.get_json()
+        topic = data.get('topic')
+        prompt_details = data.get('prompt_details')
+        target_audience = data.get('target_audience', 'beginner')
+        note_format = data.get('note_format', 'bullet')
+        depth = data.get('depth', 'summary')
+        reference_type = data.get('reference_type', 'textbook')
+        language_tone = data.get('language_tone', 'formal')
+
+        if not topic or not prompt_details:
+            return jsonify({'error': 'Topic and prompt details are required'}), 400
+
+        notes = generate_notes(
+            topic=topic,
+            prompt_details=prompt_details,
+            target_audience=target_audience,
+            note_format=note_format,
+            depth=depth,
+            reference_type=reference_type,
+            language_tone=language_tone
+        )
+
+        return jsonify({'notes': notes}), 200
+    except Exception as e:
+        logger.error(f"Error in generate_notes_endpoint: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({'error': str(e)}), 500
+
+@routes_bp.route("/generate-questions", methods=['POST'])
+def generate_questions_endpoint():
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+
+        questions = get_custom_questions(data)
+        return jsonify({'questions': questions}), 200
+    except Exception as e:
+        logger.error(f"Error in generate_questions_endpoint: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({'error': str(e)}), 500

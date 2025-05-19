@@ -13,6 +13,9 @@ class Config:
     FIREBASE_CREDENTIALS_PATH = "firebase_key.json"  # Use the local file directly
     FIREBASE_API_KEY = os.getenv("FIREBASE_API_KEY")
     
+    # Groq API Configuration
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+    
     # Email Configuration
     MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp.gmail.com")
     MAIL_PORT = int(os.getenv("MAIL_PORT", "587"))
