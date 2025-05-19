@@ -39,9 +39,6 @@ export const Homepage = () => {
           <input type="text" className="search-input" placeholder="Search topics..." />
           <img src={search} alt="Search" className="search-icon" />
         </div>
-        <br/>
-        <br/>
-        <br/>
         <h1 className="welcome-text">WELCOME TO ALGORIZE</h1>
 
         <div className="intro-section">
@@ -53,7 +50,7 @@ export const Homepage = () => {
           <p>
             ✨ Visualize sorting and searching algorithms in real-time ✨
             <br />
-            🧠 Take on adaptive quizzes and coding challenges 🧠 
+            🧠 Take on adaptive quizzes and coding challenges 🧠
             <br />
             📚 Keep notes and flashcards for each topic 📚
             <br />
@@ -65,8 +62,6 @@ export const Homepage = () => {
           <button className="topic-button" onClick={() => navigate("/visualize")}>Start Learning</button>
           <button className="challenge-button" onClick={() => navigate("/test")}>Take a Challenge</button>
         </div>
-        <br/>
-        <br/>
         <div className="about-section">
           <h3>About Us</h3>
           <p>

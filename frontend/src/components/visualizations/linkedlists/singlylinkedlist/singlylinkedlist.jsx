@@ -106,9 +106,7 @@ const SinglyLinkedListVisualizer = () => {
   return (
     <div className="base-vis-layout">
       <div className="base-vis-main" style={{ paddingTop: '0.5rem' }}>
-        <div className="base-vis-header" style={{ marginBottom: '1.2rem' }}>
-          <h1>Singly Linked List</h1>
-        </div>
+        <div className="base-vis-header" style={{ marginBottom: '1.2rem' }}></div>
         <div className="base-vis-controls">
           <LinkedListControls
             onInsertFront={handleInsertFront}
