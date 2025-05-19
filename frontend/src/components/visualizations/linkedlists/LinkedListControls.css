@@ -1,12 +1,12 @@
 /* Linked List Controls Modern Styles */
 .controls-container {
-    background-color: #18122B;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px #0002;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0;
     color: #f8fafc;
-    max-width: 500px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    max-width: none;
 }
 
 .controls-title {
@@ -18,69 +18,62 @@
 
 .controls-row {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
+    gap: 8px;
+    margin-bottom: 0;
+    width: auto;
+    flex-wrap: nowrap;
 }
 
 .input-field {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #a879ff;
-    border-radius: 8px;
-    background-color: #231942;
-    color: #f1f5f9;
-    font-size: 1rem;
+    background: #fff;
+    color: #444;
+    border: 2px solid #a879ff;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    padding: 4px 10px;
+    outline: none;
+    min-width: 80px;
+    max-width: 120px;
+    transition: border 0.2s;
+}
+
+.input-field:focus {
+    border-color: #e879f9;
+}
+
+.insert-button,
+.delete-button,
+.reverse-button {
+    border: none;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 5px 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-width: 60px;
+    max-width: 100px;
 }
 
 .insert-button {
-    background-color: #22c55e;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.2s;
-}
-
-.insert-button:disabled {
-    background-color: #86efac;
-    cursor: not-allowed;
+    background: #a879ff;
 }
 
 .delete-button {
-    flex: 1;
-    background-color: #ef4444;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.2s;
-}
-
-.delete-button:disabled {
-    background-color: #fca5a5;
-    cursor: not-allowed;
+    background: #7c3aed;
 }
 
 .reverse-button {
-    width: 100%;
-    background-color: #a879ff;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    margin-top: 8px;
-    transition: background 0.2s;
+    background: #6d28d9;
 }
 
+.insert-button:disabled,
+.delete-button:disabled,
 .reverse-button:disabled {
-    background-color: #c4b5fd;
+    background: #c4b5fd;
     cursor: not-allowed;
 }
 
@@ -133,17 +126,21 @@
 
 .list-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
-    justify-content: center;
-    padding: 32px;
-    background-color: #0f172a;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.22);
-    gap: 48px;
-    min-height: 220px;
-    margin-top: 24px;
-    margin-bottom: 24px;
+    justify-content: flex-start;
+    padding: 24px 0;
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    gap: 25px;
+    min-height: 120px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    overflow-x: auto;
+    max-width: 100%;
+    overflow-y: visible;
+    margin-left: 16px;
 }
 
 .node-circle-wrapper {
@@ -152,13 +149,13 @@
 }
 
 .node-circle {
-    width: 80px;
-    height: 80px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: #231942;
-    border: 4px solid #a879ff;
+    border: 2.5px solid #a879ff;
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.2rem;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -187,4 +184,59 @@
     font-size: 18px;
     color: #9ca3af;
     font-style: italic;
+}
+
+@media (max-width: 900px) {
+    .list-container {
+        padding: 10px;
+        gap: 12px;
+        min-height: 80px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    .node-circle {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+        border-width: 2px;
+    }
+
+    .node-arrow {
+        font-size: 1.2rem;
+        margin: 0 6px;
+    }
+
+    .circular-label {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    /* Hide duplicate headings in visualization area if any */
+    .base-vis-header h1~h1 {
+        display: none;
+    }
+}
+
+/* Make the main visualization area fill the page and allow scrolling */
+.base-vis-layout {
+    height: 100vh;
+    display: flex;
+}
+
+.base-vis-main {
+    flex: 1;
+    height: 100vh;
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 32px;
+}
+
+.base-vis-sidebar {
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.base-vis-controls {
+    margin-left: 32px;
 }

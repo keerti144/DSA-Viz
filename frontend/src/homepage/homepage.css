@@ -14,10 +14,10 @@
   --text-secondary: #cfcfcf;
   --box-bg: rgba(255, 255, 255, 0.06);
   --box-border: rgba(255, 255, 255, 0.15);
-  --shadow: 0 0 30px rgba(0,0,0,0.5);
+  --shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   --radius: 25px;
-  --transition: all 0.3s cubic-bezier(.4,2,.6,1);
-  --font-main: 'Inter','Poppins', sans-serif;
+  --transition: all 0.3s cubic-bezier(.4, 2, .6, 1);
+  --font-main: 'Inter', 'Poppins', sans-serif;
 }
 
 * {
@@ -39,19 +39,23 @@ body {
 /* =========================
    Background Effects
    ========================= */
-.stars, .twinkling {
+.stars,
+.twinkling {
   position: fixed;
   width: 100%;
   height: 100%;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   z-index: -2;
   pointer-events: none;
 }
+
 .stars {
   background: url("../assets/stars.png") repeat;
   animation: moveStars 300s linear infinite;
   opacity: 0.15;
 }
+
 .twinkling {
   background: url("../assets/twinkling.png") repeat;
   animation: twinkle 20s ease-in-out infinite;
@@ -72,8 +76,8 @@ body {
   z-index: 100;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(15px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
 }
 
 .logo {
@@ -93,7 +97,9 @@ body {
   transition: var(--transition);
   box-shadow: 0 0 0 transparent;
 }
-.user-icon:hover, .user-icon:focus {
+
+.user-icon:hover,
+.user-icon:focus {
   transform: scale(1.12);
   box-shadow: 0 0 15px var(--accent-glow);
   outline: 2px solid var(--accent);
@@ -106,24 +112,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 180px;
-  text-align: center;
-  max-width: 950px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.intro-section {
-  max-width: 700px;
-  margin: 2.5rem auto 0 auto;
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  line-height: 2;
-  background: var(--box-bg);
-  border-radius: var(--radius);
-  padding: 2rem 2.5rem;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--box-border);
+  padding-top: 140px;
   text-align: center;
 }
 
@@ -146,17 +135,20 @@ body {
   width: 80%;
   max-width: 500px;
   padding: 1rem 1.5rem;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50px;
   margin: 0.05rem auto 0 auto;
   backdrop-filter: blur(15px);
-  box-shadow: 0 0 15px rgba(255,255,255,0.08);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
   transition: box-shadow 0.3s;
 }
-.search-container:hover, .search-container:focus-within {
-  box-shadow: 0 0 25px rgba(255,255,255,0.18);
+
+.search-container:hover,
+.search-container:focus-within {
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.18);
 }
+
 .search-input {
   flex: 1;
   border: none;
@@ -166,12 +158,14 @@ body {
   font-size: 1.1rem;
   padding-right: 1rem;
 }
+
 .search-icon {
   width: 26px;
   filter: brightness(250%);
   cursor: pointer;
   transition: transform 0.3s;
 }
+
 .search-icon:hover {
   transform: rotate(20deg) scale(1.15);
 }
@@ -198,8 +192,10 @@ body {
   justify-content: center;
 }
 
-.topic-button, .challenge-button {
-  font-family: 'Baloo 2', cursive, sans-serif;;
+.topic-button,
+.challenge-button {
+  font-family: 'Baloo 2', cursive, sans-serif;
+  ;
   padding: 1rem 2.8rem;
   border-radius: 40px;
   background: var(--button-bg);
@@ -213,10 +209,13 @@ body {
   transition: var(--transition);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-   z-index: 1; /* Ensure button text is above ::after */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  z-index: 1;
+  /* Ensure button text is above ::after */
 }
-.topic-button::after, .challenge-button::after {
+
+.topic-button::after,
+.challenge-button::after {
   content: '';
   position: absolute;
   width: 120%;
@@ -227,14 +226,19 @@ body {
   transition: var(--transition);
   z-index: 0;
 }
-.topic-button:hover::after, .challenge-button:hover::after {
+
+.topic-button:hover::after,
+.challenge-button:hover::after {
   left: 0;
 }
-.topic-button:hover, .challenge-button:hover,
-.topic-button:focus, .challenge-button:focus {
+
+.topic-button:hover,
+.challenge-button:hover,
+.topic-button:focus,
+.challenge-button:focus {
   color: #fff;
   transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 5px 25px rgba(255,255,255,0.18);
+  box-shadow: 0 5px 25px rgba(255, 255, 255, 0.18);
   outline: 2px solid var(--accent);
   text-shadow: 0 0 25px #ffffff33, 0 0 35px var(--accent-glow);
   animation: glowFade 2s ease-in-out infinite alternate;
@@ -274,42 +278,104 @@ body {
    Animations
    ========================= */
 @keyframes moveStars {
-  from { background-position: 0 0; }
-  to { background-position: -3000px 3000px; }
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: -3000px 3000px;
+  }
 }
+
 @keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.8; }
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
 }
+
 @keyframes glowFade {
   from {
     text-shadow: 0 0 20px #d782ff, 0 0 30px #9145ff;
   }
+
   to {
     text-shadow: 0 0 30px #ff8ff9, 0 0 45px #bd59ff;
   }
 }
+
 @keyframes floatRandom {
-  0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
-  25% { transform: translate(50px, -100px) scale(1.2);}
-  50% { transform: translate(-50px, -200px) scale(0.8);}
-  75% { transform: translate(30px, -300px) scale(1.1);}
-  100% { transform: translate(-30px, -400px) scale(1); opacity: 0;}
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.7;
+  }
+
+  25% {
+    transform: translate(50px, -100px) scale(1.2);
+  }
+
+  50% {
+    transform: translate(-50px, -200px) scale(0.8);
+  }
+
+  75% {
+    transform: translate(30px, -300px) scale(1.1);
+  }
+
+  100% {
+    transform: translate(-30px, -400px) scale(1);
+    opacity: 0;
+  }
 }
 
 /* =========================
    Responsive Design
    ========================= */
 @media (max-width: 900px) {
-  .welcome-text { font-size: 2.5rem; }
-  .about-section, .info-section { padding: 1.2rem; }
-  .main-content { padding-top: 100px; }
+  .welcome-text {
+    font-size: 2.5rem;
+  }
+
+  .about-section,
+  .info-section {
+    padding: 1.2rem;
+  }
+
+  .main-content {
+    padding-top: 100px;
+  }
 }
+
 @media (max-width: 600px) {
-  .header { flex-direction: column; padding: 0.8rem 1rem; }
-  .logo { font-size: 1.5rem; }
-  .main-content { padding-top: 80px; }
-  .button-container { gap: 1rem; }
-  .topic-button, .challenge-button { padding: 0.7rem 1.5rem; font-size: 1rem; }
-  .about-section { margin-top: 2rem; }
+  .header {
+    flex-direction: column;
+    padding: 0.8rem 1rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .main-content {
+    padding-top: 80px;
+  }
+
+  .button-container {
+    gap: 1rem;
+  }
+
+  .topic-button,
+  .challenge-button {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .about-section {
+    margin-top: 2rem;
+  }
 }
