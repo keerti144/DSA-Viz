@@ -24,6 +24,8 @@ export const Community = () => {
     const [expandedPosts, setExpandedPosts] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [replyingTo, setReplyingTo] = useState(null);
+    const [replyDepth, setReplyDepth] = useState({});
 
     useEffect(() => {
         // Listen for auth state changes
@@ -98,29 +100,164 @@ export const Community = () => {
         }
     };
 
-    const handleReplySubmit = async (postId) => {
+    const handleReplySubmit = async (postId, parentReplyId = null) => {
         if (!user) {
             alert("Please sign in to reply");
             return;
         }
-        if (newReply[postId]?.trim() === "") {
+        const replyText = parentReplyId ? newReply[parentReplyId] : newReply[postId];
+        if (!replyText?.trim()) {
             return;
         }
+
         try {
+            console.log("Starting reply submission...");
+            console.log("Post ID:", postId);
+            console.log("Parent Reply ID:", parentReplyId);
+            console.log("Reply Text:", replyText);
+
             const postRef = doc(db, "posts", postId);
-            await updateDoc(postRef, {
-                replies: arrayUnion({
-                    text: newReply[postId],
-                    userId: user.uid,
-                    userName: user.displayName || user.email?.split('@')[0] || "Anonymous",
-                    timestamp: serverTimestamp()
-                })
+            const newReplyData = {
+                id: Date.now().toString(),
+                text: replyText,
+                userId: user.uid,
+                userName: user.displayName || user.email?.split('@')[0] || "Anonymous",
+                timestamp: new Date().toISOString(),
+                parentId: parentReplyId,
+                replies: []
+            };
+
+            console.log("New Reply Data:", newReplyData);
+
+            if (parentReplyId) {
+                // Find the parent reply and add this as a nested reply
+                const post = posts.find(p => p.id === postId);
+                if (!post) {
+                    throw new Error("Post not found");
+                }
+                console.log("Found post:", post);
+
+                const parentReply = findReplyById(post.replies, parentReplyId);
+                if (!parentReply) {
+                    throw new Error("Parent reply not found");
+                }
+                console.log("Found parent reply:", parentReply);
+
+                // Create a new array with the updated replies
+                const updatedReplies = [...post.replies];
+                const updateNestedReplies = (replies) => {
+                    return replies.map(reply => {
+                        if (reply.id === parentReplyId) {
+                            return {
+                                ...reply,
+                                replies: [...(reply.replies || []), newReplyData]
+                            };
+                        }
+                        if (reply.replies) {
+                            return {
+                                ...reply,
+                                replies: updateNestedReplies(reply.replies)
+                            };
+                        }
+                        return reply;
+                    });
+                };
+
+                const finalReplies = updateNestedReplies(updatedReplies);
+                console.log("Final replies structure:", finalReplies);
+
+                await updateDoc(postRef, { replies: finalReplies });
+            } else {
+                // Add as a top-level reply
+                console.log("Adding as top-level reply");
+                await updateDoc(postRef, {
+                    replies: arrayUnion(newReplyData)
+                });
+            }
+
+            // Clear the reply input
+            setNewReply(prev => {
+                const updated = { ...prev };
+                if (parentReplyId) {
+                    delete updated[parentReplyId];
+                } else {
+                    delete updated[postId];
+                }
+                return updated;
             });
-            setNewReply({ ...newReply, [postId]: "" });
+            setReplyingTo(null);
+            console.log("Reply submitted successfully");
         } catch (error) {
-            console.error("Error adding reply: ", error);
-            alert("Error posting reply. Please try again.");
+            console.error("Detailed error in handleReplySubmit:", error);
+            console.error("Error stack:", error.stack);
+            alert(`Error posting reply: ${error.message}`);
         }
+    };
+
+    const findReplyById = (replies, replyId) => {
+        for (const reply of replies) {
+            if (reply.id === replyId) {
+                return reply;
+            }
+            if (reply.replies) {
+                const found = findReplyById(reply.replies, replyId);
+                if (found) return found;
+            }
+        }
+        return null;
+    };
+
+    const renderReplies = (replies, postId, depth = 0) => {
+        if (!replies || replies.length === 0) return null;
+
+        return (
+            <div className="replies-container" style={{ marginLeft: `${depth * 20}px` }}>
+                {replies.map((reply) => (
+                    <div key={reply.id} className="reply-item">
+                        <div className="reply-user-info">
+                            <div className="reply-avatar">{reply.userName?.[0]?.toUpperCase() || '?'}</div>
+                            <span className="reply-username">{reply.userName}</span>
+                            <span className="reply-time">{formatTimestamp(reply.timestamp)}</span>
+                        </div>
+                        <div className="reply-content">{reply.text}</div>
+                        <div className="reply-actions">
+                            <button 
+                                className="reply-to-reply-btn"
+                                onClick={() => {
+                                    setReplyingTo(reply.id);
+                                    setNewReply(prev => ({ ...prev, [reply.id]: "" }));
+                                }}
+                            >
+                                Reply
+                            </button>
+                        </div>
+                        {replyingTo === reply.id && (
+                            <div className="nested-reply-input">
+                                <input
+                                    type="text"
+                                    className="reply-input"
+                                    placeholder="Write a reply..."
+                                    value={newReply[reply.id] || ""}
+                                    onChange={(e) => setNewReply(prev => ({ ...prev, [reply.id]: e.target.value }))}
+                                    onKeyPress={(e) => {
+                                        if (e.key === 'Enter') {
+                                            handleReplySubmit(postId, reply.id);
+                                        }
+                                    }}
+                                />
+                                <button 
+                                    className="reply-submit-btn"
+                                    onClick={() => handleReplySubmit(postId, reply.id)}
+                                >
+                                    Reply
+                                </button>
+                            </div>
+                        )}
+                        {reply.replies && renderReplies(reply.replies, postId, depth + 1)}
+                    </div>
+                ))}
+            </div>
+        );
     };
 
     const handleLike = async (postId) => {
@@ -174,9 +311,21 @@ export const Community = () => {
 
     const formatTimestamp = (timestamp) => {
         if (!timestamp) return "";
-        const date = timestamp.toDate();
+        
+        let date;
+        if (typeof timestamp === 'string') {
+            // Handle ISO string dates
+            date = new Date(timestamp);
+        } else if (timestamp.toDate) {
+            // Handle Firestore timestamps
+            date = timestamp.toDate();
+        } else {
+            return "";
+        }
+
         const now = new Date();
         const diff = Math.floor((now - date) / 1000);
+        
         if (diff < 60) return `${diff}s ago`;
         if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
         if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
@@ -273,97 +422,92 @@ export const Community = () => {
                             </button>
                         </div>
                         <div className="posts-container">
-                            {filteredPosts.map((post) => {
-                                return (
-                                    <div key={post.id} className="post-item">
-                                        <div className="post-header">
-                                            <div className="post-title" onClick={() => toggleExpand(post.id)}>
-                                                {post.title}
-                                            </div>
-                                            {user && post.userId === user.uid && (
-                                                <button 
-                                                    className="delete-post-btn"
-                                                    onClick={() => {
-                                                        if (window.confirm('Are you sure you want to delete this post?')) {
-                                                            handleDeletePost(post.id);
-                                                        }
-                                                    }}
-                                                >
-                                                    Delete
-                                                </button>
-                                            )}
+                            {filteredPosts.map((post) => (
+                                <div key={post.id} className="post-item">
+                                    <div className="post-header">
+                                        <div className="post-title" onClick={() => toggleExpand(post.id)}>
+                                            {post.title}
                                         </div>
-                                        <div className={`post-content ${expandedPosts[post.id] ? 'expanded' : 'collapsed'}`}>
-                                            {post.content}
-                                        </div>
-                                        {post.content && post.content.length > 300 && (
+                                        {user && post.userId === user.uid && (
                                             <button 
-                                                className="expand-button"
-                                                onClick={() => toggleExpand(post.id)}
+                                                className="delete-post-btn"
+                                                onClick={() => {
+                                                    if (window.confirm('Are you sure you want to delete this post?')) {
+                                                        handleDeletePost(post.id);
+                                                    }
+                                                }}
                                             >
-                                                {expandedPosts[post.id] ? 'Show less' : 'Show more'}
-                                                <span>{expandedPosts[post.id] ? '↑' : '↓'}</span>
+                                                Delete
                                             </button>
                                         )}
-                                        {post.tags && post.tags.length > 0 && (
-                                            <div className="post-tags">
-                                                {post.tags.map(tag => (
-                                                    <span key={tag} className="post-tag">{tag}</span>
-                                                ))}
-                                            </div>
-                                        )}
-                                        <div className="post-bottom">
-                                            <div className="post-user-info">
-                                                <div className="post-avatar">{post.userName?.[0]?.toUpperCase() || '?'}</div>
-                                                <span className="post-username">{post.userName}</span>
-                                                <span className="post-time">{formatTimestamp(post.timestamp)}</span>
-                                            </div>
-                                            <div className="post-actions">
-                                                <span className="action-icon" onClick={() => handleLike(post.id)}>
-                                                    <span role="img" aria-label="like">👍</span> {post.likes?.length || 0}
-                                                </span>
-                                                <span className="action-icon" onClick={() => toggleReplies(post.id)}>
-                                                    <span role="img" aria-label="comments">💬</span> {post.replies?.length || 0}
-                                                </span>
+                                    </div>
+                                    <div className={`post-content ${expandedPosts[post.id] ? 'expanded' : 'collapsed'}`}>
+                                        {post.content}
+                                    </div>
+                                    {post.content && post.content.length > 300 && (
+                                        <button 
+                                            className="expand-button"
+                                            onClick={() => toggleExpand(post.id)}
+                                        >
+                                            {expandedPosts[post.id] ? 'Show less' : 'Show more'}
+                                            <span>{expandedPosts[post.id] ? '↑' : '↓'}</span>
+                                        </button>
+                                    )}
+                                    {post.tags && post.tags.length > 0 && (
+                                        <div className="post-tags">
+                                            {post.tags.map(tag => (
+                                                <span key={tag} className="post-tag">{tag}</span>
+                                            ))}
+                                        </div>
+                                    )}
+                                    <div className="post-bottom">
+                                        <div className="post-user-info">
+                                            <div className="post-avatar">{post.userName?.[0]?.toUpperCase() || '?'}</div>
+                                            <span className="post-username">{post.userName}</span>
+                                            <span className="post-time">{formatTimestamp(post.timestamp)}</span>
+                                        </div>
+                                        <div className="post-actions">
+                                            <span className="action-icon" onClick={() => handleLike(post.id)}>
+                                                <span role="img" aria-label="like">👍</span> {post.likes?.length || 0}
+                                            </span>
+                                            <span 
+                                                className="action-icon" 
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    toggleReplies(post.id);
+                                                }}
+                                            >
+                                                <span role="img" aria-label="comments">💬</span> {post.replies?.length || 0}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {showReplies[post.id] && (
+                                        <div className="replies-section">
+                                            {renderReplies(post.replies || [], post.id)}
+                                            <div className="reply-input-container">
+                                                <input
+                                                    type="text"
+                                                    className="reply-input"
+                                                    placeholder="Write a reply..."
+                                                    value={newReply[post.id] || ""}
+                                                    onChange={(e) => setNewReply(prev => ({ ...prev, [post.id]: e.target.value }))}
+                                                    onKeyPress={(e) => {
+                                                        if (e.key === 'Enter') {
+                                                            handleReplySubmit(post.id);
+                                                        }
+                                                    }}
+                                                />
+                                                <button 
+                                                    className="reply-submit-btn"
+                                                    onClick={() => handleReplySubmit(post.id)}
+                                                >
+                                                    Reply
+                                                </button>
                                             </div>
                                         </div>
-                                        {showReplies[post.id] && (
-                                            <div className="replies-section">
-                                                {post.replies?.map((reply, index) => (
-                                                    <div key={index} className="reply-item">
-                                                        <div className="reply-user-info">
-                                                            <div className="reply-avatar">{reply.userName?.[0]?.toUpperCase() || '?'}</div>
-                                                            <span className="reply-username">{reply.userName}</span>
-                                                            <span className="reply-time">{formatTimestamp(reply.timestamp)}</span>
-                                                        </div>
-                                                        <div className="reply-content">{reply.text}</div>
-                                                    </div>
-                                                ))}
-                                                <div className="reply-input-container">
-                                                    <input
-                                                        type="text"
-                                                        className="reply-input"
-                                                        placeholder="Write a reply..."
-                                                        value={newReply[post.id] || ""}
-                                                        onChange={(e) => setNewReply({ ...newReply, [post.id]: e.target.value })}
-                                                        onKeyPress={(e) => {
-                                                            if (e.key === 'Enter') {
-                                                                handleReplySubmit(post.id);
-                                                            }
-                                                        }}
-                                                    />
-                                                    <button 
-                                                        className="reply-submit-btn"
-                                                        onClick={() => handleReplySubmit(post.id)}
-                                                    >
-                                                        Reply
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                );
-                            })}
+                                    )}
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className="community-sidebar">
