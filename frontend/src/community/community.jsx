@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { collection, addDoc, query, orderBy, onSnapshot, updateDoc, doc, arrayUnion, arrayRemove, serverTimestamp, where, deleteDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import Sidebar from "../sidebar/sidebar";
-import Header from "../header/header";
+import Header from "../header/header.jsx";
 import "./community.css";
 
 export const Community = () => {
@@ -396,134 +396,134 @@ export const Community = () => {
     }
 
     return (
-        <div className="app-container">
-            <Sidebar />
-            <div className="main-content">
-                <div className="back-button" onClick={() => navigate(-1)}>
-                    ← Back
-                </div>
-                <div className="community">
-                    <div className="community-content">
-                        <div className="forum-header">Community Forum</div>
-                        <div className="forum-desc">Connect with peers, ask questions, and share your knowledge.</div>
-                        <div className="top-bar">
-                            <div className="search-container">
-                                <input
-                                    type="text"
-                                    className="search-input"
-                                    placeholder="Search discussions..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                />
-                                <span className="search-icon">🔍</span>
+        <>
+            <Header />
+            <div className="app-container">
+                <Sidebar />
+                <div className="main-content">
+                    <div className="community">
+                        <div className="community-content">
+                            <div className="forum-header">Community Forum</div>
+                            <div className="forum-desc">Connect with peers, ask questions, and share your knowledge.</div>
+                            <div className="top-bar">
+                                <div className="search-container">
+                                    <input
+                                        type="text"
+                                        className="search-input"
+                                        placeholder="Search discussions..."
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                    <span className="search-icon">🔍</span>
+                                </div>
+                                <button className="new-post-btn" onClick={() => setShowNewPostModal(true)}>
+                                    New Post
+                                </button>
                             </div>
-                            <button className="new-post-btn" onClick={() => setShowNewPostModal(true)}>
-                                New Post
-                            </button>
-                        </div>
-                        <div className="posts-container">
-                            {filteredPosts.map((post) => (
-                                <div key={post.id} className="post-item">
-                                    <div className="post-header">
-                                        <div className="post-title" onClick={() => toggleExpand(post.id)}>
-                                            {post.title}
-                                        </div>
-                                        {user && post.userId === user.uid && (
-                                            <button 
-                                                className="delete-post-btn"
-                                                onClick={() => {
-                                                    if (window.confirm('Are you sure you want to delete this post?')) {
-                                                        handleDeletePost(post.id);
-                                                    }
-                                                }}
-                                            >
-                                                Delete
-                                            </button>
-                                        )}
-                                    </div>
-                                    <div className={`post-content ${expandedPosts[post.id] ? 'expanded' : 'collapsed'}`}>
-                                        {post.content}
-                                    </div>
-                                    {post.content && post.content.length > 300 && (
-                                        <button 
-                                            className="expand-button"
-                                            onClick={() => toggleExpand(post.id)}
-                                        >
-                                            {expandedPosts[post.id] ? 'Show less' : 'Show more'}
-                                            <span>{expandedPosts[post.id] ? '↑' : '↓'}</span>
-                                        </button>
-                                    )}
-                                    {post.tags && post.tags.length > 0 && (
-                                        <div className="post-tags">
-                                            {post.tags.map(tag => (
-                                                <span key={tag} className="post-tag">{tag}</span>
-                                            ))}
-                                        </div>
-                                    )}
-                                    <div className="post-bottom">
-                                        <div className="post-user-info">
-                                            <div className="post-avatar">{post.userName?.[0]?.toUpperCase() || '?'}</div>
-                                            <span className="post-username">{post.userName}</span>
-                                            <span className="post-time">{formatTimestamp(post.timestamp)}</span>
-                                        </div>
-                                        <div className="post-actions">
-                                            <span className="action-icon" onClick={() => handleLike(post.id)}>
-                                                <span role="img" aria-label="like">👍</span> {post.likes?.length || 0}
-                                            </span>
-                                            <span 
-                                                className="action-icon" 
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    toggleReplies(post.id);
-                                                }}
-                                            >
-                                                <span role="img" aria-label="comments">💬</span> {post.replies?.length || 0}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    {showReplies[post.id] && (
-                                        <div className="replies-section">
-                                            {renderReplies(post.replies || [], post.id)}
-                                            <div className="reply-input-container">
-                                                <input
-                                                    type="text"
-                                                    className="reply-input"
-                                                    placeholder="Write a reply..."
-                                                    value={newReply[post.id] || ""}
-                                                    onChange={(e) => setNewReply(prev => ({ ...prev, [post.id]: e.target.value }))}
-                                                    onKeyPress={(e) => {
-                                                        if (e.key === 'Enter') {
-                                                            handleReplySubmit(post.id);
+                            <div className="posts-container">
+                                {filteredPosts.map((post) => (
+                                    <div key={post.id} className="post-item">
+                                        <div className="post-header">
+                                            <div className="post-title" onClick={() => toggleExpand(post.id)}>
+                                                {post.title}
+                                            </div>
+                                            {user && post.userId === user.uid && (
+                                                <button 
+                                                    className="delete-post-btn"
+                                                    onClick={() => {
+                                                        if (window.confirm('Are you sure you want to delete this post?')) {
+                                                            handleDeletePost(post.id);
                                                         }
                                                     }}
-                                                />
-                                                <button 
-                                                    className="reply-submit-btn"
-                                                    onClick={() => handleReplySubmit(post.id)}
                                                 >
-                                                    Reply
+                                                    Delete
                                                 </button>
+                                            )}
+                                        </div>
+                                        <div className={`post-content ${expandedPosts[post.id] ? 'expanded' : 'collapsed'}`}>
+                                            {post.content}
+                                        </div>
+                                        {post.content && post.content.length > 300 && (
+                                            <button 
+                                                className="expand-button"
+                                                onClick={() => toggleExpand(post.id)}
+                                            >
+                                                {expandedPosts[post.id] ? 'Show less' : 'Show more'}
+                                                <span>{expandedPosts[post.id] ? '↑' : '↓'}</span>
+                                            </button>
+                                        )}
+                                        {post.tags && post.tags.length > 0 && (
+                                            <div className="post-tags">
+                                                {post.tags.map(tag => (
+                                                    <span key={tag} className="post-tag">{tag}</span>
+                                                ))}
+                                            </div>
+                                        )}
+                                        <div className="post-bottom">
+                                            <div className="post-user-info">
+                                                <div className="post-avatar">{post.userName?.[0]?.toUpperCase() || '?'}</div>
+                                                <span className="post-username">{post.userName}</span>
+                                                <span className="post-time">{formatTimestamp(post.timestamp)}</span>
+                                            </div>
+                                            <div className="post-actions">
+                                                <span className="action-icon" onClick={() => handleLike(post.id)}>
+                                                    <span role="img" aria-label="like">👍</span> {post.likes?.length || 0}
+                                                </span>
+                                                <span 
+                                                    className="action-icon" 
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        toggleReplies(post.id);
+                                                    }}
+                                                >
+                                                    <span role="img" aria-label="comments">💬</span> {post.replies?.length || 0}
+                                                </span>
                                             </div>
                                         </div>
-                                    )}
-                                </div>
-                            ))}
+                                        {showReplies[post.id] && (
+                                            <div className="replies-section">
+                                                {renderReplies(post.replies || [], post.id)}
+                                                <div className="reply-input-container">
+                                                    <input
+                                                        type="text"
+                                                        className="reply-input"
+                                                        placeholder="Write a reply..."
+                                                        value={newReply[post.id] || ""}
+                                                        onChange={(e) => setNewReply(prev => ({ ...prev, [post.id]: e.target.value }))}
+                                                        onKeyPress={(e) => {
+                                                            if (e.key === 'Enter') {
+                                                                handleReplySubmit(post.id);
+                                                            }
+                                                        }}
+                                                    />
+                                                    <button 
+                                                        className="reply-submit-btn"
+                                                        onClick={() => handleReplySubmit(post.id)}
+                                                    >
+                                                        Reply
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                    <div className="community-sidebar">
-                        <div className="sidebar-title">Filter by Topic</div>
-                        <div className="sidebar-tags">
-                            {allTags.map(tag => (
-                                <button
-                                    key={tag}
-                                    className={`sidebar-tag${selectedTags.includes(tag) ? ' active' : ''}`}
-                                    onClick={() => handleTagFilter(tag)}
-                                >
-                                    {tag}
-                                </button>
-                            ))}
+                        <div className="community-sidebar">
+                            <div className="sidebar-title">Filter by Topic</div>
+                            <div className="sidebar-tags">
+                                {allTags.map(tag => (
+                                    <button
+                                        key={tag}
+                                        className={`sidebar-tag${selectedTags.includes(tag) ? ' active' : ''}`}
+                                        onClick={() => handleTagFilter(tag)}
+                                    >
+                                        {tag}
+                                    </button>
+                                ))}
+                            </div>
+                            <button className="clear-filters-btn" onClick={clearFilters}>Clear Filters</button>
                         </div>
-                        <button className="clear-filters-btn" onClick={clearFilters}>Clear Filters</button>
                     </div>
                 </div>
             </div>
@@ -577,7 +577,7 @@ export const Community = () => {
                     </div>
                 </div>
             )}
-        </div>
+        </>
     );
 };
 

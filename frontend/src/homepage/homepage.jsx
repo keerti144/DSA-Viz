@@ -34,11 +34,7 @@ export const Homepage = () => {
       <Sidebar />
       <Header />
 
-      <div className="main-content">
-        <div className="search-container">
-          <input type="text" className="search-input" placeholder="Search topics..." />
-          <img src={search} alt="Search" className="search-icon" />
-        </div>
+      <div className="homepage-main-content">
         <h1 className="welcome-text">WELCOME TO ALGORIZE</h1>
 
         <div className="intro-section">

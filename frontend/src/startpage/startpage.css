@@ -70,16 +70,32 @@
 
 /* Title */
 .title {
-  font-size: 60px;
-  font-weight: bold;
-  background: linear-gradient(45deg, #7f00ff, #e100ff); /* Purple Gradient */
-
+  font-size: 2.7rem;
+  font-weight: 800;
+  color: #e0cde9;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  position: relative;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  background: linear-gradient(90deg, #a879ff, #6a32a8);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  animation: softGlow 3s ease-in-out infinite alternate;
+  text-shadow: none;
+}
+
+.title::after {
+  content: '';
+  display: block;
+  margin: 0 auto;
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #a879ff, #4b256a);
+  box-shadow: 0 0 12px #a879ff99;
+  margin-top: 10px;
 }
 
 /* Subtle Glow Effect */
@@ -105,39 +121,23 @@
 }
 
 /* Log In Button */
-.btn-login {
-  background: linear-gradient(135deg, #f64f59, #c471ed); /* Pink Gradient */
-  color: white;
+.btn-login, .btn-signup {
+  background: linear-gradient(90deg, #a879ff, #6a32a8);
+  color: #fff;
   border: none;
-  padding: 8px 20px;
-  border-radius: 25px; /* Rounded corners */
-  font-size: 16px; /* Font size */
+  padding: 12px 32px;
+  border-radius: 25px;
+  font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.btn-login:hover {
+.btn-login:hover, .btn-signup:hover {
+  background: linear-gradient(90deg, #6a32a8, #2b185a);
+  color: #fff;
   transform: scale(1.05);
-  box-shadow: 0 4px 20px rgba(196, 113, 237, 0.4);
-}
-
-/* Sign Up Button */
-.btn-signup {
-  background: linear-gradient(135deg, #00f2fe, #4facfe); /* Blue Gradient */
-  color: white;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 25px; /* Rounded corners */
-  font-size: 16px; /* Font size */
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.btn-signup:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 20px rgba(196, 113, 237, 0.4);
+  box-shadow: 0 4px 20px #a879ff44;
 }
 
 /* Get Started Button */
@@ -146,4 +146,16 @@
   padding: 12px 30px;
   font-size: 16px;
   border-radius: 25px;
+  font-weight: normal;
+  color: #fff;
+  margin-top: 32px;
+  box-shadow: none;
+  border: none;
+  letter-spacing: initial;
+  transition: none;
+}
+
+.get-started:hover {
+  transform: none;
+  box-shadow: none;
 }
