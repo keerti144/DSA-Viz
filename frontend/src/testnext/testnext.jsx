@@ -107,8 +107,8 @@ export const TestNext = () => {
                 </button>
                 <span>{questionCount}</span>
                 <button
-                  onClick={() => setQuestionCount(prev => Math.min(20, prev + 1))}
-                  disabled={questionCount >= 20}
+                  onClick={() => setQuestionCount(prev => Math.min(10, prev + 1))}
+                  disabled={questionCount >= 10}
                 >
                   +
                 </button>

@@ -534,3 +534,28 @@
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
 }
+
+.answer-textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 14px 16px;
+    border: 2px solid #a879ff44;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    color: #e0cde9;
+    background: rgba(34, 24, 52, 0.85);
+    resize: vertical;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 8px 0 rgba(80, 60, 120, 0.10);
+}
+.answer-textarea:focus {
+    outline: none;
+    border-color: #a879ff;
+    box-shadow: 0 0 0 2px #a879ff55;
+    background: rgba(34, 24, 52, 0.98);
+}
+.answer-textarea::placeholder {
+    color: #bbaed1;
+    opacity: 1;
+}

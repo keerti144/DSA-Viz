@@ -528,38 +528,6 @@
   color: #b99cff;
 }
 
-.roadmap-header-with-rename {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 7px;
-}
-
-.roadmap-header-with-rename h3 {
-  margin: 0;
-}
-
-.rename-button {
-  background: none;
-  border: none;
-  color: #b99cff;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s ease;
-}
-
-.rename-button:hover {
-  color: #a879ff;
-}
-
-.rename-button svg {
-  width: 16px;
-  height: 16px;
-}
-
 .roadmap-details p {
   color: #d2cbe6;
   font-size: 14px;
@@ -682,4 +650,90 @@
   text-align: center;
   font-size: 1.1rem;
   margin-top: 1.5rem;
+}
+
+/* Styles for roadmap header with rename button */
+.roadmap-header-with-rename {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between title and icon */
+    margin-bottom: 10px; /* Space below the header */
+}
+
+.roadmap-header-with-rename h3 {
+    margin: 0; /* Remove default margin to align */
+    flex-grow: 1; /* Allow title to take available space */
+}
+
+.rename-button {
+    background: none;
+    border: none;
+    color: #b99cff; /* Icon color, consistent with title */
+    cursor: pointer;
+    padding: 0;
+    display: flex; /* Use flex to center the icon */
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.rename-button:hover {
+    color: #a879ff; /* Slightly lighter color on hover */
+}
+
+.rename-button svg {
+    width: 16px; /* Set icon size */
+    height: 16px; /* Set icon size */
+}
+
+/* Styles for rename input field and action buttons */
+.rename-input-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between input and buttons */
+    margin-bottom: 10px; /* Space below the container */
+}
+
+.rename-input {
+    flex-grow: 1; /* Allow input to take available space */
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #555;
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 14px;
+}
+
+.rename-input:focus {
+    outline: none;
+    border-color: #a879ff;
+    box-shadow: 0 0 0 2px rgba(168, 121, 255, 0.3);
+}
+
+.rename-action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.rename-action-button.save {
+    color: #10B981; /* Green color for save */
+}
+
+.rename-action-button.save:hover {
+    background-color: #05966933; /* Subtle green background on hover */
+}
+
+.rename-action-button.cancel {
+    color: #e24a4a; /* Red color for cancel */
+}
+
+.rename-action-button.cancel:hover {
+    background-color: #e24a4a33; /* Subtle red background on hover */
 }

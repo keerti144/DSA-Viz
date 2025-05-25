@@ -1,12 +1,19 @@
 import sys
 import os
 import json
+import hashlib
 from firebase_admin import firestore
 
 # Add backend to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from config import db  # ✅ Import db from your existing config
+
+def generate_question_id(question):
+    # Create a consistent string representation of the question
+    question_str = f"{question['question']}{question.get('type', '')}{question.get('topic', '')}"
+    # Use SHA-256 hash which is consistent across runs and machines
+    return hashlib.sha256(question_str.encode()).hexdigest()
 
 def upload_questions():
     json_path = os.path.join(os.path.dirname(__file__), "questions.json")
@@ -23,7 +30,7 @@ def upload_questions():
     uploaded, skipped = 0, 0
 
     for question in questions:
-        question_id = str(abs(hash(question["question"])))
+        question_id = generate_question_id(question)
         doc_ref = db.collection("questions").document(question_id)
 
         if not doc_ref.get().exists:
