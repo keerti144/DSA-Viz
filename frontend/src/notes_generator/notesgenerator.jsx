@@ -166,6 +166,8 @@ const NotesGenerator = () => {
                 <Header />
                 <div style={{ flex: 1 }}>
         <div className="notes-generator-container full-width">
+            <br />
+            <br />
             <div className="parallax-bg" />
             {toast && <motion.div className="custom-toast pop-in" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }}>{toast}</motion.div>}
                         <div className="overlap">
