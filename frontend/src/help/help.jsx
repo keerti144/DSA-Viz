@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import Sidebar from "../sidebar/sidebar";
+import Header from "../header/header";
 import "./help.css";
 
 export const Help = () => {
@@ -160,108 +162,113 @@ export const Help = () => {
     };
 
     return (
-        <div className="help">
-            <div className="help-container">
-                {/* Header Section */}
-                <div className="help-header">
-                    <button className="back-btn" onClick={() => navigate(-1)}>← Back</button>
-                    <h1 className="help-title" style={{whiteSpace: 'nowrap', fontSize: '2.2rem', fontWeight: 900, letterSpacing: '2px', margin: 0}}>
-                        ALGORISE HELP & SUPPORT
-                    </h1>
-                </div>
+        <div className="help-app-layout" style={{ display: 'flex', minHeight: '100vh', background: 'linear-gradient(135deg, #1a102b 0%, #2d1b4e 100%)' }}>
+            <Sidebar />
+            <div style={{ flex: 1, marginLeft: 60 }}>
+                <Header />
+                <div className="help" style={{ paddingTop: 80 }}>
+                    <div className="help-container">
+                        {/* Header Section */}
+                        <div className="help-header" style={{ textAlign: 'center' }}>
+                            <h1 className="help-title" style={{whiteSpace: 'nowrap', fontSize: '2.2rem', fontWeight: 900, letterSpacing: '2px', margin: 0}}>
+                                ALGORISE HELP & SUPPORT
+                            </h1>
+                        </div>
 
-                {/* Recent Queries Section */}
-                <div className="recent-queries">
-                    <h3>Recent Help Queries</h3>
-                    {isLoading ? (
-                        <div className="loading">Loading recent queries...</div>
-                    ) : helpQueries.length > 0 ? (
-                        <div className="queries-list">
-                            {helpQueries.map((item) => (
-                                <div key={item.id} className="query-item">
-                                    <div className="query-header">
-                                        <span className="query-status" data-status={item.status}>
-                                            {item.status}
-                                        </span>
-                                        <span className="query-date">{formatDate(item.timestamp)}</span>
-                                    </div>
-                                    <div className="query-content">
-                                        <p className="query-question">{item.question}</p>
-                                        {item.answer && (
-                                            <p className="query-answer">{item.answer}</p>
-                                        )}
-                                        {item.status === 'pending' && (
-                                            <button 
-                                                className="delete-query-btn"
-                                                onClick={() => handleDeleteQuery(item.id)}
-                                                disabled={isDeleting}
-                                            >
-                                                {isDeleting ? 'Deleting...' : 'Delete'}
-                                            </button>
-                                        )}
-                                    </div>
+                        {/* Recent Queries Section */}
+                        <div className="recent-queries">
+                            <h3>Recent Help Queries</h3>
+                            {isLoading ? (
+                                <div className="loading">Loading recent queries...</div>
+                            ) : helpQueries.length > 0 ? (
+                                <div className="queries-list">
+                                    {helpQueries.map((item) => (
+                                        <div key={item.id} className="query-item">
+                                            <div className="query-header">
+                                                <span className="query-status" data-status={item.status}>
+                                                    {item.status}
+                                                </span>
+                                                <span className="query-date">{formatDate(item.timestamp)}</span>
+                                            </div>
+                                            <div className="query-content">
+                                                <p className="query-question">{item.question}</p>
+                                                {item.answer && (
+                                                    <p className="query-answer">{item.answer}</p>
+                                                )}
+                                                {item.status === 'pending' && (
+                                                    <button 
+                                                        className="delete-query-btn"
+                                                        onClick={() => handleDeleteQuery(item.id)}
+                                                        disabled={isDeleting}
+                                                    >
+                                                        {isDeleting ? 'Deleting...' : 'Delete'}
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p className="no-queries">No recent queries found.</p>
+                            )}
+                        </div>
+
+                        {/* Query Form Section */}
+                        <div className="query-section">
+                            <div className="query-input-group">
+                                {/*
+                                <input
+                                    type="email"
+                                    className="email-input"
+                                    placeholder="Your email address"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    disabled={isSubmitting || !!currentUser?.email}
+                                />*/}
+                                <textarea
+                                    className="query-input"
+                                    placeholder="Type your query here..."
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    disabled={isSubmitting}
+                                    rows={4}
+                                />
+                            </div>
+                            <button 
+                                className="submit-query"
+                                onClick={handleSubmitQuery}
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? 'Sending...' : 'Submit'}
+                            </button>
+                        </div>
+
+                        {/* Status Message */}
+                        {submitStatus && (
+                            <div className={`status-message ${submitStatus.type}`}>{submitStatus.message}</div>
+                        )}
+
+                        {/* FAQ Section */}
+                        <div className="faq-section">
+                            <h3>Frequently Asked Questions</h3>
+                            {faqs.map((faq, index) => (
+                                <div 
+                                    key={index} 
+                                    className={`faq-item ${openFAQ === index ? "open" : ""}`} 
+                                    onClick={() => toggleFAQ(index)}
+                                >
+                                    <h4>{faq.question}</h4>
+                                    {openFAQ === index && <p className="faq-answer">{faq.answer}</p>}
                                 </div>
                             ))}
                         </div>
-                    ) : (
-                        <p className="no-queries">No recent queries found.</p>
-                    )}
-                </div>
 
-                {/* Query Form Section */}
-                <div className="query-section">
-                    <div className="query-input-group">
-                        {/*
-                        <input
-                            type="email"
-                            className="email-input"
-                            placeholder="Your email address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            disabled={isSubmitting || !!currentUser?.email}
-                        />*/}
-                        <textarea
-                            className="query-input"
-                            placeholder="Type your query here..."
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            disabled={isSubmitting}
-                            rows={4}
-                        />
-                    </div>
-                    <button 
-                        className="submit-query"
-                        onClick={handleSubmitQuery}
-                        disabled={isSubmitting}
-                    >
-                        {isSubmitting ? 'Sending...' : 'Submit'}
-                    </button>
-                </div>
-
-                {/* Status Message */}
-                {submitStatus && (
-                    <div className={`status-message ${submitStatus.type}`}>{submitStatus.message}</div>
-                )}
-
-                {/* FAQ Section */}
-                <div className="faq-section">
-                    <h3>Frequently Asked Questions</h3>
-                    {faqs.map((faq, index) => (
-                        <div 
-                            key={index} 
-                            className={`faq-item ${openFAQ === index ? "open" : ""}`} 
-                            onClick={() => toggleFAQ(index)}
-                        >
-                            <h4>{faq.question}</h4>
-                            {openFAQ === index && <p className="faq-answer">{faq.answer}</p>}
+                        {/* Contact Support */}
+                        <div className="contact-section">
+                            <h3>Still Need Help?</h3>
+                            <p>Reach out to us at <a href="mailto:officialkeerti14@gmail.com">officialkeerti14@gmail.com</a></p>
                         </div>
-                    ))}
-                </div>
-
-                {/* Contact Support */}
-                <div className="contact-section">
-                    <h3>Still Need Help?</h3>
-                    <p>Reach out to us at <a href="mailto:officialkeerti14@gmail.com">officialkeerti14@gmail.com</a></p>
+                    </div>
                 </div>
             </div>
         </div>

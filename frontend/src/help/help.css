@@ -31,6 +31,7 @@
 .help-header {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-bottom: 2.5rem;
     gap: 1.2rem;
 }
@@ -60,7 +61,7 @@
     letter-spacing: 2.5px;
     text-transform: uppercase;
     color: #e0cde9;
-    text-align: left;
+    text-align: center;
     position: relative;
     padding-bottom: 12px;
 }

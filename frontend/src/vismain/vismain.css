@@ -6,7 +6,7 @@
   background-color: #160c25;
   min-height: 100vh;
   color: white;
-  padding-top: 80px; /* Adjusted for header */
+  padding-top: 40px;
 }
 
 /* Main Container */
@@ -14,7 +14,7 @@
   max-width: 1100px;
   width: 90%;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 0;
 }
 
 /* Page Title */
