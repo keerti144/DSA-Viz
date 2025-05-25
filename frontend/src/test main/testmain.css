@@ -11,7 +11,7 @@
 .div {
     display: flex;
     flex-direction: column;
-    padding: 24px 16px 16px 70px;
+    padding:  100px 16px 16px 70px;
     margin-top: 0;
     align-items: center;
 }
@@ -21,7 +21,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 80px;
+    margin-top: 80px; /* Increased from 120px */
     margin-bottom: 36px;
     position: relative;
 }

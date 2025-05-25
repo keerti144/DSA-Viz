@@ -5,7 +5,7 @@
   background-color: #160c25;
   min-height: 100vh;
   color: white;
-  padding-top: 80px;
+  padding-top: 20px;
 }
 
 .roadmap-container {
@@ -444,7 +444,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 80px;
+  margin-top: 0px;
   margin-bottom: 36px;
   position: relative;
   font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;

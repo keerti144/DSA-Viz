@@ -4,6 +4,7 @@
   background-color: #160c25;
   color: white;
   font-family: "Poppins", sans-serif;
+  padding-top: 0px;
 }
 
 /* Loading and Error States */
@@ -33,7 +34,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 80px;
+    margin-top: 10px !important; /* Force lower margin */
+    padding-top: 0 !important;
   margin-bottom: 36px;
   position: relative;
   font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
@@ -112,7 +114,6 @@
   background: rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 15px;
-  margin-top: 20px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   transition: 0.3s ease-in-out;
 }

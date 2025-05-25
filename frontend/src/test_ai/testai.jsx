@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import Sidebar from "../sidebar/sidebar.jsx";
-import Header from "../header/header.jsx";
+import Sidebar from '../sidebar/sidebar';
+import Header from '../header/header';
 import './testai.css';
+import './testai-app-layout.css';
 
 const DSA_TOPICS = [
     "Arrays",
@@ -176,254 +177,254 @@ export const TestAI = () => {
     };
 
     return (
-        <div className="testai-container">
+        <div className="testai-app-layout">
             <Header />
             <Sidebar />
-            <br />
-            <br />
-            <h1>Generate Your AI Test</h1>
+            <div className="testai-container">
+                <h1>Generate Your AI Test</h1>
 
-            {loading && (
-                <div className="loading-screen">
-                    <div className="loading-content">
-                        <div className="loading-animation">
-                            <div className="loading-circle"></div>
-                            <div className="loading-circle"></div>
-                            <div className="loading-circle"></div>
-                        </div>
-                        <h2 className="loading-text">Crafting Your Perfect Test</h2>
-                        <p className="loading-subtext">Analyzing your preferences and generating questions...</p>
-                        <div className="loading-progress">
-                            <div className="progress-bar"></div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {!questions.length && !loading && (
-                <div className="input-form">
-                    <label>
-                        Topics (Select multiple)
-                        <select
-                            name="topics"
-                            multiple
-                            value={topics}
-                            onChange={handleChange}
-                            className="topics-select"
-                        >
-                            {DSA_TOPICS.map((topic) => (
-                                <option key={topic} value={topic}>
-                                    {topic}
-                                </option>
-                            ))}
-                        </select>
-                        <small>Hold Ctrl/Cmd to select multiple topics</small>
-                    </label>
-
-                    <div>
-                        <span className="button-group-label">Difficulty Level</span>
-                        <div className="button-group">
-                            <button
-                                type="button"
-                                className={`option-button difficulty-easy ${difficulty === 'Easy' ? 'selected' : ''}`}
-                                onClick={() => setDifficulty('Easy')}
-                            >
-                                Easy
-                            </button>
-                            <button
-                                type="button"
-                                className={`option-button difficulty-medium ${difficulty === 'Medium' ? 'selected' : ''}`}
-                                onClick={() => setDifficulty('Medium')}
-                            >
-                                Medium
-                            </button>
-                            <button
-                                type="button"
-                                className={`option-button difficulty-hard ${difficulty === 'Hard' ? 'selected' : ''}`}
-                                onClick={() => setDifficulty('Hard')}
-                            >
-                                Hard
-                            </button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <span className="button-group-label">Energy Level</span>
-                        <div className="button-group">
-                            <button
-                                type="button"
-                                className={`option-button energy-low ${energyLevel === 'Low' ? 'selected' : ''}`}
-                                onClick={() => setEnergyLevel('Low')}
-                            >
-                                Low
-                            </button>
-                            <button
-                                type="button"
-                                className={`option-button energy-medium ${energyLevel === 'Medium' ? 'selected' : ''}`}
-                                onClick={() => setEnergyLevel('Medium')}
-                            >
-                                Medium
-                            </button>
-                            <button
-                                type="button"
-                                className={`option-button energy-high ${energyLevel === 'High' ? 'selected' : ''}`}
-                                onClick={() => setEnergyLevel('High')}
-                            >
-                                High
-                            </button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <span className="button-group-label">Stress Level</span>
-                        <div className="button-group">
-                            <button
-                                type="button"
-                                className={`option-button stress-low ${stressLevel === 'Low' ? 'selected' : ''}`}
-                                onClick={() => setStressLevel('Low')}
-                            >
-                                Low
-                            </button>
-                            <button
-                                type="button"
-                                className={`option-button stress-medium ${stressLevel === 'Medium' ? 'selected' : ''}`}
-                                onClick={() => setStressLevel('Medium')}
-                            >
-                                Medium
-                            </button>
-                            <button
-                                type="button"
-                                className={`option-button stress-high ${stressLevel === 'High' ? 'selected' : ''}`}
-                                onClick={() => setStressLevel('High')}
-                            >
-                                High
-                            </button>
-                        </div>
-                    </div>
-
-                    <label>
-                        Time (minutes)
-                        <input
-                            type="number"
-                            name="timeSpent"
-                            value={timeSpent}
-                            onChange={handleChange}
-                            min="1"
-                            max="120"
-                        />
-                    </label>
-
-                    <label className="checkbox-label">
-                        <input
-                            type="checkbox"
-                            name="challengeMode"
-                            checked={challengeMode}
-                            onChange={handleChange}
-                        />
-                        <span className="emoji">🎯</span>
-                        <span>Enable Challenge Mode {challengeMode ? '🔥' : '💪'}</span>
-                    </label>
-
-                    <button onClick={handleSubmit} disabled={loading}>
-                        {loading ? 'Generating Questions...' : 'Start Test'}
-                    </button>
-
-                    {error && <div className="error-message">{error}</div>}
-                </div>
-            )}
-
-            {questions.length > 0 && !showResults && (
-                <div className="questions-container">
-                    <div className="timer-container">
-                    <div className="timer">Time Left: {formatTime(timeLeft)}</div>
-                        <button 
-                            className="exit-test-button"
-                            onClick={handleExitTest}
-                        >
-                            Exit Test
-                        </button>
-                    </div>
-
-                    <div className="question-card">
-                        <div className="question-header">
-                            <span className="question-number">Question {currentPage + 1} of {questions.length}</span>
-                        </div>
-
-                        <p className="question-text">{questions[currentPage].question}</p>
-
-                        <div className="options-list">
-                            {Object.entries(questions[currentPage].options).map(([option, text]) => (
-                                <label key={option} className="option-label">
-                                    <input
-                                        type="radio"
-                                        name={`question-${currentPage}`}
-                                        value={option}
-                                        checked={answers[currentPage] === option}
-                                        onChange={() => handleAnswerChange(currentPage, option)}
-                                    />
-                                    <span className="option-text">{option}. {text}</span>
-                                </label>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="navigation-buttons">
-                        <button
-                            onClick={handlePrevQuestion}
-                            disabled={currentPage === 0}
-                        >
-                            Previous
-                        </button>
-
-                        {currentPage === questions.length - 1 ? (
-                            <button onClick={handleScoreCalculation} className="submit-button">
-                                Submit
-                            </button>
-                        ) : (
-                            <button
-                                onClick={handleNextQuestion}
-                                disabled={currentPage === questions.length - 1}
-                            >
-                                Next
-                            </button>
-                        )}
-                    </div>
-                </div>
-            )}
-
-            {showResults && (
-                <div className="results-container">
-                    <h2>Test Results</h2>
-                    <div className="score-display">
-                        <p>Your Score: {score} out of {questions.length}</p>
-                        <p>Percentage: {((score / questions.length) * 100).toFixed(1)}%</p>
-                    </div>
-
-                    <div className="questions-review">
-                        {questions.map((q, index) => (
-                            <div key={index} className={`review-question ${answers[index] === q.answer ? 'correct' : 'incorrect'}`}>
-                                <p><strong>Q{index + 1}:</strong> {q.question}</p>
-                                <p>Your Answer: {answers[index] || 'Not answered'}</p>
-                                <p>Correct Answer: {q.answer}</p>
+                {loading && (
+                    <div className="loading-screen">
+                        <div className="loading-content">
+                            <div className="loading-animation">
+                                <div className="loading-circle"></div>
+                                <div className="loading-circle"></div>
+                                <div className="loading-circle"></div>
                             </div>
-                        ))}
+                            <h2 className="loading-text">Crafting Your Perfect Test</h2>
+                            <p className="loading-subtext">Analyzing your preferences and generating questions...</p>
+                            <div className="loading-progress">
+                                <div className="progress-bar"></div>
+                            </div>
+                        </div>
                     </div>
+                )}
 
-                    <button 
-                        className="start-new-test"
-                        onClick={() => {
-                        setQuestions([]);
-                        setAnswers([]);
-                        setScore(0);
-                        setShowResults(false);
-                        setCurrentPage(0);
-                        }}
-                    >
-                        <span>🔄</span>
-                        Start New Test
-                    </button>
-                </div>
-            )}
+                {!questions.length && !loading && (
+                    <div className="input-form">
+                        <label>
+                            Topics (Select multiple)
+                            <select
+                                name="topics"
+                                multiple
+                                value={topics}
+                                onChange={handleChange}
+                                className="topics-select"
+                            >
+                                {DSA_TOPICS.map((topic) => (
+                                    <option key={topic} value={topic}>
+                                        {topic}
+                                    </option>
+                                ))}
+                            </select>
+                            <small>Hold Ctrl/Cmd to select multiple topics</small>
+                        </label>
+
+                        <div>
+                            <span className="button-group-label">Difficulty Level</span>
+                            <div className="button-group">
+                                <button
+                                    type="button"
+                                    className={`option-button difficulty-easy ${difficulty === 'Easy' ? 'selected' : ''}`}
+                                    onClick={() => setDifficulty('Easy')}
+                                >
+                                    Easy
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`option-button difficulty-medium ${difficulty === 'Medium' ? 'selected' : ''}`}
+                                    onClick={() => setDifficulty('Medium')}
+                                >
+                                    Medium
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`option-button difficulty-hard ${difficulty === 'Hard' ? 'selected' : ''}`}
+                                    onClick={() => setDifficulty('Hard')}
+                                >
+                                    Hard
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span className="button-group-label">Energy Level</span>
+                            <div className="button-group">
+                                <button
+                                    type="button"
+                                    className={`option-button energy-low ${energyLevel === 'Low' ? 'selected' : ''}`}
+                                    onClick={() => setEnergyLevel('Low')}
+                                >
+                                    Low
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`option-button energy-medium ${energyLevel === 'Medium' ? 'selected' : ''}`}
+                                    onClick={() => setEnergyLevel('Medium')}
+                                >
+                                    Medium
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`option-button energy-high ${energyLevel === 'High' ? 'selected' : ''}`}
+                                    onClick={() => setEnergyLevel('High')}
+                                >
+                                    High
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span className="button-group-label">Stress Level</span>
+                            <div className="button-group">
+                                <button
+                                    type="button"
+                                    className={`option-button stress-low ${stressLevel === 'Low' ? 'selected' : ''}`}
+                                    onClick={() => setStressLevel('Low')}
+                                >
+                                    Low
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`option-button stress-medium ${stressLevel === 'Medium' ? 'selected' : ''}`}
+                                    onClick={() => setStressLevel('Medium')}
+                                >
+                                    Medium
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`option-button stress-high ${stressLevel === 'High' ? 'selected' : ''}`}
+                                    onClick={() => setStressLevel('High')}
+                                >
+                                    High
+                                </button>
+                            </div>
+                        </div>
+
+                        <label>
+                            Time (minutes)
+                            <input
+                                type="number"
+                                name="timeSpent"
+                                value={timeSpent}
+                                onChange={handleChange}
+                                min="1"
+                                max="120"
+                            />
+                        </label>
+
+                        <label className="checkbox-label">
+                            <input
+                                type="checkbox"
+                                name="challengeMode"
+                                checked={challengeMode}
+                                onChange={handleChange}
+                            />
+                            <span className="emoji">🎯</span>
+                            <span>Enable Challenge Mode {challengeMode ? '🔥' : '💪'}</span>
+                        </label>
+
+                        <button onClick={handleSubmit} disabled={loading}>
+                            {loading ? 'Generating Questions...' : 'Start Test'}
+                        </button>
+
+                        {error && <div className="error-message">{error}</div>}
+                    </div>
+                )}
+
+                {questions.length > 0 && !showResults && (
+                    <div className="questions-container">
+                        <div className="timer-container">
+                        <div className="timer">Time Left: {formatTime(timeLeft)}</div>
+                            <button 
+                                className="exit-test-button"
+                                onClick={handleExitTest}
+                            >
+                                Exit Test
+                            </button>
+                        </div>
+
+                        <div className="question-card">
+                            <div className="question-header">
+                                <span className="question-number">Question {currentPage + 1} of {questions.length}</span>
+                            </div>
+
+                            <p className="question-text">{questions[currentPage].question}</p>
+
+                            <div className="options-list">
+                                {Object.entries(questions[currentPage].options).map(([option, text]) => (
+                                    <label key={option} className="option-label">
+                                        <input
+                                            type="radio"
+                                            name={`question-${currentPage}`}
+                                            value={option}
+                                            checked={answers[currentPage] === option}
+                                            onChange={() => handleAnswerChange(currentPage, option)}
+                                        />
+                                        <span className="option-text">{option}. {text}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="navigation-buttons">
+                            <button
+                                onClick={handlePrevQuestion}
+                                disabled={currentPage === 0}
+                            >
+                                Previous
+                            </button>
+
+                            {currentPage === questions.length - 1 ? (
+                                <button onClick={handleScoreCalculation} className="submit-button">
+                                    Submit
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={handleNextQuestion}
+                                    disabled={currentPage === questions.length - 1}
+                                >
+                                    Next
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {showResults && (
+                    <div className="results-container">
+                        <h2>Test Results</h2>
+                        <div className="score-display">
+                            <p>Your Score: {score} out of {questions.length}</p>
+                            <p>Percentage: {((score / questions.length) * 100).toFixed(1)}%</p>
+                        </div>
+
+                        <div className="questions-review">
+                            {questions.map((q, index) => (
+                                <div key={index} className={`review-question ${answers[index] === q.answer ? 'correct' : 'incorrect'}`}>
+                                    <p><strong>Q{index + 1}:</strong> {q.question}</p>
+                                    <p>Your Answer: {answers[index] || 'Not answered'}</p>
+                                    <p>Correct Answer: {q.answer}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        <button 
+                            className="start-new-test"
+                            onClick={() => {
+                            setQuestions([]);
+                            setAnswers([]);
+                            setScore(0);
+                            setShowResults(false);
+                            setCurrentPage(0);
+                            }}
+                        >
+                            <span>🔄</span>
+                            Start New Test
+                        </button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
