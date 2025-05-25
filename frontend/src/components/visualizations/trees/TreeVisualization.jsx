@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import AlgoSidebar from '../AlgoSidebar';
+import Header from '../../../header/header.jsx';
+import Sidebar from '../../../sidebar/sidebar.jsx';
 import '../BaseVisualization.css';
 import './TreeVisualization.css';
 
@@ -565,120 +567,123 @@ export default function TreeVisualization({ algorithm, title }) {
     const currentTree = inserting ? steps[stepIdx]?.tree : root;
     const treeDepth = getTreeDepth(currentTree);
     const treeWidth = getTreeWidth(currentTree);
-    const actualWidth = Math.abs(treeWidth.max - treeWidth.min) * 120 + 300; // Add padding
+    const actualWidth = Math.abs(treeWidth.max - treeWidth.min) * 120 + 300;
     const svgWidth = Math.max(900, actualWidth);
-    const svgHeight = Math.max(500, treeDepth * 100 + 200); // Increased height padding
-
-    // Calculate the center position based on the tree width
+    const svgHeight = Math.max(500, treeDepth * 100 + 200);
     const centerX = (treeWidth.max + treeWidth.min) * -60 + svgWidth / 2;
-    const startY = 100; // Increased starting Y position
+    const startY = 100;
 
-    // Scrollable layout
     return (
-        <div className="base-vis-layout" style={{ overflow: 'hidden', maxHeight: '100vh' }}>
-            <div className="base-vis-main" style={{ overflow: 'hidden', maxHeight: '100vh' }}>
-                <div className="base-vis-header">
-                    <h1>{title}</h1>
-                </div>
-                <div className="base-vis-controls" style={{ 
-                    display: 'flex', 
-                    gap: '1rem', 
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexWrap: 'wrap',
-                    padding: '1rem'
-                }}>
-                    <input
-                        type="text"
-                        value={input}
-                        onChange={e => setInput(e.target.value)}
-                        placeholder="Enter value"
-                        className="base-vis-input"
-                        disabled={inserting}
-                        onKeyDown={e => e.key === 'Enter' && handleInsert()}
-                    />
-                    <button onClick={handleInsert} className="base-vis-btn" disabled={inserting || !input.trim()}>Insert</button>
-                    <button onClick={handleReset} className="base-vis-btn">Reset</button>
-                </div>
-                <div className="base-vis-controls" style={{ 
-                    display: 'flex', 
-                    gap: '1rem', 
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '0.5rem 1rem'
-                }}>
-                    <button onClick={handlePrev} className="base-vis-btn" disabled={stepIdx === 0 || !inserting}>Previous</button>
-                    <span style={{ color: '#e879f9', fontWeight: 500, fontSize: 18 }}>
-                        {inserting ? `Step ${stepIdx + 1} / ${steps.length}` : 'Ready for next insertion'}
-                    </span>
-                    <button onClick={handleNext} className="base-vis-btn" disabled={!inserting}>Next</button>
-                </div>
-                <div 
-                    ref={visualizationRef}
-                    className="base-vis-visualization" 
-                    style={{ 
-                        minHeight: 320, 
-                        display: 'flex', 
-                        justifyContent: 'center', 
-                        alignItems: 'flex-start', // Changed to flex-start
-                        overflow: 'auto',
-                        maxWidth: '100%',
-                        position: 'relative',
-                        padding: '1rem',
-                        scrollBehavior: 'smooth'
-                    }}
-                >
-                    {(!root && !inserting) ? (
-                        <div style={{ color: '#e879f9', fontWeight: 500, fontSize: 20, margin: '2rem 0' }}>Insert values to build the tree</div>
-                    ) : (
-                        <div style={{ 
-                            overflow: 'visible', // Changed to visible
-                            maxWidth: '100%',
-                            padding: '1rem',
-                            position: 'relative'
-                        }}>
-                            <svg 
-                                width={svgWidth} 
-                                height={svgHeight} 
-                                style={{ 
-                                    background: 'none',
-                                    minWidth: '100%',
-                                    display: 'block',
-                                    padding: '40px 0 20px 0' // Increased top padding
-                                }}
-                                viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-                                preserveAspectRatio="xMidYMin meet" // Changed to YMin
-                            >
-                                {inserting
-                                    ? renderTree(steps[stepIdx]?.tree, centerX, startY, 0, svgWidth / 4, steps[stepIdx]?.highlight)
-                                    : renderTree(root, centerX, startY, 0, svgWidth / 4, null)
-                                }
-                            </svg>
+        <div style={{ display: 'flex', minHeight: '100vh', background: '#1c0b3a' }}>
+            <Sidebar />
+            <div style={{ flex: 1, marginLeft: 60 }}>
+                <Header />
+                <div className="base-vis-layout" style={{ paddingTop: 80 }}>
+                    <div className="base-vis-main">
+                        <div className="base-vis-header">
+                            <h1>{title}</h1>
                         </div>
-                    )}
+                        <div className="base-vis-controls" style={{ 
+                            display: 'flex', 
+                            gap: '1rem', 
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexWrap: 'wrap',
+                            padding: '1rem'
+                        }}>
+                            <input
+                                type="text"
+                                value={input}
+                                onChange={e => setInput(e.target.value)}
+                                placeholder="Enter value"
+                                className="base-vis-input"
+                                disabled={inserting}
+                                onKeyDown={e => e.key === 'Enter' && handleInsert()}
+                            />
+                            <button onClick={handleInsert} className="base-vis-btn" disabled={inserting || !input.trim()}>Insert</button>
+                            <button onClick={handleReset} className="base-vis-btn">Reset</button>
+                        </div>
+                        <div className="base-vis-controls" style={{ 
+                            display: 'flex', 
+                            gap: '1rem', 
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '0.5rem 1rem'
+                        }}>
+                            <button onClick={handlePrev} className="base-vis-btn" disabled={stepIdx === 0 || !inserting}>Previous</button>
+                            <span style={{ color: '#e879f9', fontWeight: 500, fontSize: 18 }}>
+                                {inserting ? `Step ${stepIdx + 1} / ${steps.length}` : 'Ready for next insertion'}
+                            </span>
+                            <button onClick={handleNext} className="base-vis-btn" disabled={!inserting}>Next</button>
+                        </div>
+                        <div 
+                            ref={visualizationRef}
+                            className="base-vis-visualization" 
+                            style={{ 
+                                minHeight: 320, 
+                                display: 'flex', 
+                                justifyContent: 'center', 
+                                alignItems: 'flex-start',
+                                overflow: 'auto',
+                                maxWidth: '100%',
+                                position: 'relative',
+                                padding: '1rem',
+                                scrollBehavior: 'smooth'
+                            }}
+                        >
+                            {(!root && !inserting) ? (
+                                <div style={{ color: '#e879f9', fontWeight: 500, fontSize: 20, margin: '2rem 0' }}>Insert values to build the tree</div>
+                            ) : (
+                                <div style={{ 
+                                    overflow: 'visible',
+                                    maxWidth: '100%',
+                                    padding: '1rem',
+                                    position: 'relative'
+                                }}>
+                                    <svg 
+                                        width={svgWidth} 
+                                        height={svgHeight} 
+                                        style={{ 
+                                            background: 'none',
+                                            minWidth: '100%',
+                                            display: 'block',
+                                            padding: '40px 0 20px 0'
+                                        }}
+                                        viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+                                        preserveAspectRatio="xMidYMin meet"
+                                    >
+                                        {inserting
+                                            ? renderTree(steps[stepIdx]?.tree, centerX, startY, 0, svgWidth / 4, steps[stepIdx]?.highlight)
+                                            : renderTree(root, centerX, startY, 0, svgWidth / 4, null)
+                                        }
+                                    </svg>
+                                </div>
+                            )}
+                        </div>
+                        <div style={{ 
+                            minHeight: 32, 
+                            marginTop: 8, 
+                            textAlign: 'center', 
+                            color: '#e879f9', 
+                            fontWeight: 500, 
+                            fontSize: 18,
+                            padding: '0.5rem 1rem'
+                        }}>
+                            {inserting && steps.length > 0 && (
+                                <>
+                                    Inserting: <b>{pendingValue}</b> (Step {stepIdx + 1} of {steps.length})
+                                </>
+                            )}
+                        </div>
+                    </div>
+                    <div className="base-vis-sidebar" style={{ overflowY: 'auto', maxHeight: '100vh' }}>
+                        <AlgoSidebar
+                            algorithm={sidebar.algorithm}
+                            code={sidebar.code}
+                            explanation={sidebar.explanation}
+                        />
+                    </div>
                 </div>
-                <div style={{ 
-                    minHeight: 32, 
-                    marginTop: 8, 
-                    textAlign: 'center', 
-                    color: '#e879f9', 
-                    fontWeight: 500, 
-                    fontSize: 18,
-                    padding: '0.5rem 1rem'
-                }}>
-                    {inserting && steps.length > 0 && (
-                        <>
-                            Inserting: <b>{pendingValue}</b> (Step {stepIdx + 1} of {steps.length})
-                        </>
-                    )}
-                </div>
-            </div>
-            <div className="base-vis-sidebar" style={{ overflowY: 'auto', maxHeight: '100vh' }}>
-                <AlgoSidebar
-                    algorithm={sidebar.algorithm}
-                    code={sidebar.code}
-                    explanation={sidebar.explanation}
-                />
             </div>
         </div>
     );
