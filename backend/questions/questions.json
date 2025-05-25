@@ -288,13 +288,13 @@
   {
     "type": "mcq",
     "question": "How do you detect a loop in a linked list efficiently?",
-    "options": ["Use a counter", "Sort the list", "Use Floyd’s cycle detection", "Traverse twice"],
-    "answer": "Use Floyd’s cycle detection",
+    "options": ["Use a counter", "Sort the list", "Use Floyd's cycle detection", "Traverse twice"],
+    "answer": "Use Floyd's cycle detection",
     "difficulty": "medium",
     "points": 10,
     "topic": "linked list",
     "tags": ["loop detection", "floyd"],
-    "explanation": "Floyd’s algorithm uses two pointers to detect cycles with O(n) time and O(1) space."
+    "explanation": "Floyd's algorithm uses two pointers to detect cycles with O(n) time and O(1) space."
   },
   {
     "type": "mcq",
@@ -338,7 +338,7 @@
     "points": 5,
     "topic": "linked list",
     "tags": ["circular", "pointer"],
-    "explanation": "Circular list’s last node links back to the first node (head)."
+    "explanation": "Circular list's last node links back to the first node (head)."
   },
   {
     "type": "mcq",
@@ -426,7 +426,7 @@
     "points": 15,
     "topic": "linked list",
     "tags": ["deletion", "trick"],
-    "explanation": "This trick works by copying the next node’s value and bypassing it."
+    "explanation": "This trick works by copying the next node's value and bypassing it."
   },
   {
     "type": "mcq",
@@ -492,7 +492,7 @@
     "points": 10,
     "topic": "linked list",
     "tags": ["operations", "sorting"],
-    "explanation": "Linked lists can be sorted, but it’s not a direct operation like insertion or deletion."
+    "explanation": "Linked lists can be sorted, but it's not a direct operation like insertion or deletion."
   },
   {
     "type": "mcq",
@@ -661,14 +661,14 @@
   },
   {
     "type": "mcq",
-    "question": "Which graph traversal technique is used in Dijkstra’s Algorithm?",
+    "question": "Which graph traversal technique is used in Dijkstra's Algorithm?",
     "options": ["Depth-first Search", "Breadth-first Search", "Priority Queue (Greedy approach)", "Topological Sorting"],
     "answer": "Priority Queue (Greedy approach)",
     "difficulty": "hard",
     "points": 15,
     "topic": "graphs",
     "tags": ["Dijkstra", "greedy", "priority queue"],
-    "explanation": "Dijkstra’s algorithm uses a min-heap (priority queue) to select the next smallest-distance vertex."
+    "explanation": "Dijkstra's algorithm uses a min-heap (priority queue) to select the next smallest-distance vertex."
   },
   {
     "type": "mcq",
@@ -695,7 +695,7 @@
   {
     "type": "mcq",
     "question": "Which algorithm can detect negative-weight cycles in a graph?",
-    "options": ["Dijkstra’s Algorithm", "Prim’s Algorithm", "Bellman-Ford Algorithm", "Kruskal’s Algorithm"],
+    "options": ["Dijkstra's Algorithm", "Prim's Algorithm", "Bellman-Ford Algorithm", "Kruskal's Algorithm"],
     "answer": "Bellman-Ford Algorithm",
     "difficulty": "hard",
     "points": 15,
@@ -717,13 +717,13 @@
   {
     "type": "mcq",
     "question": "Which of the following algorithms is used to find a Minimum Spanning Tree (MST)?",
-    "options": ["Dijkstra’s Algorithm", "Prim’s Algorithm", "Floyd-Warshall Algorithm", "Bellman-Ford Algorithm"],
-    "answer": "Prim’s Algorithm",
+    "options": ["Dijkstra's Algorithm", "Prim's Algorithm", "Floyd-Warshall Algorithm", "Bellman-Ford Algorithm"],
+    "answer": "Prim's Algorithm",
     "difficulty": "easy",
     "points": 5,
     "topic": "graphs",
     "tags": ["MST", "Prim"],
-    "explanation": "Prim’s algorithm grows the MST by adding the cheapest edge from the tree to a new vertex."
+    "explanation": "Prim's algorithm grows the MST by adding the cheapest edge from the tree to a new vertex."
   },
   {
     "type": "mcq",
@@ -761,7 +761,7 @@
   {
     "type": "mcq",
     "question": "Which traversal technique is better for checking if a graph is bipartite?",
-    "options": ["BFS", "DFS", "Dijkstra’s", "Kruskal’s"],
+    "options": ["BFS", "DFS", "Dijkstra's", "Kruskal's"],
     "answer": "BFS",
     "difficulty": "hard",
     "points": 15,
@@ -772,7 +772,7 @@
   {
     "type": "mcq",
     "question": "In a weighted undirected graph where all edge weights are equal, which algorithm finds shortest paths from a source?",
-    "options": ["BFS", "DFS", "Dijkstra’s Algorithm", "Bellman-Ford Algorithm"],
+    "options": ["BFS", "DFS", "Dijkstra's Algorithm", "Bellman-Ford Algorithm"],
     "answer": "BFS",
     "difficulty": "medium",
     "points": 10,
@@ -815,7 +815,7 @@
   },
   {
     "type": "mcq",
-    "question": "What is the time complexity of Kruskal’s algorithm (using union-find with path compression)?",
+    "question": "What is the time complexity of Kruskal's algorithm (using union-find with path compression)?",
     "options": ["O(E log E)", "O(V²)", "O(V log V)", "O(E+V)"],
     "answer": "O(E log E)",
     "difficulty": "hard",
@@ -1201,7 +1201,7 @@
   {
     "type": "mcq",
     "question": "Which of the following algorithms uses stack?",
-    "options": ["Breadth-first Search", "Depth-first Search", "Dijkstra’s Algorithm", "Floyd-Warshall Algorithm"],
+    "options": ["Breadth-first Search", "Depth-first Search", "Dijkstra's Algorithm", "Floyd-Warshall Algorithm"],
     "answer": "Depth-first Search",
     "difficulty": "medium",
     "points": 5,
@@ -1861,13 +1861,13 @@
   {
     "type": "mcq",
     "question": "The shortest path in a weighted directed graph with non-negative weights can be solved efficiently using:",
-    "options": ["Dijkstra’s Algorithm", "Bellman-Ford Algorithm", "DP based Floyd-Warshall", "Kruskal’s Algorithm"],
-    "answer": "Dijkstra’s Algorithm",
+    "options": ["Dijkstra's Algorithm", "Bellman-Ford Algorithm", "DP based Floyd-Warshall", "Kruskal's Algorithm"],
+    "answer": "Dijkstra's Algorithm",
     "difficulty": "medium",
     "points": 10,
     "topic": "dynamic programming",
     "tags": ["shortest path", "Dijkstra"],
-    "explanation": "Dijkstra’s algorithm is efficient for non-negative weights."
+    "explanation": "Dijkstra's algorithm is efficient for non-negative weights."
   },
   {
     "type": "mcq",
@@ -2429,7 +2429,7 @@
     {
       "type": "interview",
       "question": "How do you find the largest sum of a contiguous subarray?",
-      "expected_answer": "The largest sum of a contiguous subarray can be found using Kadane’s Algorithm, which runs in O(n) time. It maintains a running sum and resets it when the sum becomes negative.",
+      "expected_answer": "The largest sum of a contiguous subarray can be found using Kadane's Algorithm, which runs in O(n) time. It maintains a running sum and resets it when the sum becomes negative.",
       "difficulty": "medium",
       "points": 15,
       "topic": "arrays",
@@ -2459,12 +2459,12 @@
     {
       "type": "interview",
       "question": "How do you detect a cycle in a linked list?",
-      "expected_answer": "You can detect a cycle in a linked list using Floyd’s Tortoise and Hare algorithm, which uses two pointers moving at different speeds. If they meet, a cycle exists.",
+      "expected_answer": "You can detect a cycle in a linked list using Floyd's Tortoise and Hare algorithm, which uses two pointers moving at different speeds. If they meet, a cycle exists.",
       "difficulty": "medium",
       "points": 15,
       "topic": "linked list",
       "tags": ["linked list", "cycle detection"],
-      "explanation": "Floyd’s Tortoise and Hare algorithm helps detect cycles by having two pointers move at different speeds. If they meet, a cycle is present."
+      "explanation": "Floyd's Tortoise and Hare algorithm helps detect cycles by having two pointers move at different speeds. If they meet, a cycle is present."
     },
     {
       "type": "interview",
@@ -2795,5 +2795,335 @@
       "topic": "dynamic programming",
       "tags": ["dynamic programming", "Knapsack problem", "optimization"],
       "explanation": "The Knapsack problem seeks the optimal selection of items under a weight constraint, using dynamic programming to explore all possible combinations efficiently."
-    }
+    },
+  {
+    "type": "debugging",
+    "question": "Find the bug in this code that tries to access the first element.",
+    "code": "arr = [1, 2, 3]\nprint(arr[1st])",
+    "answer": "Use integer index: arr[0]",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "arrays",
+    "tags": ["indexing", "syntax"],
+    "explanation": "Array indices must be integers, not words like '1st'."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the off-by-one error in this loop that prints all elements.",
+    "code": "arr = [10, 20, 30]\nfor i in range(1, len(arr)):\n    print(arr[i])",
+    "answer": "Change range to range(0, len(arr))",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "arrays",
+    "tags": ["loop", "indexing"],
+    "explanation": "Starting at index 1 skips the first element."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the IndexError in this array access.",
+    "code": "arr = [5, 6, 7]\nprint(arr[3])",
+    "answer": "Change index to 2 or less (0-based indexing)",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "arrays",
+    "tags": ["index out of range"],
+    "explanation": "Valid indices for a 3-element array are 0, 1, and 2."
+  },
+  {
+    "type": "debugging",
+    "question": "Find the mistake in this function meant to reverse an array.",
+    "code": "def reverse(arr):\n    return arr.reverse()",
+    "answer": "Use 'arr[::-1]' or 'arr.reverse(); return arr'",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "arrays",
+    "tags": ["reverse", "return value"],
+    "explanation": "reverse() modifies in-place and returns None."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the code that appends an element to a list.",
+    "code": "arr = [1, 2]\narr.append = (3)",
+    "answer": "Use arr.append(3)",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "arrays",
+    "tags": ["method call", "syntax"],
+    "explanation": "append is a method and should be called with parentheses, not assigned to."
+  },
+  {
+    "type": "debugging",
+    "question": "Correct the logic to count only even numbers.",
+    "code": "arr = [1, 2, 3, 4]\neven_count = 0\nfor num in arr:\n    if num % 2:\n        even_count += 1",
+    "answer": "Use 'if num % 2 == 0' instead",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "arrays",
+    "tags": ["modulus", "logic"],
+    "explanation": "num % 2 returns 0 for even numbers; must check equality."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the bug in checking if an array is empty.",
+    "code": "arr = []\nif arr == None:\n    print('Empty')",
+    "answer": "Use 'if not arr:' instead",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "arrays",
+    "tags": ["empty list", "truthy check"],
+    "explanation": "An empty list is not None; use a truthy check instead."
+  },
+  {
+    "type": "debugging",
+    "question": "Find the bug in multiplying all elements of the array.",
+    "code": "arr = [2, 3, 4]\nproduct = 0\nfor x in arr:\n    product *= x",
+    "answer": "Initialize product as 1 instead of 0",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "arrays",
+    "tags": ["initialization", "multiplication"],
+    "explanation": "Multiplying anything by 0 always results in 0. Use 1."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the error when removing an element from the list.",
+    "code": "arr = [1, 2, 3]\narr.remove(4)",
+    "answer": "Ensure the value exists before removing: 'if 4 in arr: arr.remove(4)'",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "arrays",
+    "tags": ["removal", "runtime error"],
+    "explanation": "remove() raises ValueError if the element is not found."
+  },
+  {
+    "type": "debugging",
+    "question": "Find and fix the error in calculating average.",
+    "code": "arr = [10, 20, 30]\navg = sum(arr) / len",
+    "answer": "Use len(arr) instead of len",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "arrays",
+    "tags": ["function call", "average"],
+    "explanation": "len is a function; it must be called with the array as an argument."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the bug in removing duplicates from an array.",
+    "code": "arr = [1, 2, 2, 3, 4, 4]\narr = list(set(arr.sort()))",
+    "answer": "Use 'arr.sort(); arr = list(set(arr))' or 'arr = sorted(set(arr))'",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "arrays",
+    "tags": ["duplicates", "sorting"],
+    "explanation": "arr.sort() returns None; apply set after sorting or sort after set."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the logic to find the second largest number in the array.",
+    "code": "arr = [3, 1, 4, 2]\narr.sort()\nsecond_largest = arr[-2]",
+    "answer": "Handle duplicates: 'second_largest = sorted(set(arr))[-2]'",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "arrays",
+    "tags": ["sorting", "set", "edge case"],
+    "explanation": "Duplicates can cause incorrect results; use set to remove duplicates first."
+  },
+  {
+    "type": "debugging",
+    "question": "Find the bug in summing only positive values from an array.",
+    "code": "arr = [-1, 2, 3, -4]\npositive_sum = sum(x > 0 for x in arr)",
+    "answer": "Use: 'sum(x for x in arr if x > 0)'",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "arrays",
+    "tags": ["sum", "condition"],
+    "explanation": "The original sums booleans; need to sum the actual values."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the logic to find the index of a specific value in the array.",
+    "code": "arr = [10, 20, 30]\nif 40 in arr:\n    idx = arr.index(40)\nelse:\n    idx = -1\nprint(idx)",
+    "answer": "Code is logically fine, but could use try-except instead for robustness.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "arrays",
+    "tags": ["search", "index"],
+    "explanation": "arr.index() throws ValueError if not found. Safer to use try-except."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the bug in extending an array with another array.",
+    "code": "arr1 = [1, 2]\narr2 = [3, 4]\narr1 = arr1.extend(arr2)",
+    "answer": "Use 'arr1.extend(arr2)' directly; extend() returns None.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "arrays",
+    "tags": ["extend", "assignment"],
+    "explanation": "extend modifies the list in-place; it doesn't return a new list."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the logic to rotate an array to the right by one step.",
+    "code": "arr = [1, 2, 3, 4]\narr = arr[1:] + arr[0]",
+    "answer": "Use 'arr = [arr[-1]] + arr[:-1]' for right rotation",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "arrays",
+    "tags": ["slicing", "rotation"],
+    "explanation": "The given logic rotates left, and it also tries to add an int to a list."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the code trying to remove all odd numbers from the array.",
+    "code": "arr = [1, 2, 3, 4, 5]\nfor x in arr:\n    if x % 2 != 0:\n        arr.remove(x)",
+    "answer": "Use a new list: 'arr = [x for x in arr if x % 2 == 0]'",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "arrays",
+    "tags": ["removal", "iteration"],
+    "explanation": "Modifying a list while iterating causes skipped elements."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the bug in finding all indices of a target element.",
+    "code": "arr = [1, 2, 3, 2, 4]\nindices = arr.index(2)",
+    "answer": "Use: 'indices = [i for i, x in enumerate(arr) if x == 2]'",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "arrays",
+    "tags": ["search", "enumerate"],
+    "explanation": "arr.index() returns only the first occurrence; use a loop to get all."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the code that tries to slice an array up to the last 2 elements.",
+    "code": "arr = [10, 20, 30, 40]\nsub = arr[0:-2:2]",
+    "answer": "Use 'sub = arr[:-2]' or correct step based on requirement",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "arrays",
+    "tags": ["slicing", "step"],
+    "explanation": "The slicing includes a step which skips elements; check if step is needed."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the bug in inserting an element at a specific position.",
+    "code": "arr = [1, 3, 4]\narr.insert[1, 2]",
+    "answer": "Use 'arr.insert(1, 2)' — parentheses, not brackets",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "arrays",
+    "tags": ["insert", "syntax"],
+    "explanation": "insert is a method and must be called with parentheses."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the bug in the function that merges two sorted arrays into one sorted array.",
+    "code": "def merge_sorted(a, b):\n    i, j = 0, 0\n    result = []\n    while i < len(a) and j < len(b):\n        if a[i] < b[j]:\n            result.append(a[i])\n            i += 1\n        else:\n            result.append(b[j])\n            i += 1  # Bug: Incorrect incrementation\n    result.extend(a[i:])\n    result.extend(b[j:])\n    return result",
+    "answer": "In the else block, increment 'j' instead of 'i'.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "arrays",
+    "tags": ["merge", "sorted arrays", "algorithm"],
+    "explanation": "When merging two sorted arrays, the pointer for the array from which an element was chosen must be incremented. Incrementing 'i' in both branches causes incorrect results."
+  },
+  {
+    "type": "debugging",
+    "question": "Debug the two-sum implementation on a sorted array that incorrectly updates pointers.",
+    "code": "def two_sum_sorted(arr, target):\n    left = 0\n    right = len(arr) - 1\n    while left < right:\n        s = arr[left] + arr[right]\n        if s == target:\n            return (left, right)\n        elif s < target:\n            left += 1\n        else:\n            left -= 1  # Bug: Should decrement 'right'\n    return None",
+    "answer": "In the 'else' clause, decrement 'right' instead of 'left'.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "arrays",
+    "tags": ["two-sum", "sorted array", "pointers"],
+    "explanation": "For a sorted array, if the sum is greater than the target, the right pointer must be moved leftwards to reduce the sum, not the left pointer."
+  },
+  {
+    "type": "debugging",
+    "question": "Identify and fix the bug in the C function intended to reverse an array in place.",
+    "code": "void reverse(int arr[], int n) {\n    for (int i = 0; i <= n/2; i++) {\n         int temp = arr[i];\n         arr[i] = arr[n - i];  // Bug: Out-of-bounds indexing\n         arr[n - i] = temp;\n    }\n}",
+    "answer": "Replace 'arr[n - i]' with 'arr[n - i - 1]' to correctly reference the last element.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "arrays",
+    "tags": ["reverse", "C programming", "indexing"],
+    "explanation": "Arrays in C are zero-indexed; the last element is at index n-1. Using 'n - i' leads to an out-of-bound error when i is 0."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the bubble sort implementation which goes out-of-bounds in the inner loop.",
+    "code": "void bubbleSort(int arr[], int n) {\n    for (int i = 0; i < n; i++) {\n         for (int j = 0; j < n - i; j++) {  // Bug: Incorrect loop boundary\n              if (arr[j] > arr[j+1]) {\n                  int temp = arr[j];\n                  arr[j] = arr[j+1];\n                  arr[j+1] = temp;\n              }\n         }\n    }\n}",
+    "answer": "Change the inner loop condition to 'j < n - i - 1'.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "arrays",
+    "tags": ["bubble sort", "loop boundaries", "C programming"],
+    "explanation": "The inner loop must stop at n - i - 1 to avoid accessing arr[j+1] when j equals n-i-1, which would be out-of-bounds."
+  },
+  {
+    "type": "debugging",
+    "question": "Debug the implementation of Kadane's algorithm for maximum subarray sum that fails for all-negative arrays.",
+    "code": "def find_max_subarray(arr):\n    max_sum = current_sum = 0\n    for num in arr:\n        current_sum = max(num, current_sum + num)\n        max_sum = max(max_sum, current_sum)\n    return max_sum",
+    "answer": "Initialize 'max_sum' and 'current_sum' with the first element of the array (or negative infinity) to handle all-negative arrays.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "arrays",
+    "tags": ["Kadane's algorithm", "edge cases", "maximum subarray"],
+    "explanation": "Initializing with 0 causes the algorithm to incorrectly return 0 for arrays where all elements are negative. Starting with the first element ensures correct results."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the bug in splitting an array into two halves, ensuring no element is lost.",
+    "code": "def split_array(arr):\n    mid = len(arr) // 2\n    left = arr[0:mid]\n    right = arr[mid+1:]\n    return left, right",
+    "answer": "Use 'right = arr[mid:]' instead of 'arr[mid+1:]' to include the middle element.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "arrays",
+    "tags": ["splitting", "slicing", "off-by-one"],
+    "explanation": "Excluding the middle element by using mid+1 leads to loss of data. The correct slicing ensures both halves collectively cover all elements."
+  },
+  {
+    "type": "debugging",
+    "question": "Correct the error in the function that inverts (negates) each element in an array.",
+    "code": "def invert_array(arr):\n    for i in range(len(arr)):\n         arr[i] = -arr[i+1]  # Bug: Incorrect indexing\n    return arr",
+    "answer": "Replace 'arr[i+1]' with 'arr[i]'.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "arrays",
+    "tags": ["inversion", "indexing", "logic"],
+    "explanation": "Using arr[i+1] leads to wrong values and eventually an IndexError. Each element should be negated individually using arr[i]."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the function that sums adjacent pairs in an array which fails when the array length is odd.",
+    "code": "def sum_adjacent(arr):\n    sums = []\n    for i in range(0, len(arr), 2):\n         sums.append(arr[i] + arr[i+1])  # Bug: May access out-of-bounds\n    return sums",
+    "answer": "Check if i+1 is within the bounds of the array before summing, or handle the last element separately.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "arrays",
+    "tags": ["summing", "edge case", "indexing"],
+    "explanation": "If the array has an odd number of elements, arr[i+1] will cause an IndexError. A conditional check or special handling for the last element is required."
+  },
+  {
+    "type": "debugging",
+    "question": "Fix the bug in the function intended to flatten a nested array.",
+    "code": "def flatten(arr):\n    flat = []\n    for sub in arr:\n         for item in sub:\n              flat.append(sub)  # Bug: Appending the sublist instead of the item\n    return flat",
+    "answer": "Append 'item' to the flat list instead of 'sub'.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "arrays",
+    "tags": ["flatten", "nested lists", "logic"],
+    "explanation": "The inner loop iterates over items in each sublist, so the item should be appended, not the sublist itself."
+  },
+  {
+    "type": "debugging",
+    "question": "Debug the binary search implementation that uses incorrect boundaries.",
+    "code": "def binary_search(arr, target):\n    left, right = 0, len(arr)\n    while left <= right:\n         mid = (left + right) // 2\n         if arr[mid] == target:\n             return mid\n         elif arr[mid] < target:\n             left = mid + 1\n         else:\n             right = mid - 1\n    return -1",
+    "answer": "Initialize 'right' as len(arr) - 1 instead of len(arr).",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "arrays",
+    "tags": ["binary search", "boundaries", "algorithm"],
+    "explanation": "Array indices go from 0 to len(arr)-1. Setting right to len(arr) causes an IndexError when mid equals len(arr)."
+  }
 ]
