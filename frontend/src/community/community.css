@@ -37,7 +37,7 @@
     gap: 30px;
     max-width: 1400px;
     margin: 0 auto;
-    padding-top: 40px;
+    padding-top: 4px;
     position: relative;
 }
 
@@ -48,10 +48,27 @@
 }
 
 .forum-header {
-    font-size: 36px;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 12px;
+    font-size: 2.7rem;
+    font-weight: 800;
+    color: #e0cde9;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    position: relative;
+    padding-bottom: 12px;
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
+
+.forum-header::after {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    width: 80px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #a879ff, #ffb6ff);
+    box-shadow: 0 0 12px #a879ff99;
+    margin-top: 10px;
 }
 
 .forum-desc {
@@ -277,13 +294,15 @@
 
 .community-sidebar {
     width: 280px;
-    background-color: #22184a;
+    background-color: #23143a;
     border-radius: 16px;
     padding: 24px;
     height: fit-content;
     position: sticky;
-    top: 40px;
+    top: 132px;
     border: 1px solid #333;
+    box-shadow: 0 4px 24px 0 #a879ff22, 0 1.5px 8px #a879ff11;
+    margin-top: 0;
 }
 
 .sidebar-title {
