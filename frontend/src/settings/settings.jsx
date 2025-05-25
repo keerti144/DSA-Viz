@@ -201,7 +201,7 @@ export const Settings = () => {
           {errorMessage && <div className="error-message">{errorMessage}</div>}
 
           <div className="button-cover">
-            <button className="settings-btn" onClick={handleSave}>Save Changes</button>
+            <button className="save-btn" onClick={handleSave}>Save Changes</button>
           </div>
         </section>
       </main>
