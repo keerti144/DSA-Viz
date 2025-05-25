@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import AlgoSidebar from '../AlgoSidebar';
+import Header from '../../../header/header.jsx';
+import Sidebar from '../../../sidebar/sidebar.jsx';
 import '../BaseVisualization.css';
 
 function getRandomArray() {
@@ -115,98 +117,104 @@ export default function SearchingVisualization({ algorithm }) {
     const sidebar = sidebarData[algorithm] || {};
 
     return (
-        <div className="base-vis-layout">
-            <div className="base-vis-main">
-                <div className="base-vis-header">
-                    <h1>{title}</h1>
-                </div>
-                <div className="base-vis-controls">
-                    <input
-                        type="text"
-                        value={input}
-                        onChange={e => setInput(e.target.value)}
-                        placeholder="Enter array (comma separated)"
-                        className="base-vis-input"
-                        disabled={started}
-                    />
-                    <button onClick={handleAdd} className="base-vis-btn" disabled={started || !input.trim()}>Set Array</button>
-                    <button onClick={handleRandom} className="base-vis-btn" disabled={started}>Random</button>
-                </div>
-                <div className="base-vis-controls">
-                    <input
-                        type="number"
-                        min="-999"
-                        max="9999"
-                        value={target}
-                        onChange={e => setTarget(e.target.value)}
-                        placeholder="Enter value to search"
-                        className="base-vis-input"
-                        disabled={started || array.length === 0}
-                    />
-                    <button onClick={handleStart} className="base-vis-btn" disabled={started || !target || array.length === 0}>Start Search</button>
-                    <button onClick={handleReset} className="base-vis-btn">Reset</button>
-                    {started && (
-                        <>
-                            <button onClick={handlePrev} disabled={stepIdx === 0} className="base-vis-btn">Previous</button>
-                            <button onClick={handleNext} disabled={stepIdx === steps.length - 1} className="base-vis-btn">Next</button>
-                        </>
-                    )}
-                </div>
-                <div className="base-vis-visualization" style={{ minHeight: 120 }}>
-                    {array.length === 0 ? (
-                        <div style={{ color: '#e879f9', fontWeight: 500, fontSize: 20, margin: '2rem 0' }}>Insert array to search</div>
-                    ) : (
-                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 0, margin: '2rem 0', flexWrap: 'wrap' }}>
-                            {displayArray.map((val, idx) => (
-                                <React.Fragment key={idx}>
-                                    <div
-                                        className="search-circle"
-                                        style={{
-                                            background: foundIdx === idx ? '#2ecc71' : highlightIdx === idx ? '#e879f9' : (range && idx >= range.left && idx <= range.right) ? '#f1c40f' : '#a879ff',
-                                            color: '#fff',
-                                            border: foundIdx === idx ? '3px solid #2ecc71' : highlightIdx === idx ? '3px solid #e879f9' : '2px solid #a879ff',
-                                            boxShadow: highlightIdx === idx ? '0 0 16px #e879f9' : '0 2px 8px #0002',
-                                            fontWeight: 700,
-                                            fontSize: 22,
-                                            width: 56,
-                                            height: 56,
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            borderRadius: '50%',
-                                            margin: '0 8px',
-                                            position: 'relative',
-                                            transition: 'background 0.3s, box-shadow 0.3s',
-                                        }}
-                                    >
-                                        {val}
-                                    </div>
-                                    {idx < displayArray.length - 1 && (
-                                        <span style={{ fontSize: 32, color: '#a879ff', margin: '0 2px', userSelect: 'none' }}>&rarr;</span>
-                                    )}
-                                </React.Fragment>
-                            ))}
+        <div style={{ display: 'flex', minHeight: '100vh', background: 'linear-gradient(135deg, #1e1e2f, #2a2a40)' }}>
+            <Sidebar />
+            <div style={{ flex: 1, marginLeft: 60 }}>
+                <Header />
+                <div className="base-vis-layout" style={{ paddingTop: 80 }}>
+                    <div className="base-vis-main">
+                        <div className="base-vis-header">
+                            <h1>{title}</h1>
                         </div>
-                    )}
+                        <div className="base-vis-controls">
+                            <input
+                                type="text"
+                                value={input}
+                                onChange={e => setInput(e.target.value)}
+                                placeholder="Enter array (comma separated)"
+                                className="base-vis-input"
+                                disabled={started}
+                            />
+                            <button onClick={handleAdd} className="base-vis-btn" disabled={started || !input.trim()}>Set Array</button>
+                            <button onClick={handleRandom} className="base-vis-btn" disabled={started}>Random</button>
+                        </div>
+                        <div className="base-vis-controls">
+                            <input
+                                type="number"
+                                min="-999"
+                                max="9999"
+                                value={target}
+                                onChange={e => setTarget(e.target.value)}
+                                placeholder="Enter value to search"
+                                className="base-vis-input"
+                                disabled={started || array.length === 0}
+                            />
+                            <button onClick={handleStart} className="base-vis-btn" disabled={started || !target || array.length === 0}>Start Search</button>
+                            <button onClick={handleReset} className="base-vis-btn">Reset</button>
+                            {started && (
+                                <>
+                                    <button onClick={handlePrev} disabled={stepIdx === 0} className="base-vis-btn">Previous</button>
+                                    <button onClick={handleNext} disabled={stepIdx === steps.length - 1} className="base-vis-btn">Next</button>
+                                </>
+                            )}
+                        </div>
+                        <div className="base-vis-visualization" style={{ minHeight: 120 }}>
+                            {array.length === 0 ? (
+                                <div style={{ color: '#e879f9', fontWeight: 500, fontSize: 20, margin: '2rem 0' }}>Insert array to search</div>
+                            ) : (
+                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 0, margin: '2rem 0', flexWrap: 'wrap' }}>
+                                    {displayArray.map((val, idx) => (
+                                        <React.Fragment key={idx}>
+                                            <div
+                                                className="search-circle"
+                                                style={{
+                                                    background: foundIdx === idx ? '#2ecc71' : highlightIdx === idx ? '#e879f9' : (range && idx >= range.left && idx <= range.right) ? '#f1c40f' : '#a879ff',
+                                                    color: '#fff',
+                                                    border: foundIdx === idx ? '3px solid #2ecc71' : highlightIdx === idx ? '3px solid #e879f9' : '2px solid #a879ff',
+                                                    boxShadow: highlightIdx === idx ? '0 0 16px #e879f9' : '0 2px 8px #0002',
+                                                    fontWeight: 700,
+                                                    fontSize: 22,
+                                                    width: 56,
+                                                    height: 56,
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    borderRadius: '50%',
+                                                    margin: '0 8px',
+                                                    position: 'relative',
+                                                    transition: 'background 0.3s, box-shadow 0.3s',
+                                                }}
+                                            >
+                                                {val}
+                                            </div>
+                                            {idx < displayArray.length - 1 && (
+                                                <span style={{ fontSize: 32, color: '#a879ff', margin: '0 2px', userSelect: 'none' }}>&rarr;</span>
+                                            )}
+                                        </React.Fragment>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        <div style={{ minHeight: 32, marginTop: 8, textAlign: 'center', color: '#e879f9', fontWeight: 500, fontSize: 18 }}>
+                            {started && steps.length > 0 && (
+                                isBinary
+                                    ? (steps[stepIdx].found
+                                        ? `Found ${target} at index ${steps[stepIdx].mid}`
+                                        : steps[stepIdx].done ? `${target} not found` : `Checking index ${steps[stepIdx].mid}`)
+                                    : (steps[stepIdx].found
+                                        ? `Found ${target} at index ${steps[stepIdx].idx}`
+                                        : steps[stepIdx].done ? `${target} not found` : `Checking index ${steps[stepIdx].idx}`)
+                            )}
+                        </div>
+                    </div>
+                    <div className="base-vis-sidebar">
+                        <AlgoSidebar
+                            algorithm={sidebar.algorithm}
+                            code={sidebar.code}
+                            explanation={sidebar.explanation}
+                        />
+                    </div>
                 </div>
-                <div style={{ minHeight: 32, marginTop: 8, textAlign: 'center', color: '#e879f9', fontWeight: 500, fontSize: 18 }}>
-                    {started && steps.length > 0 && (
-                        isBinary
-                            ? (steps[stepIdx].found
-                                ? `Found ${target} at index ${steps[stepIdx].mid}`
-                                : steps[stepIdx].done ? `${target} not found` : `Checking index ${steps[stepIdx].mid}`)
-                            : (steps[stepIdx].found
-                                ? `Found ${target} at index ${steps[stepIdx].idx}`
-                                : steps[stepIdx].done ? `${target} not found` : `Checking index ${steps[stepIdx].idx}`)
-                    )}
-                </div>
-            </div>
-            <div className="base-vis-sidebar">
-                <AlgoSidebar
-                    algorithm={sidebar.algorithm}
-                    code={sidebar.code}
-                    explanation={sidebar.explanation}
-                />
             </div>
         </div>
     );
