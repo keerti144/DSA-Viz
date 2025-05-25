@@ -361,3 +361,132 @@ Please return only the final notes content. Do not include meta-commentary, apol
         print(f"\nError in generate_notes: {e}")
         print("Full traceback:", traceback.format_exc())
         raise Exception("Failed to generate notes")
+
+def generate_roadmap(topic, main_outcome, target_date, time_commitment, roadmap_format='flexible',
+                    depth_level='beginner', learning_scope='broad', skip_basics=False,
+                    learning_style=None, learning_approach=None, include_theory=True,
+                    current_level='beginner', existing_skills=''):
+    try:
+        print("\nStarting generate_roadmap function")
+        print(f"API Key present: {bool(GROQ_API_KEY)}")
+        
+        if not GROQ_API_KEY:
+            raise Exception("Groq API key is not configured")
+
+        url = "https://api.groq.com/openai/v1/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {GROQ_API_KEY}",
+            "Content-Type": "application/json"
+        }
+
+        # Construct the prompt based on user preferences
+        prompt = f"""You are an expert technical educator and career advisor, skilled at creating structured learning roadmaps. Your goal is to produce a comprehensive learning path based on the following input:
+
+---
+🧠 **Topic**: {topic}
+🎯 **Main Outcome**: {main_outcome}
+⏰ **Target Date**: {target_date}
+⏱️ **Time Commitment**: {time_commitment}
+📅 **Roadmap Format**: {roadmap_format}
+📚 **Depth Level**: {depth_level}
+🎯 **Learning Scope**: {learning_scope}
+📖 **Skip Basics**: {'Yes' if skip_basics else 'No'}
+🎨 **Learning Style**: {', '.join(learning_style) if learning_style else 'Not specified'}
+📝 **Learning Approach**: {', '.join(learning_approach) if learning_approach else 'Not specified'}
+📚 **Include Theory**: {'Yes' if include_theory else 'No'}
+💡 **Current Level**: {current_level}
+🔧 **Existing Skills**: {existing_skills}
+
+Please create a detailed roadmap that includes:
+
+# 🎯 Learning Roadmap: {topic}
+
+## 📋 Overview
+- **Goal**: {main_outcome}
+- **Target Date**: {target_date}
+- **Time Commitment**: {time_commitment}
+- **Current Level**: {current_level}
+
+## 🚀 Learning Path
+
+### 1️⃣ Prerequisites
+[List any required prerequisites if not skipping basics]
+
+### 2️⃣ Core Concepts
+[Break down the main concepts to master]
+
+### 3️⃣ Practical Projects
+[Include hands-on projects and exercises]
+
+### 4️⃣ Recommended Resources
+[Match resources to their learning style]
+
+### 5️⃣ Milestones & Checkpoints
+[Set clear milestones with dates]
+
+### 6️⃣ Learning Strategies
+[Based on their preferred approach]
+
+### 7️⃣ Progress Tracking
+[Methods to track and measure progress]
+
+### 8️⃣ Community & Support
+[Relevant communities and resources]
+
+Format the response with:
+- Clear section headers using markdown
+- Emojis for visual organization
+- Bullet points for easy reading
+- Time estimates for each section
+- Practical exercises or mini-projects
+- Learning tips specific to their style
+- Progress tracking methods
+- Community resources
+
+Make it practical, achievable, and well-structured for the specified experience level and time commitment.
+Consider their learning style when recommending resources and activities.
+Include theory only if requested.
+Adjust the depth based on their current level and desired scope.
+"""
+
+        data = {
+            "model": "llama-3.3-70b-versatile",
+            "messages": [
+                {"role": "system", "content": "You are an expert educator and career advisor. Your task is to generate comprehensive, well-structured learning roadmaps based on the given requirements. Use markdown formatting, emojis, and clear organization to make the roadmap visually appealing and easy to follow."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.7,
+            "max_tokens": 4000,
+            "top_p": 1,
+            "stream": False
+        }
+
+        print("\nSending request to Groq API")
+        response = requests.post(url, headers=headers, json=data)
+        print(f"Response status code: {response.status_code}")
+        
+        if response.status_code != 200:
+            error_message = f"Groq API error: {response.status_code}"
+            try:
+                error_details = response.json()
+                error_message += f" - {error_details}"
+            except:
+                error_message += f" - {response.text}"
+            print(f"Error response: {error_message}")
+            raise Exception(error_message)
+
+        response_data = response.json()
+        print("\nReceived response from Groq API")
+        
+        if "choices" not in response_data or not response_data["choices"]:
+            print("Invalid response format:", response_data)
+            raise Exception("Invalid response format from Groq API")
+
+        roadmap = response_data["choices"][0]["message"]["content"]
+        print("\nSuccessfully extracted roadmap from response")
+        return roadmap
+
+    except Exception as e:
+        print(f"\nError in generate_roadmap: {e}")
+        print("Full traceback:", traceback.format_exc())
+        raise Exception("Failed to generate roadmap")

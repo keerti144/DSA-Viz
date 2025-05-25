@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../header/header";
 import Sidebar from "../sidebar/sidebar";
 import "./roadmap.css";
 import roadmapImg from '../assets/roadmap.png';
 import { useNavigate } from 'react-router-dom';
+import RoadmapGenerator from './RoadmapGenerator';
+import { useAuth } from '../contexts/AuthContext';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const roadmapData = {
   recommended: [
@@ -111,11 +115,18 @@ const defaultTopics = Object.keys(topicDetails);
 
 export const Roadmap = () => {
   const [expandedCard, setExpandedCard] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedTopics, setSelectedTopics] = useState([]);
-  const [topicLevels, setTopicLevels] = useState({});
-  const [customRoadmap, setCustomRoadmap] = useState(null);
+  const [showRoadmapGenerator, setShowRoadmapGenerator] = useState(false);
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+  const [savedRoadmaps, setSavedRoadmaps] = useState([]);
+  const [toast, setToast] = useState('');
+  
+  // State to hold the roadmap data to be passed to the generator modal
+  const [roadmapToView, setRoadmapToView] = useState(null);
+
+  // State for renaming functionality
+  const [renamingRoadmapId, setRenamingRoadmapId] = useState(null);
+  const [newRoadmapName, setNewRoadmapName] = useState('');
 
   const toggleCard = (section, index, item) => {
     // On card click, navigate to details page for that topic
@@ -126,36 +137,6 @@ export const Roadmap = () => {
     const id = `${section}-${index}`;
     setExpandedCard(expandedCard === id ? null : id);
   };
-
-  // Modal logic
-  const openModal = () => {
-    setShowModal(true);
-    setSelectedTopics([]);
-    setTopicLevels({});
-    setCustomRoadmap(null);
-  };
-  const closeModal = () => setShowModal(false);
-
-  const handleTopicToggle = (topic) => {
-    setSelectedTopics((prev) =>
-      prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic]
-    );
-  };
-  const handleLevelChange = (topic, level) => {
-    setTopicLevels((prev) => ({ ...prev, [topic]: level }));
-  };
-  const handleCreateRoadmap = () => {
-    if (selectedTopics.length === 0) return;
-    setCustomRoadmap(selectedTopics.map((topic) => {
-      const level = topicLevels[topic] || 'basics';
-      return {
-        topic,
-        level,
-        ...topicDetails[topic][level],
-      };
-    }));
-  };
-  const totalTime = customRoadmap ? customRoadmap.reduce((sum, t) => sum + t.time, 0) : 0;
 
   const renderCards = (data, sectionName) =>
     data.map((item, index) => {
@@ -173,6 +154,96 @@ export const Roadmap = () => {
       );
     });
 
+  const loadSavedRoadmaps = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/get-saved-roadmaps/${currentUser.uid}`);
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to load saved roadmaps');
+      }
+
+      setSavedRoadmaps(data.saved_roadmaps);
+    } catch (err) {
+      console.error('Error loading saved roadmaps:', err);
+    }
+  };
+
+  const handleDeleteRoadmap = async (roadmapId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/delete-roadmap/${currentUser.uid}/${roadmapId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete roadmap');
+      }
+
+      setSavedRoadmaps(prev => prev.filter(r => r.id !== roadmapId));
+      setToast('Roadmap deleted successfully!');
+      setTimeout(() => setToast(''), 2000);
+    } catch (err) {
+      console.error('Error deleting roadmap:', err);
+    }
+  };
+  
+  // Function to handle viewing a saved roadmap
+  const handleViewSavedRoadmap = (roadmap) => {
+    setRoadmapToView(roadmap);
+    setShowRoadmapGenerator(true);
+  };
+
+  // Function to start renaming a roadmap
+  const startRenamingRoadmap = (roadmap) => {
+    setRenamingRoadmapId(roadmap.id);
+    setNewRoadmapName(roadmap.topic);
+  };
+
+  // Function to handle renaming a roadmap
+  const handleRenameRoadmap = async (roadmapId) => {
+    if (!newRoadmapName.trim()) {
+      // Prevent renaming to an empty name
+      setRenamingRoadmapId(null);
+      setNewRoadmapName('');
+      return;
+    }
+    try {
+      // Placeholder for backend API call to rename roadmap
+      console.log(`Attempting to rename roadmap ${roadmapId} to ${newRoadmapName}`);
+      // After successful backend call, update the frontend state
+      setSavedRoadmaps(savedRoadmaps.map(roadmap => 
+        roadmap.id === roadmapId ? { ...roadmap, topic: newRoadmapName } : roadmap
+      ));
+      setToast('Roadmap renamed successfully!');
+      setTimeout(() => setToast(''), 2000);
+    } catch (err) {
+      console.error('Error renaming roadmap:', err);
+      setToast('Failed to rename roadmap.');
+      setTimeout(() => setToast(''), 2000);
+    } finally {
+      setRenamingRoadmapId(null);
+      setNewRoadmapName('');
+    }
+  };
+
+  // Function to cancel renaming
+  const cancelRenaming = () => {
+    setRenamingRoadmapId(null);
+    setNewRoadmapName('');
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      loadSavedRoadmaps();
+    }
+  }, [currentUser]);
+
+  // Function to close the generator modal and reset roadmapToView state
+  const handleCloseGenerator = () => {
+    setShowRoadmapGenerator(false);
+    setRoadmapToView(null);
+  };
+
   return (
     <div className="roadmap-page">
       <Header />
@@ -180,65 +251,102 @@ export const Roadmap = () => {
       <div className="roadmap-container">
         <h1 className="text-wrapper">Roadmap</h1>
         <div className="action-buttons">
-          <button className="btn" onClick={openModal}>Generate Roadmap</button>
+          <button className="btn" onClick={() => setShowRoadmapGenerator(true)}>Generate Roadmap with AI</button>
         </div>
+        
+        {/* My Roadmaps Section - Moved to Top */}
+        <div className="saved-roadmaps-section">
+          <h2>My Roadmaps</h2>
+          {savedRoadmaps.length === 0 ? (
+            <p className="no-roadmaps">No saved roadmaps yet. Generate your first roadmap to get started!</p>
+          ) : (
+            <div className="saved-roadmaps-grid">
+              {savedRoadmaps.map(roadmap => (
+                <div key={roadmap.id} className="saved-roadmap-card">
+                   {renamingRoadmapId === roadmap.id ? (
+                    <div className="rename-input-container">
+                      <input
+                        type="text"
+                        value={newRoadmapName}
+                        onChange={(e) => setNewRoadmapName(e.target.value)}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            handleRenameRoadmap(roadmap.id);
+                          }
+                        }}
+                        className="rename-input"
+                      />
+                      <button className="rename-action-button save" onClick={() => handleRenameRoadmap(roadmap.id)}>
+                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                      </button>
+                      <button className="rename-action-button cancel" onClick={cancelRenaming}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="roadmap-header-with-rename">
+                      <h3>{roadmap.topic}</h3>
+                      <button className="rename-button" onClick={() => startRenamingRoadmap(roadmap)}>
+                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                      </button>
+                    </div>
+                  )}
+
+                  <div className="roadmap-details">
+                    <p><strong>Goal:</strong> {roadmap.main_outcome}</p>
+                    <p><strong>Target Date:</strong> {new Date(roadmap.target_date).toLocaleDateString()}</p>
+                    <p><strong>Time Commitment:</strong> {roadmap.time_commitment}</p>
+                  </div>
+
+                  <div className="roadmap-actions">
+                    <button 
+                      className="view-button"
+                      onClick={() => handleViewSavedRoadmap(roadmap)}
+                    >
+                      View Roadmap
+                    </button>
+                    <button 
+                      className="delete-button"
+                      onClick={() => handleDeleteRoadmap(roadmap.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Recommended Roadmaps Section */}
         <div className="section">
           <h2>Recommended Roadmaps</h2>
           <div className="grid">
             {renderCards(roadmapData.recommended, 'recommended')}
           </div>
         </div>
+
+        {/* Most Used Roadmaps Section */}
         <div className="section">
           <h2>Most Used Roadmaps</h2>
           <div className="grid">
             {renderCards(roadmapData.popular, 'popular')}
           </div>
         </div>
+
       </div>
-      {/* Modal for custom roadmap */}
-      {showModal && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal" onClick={e => e.stopPropagation()}>
-            <button className="close-btn" onClick={closeModal}>&times;</button>
-            <h2>Create Your Custom Roadmap</h2>
-            <div className="topic-list">
-              {defaultTopics.map(topic => (
-                <div key={topic} className={`topic-item${selectedTopics.includes(topic) ? ' selected' : ''}`}
-                  onClick={() => handleTopicToggle(topic)}>
-                  <span>{topic}</span>
-                  {selectedTopics.includes(topic) && (
-                    <div className="level-select">
-                      <button className={topicLevels[topic] === 'basics' ? 'level-btn selected' : 'level-btn'} onClick={e => { e.stopPropagation(); handleLevelChange(topic, 'basics'); }}>Basics</button>
-                      <button className={topicLevels[topic] === 'intermediate' ? 'level-btn selected' : 'level-btn'} onClick={e => { e.stopPropagation(); handleLevelChange(topic, 'intermediate'); }}>Intermediate</button>
-                      <button className={topicLevels[topic] === 'expert' ? 'level-btn selected' : 'level-btn'} onClick={e => { e.stopPropagation(); handleLevelChange(topic, 'expert'); }}>Expert</button>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-            <button className="btn" onClick={handleCreateRoadmap} style={{ marginTop: 16 }}>Generate Roadmap</button>
-            {customRoadmap && (
-              <div className="custom-timeline">
-                <h3>Your Roadmap Plan</h3>
-                <div className="timeline-bar">
-                  {customRoadmap.map((t, i) => (
-                    <div
-                      key={t.topic}
-                      className="timeline-block"
-                      style={{ flex: t.time, background: `hsl(${(i * 40) % 360},70%,60%)` }}
-                    >
-                      <span>{t.topic} <span className="level-label">({t.level})</span></span>
-                      <ul className="subtopic-list">
-                        {t.subtopics.map(sub => <li key={sub}>{sub}</li>)}
-                      </ul>
-                      <span className="timeline-days">~{t.time}d</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="timeline-total">Total: ~{totalTime} days</div>
-              </div>
-            )}
-          </div>
+
+      {/* AI Roadmap Generator */}
+      {showRoadmapGenerator && (
+        <RoadmapGenerator 
+          onClose={handleCloseGenerator} 
+          savedRoadmapData={roadmapToView} // Pass the saved roadmap data here
+        />
+      )}
+
+      {toast && (
+        <div className="toast-notification">
+          {toast}
         </div>
       )}
     </div>
