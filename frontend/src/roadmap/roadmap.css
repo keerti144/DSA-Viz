@@ -476,9 +476,11 @@
 
 .saved-roadmaps-section {
   margin-top: 40px;
-  padding-top: 0;
-  border-top: none;
-  background: none;
+  padding: 36px 24px 32px 24px;
+  border-radius: 18px;
+  background: #211135 !important;
+  box-shadow: 0 4px 24px #a879ff22, 0 1.5px 8px #a879ff11;
+  border: 1.5px solid #2d1850;
 }
 
 .saved-roadmaps-section h2 {
@@ -497,7 +499,7 @@
 }
 
 .saved-roadmap-card {
-  background: #23143a;
+  background: #211135 !important;
   padding: 24px 20px 18px 20px;
   border-radius: 18px;
   color: #fff;
