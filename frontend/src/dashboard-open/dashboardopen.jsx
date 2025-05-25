@@ -130,121 +130,123 @@ export const DashboardOpen = () => {
         </div>
         
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={3}>
-            {/* User Stats */}
-            <Grid item xs={12} md={4}>
-              <Paper className="streak-box" sx={{ p: 2, display: 'flex', flexDirection: 'column', bgcolor: 'transparent' }}>
-                <Typography variant="h6" gutterBottom color="white">
-                  Your Stats
-                </Typography>
-                <List>
-                  <ListItem>
-                    <ListItemText
-                      primary="Current Level"
-                      secondary={`Level ${performanceData?.overall_stats?.level || 1}`}
-                      primaryTypographyProps={{ color: 'white' }}
-                      secondaryTypographyProps={{ color: '#b388ff' }}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText
-                      primary="XP Points"
-                      secondary={performanceData?.overall_stats?.totalPoints || 0}
-                      primaryTypographyProps={{ color: 'white' }}
-                      secondaryTypographyProps={{ color: '#b388ff' }}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText
-                      primary="Current Streak"
-                      secondary={`${performanceData?.overall_stats?.currentStreak || 0} days`}
-                      primaryTypographyProps={{ color: 'white' }}
-                      secondaryTypographyProps={{ color: '#b388ff' }}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText
-                      primary="Longest Streak"
-                      secondary={`${performanceData?.overall_stats?.longestStreak || 0} days`}
-                      primaryTypographyProps={{ color: 'white' }}
-                      secondaryTypographyProps={{ color: '#b388ff' }}
-                    />
-                  </ListItem>
-                </List>
-              </Paper>
-            </Grid>
-
-            {/* Topic Completion Chart */}
-            <Grid item xs={12} md={8}>
-              <Paper className="progress-overview" sx={{ p: 2, display: 'flex', flexDirection: 'column', bgcolor: 'transparent' }}>
-                <Typography variant="h6" gutterBottom color="white">
-                  Topic Completion
-                </Typography>
-                {chartData.length > 0 ? (
-                  <ResponsiveContainer width="100%" height={300}>
-                    <LineChart
-                      data={chartData}
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-                      <XAxis dataKey="topic" stroke="#fff" />
-                      <YAxis domain={[0, 100]} stroke="#fff" />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: '#1e1230',
-                          border: '1px solid #6a3f92',
-                          color: '#fff'
-                        }}
-                      />
-                      <Legend />
-                      <Line
-                        type="monotone"
-                        dataKey="completion"
-                        stroke="#b388ff"
-                        name="Completion %"
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                ) : (
-                  <Typography variant="body1" align="center" sx={{ mt: 2 }} color="white">
-                    No topic completion data available
+          <div className="dashboard-row">
+            <Grid container spacing={3}>
+              {/* User Stats */}
+              <Grid item xs={12} md={4}>
+                <Paper className="streak-box" sx={{ p: 2, display: 'flex', flexDirection: 'column', bgcolor: 'transparent' }}>
+                  <Typography variant="h6" gutterBottom color="white">
+                    Your Stats
                   </Typography>
-                )}
-              </Paper>
-            </Grid>
-
-            {/* Leaderboard */}
-            <Grid item xs={12}>
-              <Paper className="leaderboard-box" sx={{ p: 2, bgcolor: 'transparent' }}>
-                <Typography variant="h6" gutterBottom color="white">
-                  Leaderboard
-                </Typography>
-                <List>
-                  {leaderboard.length > 0 ? (
-                    leaderboard.map((entry, index) => (
-                      <React.Fragment key={entry.user_id || index}>
-                        <ListItem>
-                          <ListItemText
-                            primary={`#${index + 1} ${entry.username}`}
-                            secondary={`Level ${entry.level} - ${entry.xp_points} XP`}
-                            primaryTypographyProps={{ color: 'white' }}
-                            secondaryTypographyProps={{ color: '#b388ff' }}
-                          />
-                        </ListItem>
-                        {index < leaderboard.length - 1 && <Divider sx={{ bgcolor: 'rgba(255, 255, 255, 0.1)' }} />}
-                      </React.Fragment>
-                    ))
-                  ) : (
+                  <List>
                     <ListItem>
-                      <ListItemText 
-                        primary="No leaderboard data available"
+                      <ListItemText
+                        primary="Current Level"
+                        secondary={`Level ${performanceData?.overall_stats?.level || 1}`}
                         primaryTypographyProps={{ color: 'white' }}
+                        secondaryTypographyProps={{ color: '#b388ff' }}
                       />
                     </ListItem>
+                    <ListItem>
+                      <ListItemText
+                        primary="XP Points"
+                        secondary={performanceData?.overall_stats?.totalPoints || 0}
+                        primaryTypographyProps={{ color: 'white' }}
+                        secondaryTypographyProps={{ color: '#b388ff' }}
+                      />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText
+                        primary="Current Streak"
+                        secondary={`${performanceData?.overall_stats?.currentStreak || 0} days`}
+                        primaryTypographyProps={{ color: 'white' }}
+                        secondaryTypographyProps={{ color: '#b388ff' }}
+                      />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText
+                        primary="Longest Streak"
+                        secondary={`${performanceData?.overall_stats?.longestStreak || 0} days`}
+                        primaryTypographyProps={{ color: 'white' }}
+                        secondaryTypographyProps={{ color: '#b388ff' }}
+                      />
+                    </ListItem>
+                  </List>
+                </Paper>
+              </Grid>
+
+              {/* Topic Completion Chart */}
+              <Grid item xs={12} md={8}>
+                <Paper className="progress-overview" sx={{ p: 2, display: 'flex', flexDirection: 'column', bgcolor: 'transparent' }}>
+                  <Typography variant="h6" gutterBottom color="white">
+                    Topic Completion
+                  </Typography>
+                  {chartData.length > 0 ? (
+                    <ResponsiveContainer width="100%" height={300}>
+                      <LineChart
+                        data={chartData}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                        <XAxis dataKey="topic" stroke="#fff" />
+                        <YAxis domain={[0, 100]} stroke="#fff" />
+                        <Tooltip 
+                          contentStyle={{ 
+                            backgroundColor: '#1e1230',
+                            border: '1px solid #6a3f92',
+                            color: '#fff'
+                          }}
+                        />
+                        <Legend />
+                        <Line
+                          type="monotone"
+                          dataKey="completion"
+                          stroke="#b388ff"
+                          name="Completion %"
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  ) : (
+                    <Typography variant="body1" align="center" sx={{ mt: 2 }} color="white">
+                      No topic completion data available
+                    </Typography>
                   )}
-                </List>
-              </Paper>
+                </Paper>
+              </Grid>
             </Grid>
+          </div>
+
+          {/* Leaderboard */}
+          <Grid item xs={12}>
+            <Paper className="leaderboard-box" sx={{ p: 2, bgcolor: 'transparent' }}>
+              <Typography variant="h6" gutterBottom color="white">
+                Leaderboard
+              </Typography>
+              <List>
+                {leaderboard.length > 0 ? (
+                  leaderboard.map((entry, index) => (
+                    <React.Fragment key={entry.user_id || index}>
+                      <ListItem>
+                        <ListItemText
+                          primary={`#${index + 1} ${entry.username}`}
+                          secondary={`Level ${entry.level} - ${entry.xp_points} XP`}
+                          primaryTypographyProps={{ color: 'white' }}
+                          secondaryTypographyProps={{ color: '#b388ff' }}
+                        />
+                      </ListItem>
+                      {index < leaderboard.length - 1 && <Divider sx={{ bgcolor: 'rgba(255, 255, 255, 0.1)' }} />}
+                    </React.Fragment>
+                  ))
+                ) : (
+                  <ListItem>
+                    <ListItemText 
+                      primary="No leaderboard data available"
+                      primaryTypographyProps={{ color: 'white' }}
+                    />
+                  </ListItem>
+                )}
+              </List>
+            </Paper>
           </Grid>
         </Container>
       </div>

@@ -182,4 +182,24 @@
   color: white !important;
 }
 
+.dashboard-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.dashboard-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid #a084e8;
+  border-radius: 12px;
+  padding: 32px 24px;
+  min-width: 320px;
+  min-height: 320px;
+  box-sizing: border-box;
+  flex: 1 1 0;
+  max-width: 480px;
+}
+
 

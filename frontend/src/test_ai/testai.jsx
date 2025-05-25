@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Sidebar from "../sidebar/sidebar.jsx";
+import Header from "../header/header.jsx";
 import './testai.css';
 
 const DSA_TOPICS = [
@@ -175,6 +177,10 @@ export const TestAI = () => {
 
     return (
         <div className="testai-container">
+            <Header />
+            <Sidebar />
+            <br />
+            <br />
             <h1>Generate Your AI Test</h1>
 
             {loading && (
