@@ -12,7 +12,8 @@ from email.mime.multipart import MIMEMultipart
 from flask_cors import CORS
 import os
 from config import Config
-from groq_api import generate_notes, get_custom_questions
+from groq_api import generate_notes, get_custom_questions, generate_roadmap
+import uuid
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -509,5 +510,126 @@ def generate_questions_endpoint():
         return jsonify({'questions': questions}), 200
     except Exception as e:
         logger.error(f"Error in generate_questions_endpoint: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({'error': str(e)}), 500
+
+@routes_bp.route("/generate-roadmap", methods=['POST'])
+def generate_roadmap_endpoint():
+    try:
+        data = request.get_json()
+        topic = data.get('topic')
+        main_outcome = data.get('main_outcome')
+        target_date = data.get('target_date')
+        time_commitment = data.get('time_commitment')
+        roadmap_format = data.get('roadmap_format', 'flexible')
+        depth_level = data.get('depth_level', 'beginner')
+        learning_scope = data.get('learning_scope', 'broad')
+        skip_basics = data.get('skip_basics', False)
+        learning_style = data.get('learning_style', [])
+        learning_approach = data.get('learning_approach', [])
+        include_theory = data.get('include_theory', True)
+        current_level = data.get('current_level', 'beginner')
+        existing_skills = data.get('existing_skills', '')
+
+        if not topic or not main_outcome or not target_date or not time_commitment:
+            return jsonify({'error': 'Topic, main outcome, target date, and time commitment are required'}), 400
+
+        roadmap = generate_roadmap(
+            topic=topic,
+            main_outcome=main_outcome,
+            target_date=target_date,
+            time_commitment=time_commitment,
+            roadmap_format=roadmap_format,
+            depth_level=depth_level,
+            learning_scope=learning_scope,
+            skip_basics=skip_basics,
+            learning_style=learning_style,
+            learning_approach=learning_approach,
+            include_theory=include_theory,
+            current_level=current_level,
+            existing_skills=existing_skills
+        )
+
+        return jsonify({'roadmap': roadmap}), 200
+    except Exception as e:
+        logger.error(f"Error in generate_roadmap_endpoint: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({'error': str(e)}), 500
+
+@routes_bp.route("/save-roadmap", methods=['POST'])
+def save_roadmap():
+    try:
+        data = request.get_json()
+        uid = data.get('uid')
+        roadmap_data = data.get('roadmap_data')
+        
+        if not uid or not roadmap_data:
+            return jsonify({'error': 'User ID and roadmap data are required'}), 400
+            
+        # Add timestamp and ID to roadmap data
+        roadmap_data['timestamp'] = datetime.now()
+        roadmap_data['id'] = str(uuid.uuid4())
+        
+        # Save to Firestore
+        user_ref = db.collection('users').document(uid)
+        user_doc = user_ref.get()
+        
+        if not user_doc.exists:
+            user_ref.set({'saved_roadmaps': []})
+            
+        user_ref.update({
+            'saved_roadmaps': firestore.ArrayUnion([roadmap_data])
+        })
+        
+        return jsonify({'message': 'Roadmap saved successfully', 'roadmap_id': roadmap_data['id']}), 200
+    except Exception as e:
+        logger.error(f"Error in save_roadmap: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({'error': str(e)}), 500
+
+@routes_bp.route("/get-saved-roadmaps/<uid>", methods=['GET'])
+def get_saved_roadmaps(uid):
+    try:
+        user_ref = db.collection('users').document(uid)
+        user_doc = user_ref.get()
+        
+        if not user_doc.exists:
+            return jsonify({'saved_roadmaps': []}), 200
+            
+        user_data = user_doc.to_dict()
+        saved_roadmaps = user_data.get('saved_roadmaps', [])
+        
+        # Sort roadmaps by timestamp in descending order
+        saved_roadmaps.sort(key=lambda x: x.get('timestamp', datetime.min), reverse=True)
+        
+        return jsonify({'saved_roadmaps': saved_roadmaps}), 200
+    except Exception as e:
+        logger.error(f"Error in get_saved_roadmaps: {str(e)}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return jsonify({'error': str(e)}), 500
+
+@routes_bp.route("/delete-roadmap/<uid>/<roadmap_id>", methods=['DELETE'])
+def delete_roadmap(uid, roadmap_id):
+    try:
+        user_ref = db.collection('users').document(uid)
+        user_doc = user_ref.get()
+        
+        if not user_doc.exists:
+            return jsonify({'error': 'User not found'}), 404
+            
+        user_data = user_doc.to_dict()
+        saved_roadmaps = user_data.get('saved_roadmaps', [])
+        
+        # Find and remove the roadmap
+        updated_roadmaps = [r for r in saved_roadmaps if r.get('id') != roadmap_id]
+        
+        if len(updated_roadmaps) == len(saved_roadmaps):
+            return jsonify({'error': 'Roadmap not found'}), 404
+            
+        user_ref.update({'saved_roadmaps': updated_roadmaps})
+        
+        return jsonify({'message': 'Roadmap deleted successfully'}), 200
+    except Exception as e:
+        logger.error(f"Error in delete_roadmap: {str(e)}")
         logger.error(f"Traceback: {traceback.format_exc()}")
         return jsonify({'error': str(e)}), 500
