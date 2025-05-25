@@ -52,14 +52,28 @@ const TestQuestions = () => {
           questionType = 'debugging';
         }
 
-        if (topic) {
-          console.log('Filtering questions by topic:', topic);
+        // Map topic to the correct format in Firestore
+        let mappedTopic = topic;
+        if (topic === 'graph') {
+          mappedTopic = 'graphs';  // Map singular to plural to match stored data
+        }
+
+        // Log the exact values being used in the query
+        console.log('Query parameters:', {
+          difficulty: difficulty,
+          type: questionType,
+          topic: mappedTopic ? mappedTopic.toLowerCase() : 'all',
+          limit: questionCount
+        });
+
+        if (mappedTopic) {
+          console.log('Filtering questions by topic:', mappedTopic.toLowerCase());
           // If topic is specified, filter by topic
           q = query(
             questionsRef,
-            where('difficulty', '==', difficulty),
-            where('type', '==', questionType),
-            where('topic', '==', topic.toLowerCase()),
+            where('difficulty', '==', difficulty.toLowerCase()),  // Ensure lowercase
+            where('type', '==', questionType.toLowerCase()),      // Ensure lowercase
+            where('topic', '==', mappedTopic.toLowerCase()),
             limit(questionCount)
           );
         } else {
@@ -67,37 +81,39 @@ const TestQuestions = () => {
           // If no topic specified, get questions for all topics
           q = query(
             questionsRef,
-            where('difficulty', '==', difficulty),
-            where('type', '==', questionType),
+            where('difficulty', '==', difficulty.toLowerCase()),  // Ensure lowercase
+            where('type', '==', questionType.toLowerCase()),      // Ensure lowercase
             limit(questionCount)
           );
         }
 
         console.log('Executing Firestore query with filters:', {
-          difficulty,
-          type: questionType,
-          topic: topic ? topic.toLowerCase() : 'all',
+          difficulty: difficulty.toLowerCase(),
+          type: questionType.toLowerCase(),
+          topic: mappedTopic ? mappedTopic.toLowerCase() : 'all',
           limit: questionCount
         });
 
         const querySnapshot = await getDocs(q);
         console.log('Query completed, documents found:', querySnapshot.size);
+        console.log('First few documents:', querySnapshot.docs.slice(0, 3).map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })));
 
         const fetchedQuestions = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         }));
 
-        console.log('Fetched questions:', fetchedQuestions);
-
         if (fetchedQuestions.length === 0) {
           console.error('No questions found for criteria:', { 
-            difficulty, 
-            testMode: questionType, 
+            difficulty: difficulty.toLowerCase(), 
+            testMode: questionType.toLowerCase(), 
             questionCount, 
-            topic 
+            topic: mappedTopic ? mappedTopic.toLowerCase() : 'all'
           });
-          setError(`No questions found for ${topic || 'selected topic'} with ${difficulty} difficulty`);
+          setError(`No questions found for ${mappedTopic || 'selected topic'} with ${difficulty} difficulty`);
           setLoading(false);
           return;
         }

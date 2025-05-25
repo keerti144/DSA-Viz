@@ -1,0 +1,43 @@
+[
+  {
+    "type": "debugging",
+    "question": "Identify the bug in this Fibonacci code snippet:\n\n```python\ndef fib(n):\n  if n <= 1:\n    return n\n  return fib(n-1) + fib(n-2)\n\ncache = {}\nprint(fib(5))\n```",
+    "code": "def fib(n):\n  if n <= 1:\n    return n\n  return fib(n-1) + fib(n-2)\n\ncache = {}\nprint(fib(5))",
+    "answer": "The code lacks memoization to optimize repeated calls, so cache is unused.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "dynamic programming",
+    "tags": [
+      "fibonacci",
+      "memoization",
+      "optimization"
+    ],
+    "explanation": "Although cache dictionary is defined, it's never used; hence the function is exponential instead of linear time."
+  },
+  {
+    "type": "debugging",
+    "question": "What's wrong with this code for computing the nth Fibonacci number using DP?\n\n```python\ndp = [0]*n\ndp[0] = 0\ndp[1] = 1\nfor i in range(2, n):\n  dp[i] = dp[i-1] + dp[i-2]\nprint(dp[n])\n```",
+    "code": "dp = [0]*n\ndp[0] = 0\ndp[1] = 1\nfor i in range(2, n):\n  dp[i] = dp[i-1] + dp[i-2]\nprint(dp[n])",
+    "answer": "IndexError: dp[n] is out of range because dp has indices 0 to n-1; print should be dp[n-1].",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "dynamic programming",
+    "tags": [
+      "index error",
+      "array bounds"
+    ]
+  },
+  {
+    "type": "debugging",
+    "question": "Why does this climbing stairs code fail for n=0?\n\n```python\ndef climbStairs(n):\n  dp = [0]*(n+1)\n  dp[1] = 1\n  dp[2] = 2\n  for i in range(3, n+1):\n    dp[i] = dp[i-1] + dp[i-2]\n  return dp[n]\n\nprint(climbStairs(0))\n```",
+    "code": "def climbStairs(n):\n  dp = [0]*(n+1)\n  dp[1] = 1\n  dp[2] = 2\n  for i in range(3, n+1):\n    dp[i] = dp[i-1] + dp[i-2]\n  return dp[n]\n\nprint(climbStairs(0))",
+    "answer": "IndexError: dp[1] and dp[2] assignments fail when n < 2; need base case handling.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "dynamic programming",
+    "tags": [
+      "index error",
+      "base case"
+    ]
+  }
+]

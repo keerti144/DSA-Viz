@@ -1,0 +1,202 @@
+[
+  {
+    "type": "interview",
+    "question": "What is a linked list and how does it differ from an array?",
+    "expected_answer": "A linked list is a data structure where elements are stored in nodes, each pointing to the next. Unlike arrays, linked lists don't require contiguous memory and allow efficient insertions/deletions.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "linked list",
+    "tags": ["definition", "comparison"],
+    "explanation": "Arrays are fixed-size and use indexing. Linked lists are dynamic and use pointers to connect nodes."
+  },
+  {
+    "type": "interview",
+    "question": "How do you traverse a singly linked list?",
+    "expected_answer": "Start at the head and move to the next node using a loop until the current node becomes null.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "linked list",
+    "tags": ["traversal"],
+    "explanation": "A loop is used to follow the 'next' pointer from one node to another until the end."
+  },
+  {
+    "type": "interview",
+    "question": "What are the advantages of using a linked list over an array?",
+    "expected_answer": "Linked lists allow dynamic memory allocation, efficient insertions/deletions, and don't require resizing.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "linked list",
+    "tags": ["advantages"],
+    "explanation": "Linked lists offer better performance for frequent insertions/removals compared to arrays."
+  },
+  {
+    "type": "interview",
+    "question": "What are the types of linked lists?",
+    "expected_answer": "Singly linked list, doubly linked list, and circular linked list.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "linked list",
+    "tags": ["types"],
+    "explanation": "These types differ based on pointer configurations (one-way, two-way, circular references)."
+  },
+  {
+    "type": "interview",
+    "question": "How do you insert an element at the beginning of a linked list?",
+    "expected_answer": "Create a new node, set its next to the current head, then update the head to the new node.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "linked list",
+    "tags": ["insert", "beginning"],
+    "explanation": "Head reference must be updated after creating the new node."
+  },
+  {
+    "type": "interview",
+    "question": "How do you delete a node from a singly linked list given only access to that node?",
+    "expected_answer": "Copy the data from the next node into the current node and delete the next node.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "linked list",
+    "tags": ["delete", "trick question"],
+    "explanation": "This works by mimicking the deletion of the current node since you can't access the previous one."
+  },
+  {
+    "type": "interview",
+    "question": "How can you find the middle node of a linked list?",
+    "expected_answer": "Use two pointers: a slow pointer moves one step at a time, a fast pointer moves two. When fast reaches the end, slow is at the middle.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "linked list",
+    "tags": ["middle", "two pointer"],
+    "explanation": "This approach is efficient with O(n) time and O(1) space."
+  },
+  {
+    "type": "interview",
+    "question": "How do you check if a linked list has a cycle?",
+    "expected_answer": "Use Floyd's cycle detection algorithm with slow and fast pointers. If they ever meet, a cycle exists.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "linked list",
+    "tags": ["cycle detection", "two pointer"],
+    "explanation": "Meeting of fast and slow pointers implies a cycle; otherwise, the list is acyclic."
+  },
+  {
+    "type": "interview",
+    "question": "How would you implement a stack using a linked list?",
+    "expected_answer": "Use a singly linked list where insertions and deletions happen at the head. Push adds at head, pop removes from head.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "linked list",
+    "tags": ["stack", "implementation"],
+    "explanation": "Head operations allow O(1) push and pop, ideal for stack behavior."
+  },
+  {
+    "type": "interview",
+    "question": "How do you count the number of nodes in a linked list?",
+    "expected_answer": "Initialize a counter and traverse the list incrementing it until the end is reached.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "linked list",
+    "tags": ["count", "traversal"],
+    "explanation": "Simple linear traversal lets you count nodes in O(n) time."
+  },
+  {
+    "type": "interview",
+    "question": "How would you detect and remove a cycle in a linked list?",
+    "expected_answer": "Use Floyd's cycle detection algorithm (tortoise and hare) to detect the cycle. To remove it, find the node before the cycle begins and set its next pointer to null.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "linked list",
+    "tags": ["cycle detection", "floyd's algorithm"],
+    "explanation": "Floyd's algorithm detects the cycle; finding the start requires resetting one pointer to head and moving both pointers until they meet."
+  },
+  {
+    "type": "interview",
+    "question": "Explain how to reverse a singly linked list iteratively.",
+    "expected_answer": "Iterate through the list, changing the next pointer of each node to point to the previous node. Use three pointers: previous, current, and next.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "linked list",
+    "tags": ["reverse", "iteration", "pointers"],
+    "explanation": "Maintain three pointers and reassign links step-by-step to reverse the list in O(n) time and O(1) space."
+  },
+  {
+    "type": "interview",
+    "question": "How would you merge two sorted linked lists into one sorted list?",
+    "expected_answer": "Use two pointers to compare the heads of the two lists. Build a new list by choosing the smaller value each time.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "linked list",
+    "tags": ["merge", "sorted list", "recursion"],
+    "explanation": "This is a classic problem that can be solved using either iteration or recursion while maintaining the order."
+  },
+  {
+    "type": "interview",
+    "question": "Describe an algorithm to find the intersection point of two linked lists.",
+    "expected_answer": "Use two pointers. Traverse both lists; when one reaches the end, switch it to the head of the other list. They will meet at the intersection or at the end (null).",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "linked list",
+    "tags": ["intersection", "two pointer"],
+    "explanation": "Switching heads equalizes traversal lengths. Time complexity is O(n + m), and space complexity is O(1)."
+  },
+  {
+    "type": "interview",
+    "question": "How do you detect a palindrome in a singly linked list?",
+    "expected_answer": "Find the middle of the list using slow and fast pointers, reverse the second half, and compare both halves node by node.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "linked list",
+    "tags": ["palindrome", "reverse", "slow-fast pointer"],
+    "explanation": "Time complexity is O(n), space O(1) if done in-place."
+  },
+  {
+    "type": "interview",
+    "question": "Explain how to implement a LRU cache using a linked list.",
+    "expected_answer": "Use a doubly linked list to track order and a hash map for O(1) access. Move recently used elements to the front and remove least recently used from the tail.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "linked list",
+    "tags": ["LRU cache", "doubly linked list", "hash map"],
+    "explanation": "Doubly linked list enables quick removals and insertions. Hash map provides constant-time lookups."
+  },
+  {
+    "type": "interview",
+    "question": "What is the difference between singly and doubly linked lists, and when would you use each?",
+    "expected_answer": "A singly linked list has next pointers only, while a doubly linked list has both next and previous. Use singly for simpler, memory-efficient tasks, and doubly for bidirectional access.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "linked list",
+    "tags": ["comparison", "singly vs doubly"],
+    "explanation": "Choosing the right list depends on traversal needs and operations like deletion or reverse traversal."
+  },
+  {
+    "type": "interview",
+    "question": "How would you implement a queue using a linked list?",
+    "expected_answer": "Use a singly linked list with pointers to both head and tail. Enqueue at tail, dequeue at head.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "linked list",
+    "tags": ["queue", "implementation"],
+    "explanation": "Maintaining head and tail ensures both operations are O(1)."
+  },
+  {
+    "type": "interview",
+    "question": "Explain how to add two numbers represented by linked lists.",
+    "expected_answer": "Iterate through both lists, add corresponding digits with carry. Create a new list to store the result.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "linked list",
+    "tags": ["add numbers", "carry", "digit by digit"],
+    "explanation": "Simulates addition like a column-wise sum, keeping track of carry for each digit."
+  },
+  {
+    "type": "interview",
+    "question": "Describe an algorithm to remove the Nth node from the end of a linked list.",
+    "expected_answer": "Use two pointers. Move the first pointer N steps ahead, then move both until the first hits null. Remove the node after the second pointer.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "linked list",
+    "tags": ["two pointer", "removal"],
+    "explanation": "This allows a one-pass solution in O(n) time without needing to calculate the length first."
+  }
+] 
