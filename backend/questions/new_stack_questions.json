@@ -1,0 +1,414 @@
+{
+  "questions": [
+    {
+      "type": "debugging",
+      "question": "The following code is meant to implement a stack using a linked list, but it crashes at runtime. Find the bug.",
+      "code": "struct Node { int data; Node* next; }; Node* top = nullptr; void push(int x) { Node* temp; temp->data = x; temp->next = top; top = temp; }",
+      "answer": "temp is not initialized with memory before dereferencing.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["linked list", "null pointer", "segfault"],
+      "explanation": "Need to allocate memory for temp using 'new'."
+    },
+    {
+      "type": "debugging",
+      "question": "Why does this balanced parentheses checker fail for input '[(])'?",
+      "code": "for(char c : s) { if(c == '(' || c == '[') stack.push(c); else if(c == ')' || c == ']') stack.pop(); }",
+      "answer": "It does not check if the popped element matches the corresponding opening bracket.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["matching brackets", "logic error"],
+      "explanation": "Must verify that closing matches opening using stack.top()."
+    },
+    {
+      "type": "debugging",
+      "question": "Why does this stack implementation throw an error when popping the last element?",
+      "code": "void pop() { if(top >= 0) top--; arr[top] = -1; }",
+      "answer": "top is decremented before using it, which leads to out-of-bounds access.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["out-of-bounds", "logic"],
+      "explanation": "Access the array before decrementing top or rearrange logic."
+    },
+    {
+      "type": "debugging",
+      "question": "Why is this 'min stack' not returning the correct minimum after some pops?",
+      "code": "stack<int> s, minS; void push(int x) { s.push(x); if(minS.empty() || x < minS.top()) minS.push(x); } void pop() { if(s.top() == minS.top()) minS.pop(); s.pop(); }",
+      "answer": "Does not push duplicate mins; if x == min, it is not pushed again, which causes incorrect pop.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["auxiliary stack", "min tracking"],
+      "explanation": "minS should allow duplicate mins to maintain accurate min after pops."
+    },
+    {
+      "type": "debugging",
+      "question": "What is wrong with this code that evaluates postfix expressions?",
+      "code": "int evaluate(string expr) { stack<int> s; for(char c : expr) { if(isdigit(c)) s.push(c - '0'); else { int a = s.top(); s.pop(); int b = s.top(); s.pop(); if(c == '+') s.push(a + b); } } return s.top(); }",
+      "answer": "Operands a and b are reversed in order; b should be first, then a.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["postfix", "operand order"],
+      "explanation": "Operators like subtraction and division are not commutative; order matters."
+    },
+    {
+      "type": "debugging",
+      "question": "Why does this stack overflow after a few operations?",
+      "code": "#define MAX 100 int stack[MAX]; int top = -1; void push(int x) { stack[++top] = x; } void pop() { top--; }",
+      "answer": "No bounds check before incrementing top in push.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["stack overflow", "boundary check"],
+      "explanation": "Need to check if top < MAX - 1 before pushing."
+    },
+    {
+      "type": "debugging",
+      "question": "Why does this function incorrectly check for a palindrome using a stack?",
+      "code": "bool isPalindrome(string s) { stack<char> st; for(char c : s) st.push(c); for(char c : s) { if(c != st.top()) return false; st.pop(); } return true; }",
+      "answer": "Does not handle case differences or non-alphanumeric characters.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["palindrome", "edge cases"],
+      "explanation": "Should normalize input by removing non-alphanumeric and using tolower()."
+    },
+    {
+      "type": "debugging",
+      "question": "Why does this custom stack class cause a memory leak?",
+      "code": "class Stack { int* arr; int top; public: Stack() { arr = new int[100]; top = -1; } ~Stack() { } };",
+      "answer": "Destructor does not free allocated memory.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["memory leak", "destructor"],
+      "explanation": "Must include 'delete[] arr;' in the destructor."
+    },
+    {
+      "type": "debugging",
+      "question": "Why does this code to reverse a string using a stack fail to return correct results?",
+      "code": "void reverse(string s) { stack<char> st; for(int i = 0; i < s.length(); i++) st.push(s[i]); for(int i = 0; i < s.length(); i++) s[i] = st.top(); }",
+      "answer": "The stack is not popped in the second loop, so same value is assigned repeatedly.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["reverse", "stack usage"],
+      "explanation": "Must call st.pop() after each assignment."
+    },
+    {
+      "type": "debugging",
+      "question": "This code simulates a browser back stack. Why does it fail when trying to go forward after going back?",
+      "code": "stack<string> back, forward; void goBack(string& current) { forward.push(current); current = back.top(); back.pop(); }",
+      "answer": "Does not check if back stack is empty before accessing top.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["application", "stack underflow"],
+      "explanation": "Must check if stack is empty before pop/top operations."
+    },
+    {
+      "type": "interview",
+      "question": "What is a stack and where is it used in real life?",
+      "expected_answer": "A stack is a linear data structure that follows LIFO. It is used in browser history, undo mechanisms, and expression evaluation.",
+      "difficulty": "easy",
+      "points": 5,
+      "topic": "stack",
+      "tags": ["definition", "applications"],
+      "explanation": "Tests conceptual understanding and real-world analogy."
+    },
+    {
+      "type": "interview",
+      "question": "Explain the difference between stack and queue.",
+      "expected_answer": "Stack is LIFO while queue is FIFO. Stack uses push/pop, queue uses enqueue/dequeue.",
+      "difficulty": "easy",
+      "points": 5,
+      "topic": "stack",
+      "tags": ["comparison", "concepts"],
+      "explanation": "Assesses basic understanding of data structures."
+    },
+    {
+      "type": "interview",
+      "question": "What operations are supported by a stack?",
+      "expected_answer": "Push, pop, peek/top, isEmpty, isFull (if fixed-size).",
+      "difficulty": "easy",
+      "points": 5,
+      "topic": "stack",
+      "tags": ["stack operations"],
+      "explanation": "Tests familiarity with standard stack methods."
+    },
+    {
+      "type": "interview",
+      "question": "How would you implement a stack using an array?",
+      "expected_answer": "Maintain a top pointer and an array. Increment top on push, decrement on pop.",
+      "difficulty": "easy",
+      "points": 5,
+      "topic": "stack",
+      "tags": ["implementation", "array"],
+      "explanation": "Focuses on basic implementation logic."
+    },
+    {
+      "type": "interview",
+      "question": "How would you implement a stack using a linked list?",
+      "expected_answer": "Use the head of the linked list as the stack top. Insert and remove at head.",
+      "difficulty": "easy",
+      "points": 5,
+      "topic": "stack",
+      "tags": ["implementation", "linked list"],
+      "explanation": "Assesses pointer-based design skills."
+    },
+    {
+      "type": "interview",
+      "question": "What is the time complexity of push and pop operations?",
+      "expected_answer": "Both operations have O(1) time complexity.",
+      "difficulty": "easy",
+      "points": 5,
+      "topic": "stack",
+      "tags": ["time complexity"],
+      "explanation": "Tests knowledge of performance characteristics."
+    },
+    {
+      "type": "interview",
+      "question": "How do you check if a stack is empty?",
+      "expected_answer": "By checking if top == -1 or using isEmpty() method.",
+      "difficulty": "easy",
+      "points": 5,
+      "topic": "stack",
+      "tags": ["utility"],
+      "explanation": "Simple logical check understanding."
+    },
+    {
+      "type": "interview",
+      "question": "Can you use a stack to reverse a string?",
+      "expected_answer": "Yes, push each character and then pop to reverse.",
+      "difficulty": "easy",
+      "points": 5,
+      "topic": "stack",
+      "tags": ["string", "reverse"],
+      "explanation": "Applies stack for simple use-case."
+    },
+    {
+      "type": "interview",
+      "question": "What happens if we pop from an empty stack?",
+      "expected_answer": "It results in underflow, which may cause an error or exception.",
+      "difficulty": "easy",
+      "points": 5,
+      "topic": "stack",
+      "tags": ["underflow"],
+      "explanation": "Basic error handling concept."
+    },
+    {
+      "type": "interview",
+      "question": "What data structure is used in recursion implementation?",
+      "expected_answer": "The system uses a call stack to manage recursive function calls.",
+      "difficulty": "easy",
+      "points": 5,
+      "topic": "stack",
+      "tags": ["recursion", "call stack"],
+      "explanation": "Links stack with recursion."
+    },
+    {
+      "type": "interview",
+      "question": "How would you implement two stacks in one array?",
+      "expected_answer": "Start one from the beginning and the other from the end. Move inward as elements are pushed.",
+      "difficulty": "medium",
+      "points": 10,
+      "topic": "stack",
+      "tags": ["array", "dual stack"],
+      "explanation": "Efficient use of space in single array."
+    },
+    {
+      "type": "interview",
+      "question": "How can you implement a stack that returns the minimum element in O(1) time?",
+      "expected_answer": "Use an auxiliary stack to store the minimums seen so far.",
+      "difficulty": "medium",
+      "points": 10,
+      "topic": "stack",
+      "tags": ["min stack"],
+      "explanation": "Efficient min tracking using extra space."
+    },
+    {
+      "type": "interview",
+      "question": "How do you evaluate a postfix expression using a stack?",
+      "expected_answer": "Scan the expression, push numbers, and on encountering an operator, pop two operands, apply the operator, and push the result.",
+      "difficulty": "medium",
+      "points": 10,
+      "topic": "stack",
+      "tags": ["expression evaluation", "postfix"],
+      "explanation": "Applies stack for parsing logic."
+    },
+    {
+      "type": "interview",
+      "question": "How can you sort a stack using another stack?",
+      "expected_answer": "Use a temporary stack and sort by repeatedly pushing elements into the correct position using comparisons.",
+      "difficulty": "medium",
+      "points": 10,
+      "topic": "stack",
+      "tags": ["sorting", "temp stack"],
+      "explanation": "Demonstrates stack manipulation skills."
+    },
+    {
+      "type": "interview",
+      "question": "How do you check for balanced parentheses in an expression using a stack?",
+      "expected_answer": "Push opening brackets. On closing bracket, pop and check if it matches. At the end, the stack should be empty.",
+      "difficulty": "medium",
+      "points": 10,
+      "topic": "stack",
+      "tags": ["brackets", "validation"],
+      "explanation": "Standard stack use-case."
+    },
+    {
+      "type": "interview",
+      "question": "How would you design a stack with getMin(), getMax(), push(), and pop() all in O(1)?",
+      "expected_answer": "Use two auxiliary stacks: one for min, one for max values.",
+      "difficulty": "medium",
+      "points": 10,
+      "topic": "stack",
+      "tags": ["min max", "auxiliary stack"],
+      "explanation": "Complex state tracking."
+    },
+    {
+      "type": "interview",
+      "question": "Explain the use of stack in depth-first search (DFS).",
+      "expected_answer": "DFS uses a stack to backtrack and explore nodes depth-wise. In iterative DFS, an explicit stack replaces recursion.",
+      "difficulty": "medium",
+      "points": 10,
+      "topic": "stack",
+      "tags": ["graph", "dfs"],
+      "explanation": "Applies stack in graph traversal."
+    },
+    {
+      "type": "interview",
+      "question": "How would you detect a redundant bracket in a string expression using stack?",
+      "expected_answer": "Track operators inside brackets. If a pair has no operator inside, it's redundant.",
+      "difficulty": "medium",
+      "points": 10,
+      "topic": "stack",
+      "tags": ["redundancy", "expression"],
+      "explanation": "Involves logic around parsing."
+    },
+    {
+      "type": "interview",
+      "question": "Design a stack that supports middle element retrieval in O(1).",
+      "expected_answer": "Use a doubly linked list and maintain a middle pointer. Update middle on push/pop.",
+      "difficulty": "medium",
+      "points": 10,
+      "topic": "stack",
+      "tags": ["design", "middle pointer"],
+      "explanation": "Advanced use of pointers."
+    },
+    {
+      "type": "interview",
+      "question": "How would you convert an infix expression to postfix using stack?",
+      "expected_answer": "Use the Shunting Yard algorithm to convert infix to postfix using a stack to store operators.",
+      "difficulty": "medium",
+      "points": 10,
+      "topic": "stack",
+      "tags": ["infix", "postfix", "conversion"],
+      "explanation": "Classic parsing technique using stacks."
+    },
+    {
+      "type": "interview",
+      "question": "Design a stack that supports push, pop, getMin, getMax, and getMedian in O(1).",
+      "expected_answer": "Combine stack with a balanced BST or use two heaps to track median.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["design", "median"],
+      "explanation": "Combines multiple data structures."
+    },
+    {
+      "type": "interview",
+      "question": "Design a stack with constant-time duplicate detection.",
+      "expected_answer": "Use a hash map to track frequencies of elements pushed.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["duplicate", "hashing"],
+      "explanation": "Integrates hash table with stack."
+    },
+    {
+      "type": "interview",
+      "question": "How do you validate and evaluate a fully parenthesized expression using a single stack?",
+      "expected_answer": "Use stack to evaluate immediately when encountering a closing parenthesis.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["expression", "evaluation"],
+      "explanation": "Combines syntax validation with computation."
+    },
+    {
+      "type": "interview",
+      "question": "Simulate a queue using two stacks and implement O(1) amortized enqueue/dequeue.",
+      "expected_answer": "Push in stack1. When dequeue is called and stack2 is empty, transfer all from stack1 to stack2.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["queue", "two stacks"],
+      "explanation": "Common design problem."
+    },
+    {
+      "type": "interview",
+      "question": "How would you solve the celebrity problem using a stack?",
+      "expected_answer": "Push all people on stack, compare pairs to eliminate non-celebrities. Validate the remaining candidate.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["elimination", "celebrity"],
+      "explanation": "Reduces problem size with stack."
+    },
+    {
+      "type": "interview",
+      "question": "Explain stack unwinding in exception handling.",
+      "expected_answer": "When an exception occurs, the stack unwinds by popping frames until a handler is found.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["exception", "stack frame"],
+      "explanation": "Connects programming with stack internals."
+    },
+    {
+      "type": "interview",
+      "question": "How would you use a stack to find the largest rectangle in a histogram?",
+      "expected_answer": "Use a monotonic stack to track increasing bar indices and calculate area on decrease.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["histogram", "area"],
+      "explanation": "Popular problem requiring stack insight."
+    },
+    {
+      "type": "interview",
+      "question": "How can a stack be used to detect cycles in a graph?",
+      "expected_answer": "In DFS, maintain a recursion stack. If a visited node is already in the recursion stack, a cycle exists.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["graph", "cycle detection"],
+      "explanation": "Stack helps track path history."
+    },
+    {
+      "type": "interview",
+      "question": "How would you implement undo-redo using stacks?",
+      "expected_answer": "Use two stacks: one for undo, another for redo. Push/pull actions accordingly.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["undo redo", "application"],
+      "explanation": "Practical use-case involving dual stack state."
+    },
+    {
+      "type": "interview",
+      "question": "What is the difference between a system call stack and a user-defined stack?",
+      "expected_answer": "System call stack tracks function calls at runtime; user-defined stacks are for custom operations like parsing or storage.",
+      "difficulty": "hard",
+      "points": 15,
+      "topic": "stack",
+      "tags": ["system vs user stack"],
+      "explanation": "Deep understanding of system internals."
+    }
+  ]
+} 

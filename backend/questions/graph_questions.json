@@ -1,0 +1,295 @@
+[
+  {
+    "type": "mcq",
+    "question": "What data structure is commonly used to represent a graph?",
+    "options": ["Array", "Stack", "Adjacency list", "Queue"],
+    "answer": "Adjacency list",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "graphs",
+    "tags": ["representation"],
+    "explanation": "Graphs are often represented using adjacency lists for efficient space usage."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity to check if an edge exists between two vertices in an adjacency matrix?",
+    "options": ["O(1)", "O(n)", "O(log n)", "O(n^2)"],
+    "answer": "O(1)",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "graphs",
+    "tags": ["complexity", "adjacency matrix"],
+    "explanation": "In an adjacency matrix, edges are stored directly in a 2D array, so lookup is constant time."
+  },
+  {
+    "type": "mcq",
+    "question": "Which of the following algorithms is used for finding the shortest path in an unweighted graph?",
+    "options": ["DFS", "Dijkstra", "BFS", "Kruskal"],
+    "answer": "BFS",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "graphs",
+    "tags": ["shortest path", "bfs"],
+    "explanation": "BFS finds the shortest path in unweighted graphs by exploring neighbors level-by-level."
+  },
+  {
+    "type": "mcq",
+    "question": "Which algorithm is used to detect a cycle in a directed graph?",
+    "options": ["BFS", "DFS with visited and recursion stack", "Kruskal", "Prim"],
+    "answer": "DFS with visited and recursion stack",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "graphs",
+    "tags": ["cycle detection", "dfs"],
+    "explanation": "Cycle detection in directed graphs can be done using DFS with a recursion stack."
+  },
+  {
+    "type": "mcq",
+    "question": "Which of the following algorithms is used to find the Minimum Spanning Tree (MST)?",
+    "options": ["Bellman-Ford", "Floyd-Warshall", "Prim", "Johnson"],
+    "answer": "Prim",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "graphs",
+    "tags": ["mst", "prim"],
+    "explanation": "Prim's algorithm builds the MST by adding the lowest weight edge from the tree to a new vertex."
+  },
+  {
+    "type": "mcq",
+    "question": "Topological sorting is possible only for which type of graph?",
+    "options": ["Undirected", "Weighted", "Directed Acyclic Graph (DAG)", "Complete Graph"],
+    "answer": "Directed Acyclic Graph (DAG)",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "graphs",
+    "tags": ["topological sort", "dag"],
+    "explanation": "Topological sorting requires a DAG where dependencies form a directed graph without cycles."
+  },
+  {
+    "type": "mcq",
+    "question": "Which algorithm can be used to find the shortest paths from a single source in a graph with negative edge weights (but no negative cycles)?",
+    "options": ["Dijkstra", "Bellman-Ford", "Prim", "Kruskal"],
+    "answer": "Bellman-Ford",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "graphs",
+    "tags": ["shortest path", "negative weights"],
+    "explanation": "Bellman-Ford handles negative weights and detects negative cycles, unlike Dijkstra."
+  },
+  {
+    "type": "mcq",
+    "question": "Which of the following is true about Dijkstra's algorithm?",
+    "options": [
+      "It works with negative edge weights",
+      "It finds the longest path",
+      "It uses a priority queue for optimization",
+      "It is used only for undirected graphs"
+    ],
+    "answer": "It uses a priority queue for optimization",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "graphs",
+    "tags": ["dijkstra", "priority queue"],
+    "explanation": "Dijkstra's algorithm uses a priority queue (e.g., min-heap) to optimize shortest path calculations."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of Floyd-Warshall algorithm?",
+    "options": ["O(V)", "O(E log V)", "O(V^2)", "O(V^3)"],
+    "answer": "O(V^3)",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "graphs",
+    "tags": ["floyd-warshall", "all pairs shortest path"],
+    "explanation": "Floyd-Warshall computes shortest paths between all pairs of vertices using dynamic programming."
+  },
+  {
+    "type": "debugging",
+    "question": "What is the bug in this DFS implementation?",
+    "code": "def dfs(graph, start):\n    visited = []\n    stack = [start]\n    while stack:\n        node = stack.pop()\n        if node not in visited:\n            visited.append(node)\n            stack.extend(graph[node])\n    return visited",
+    "answer": "Graph neighbors should be added in reverse to maintain proper DFS order.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "graphs",
+    "tags": ["dfs", "traversal"],
+    "explanation": "DFS uses a stack; to preserve left-to-right order, neighbors should be reversed when extending."
+  },
+  {
+    "type": "debugging",
+    "question": "Bug in BFS: nodes revisited multiple times.",
+    "code": "def bfs(graph, start):\n    visited = []\n    queue = [start]\n    while queue:\n        node = queue.pop(0)\n        visited.append(node)\n        for neighbor in graph[node]:\n            queue.append(neighbor)\n    return visited",
+    "answer": "Check if neighbor is already visited before appending to queue.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "graphs",
+    "tags": ["bfs", "visited"],
+    "explanation": "Without checking visited, the queue may grow exponentially due to cycles or multiple paths."
+  },
+  {
+    "type": "debugging",
+    "question": "Bug in graph representation using adjacency list.",
+    "code": "graph = {}\ngraph[0].append(1)",
+    "answer": "Need to initialize graph[0] as a list before appending.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "graphs",
+    "tags": ["adjacency list", "dictionary"],
+    "explanation": "Accessing a key before it's initialized causes a KeyError."
+  },
+  {
+    "type": "debugging",
+    "question": "Bug in Dijkstra's algorithm: incorrect shortest path.",
+    "code": "def dijkstra(graph, start):\n    dist = {node: float('inf') for node in graph}\n    dist[start] = 0\n    visited = set()\n    while graph:\n        current = min(dist, key=dist.get)\n        for neighbor, weight in graph[current]:\n            if dist[current] + weight < dist[neighbor]:\n                dist[neighbor] = dist[current] + weight\n        visited.add(current)\n        graph.pop(current)\n    return dist",
+    "answer": "Using 'graph' directly as the loop condition modifies the input graph; also, visited nodes should be skipped in min selection.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "graphs",
+    "tags": ["dijkstra", "visited", "logic"],
+    "explanation": "Removing nodes from the graph is destructive. Also, unvisited nodes should be filtered."
+  },
+  {
+    "type": "debugging",
+    "question": "Topological sort returns incorrect order.",
+    "code": "def topological_sort(graph):\n    in_degree = {u: 0 for u in graph}\n    for u in graph:\n        for v in graph[u]:\n            in_degree[u] += 1\n    queue = [u for u in graph if in_degree[u] == 0]\n    result = []\n    while queue:\n        u = queue.pop(0)\n        result.append(u)\n        for v in graph[u]:\n            in_degree[v] -= 1\n            if in_degree[v] == 0:\n                queue.append(v)\n    return result",
+    "answer": "In-degree is being incremented for the source node instead of the destination.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "graphs",
+    "tags": ["topological sort", "in-degree"],
+    "explanation": "In topological sort, in-degree should reflect incoming edges, not outgoing ones."
+  },
+  {
+    "type": "debugging",
+    "question": "Cycle detection in undirected graph gives false positives.",
+    "code": "def has_cycle(graph, node, visited):\n    visited.add(node)\n    for neighbor in graph[node]:\n        if neighbor in visited:\n            return True\n        if has_cycle(graph, neighbor, visited):\n            return True\n    return False",
+    "answer": "Need to pass parent node and ignore it during neighbor check to prevent false cycle detection.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "graphs",
+    "tags": ["cycle detection", "undirected"],
+    "explanation": "In undirected graphs, the parent should not be treated as a cycle."
+  },
+  {
+    "type": "debugging",
+    "question": "Bellman-Ford incorrectly detects negative cycles.",
+    "code": "def bellman_ford(graph, V, start):\n    dist = [float('inf')] * V\n    dist[start] = 0\n    for _ in range(V):\n        for u, v, w in graph:\n            if dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n    return dist",
+    "answer": "Should run V-1 iterations, not V, for edge relaxation. A V-th pass is used only for negative cycle check.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "graphs",
+    "tags": ["bellman-ford", "relaxation"],
+    "explanation": "Extra iteration incorrectly updates distances, causing incorrect negative cycle detection."
+  },
+  {
+    "type": "debugging",
+    "question": "Floyd-Warshall fails on disconnected graphs.",
+    "code": "def floyd_warshall(matrix):\n    n = len(matrix)\n    for k in range(n):\n        for i in range(n):\n            for j in range(n):\n                matrix[i][j] = min(matrix[i][j], matrix[i][k] + matrix[k][j])\n    return matrix",
+    "answer": "Need to check if intermediate distances are infinite before addition to avoid overflow.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "graphs",
+    "tags": ["floyd-warshall", "infinity check"],
+    "explanation": "Adding infinity with a number can lead to incorrect values like 'inf + x = inf' or errors."
+  },
+  {
+    "type": "debugging",
+    "question": "Graph traversal fails on disconnected components.",
+    "code": "def dfs_all(graph):\n    visited = set()\n    def dfs(node):\n        visited.add(node)\n        for neighbor in graph[node]:\n            if neighbor not in visited:\n                dfs(neighbor)\n    dfs(0)\n    return visited",
+    "answer": "Needs to loop over all nodes to handle disconnected components.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "graphs",
+    "tags": ["dfs", "disconnected graph"],
+    "explanation": "DFS from a single node doesn't explore other components unless all nodes are looped over."
+  },
+  {
+    "type": "interview",
+    "question": "Explain the difference between an adjacency list and an adjacency matrix.",
+    "expected_answer": "An adjacency list stores a list of neighbors for each node and is space-efficient for sparse graphs. An adjacency matrix uses a 2D array to store edge presence and is faster for edge lookups but consumes more space.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "graphs",
+    "tags": ["representation", "adjacency matrix", "adjacency list"],
+    "explanation": "Adjacency list is O(V + E) space; matrix is O(V^2), better for dense graphs."
+  },
+  {
+    "type": "interview",
+    "question": "What is a graph cycle, and how can it be detected in an undirected graph?",
+    "expected_answer": "A graph cycle occurs when a path starts and ends at the same node without repeating any edges. In undirected graphs, cycles can be detected using DFS while tracking the parent node.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "graphs",
+    "tags": ["cycle detection", "dfs"],
+    "explanation": "In undirected graphs, if a visited neighbor is not the parent, a cycle exists."
+  },
+  {
+    "type": "interview",
+    "question": "What is the difference between BFS and DFS in graph traversal?",
+    "expected_answer": "BFS uses a queue and explores neighbors level by level. DFS uses a stack or recursion to explore as deep as possible along each path.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "graphs",
+    "tags": ["bfs", "dfs", "traversal"],
+    "explanation": "BFS is good for shortest path; DFS is good for cycle detection and path exploration."
+  },
+  {
+    "type": "interview",
+    "question": "How would you find if a graph contains a cycle?",
+    "expected_answer": "In undirected graphs, use DFS while checking for visited neighbors not equal to the parent. In directed graphs, use DFS with a recursion stack to detect back edges.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "graphs",
+    "tags": ["cycle detection", "dfs"],
+    "explanation": "Cycle detection differs for directed and undirected graphs and uses visited tracking."
+  },
+  {
+    "type": "interview",
+    "question": "Explain how Dijkstra's algorithm works.",
+    "expected_answer": "Dijkstra's algorithm initializes distances, uses a priority queue to greedily select the closest unvisited node, and updates distances to its neighbors if shorter paths are found.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "graphs",
+    "tags": ["dijkstra", "shortest path"],
+    "explanation": "It is efficient for non-negative weights and runs in O(V log V + E) with a heap."
+  },
+  {
+    "type": "interview",
+    "question": "What is a topological sort and when is it used?",
+    "expected_answer": "Topological sort orders vertices of a directed acyclic graph such that for every edge u → v, u comes before v. It is used in scheduling tasks and resolving dependencies.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "graphs",
+    "tags": ["topological sort", "dag"],
+    "explanation": "Only applicable to DAGs; implemented using DFS or Kahn's algorithm."
+  },
+  {
+    "type": "interview",
+    "question": "How would you detect a negative weight cycle in a graph?",
+    "expected_answer": "Use the Bellman-Ford algorithm. After V-1 edge relaxations, do one more pass. If any distance is updated, a negative cycle exists.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "graphs",
+    "tags": ["bellman-ford", "negative cycle"],
+    "explanation": "Negative cycle detection is important for financial arbitrage and correctness in shortest path."
+  },
+  {
+    "type": "interview",
+    "question": "Explain the Floyd-Warshall algorithm and its use case.",
+    "expected_answer": "Floyd-Warshall is a dynamic programming algorithm that computes shortest paths between all pairs of nodes in O(V^3) time. It works with negative weights but not with negative cycles.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "graphs",
+    "tags": ["floyd-warshall", "all-pairs shortest path"],
+    "explanation": "It's useful when multiple queries for shortest paths between any two nodes are required."
+  },
+  {
+    "type": "interview",
+    "question": "How would you solve the problem of finding the number of strongly connected components in a directed graph?",
+    "expected_answer": "Use Kosaraju's algorithm: perform a DFS to compute finish times, transpose the graph, and do DFS again in the order of decreasing finish times.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "graphs",
+    "tags": ["scc", "kosaraju"],
+    "explanation": "Strongly Connected Components group vertices such that each vertex is reachable from every other in the same group."
+  }
+] 

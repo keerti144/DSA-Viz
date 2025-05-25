@@ -1,0 +1,636 @@
+[
+  {
+    "type": "mcq",
+    "question": "What is a heap data structure?",
+    "options": [
+      "A linear data structure",
+      "A tree-based data structure satisfying the heap property",
+      "A graph",
+      "A hash table"
+    ],
+    "answer": "A tree-based data structure satisfying the heap property",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["definition", "basics"],
+    "explanation": "A heap is a specialized tree-based structure where parent nodes are ordered with respect to their children."
+  },
+  {
+    "type": "mcq",
+    "question": "In a max-heap, the key at the root must be...",
+    "options": ["Minimum among all keys", "Maximum among all keys", "Equal to all keys", "Random"],
+    "answer": "Maximum among all keys",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["max-heap", "heap property"],
+    "explanation": "In max-heap, the root contains the maximum key."
+  },
+  {
+    "type": "mcq",
+    "question": "Which of the following is true about a binary heap?",
+    "options": [
+      "It is a complete binary tree",
+      "It is always balanced",
+      "It has only one child per node",
+      "It is a sorted binary tree"
+    ],
+    "answer": "It is a complete binary tree",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["binary heap", "properties"],
+    "explanation": "A binary heap is always a complete binary tree."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity to insert an element in a binary heap of size n?",
+    "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+    "answer": "O(log n)",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["insert", "time complexity"],
+    "explanation": "Insertion involves percolating up the new element, taking O(log n)."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the shape of a heap represented as an array?",
+    "options": [
+      "Elements are stored in preorder traversal order",
+      "Elements are stored level by level from left to right",
+      "Elements are stored randomly",
+      "Elements are stored in sorted order"
+    ],
+    "answer": "Elements are stored level by level from left to right",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["array representation"],
+    "explanation": "Heap elements are stored in a level order traversal manner in arrays."
+  },
+  {
+    "type": "mcq",
+    "question": "Which operation removes the root from a heap?",
+    "options": ["Heapify", "Insert", "Extract", "Delete"],
+    "answer": "Extract",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["extract", "heap operations"],
+    "explanation": "Extract operation removes the root, which is either max or min."
+  },
+  {
+    "type": "mcq",
+    "question": "Which heap property does a min-heap satisfy?",
+    "options": [
+      "Parent node is smaller than or equal to its children",
+      "Parent node is greater than or equal to its children",
+      "Parent node is equal to its children",
+      "None of the above"
+    ],
+    "answer": "Parent node is smaller than or equal to its children",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["min-heap", "heap property"],
+    "explanation": "Min-heap keeps smallest element at the root."
+  },
+  {
+    "type": "mcq",
+    "question": "In a heap stored in an array, what is the index of the left child of element at index i?",
+    "options": ["2i", "2i + 1", "2i - 1", "2i + 2"],
+    "answer": "2i + 1",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["array representation", "children"],
+    "explanation": "Left child index = 2i + 1 in zero-based indexing."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the height of a binary heap with n elements?",
+    "options": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+    "answer": "O(log n)",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["height", "binary heap"],
+    "explanation": "A binary heap is a complete binary tree, so height is O(log n)."
+  },
+  {
+    "type": "mcq",
+    "question": "Which data structure is commonly used to implement priority queues?",
+    "options": ["Stack", "Heap", "Queue", "Linked List"],
+    "answer": "Heap",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["priority queue", "implementation"],
+    "explanation": "Heaps are efficient for priority queue operations."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity to build a heap from an unsorted array of n elements?",
+    "options": ["O(n log n)", "O(n)", "O(log n)", "O(n^2)"],
+    "answer": "O(n)",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["build heap", "time complexity"],
+    "explanation": "Building a heap can be done in O(n) using the heapify process from bottom up."
+  },
+  {
+    "type": "mcq",
+    "question": "In heap sort, what is the time complexity of sorting n elements?",
+    "options": ["O(n)", "O(n log n)", "O(log n)", "O(n^2)"],
+    "answer": "O(n log n)",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["heap sort", "time complexity"],
+    "explanation": "Heap sort performs n extract-max/min operations, each O(log n)."
+  },
+  {
+    "type": "mcq",
+    "question": "Which technique is used to maintain the heap property after removing the root element?",
+    "options": ["Heapify-down", "Heapify-up", "Insertion", "Deletion"],
+    "answer": "Heapify-down",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["heapify", "removal"],
+    "explanation": "Heapify-down is used to restore heap after root removal."
+  },
+  {
+    "type": "mcq",
+    "question": "How does a min-heap differ from a binary search tree?",
+    "options": [
+      "Min-heap is always balanced; BST may not be",
+      "Min-heap satisfies heap property; BST satisfies ordering property",
+      "Both are the same",
+      "Min-heap uses linked list internally"
+    ],
+    "answer": "Min-heap satisfies heap property; BST satisfies ordering property",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["min-heap", "BST", "difference"]
+  },
+  {
+    "type": "mcq",
+    "question": "Which of the following is NOT a property of a binary heap?",
+    "options": [
+      "Complete binary tree",
+      "Heap property",
+      "Nodes sorted in ascending order",
+      "Balanced height"
+    ],
+    "answer": "Nodes sorted in ascending order",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["properties", "heap"]
+  },
+  {
+    "type": "mcq",
+    "question": "What is the worst-case time complexity of extracting the minimum (or maximum) element from a heap?",
+    "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+    "answer": "O(log n)",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["extract", "time complexity"]
+  },
+  {
+    "type": "mcq",
+    "question": "What happens if you insert an element larger than the root in a min-heap?",
+    "options": [
+      "Heap property is violated",
+      "Heap property is maintained",
+      "Root changes to new element",
+      "Heap gets converted to max-heap"
+    ],
+    "answer": "Heap property is maintained",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["insert", "min-heap"]
+  },
+  {
+    "type": "mcq",
+    "question": "Which of these is used to implement Dijkstra's algorithm efficiently?",
+    "options": ["Stack", "Queue", "Heap", "Linked List"],
+    "answer": "Heap",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["dijkstra", "algorithm", "heap"]
+  },
+  {
+    "type": "mcq",
+    "question": "In a binary heap, the parent of node at index i is at index...",
+    "options": ["floor((i-1)/2)", "2i", "2i+1", "i/2"],
+    "answer": "floor((i-1)/2)",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["array indexing", "parent"]
+  },
+  {
+    "type": "mcq",
+    "question": "Why is heap preferred over a balanced binary search tree for priority queues?",
+    "options": [
+      "Heap provides faster insertion and deletion",
+      "Heap uses less memory",
+      "Heap provides better search performance",
+      "Heap is simpler to implement"
+    ],
+    "answer": "Heap provides faster insertion and deletion",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["priority queue", "heap", "BST"]
+  },
+  {
+    "type": "mcq",
+    "question": "Which of the following heap variants supports decrease-key operation in O(1) amortized time?",
+    "options": ["Binary Heap", "Fibonacci Heap", "Binomial Heap", "Pairing Heap"],
+    "answer": "Fibonacci Heap",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["fibonacci heap", "decrease key", "complexity"]
+  },
+  {
+    "type": "mcq",
+    "question": "What is the worst-case time complexity of merging two Fibonacci heaps with n nodes?",
+    "options": ["O(log n)", "O(1)", "O(n)", "O(n log n)"],
+    "answer": "O(1)",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["fibonacci heap", "merge", "complexity"]
+  },
+  {
+    "type": "mcq",
+    "question": "Which heap structure maintains multiple heap-ordered trees instead of one?",
+    "options": ["Binary Heap", "Fibonacci Heap", "Binary Search Tree", "AVL Tree"],
+    "answer": "Fibonacci Heap",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["fibonacci heap", "structure"]
+  },
+  {
+    "type": "mcq",
+    "question": "In a binary heap, what is the complexity to decrease the key value of an arbitrary element?",
+    "options": ["O(log n)", "O(n)", "O(1)", "O(n log n)"],
+    "answer": "O(log n)",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["binary heap", "decrease key"]
+  },
+  {
+    "type": "mcq",
+    "question": "Which heap is implemented using a collection of binomial trees?",
+    "options": ["Binary Heap", "Fibonacci Heap", "Binomial Heap", "Pairing Heap"],
+    "answer": "Binomial Heap",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["binomial heap", "structure"]
+  },
+  {
+    "type": "mcq",
+    "question": "What is the amortized time complexity for insert operation in a Fibonacci heap?",
+    "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+    "answer": "O(1)",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["fibonacci heap", "insert"]
+  },
+  {
+    "type": "mcq",
+    "question": "Which heap property is violated when performing decrease-key operation in a binary heap without adjustments?",
+    "options": [
+      "Heap completeness",
+      "Heap order property",
+      "Heap height",
+      "None"
+    ],
+    "answer": "Heap order property",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["decrease key", "heap property"]
+  },
+  {
+    "type": "mcq",
+    "question": "In a d-ary heap, what is the time complexity of extracting the min/max element for n elements?",
+    "options": ["O(d log_d n)", "O(log n)", "O(d log n)", "O(n)"],
+    "answer": "O(d log_d n)",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["d-ary heap", "extract"]
+  },
+  {
+    "type": "mcq",
+    "question": "Which heap variant is especially efficient for implementing priority queues with many decrease-key operations?",
+    "options": ["Binary Heap", "Binomial Heap", "Fibonacci Heap", "Skew Heap"],
+    "answer": "Fibonacci Heap",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["fibonacci heap", "priority queue"]
+  },
+  {
+    "type": "mcq",
+    "question": "What is the key difference between a binary heap and a binomial heap?",
+    "options": [
+      "Binary heap is a single tree; binomial heap is a forest of trees",
+      "Binary heap supports merge in O(1)",
+      "Binary heap supports decrease key in O(1)",
+      "Binomial heap is implemented as an array"
+    ],
+    "answer": "Binary heap is a single tree; binomial heap is a forest of trees",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["binary heap", "binomial heap", "difference"]
+  },
+  {
+    "type": "interview",
+    "question": "What is a heap and what are its basic properties?",
+    "expected_answer": "A heap is a complete binary tree that satisfies the heap property: in a max-heap, every parent node is greater than or equal to its children; in a min-heap, every parent is less than or equal to its children.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["definition", "properties"],
+    "explanation": "Heaps are specialized trees used for efficient priority queue operations."
+  },
+  {
+    "type": "interview",
+    "question": "How is a binary heap usually implemented in memory?",
+    "expected_answer": "A binary heap is usually implemented as an array where the parent and children indices follow a specific mathematical relationship.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["implementation", "array"]
+  },
+  {
+    "type": "interview",
+    "question": "What is the time complexity of inserting an element into a binary heap?",
+    "expected_answer": "The time complexity of insertion is O(log n), due to the need to percolate the new element up to maintain heap property.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["insertion", "time complexity"]
+  },
+  {
+    "type": "interview",
+    "question": "Explain the difference between a max-heap and a min-heap.",
+    "expected_answer": "In a max-heap, the parent nodes are greater than or equal to their children, so the maximum element is at the root. In a min-heap, the parent nodes are less than or equal to their children, so the minimum element is at the root.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["max-heap", "min-heap"]
+  },
+  {
+    "type": "interview",
+    "question": "What is the height of a binary heap with n elements?",
+    "expected_answer": "The height of a binary heap is O(log n), since it is a complete binary tree.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["height", "binary heap"]
+  },
+  {
+    "type": "interview",
+    "question": "What is heapify and why is it used?",
+    "expected_answer": "Heapify is the process of converting a binary tree into a heap by adjusting nodes to satisfy the heap property. It's used to build a heap or restore the heap after operations like deletion.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["heapify", "heap construction"]
+  },
+  {
+    "type": "interview",
+    "question": "How do you extract the maximum element from a max-heap?",
+    "expected_answer": "To extract the maximum element (root), replace the root with the last element, remove the last element, and then heapify down to restore the heap property.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["extract", "max-heap"]
+  },
+  {
+    "type": "interview",
+    "question": "What data structure is commonly implemented using heaps?",
+    "expected_answer": "Priority queues are commonly implemented using heaps due to their efficient access to the highest or lowest priority element.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["priority queue", "heap"]
+  },
+  {
+    "type": "interview",
+    "question": "Can heaps be used to implement sorting algorithms?",
+    "expected_answer": "Yes, heap sort uses a heap to sort elements in O(n log n) time by repeatedly extracting the max/min element.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["heap sort", "sorting"]
+  },
+  {
+    "type": "interview",
+    "question": "What is the advantage of using a heap over a binary search tree for priority queue operations?",
+    "expected_answer": "Heaps provide better worst-case performance for insertion and deletion operations, typically O(log n), and are simpler to implement than balanced binary search trees.",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "heap",
+    "tags": ["priority queue", "heap", "BST"]
+  },
+  {
+    "type": "interview",
+    "question": "Explain how to build a heap from an unsorted array. What is its time complexity?",
+    "expected_answer": "Building a heap from an unsorted array can be done using a bottom-up heapify process starting from the last non-leaf node. The time complexity is O(n).",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["build heap", "heapify", "time complexity"]
+  },
+  {
+    "type": "interview",
+    "question": "Describe the heap sort algorithm and its time and space complexities.",
+    "expected_answer": "Heap sort builds a heap from the input array, then repeatedly extracts the root and rebuilds the heap. Time complexity is O(n log n), space complexity is O(1) as it can be done in-place.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["heap sort", "algorithm", "complexity"]
+  },
+  {
+    "type": "interview",
+    "question": "What are the differences between binary heaps and Fibonacci heaps?",
+    "expected_answer": "Binary heaps have simple structure with O(log n) insert and extract operations, whereas Fibonacci heaps have more complex structure with amortized O(1) insert and decrease-key, making them efficient for algorithms like Dijkstra.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["binary heap", "fibonacci heap", "comparison"]
+  },
+  {
+    "type": "interview",
+    "question": "How does the decrease-key operation work in a binary heap, and what is its time complexity?",
+    "expected_answer": "Decrease-key decreases the value of a node and then percolates it up to maintain the heap property. Time complexity is O(log n).",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["decrease-key", "binary heap", "time complexity"]
+  },
+  {
+    "type": "interview",
+    "question": "Explain how heaps can be used to find the k largest elements in an unsorted array.",
+    "expected_answer": "One can build a min-heap of size k from the first k elements, then iterate over remaining elements, replacing the root if a larger element is found, maintaining k largest elements in the heap.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["k largest", "heap"]
+  },
+  {
+    "type": "interview",
+    "question": "What is the difference between a complete binary tree and a binary heap?",
+    "expected_answer": "A binary heap is always a complete binary tree, but a complete binary tree does not necessarily satisfy the heap property.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["binary heap", "complete binary tree", "difference"]
+  },
+  {
+    "type": "interview",
+    "question": "What are the main advantages and disadvantages of using a binary heap?",
+    "expected_answer": "Advantages include efficient insert, extract, and heapify operations with O(log n) time and simple implementation. Disadvantages include no fast search for arbitrary elements and poor support for decrease-key compared to Fibonacci heaps.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["advantages", "disadvantages", "binary heap"]
+  },
+  {
+    "type": "interview",
+    "question": "How do you implement a priority queue using a heap? Describe the main operations.",
+    "expected_answer": "A priority queue using a heap supports insert (push), extract-max or extract-min, and peek operations. Insert adds an element and percolates up; extract removes root and percolates down.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["priority queue", "heap", "operations"]
+  },
+  {
+    "type": "interview",
+    "question": "Explain the difference between top-down and bottom-up heapify.",
+    "expected_answer": "Top-down heapify percolates a node down to maintain the heap property; bottom-up heapify builds a heap starting from the last non-leaf node moving upwards.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["heapify", "top-down", "bottom-up"]
+  },
+  {
+    "type": "interview",
+    "question": "What challenges arise when implementing a heap for a d-ary tree instead of binary tree?",
+    "expected_answer": "The number of children per node increases, which affects the percolate operations' complexity and implementation. The height decreases but each percolate operation may be more expensive.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "heap",
+    "tags": ["d-ary heap", "complexity", "implementation"]
+  },
+  {
+    "type": "interview",
+    "question": "Explain the structure of a Fibonacci heap and how it achieves amortized O(1) insert and decrease-key operations.",
+    "expected_answer": "Fibonacci heaps maintain a collection of heap-ordered trees with lazy merging. Insert and decrease-key operations are done by adding nodes to root list or cutting nodes, avoiding immediate restructuring, which leads to amortized O(1) time.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["fibonacci heap", "amortized complexity"]
+  },
+  {
+    "type": "interview",
+    "question": "Describe how the extract-min operation works in a Fibonacci heap and its amortized time complexity.",
+    "expected_answer": "Extract-min removes the root with minimum key, merges its children into the root list, and performs consolidation to merge trees of the same degree. The amortized time complexity is O(log n).",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["fibonacci heap", "extract-min", "amortized complexity"]
+  },
+  {
+    "type": "interview",
+    "question": "How does the amortized analysis of Fibonacci heaps differ from worst-case analysis of binary heaps?",
+    "expected_answer": "Fibonacci heaps use lazy operations and amortized analysis which average expensive operations over many cheap ones, while binary heaps provide guaranteed worst-case logarithmic time for operations.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["amortized analysis", "binary heap", "fibonacci heap"]
+  },
+  {
+    "type": "interview",
+    "question": "Explain the consolidation process in a Fibonacci heap during extract-min operation.",
+    "expected_answer": "Consolidation merges trees with the same degree in the root list by linking them, ensuring that at most one tree of any degree remains, to maintain efficient structure.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["consolidation", "fibonacci heap"]
+  },
+  {
+    "type": "interview",
+    "question": "What are the trade-offs between using a binary heap and a Fibonacci heap in graph algorithms like Dijkstra's?",
+    "expected_answer": "Binary heaps have simpler implementation and good worst-case bounds, but Fibonacci heaps offer better amortized time for decrease-key operations, improving performance in dense graphs with many edge relaxations.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["binary heap", "fibonacci heap", "Dijkstra"]
+  },
+  {
+    "type": "interview",
+    "question": "How would you implement a merge operation for two binary heaps?",
+    "expected_answer": "Binary heaps do not support efficient merge; merging involves extracting all elements from both heaps and building a new heap, which takes O(n).",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["merge", "binary heap"]
+  },
+  {
+    "type": "interview",
+    "question": "Describe the process and complexity of deleting an arbitrary element from a binary heap.",
+    "expected_answer": "To delete an arbitrary element, decrease its key to minus infinity (or less than min), percolate it to the root, then extract min. Time complexity is O(log n).",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["delete", "binary heap"]
+  },
+  {
+    "type": "interview",
+    "question": "What is the significance of the 'mark' field in Fibonacci heaps?",
+    "expected_answer": "The mark field indicates whether a node has lost a child since it was added to a root list, which is used in the cascading cut process to maintain amortized efficiency.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["mark", "fibonacci heap"]
+  },
+  {
+    "type": "interview",
+    "question": "Explain the cascading cut operation in Fibonacci heaps and its role in amortized complexity.",
+    "expected_answer": "Cascading cut removes nodes that have lost children more than once by cutting them and moving them to the root list, ensuring that tree degrees remain balanced and supporting amortized O(1) decrease-key.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["cascading cut", "fibonacci heap"]
+  },
+  {
+    "type": "interview",
+    "question": "How can heaps be used to efficiently implement a median-finding data structure?",
+    "expected_answer": "Using two heaps — a max-heap for lower half and min-heap for upper half of data — median can be found in O(1), while insertion is O(log n) due to balancing heaps.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "heap",
+    "tags": ["median", "two heaps", "data structure"]
+  }
+] 

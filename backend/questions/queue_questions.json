@@ -1,0 +1,496 @@
+[
+  {
+    "type": "mcq",
+    "question": "What is the order followed by a queue?",
+    "options": ["LIFO", "FILO", "FIFO", "None"],
+    "answer": "FIFO",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "queue",
+    "tags": ["basic", "order"],
+    "explanation": "Queue follows First In First Out."
+  },
+  {
+    "type": "mcq",
+    "question": "Which operation inserts an element in a queue?",
+    "options": ["enqueue", "dequeue", "push", "pop"],
+    "answer": "enqueue",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "queue",
+    "tags": ["operations"],
+    "explanation": "Enqueue is used to insert an element in a queue."
+  },
+  {
+    "type": "mcq",
+    "question": "Which operation removes an element from a queue?",
+    "options": ["enqueue", "dequeue", "push", "pop"],
+    "answer": "dequeue",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "queue",
+    "tags": ["operations"],
+    "explanation": "Dequeue is used to remove an element from a queue."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of enqueue operation in a queue?",
+    "options": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+    "answer": "O(1)",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "queue",
+    "tags": ["time complexity"],
+    "explanation": "Enqueue operation takes constant time O(1) as it only adds an element at the end."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of dequeue operation in a queue?",
+    "options": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+    "answer": "O(1)",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "queue",
+    "tags": ["time complexity"],
+    "explanation": "Dequeue operation takes constant time O(1) as it only removes an element from the front."
+  },
+  {
+    "type": "mcq",
+    "question": "Which of the following is not a queue operation?",
+    "options": ["enqueue", "dequeue", "push", "peek"],
+    "answer": "push",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "queue",
+    "tags": ["operations"],
+    "explanation": "Push is a stack operation, not a queue operation."
+  },
+  {
+    "type": "mcq",
+    "question": "What happens when you try to dequeue from an empty queue?",
+    "options": ["Returns null", "Returns undefined", "Throws an error", "Returns 0"],
+    "answer": "Throws an error",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "queue",
+    "tags": ["error handling"],
+    "explanation": "Dequeueing from an empty queue typically throws an underflow error."
+  },
+  {
+    "type": "mcq",
+    "question": "Which data structure is used to implement a queue?",
+    "options": ["Array", "Linked List", "Both A and B", "Tree"],
+    "answer": "Both A and B",
+    "difficulty": "easy",
+    "points": 5,
+    "topic": "queue",
+    "tags": ["implementation"],
+    "explanation": "Queue can be implemented using both array and linked list."
+  },
+  {
+    "type": "mcq",
+    "question": "What is a circular queue?",
+    "options": [
+      "A queue with fixed size",
+      "A queue that can grow infinitely",
+      "A queue with elements arranged in a circle",
+      "A queue that can only store circular objects"
+    ],
+    "answer": "A queue with fixed size",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["circular queue"],
+    "explanation": "A circular queue is a queue with fixed size where the last element is connected to the first element."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the advantage of using a circular queue over a linear queue?",
+    "options": [
+      "Better memory utilization",
+      "Faster operations",
+      "More flexible size",
+      "Easier implementation"
+    ],
+    "answer": "Better memory utilization",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["circular queue", "advantages"],
+    "explanation": "Circular queue provides better memory utilization as it reuses the empty spaces created after dequeue operations."
+  },
+  {
+    "type": "mcq",
+    "question": "What is a priority queue?",
+    "options": [
+      "A queue where elements are ordered by priority",
+      "A queue with fixed priority",
+      "A queue that only stores priority values",
+      "A queue that processes elements randomly"
+    ],
+    "answer": "A queue where elements are ordered by priority",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["priority queue"],
+    "explanation": "A priority queue is a queue where elements are ordered by their priority values."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of inserting an element in a priority queue?",
+    "options": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+    "answer": "O(log n)",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["priority queue", "time complexity"],
+    "explanation": "Inserting in a priority queue takes O(log n) time as it needs to maintain the heap property."
+  },
+  {
+    "type": "mcq",
+    "question": "What is a double-ended queue (deque)?",
+    "options": [
+      "A queue that can grow from both ends",
+      "A queue with two pointers",
+      "A queue that stores pairs of elements",
+      "A queue that can be accessed from both ends"
+    ],
+    "answer": "A queue that can be accessed from both ends",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["deque"],
+    "explanation": "A deque is a queue that allows insertion and deletion from both ends."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of accessing an element in a deque?",
+    "options": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+    "answer": "O(1)",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["deque", "time complexity"],
+    "explanation": "Accessing elements in a deque takes constant time O(1) as it uses doubly linked list or array implementation."
+  },
+  {
+    "type": "mcq",
+    "question": "What is a blocking queue?",
+    "options": [
+      "A queue that blocks when full",
+      "A queue that blocks when empty",
+      "A queue that blocks on both conditions",
+      "A queue that never blocks"
+    ],
+    "answer": "A queue that blocks on both conditions",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["blocking queue"],
+    "explanation": "A blocking queue blocks when trying to dequeue from an empty queue or enqueue to a full queue."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the main use of a blocking queue?",
+    "options": [
+      "Synchronization in multi-threading",
+      "Memory management",
+      "Data compression",
+      "Network routing"
+    ],
+    "answer": "Synchronization in multi-threading",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["blocking queue", "applications"],
+    "explanation": "Blocking queues are primarily used for synchronization in multi-threaded applications."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of finding the maximum element in a priority queue?",
+    "options": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+    "answer": "O(1)",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["priority queue", "time complexity"],
+    "explanation": "Finding maximum element in a max-heap based priority queue takes O(1) time as it's always at the root."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the space complexity of a queue implemented using a linked list?",
+    "options": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+    "answer": "O(n)",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["space complexity", "linked list"],
+    "explanation": "Queue implemented using linked list takes O(n) space where n is the number of elements."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the main advantage of using a linked list implementation of a queue over an array implementation?",
+    "options": [
+      "Dynamic size",
+      "Better cache locality",
+      "Faster access time",
+      "Less memory usage"
+    ],
+    "answer": "Dynamic size",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["implementation", "advantages"],
+    "explanation": "Linked list implementation allows dynamic resizing without the need to pre-allocate space."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of implementing a queue using two stacks?",
+    "options": [
+      "O(1) for enqueue, O(n) for dequeue",
+      "O(n) for enqueue, O(1) for dequeue",
+      "O(1) for both operations",
+      "O(n) for both operations"
+    ],
+    "answer": "O(1) for enqueue, O(n) for dequeue",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["implementation", "time complexity"],
+    "explanation": "When implementing queue using two stacks, enqueue is O(1) but dequeue requires moving all elements to the second stack, making it O(n)."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of finding the kth largest element in a priority queue?",
+    "options": ["O(1)", "O(k)", "O(log n)", "O(n log k)"],
+    "answer": "O(n log k)",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["priority queue", "time complexity"],
+    "explanation": "Finding kth largest element in a priority queue takes O(n log k) time using a min-heap of size k."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of merging k sorted queues?",
+    "options": ["O(n)", "O(n log k)", "O(k log n)", "O(nk)"],
+    "answer": "O(n log k)",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["merging", "time complexity"],
+    "explanation": "Merging k sorted queues takes O(n log k) time where n is total number of elements and k is number of queues."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of implementing a queue using a dynamic array?",
+    "options": [
+      "O(1) amortized for both operations",
+      "O(n) for both operations",
+      "O(1) for enqueue, O(n) for dequeue",
+      "O(n) for enqueue, O(1) for dequeue"
+    ],
+    "answer": "O(1) amortized for both operations",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["implementation", "time complexity"],
+    "explanation": "Using a dynamic array with circular buffer implementation gives O(1) amortized time for both enqueue and dequeue operations."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of implementing a blocking queue with a fixed size?",
+    "options": [
+      "O(1) for both operations",
+      "O(n) for both operations",
+      "O(1) for enqueue, O(n) for dequeue",
+      "O(n) for enqueue, O(1) for dequeue"
+    ],
+    "answer": "O(1) for both operations",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["blocking queue", "time complexity"],
+    "explanation": "A fixed-size blocking queue can be implemented with O(1) time complexity for both enqueue and dequeue operations using a circular buffer."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of implementing a priority queue using a binary heap?",
+    "options": [
+      "O(1) for insert, O(log n) for delete",
+      "O(log n) for insert, O(1) for delete",
+      "O(log n) for both operations",
+      "O(1) for both operations"
+    ],
+    "answer": "O(log n) for both operations",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["priority queue", "time complexity"],
+    "explanation": "Binary heap implementation of priority queue takes O(log n) time for both insert and delete operations."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of implementing a deque using a doubly linked list?",
+    "options": [
+      "O(1) for all operations",
+      "O(n) for all operations",
+      "O(1) for insert, O(n) for delete",
+      "O(n) for insert, O(1) for delete"
+    ],
+    "answer": "O(1) for all operations",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["deque", "time complexity"],
+    "explanation": "Doubly linked list implementation of deque provides O(1) time complexity for all operations (insert/delete at both ends)."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of implementing a circular queue with a fixed size?",
+    "options": [
+      "O(1) for all operations",
+      "O(n) for all operations",
+      "O(1) for enqueue, O(n) for dequeue",
+      "O(n) for enqueue, O(1) for dequeue"
+    ],
+    "answer": "O(1) for all operations",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["circular queue", "time complexity"],
+    "explanation": "Fixed-size circular queue implementation provides O(1) time complexity for all operations using modulo arithmetic."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of implementing a queue using a binary search tree?",
+    "options": [
+      "O(log n) for all operations",
+      "O(n) for all operations",
+      "O(1) for enqueue, O(log n) for dequeue",
+      "O(log n) for enqueue, O(1) for dequeue"
+    ],
+    "answer": "O(log n) for all operations",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["implementation", "time complexity"],
+    "explanation": "BST implementation of queue takes O(log n) time for all operations due to the tree's height."
+  },
+  {
+    "type": "mcq",
+    "question": "What is the time complexity of implementing a queue using a hash table?",
+    "options": [
+      "O(1) average case, O(n) worst case",
+      "O(n) for all operations",
+      "O(1) for enqueue, O(n) for dequeue",
+      "O(n) for enqueue, O(1) for dequeue"
+    ],
+    "answer": "O(1) average case, O(n) worst case",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["implementation", "time complexity"],
+    "explanation": "Hash table implementation provides O(1) average case time complexity, but O(n) in worst case due to collisions."
+  },
+  {
+    "type": "debug",
+    "question": "Debug the following queue implementation:\n\nclass Queue:\n    def __init__(self):\n        self.items = []\n    \n    def enqueue(self, item):\n        self.items.append(item)\n    \n    def dequeue(self):\n        if self.is_empty():\n            return None\n        return self.items.pop(0)\n    \n    def is_empty(self):\n        return len(self.items) == 0\n\nWhat is the time complexity of dequeue operation and how can it be improved?",
+    "answer": "The dequeue operation has O(n) time complexity due to pop(0) which shifts all elements. It can be improved by using collections.deque or implementing a circular buffer.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["debugging", "time complexity"],
+    "explanation": "The current implementation uses list.pop(0) which is O(n) as it requires shifting all elements. Using collections.deque would make it O(1)."
+  },
+  {
+    "type": "debug",
+    "question": "Debug the following circular queue implementation:\n\nclass CircularQueue:\n    def __init__(self, size):\n        self.size = size\n        self.queue = [None] * size\n        self.front = 0\n        self.rear = 0\n    \n    def enqueue(self, item):\n        if self.is_full():\n            return False\n        self.queue[self.rear] = item\n        self.rear = (self.rear + 1) % self.size\n        return True\n    \n    def dequeue(self):\n        if self.is_empty():\n            return None\n        item = self.queue[self.front]\n        self.front = (self.front + 1) % self.size\n        return item\n    \n    def is_empty(self):\n        return self.front == self.rear\n    \n    def is_full(self):\n        return (self.rear + 1) % self.size == self.front\n\nWhat is the issue with this implementation?",
+    "answer": "The implementation wastes one slot to distinguish between full and empty states. A better approach would be to use a count variable or a boolean flag.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["debugging", "circular queue"],
+    "explanation": "The current implementation uses one slot to distinguish between full and empty states, which is inefficient. Using a count variable would allow using all slots."
+  },
+  {
+    "type": "debug",
+    "question": "Debug the following priority queue implementation:\n\nclass PriorityQueue:\n    def __init__(self):\n        self.items = []\n    \n    def enqueue(self, item, priority):\n        self.items.append((priority, item))\n        self.items.sort()\n    \n    def dequeue(self):\n        if self.is_empty():\n            return None\n        return self.items.pop(0)[1]\n    \n    def is_empty(self):\n        return len(self.items) == 0\n\nWhat is the issue with this implementation?",
+    "answer": "The implementation sorts the entire list on every enqueue, making it O(n log n). It should use a binary heap for O(log n) operations.",
+    "difficulty": "medium",
+    "points": 10,
+    "topic": "queue",
+    "tags": ["debugging", "priority queue"],
+    "explanation": "The current implementation sorts the entire list on every enqueue operation, which is inefficient. Using a binary heap would provide O(log n) time complexity."
+  },
+  {
+    "type": "debug",
+    "question": "Debug the following queue implementation using two stacks:\n\nclass Queue:\n    def __init__(self):\n        self.stack1 = []\n        self.stack2 = []\n    \n    def enqueue(self, item):\n        self.stack1.append(item)\n    \n    def dequeue(self):\n        if not self.stack2:\n            while self.stack1:\n                self.stack2.append(self.stack1.pop())\n        return self.stack2.pop() if self.stack2 else None\n\nWhat is the time complexity of this implementation and is it optimal?",
+    "answer": "The implementation has O(1) amortized time complexity for both operations, which is optimal for a queue implementation using stacks.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["debugging", "time complexity"],
+    "explanation": "This implementation is actually optimal for a queue using stacks. While dequeue can be O(n) in worst case, it's O(1) amortized as each element is moved from stack1 to stack2 only once."
+  },
+  {
+    "type": "debug",
+    "question": "Debug the following blocking queue implementation:\n\nclass BlockingQueue:\n    def __init__(self, size):\n        self.size = size\n        self.queue = []\n        self.lock = threading.Lock()\n    \n    def enqueue(self, item):\n        with self.lock:\n            if len(self.queue) >= self.size:\n                return False\n            self.queue.append(item)\n            return True\n    \n    def dequeue(self):\n        with self.lock:\n            if not self.queue:\n                return None\n            return self.queue.pop(0)\n\nWhat is missing in this implementation?",
+    "answer": "The implementation is missing condition variables for blocking operations. It should use threading.Condition to properly block threads when the queue is full or empty.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["debugging", "blocking queue"],
+    "explanation": "The current implementation only uses a lock but doesn't actually block threads. It should use threading.Condition to properly implement blocking behavior when the queue is full or empty."
+  },
+  {
+    "type": "interview",
+    "question": "Implement a queue using only one stack. What are the trade-offs?",
+    "answer": "A queue can be implemented using one stack with recursion, but it would have O(n) time complexity for dequeue and O(n) space complexity due to the call stack. The trade-off is between space and time complexity.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["implementation", "interview"],
+    "explanation": "Using recursion, we can implement dequeue by popping all elements except the last one, then returning the last element and pushing others back. This gives O(n) time for dequeue and O(n) space for recursion stack."
+  },
+  {
+    "type": "interview",
+    "question": "How would you implement a queue that can return the maximum element in O(1) time?",
+    "answer": "Use a main queue and a separate max queue that maintains the maximum elements. For each enqueue, remove elements from max queue that are smaller than the new element.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["implementation", "interview"],
+    "explanation": "The solution uses a separate queue to track maximum elements. When enqueueing, we remove all elements from max queue that are smaller than the new element, ensuring the front of max queue always has the current maximum."
+  },
+  {
+    "type": "interview",
+    "question": "Implement a queue that supports operations: enqueue, dequeue, and getMin in O(1) time.",
+    "answer": "Use a main queue and a separate min queue. For each enqueue, remove elements from min queue that are larger than the new element. The front of min queue will always have the minimum element.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["implementation", "interview"],
+    "explanation": "Similar to the max queue problem, we maintain a separate queue for minimum elements. When enqueueing, we remove all elements from min queue that are larger than the new element, ensuring O(1) getMin operation."
+  },
+  {
+    "type": "interview",
+    "question": "How would you implement a queue that can handle multiple producers and consumers efficiently?",
+    "answer": "Use a thread-safe blocking queue implementation with proper synchronization using locks and condition variables. Consider using a circular buffer for better performance.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["concurrency", "interview"],
+    "explanation": "The solution requires proper synchronization using locks and condition variables. A circular buffer implementation would provide better performance than a linked list. The queue should block producers when full and consumers when empty."
+  },
+  {
+    "type": "interview",
+    "question": "Implement a queue that can handle high concurrency with minimal contention. What data structure would you use?",
+    "answer": "Use a lock-free queue implementation based on atomic operations and compare-and-swap (CAS) operations. Consider using a linked list with atomic pointers.",
+    "difficulty": "hard",
+    "points": 15,
+    "topic": "queue",
+    "tags": ["concurrency", "interview"],
+    "explanation": "A lock-free implementation using atomic operations and CAS would minimize contention. A linked list with atomic pointers allows concurrent enqueue and dequeue operations without locks, though it requires careful memory management."
+  }
+] 
