@@ -262,6 +262,7 @@
     color: #fff;
     margin-bottom: 0.5rem;
     background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: shimmer 2s infinite;
