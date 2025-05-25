@@ -124,9 +124,9 @@ export const Roadmap = () => {
   // State to hold the roadmap data to be passed to the generator modal
   const [roadmapToView, setRoadmapToView] = useState(null);
 
-  // State for renaming roadmaps
-  const [editingRoadmapId, setEditingRoadmapId] = useState(null);
-  const [newRoadmapTitle, setNewRoadmapTitle] = useState('');
+  // State for renaming functionality
+  const [renamingRoadmapId, setRenamingRoadmapId] = useState(null);
+  const [newRoadmapName, setNewRoadmapName] = useState('');
 
   const toggleCard = (section, index, item) => {
     // On card click, navigate to details page for that topic
@@ -193,37 +193,43 @@ export const Roadmap = () => {
     setShowRoadmapGenerator(true);
   };
 
-  // Functions for renaming
-  const handleStartRename = (roadmap) => {
-    setEditingRoadmapId(roadmap.id);
-    setNewRoadmapTitle(roadmap.topic);
+  // Function to start renaming a roadmap
+  const startRenamingRoadmap = (roadmap) => {
+    setRenamingRoadmapId(roadmap.id);
+    setNewRoadmapName(roadmap.topic);
   };
 
-  const handleCancelRename = () => {
-    setEditingRoadmapId(null);
-    setNewRoadmapTitle('');
-  };
-
-  const handleSaveRename = async (roadmapId) => {
-    if (newRoadmapTitle.trim() === '') {
-        // Optionally show an error or prevent saving empty title
-        console.warn('Roadmap title cannot be empty.');
-        return;
+  // Function to handle renaming a roadmap
+  const handleRenameRoadmap = async (roadmapId) => {
+    if (!newRoadmapName.trim()) {
+      // Prevent renaming to an empty name
+      setRenamingRoadmapId(null);
+      setNewRoadmapName('');
+      return;
     }
-    // TODO: Implement backend call to update the roadmap title
-    console.log(`Attempting to save rename for ${roadmapId} with new title: ${newRoadmapTitle}`);
-    
-    // For now, update frontend state directly (will be replaced by backend update)
-    setSavedRoadmaps(prevRoadmaps => 
-        prevRoadmaps.map(roadmap => 
-            roadmap.id === roadmapId ? { ...roadmap, topic: newRoadmapTitle } : roadmap
-        )
-    );
+    try {
+      // Placeholder for backend API call to rename roadmap
+      console.log(`Attempting to rename roadmap ${roadmapId} to ${newRoadmapName}`);
+      // After successful backend call, update the frontend state
+      setSavedRoadmaps(savedRoadmaps.map(roadmap => 
+        roadmap.id === roadmapId ? { ...roadmap, topic: newRoadmapName } : roadmap
+      ));
+      setToast('Roadmap renamed successfully!');
+      setTimeout(() => setToast(''), 2000);
+    } catch (err) {
+      console.error('Error renaming roadmap:', err);
+      setToast('Failed to rename roadmap.');
+      setTimeout(() => setToast(''), 2000);
+    } finally {
+      setRenamingRoadmapId(null);
+      setNewRoadmapName('');
+    }
+  };
 
-    setEditingRoadmapId(null);
-    setNewRoadmapTitle('');
-    setToast('Roadmap renamed (frontend update only)!'); // Temporary toast
-    setTimeout(() => setToast(''), 2000);
+  // Function to cancel renaming
+  const cancelRenaming = () => {
+    setRenamingRoadmapId(null);
+    setNewRoadmapName('');
   };
 
   useEffect(() => {
@@ -236,9 +242,6 @@ export const Roadmap = () => {
   const handleCloseGenerator = () => {
     setShowRoadmapGenerator(false);
     setRoadmapToView(null);
-    // Also reset editing state if modal was used to view and then user tries to edit
-    setEditingRoadmapId(null);
-    setNewRoadmapTitle('');
   };
 
   return (
@@ -251,6 +254,7 @@ export const Roadmap = () => {
           <button className="btn" onClick={() => setShowRoadmapGenerator(true)}>Generate Roadmap with AI</button>
         </div>
         
+        {/* My Roadmaps Section - Moved to Top */}
         <div className="saved-roadmaps-section">
           <h2>My Roadmaps</h2>
           {savedRoadmaps.length === 0 ? (
@@ -259,32 +263,34 @@ export const Roadmap = () => {
             <div className="saved-roadmaps-grid">
               {savedRoadmaps.map(roadmap => (
                 <div key={roadmap.id} className="saved-roadmap-card">
-                  {/* Conditionally render title or input with icon */}
-                  <div className="roadmap-title-container">
-                      {editingRoadmapId === roadmap.id ? (
-                          <input
-                              type="text"
-                              value={newRoadmapTitle}
-                              onChange={(e) => setNewRoadmapTitle(e.target.value)}
-                              onBlur={() => handleSaveRename(roadmap.id)} // Save on blur
-                              onKeyPress={(e) => {
-                                  if (e.key === 'Enter') {
-                                      handleSaveRename(roadmap.id);
-                                  }
-                              }}
-                              autoFocus
-                              className="rename-input"
-                          />
-                      ) : (
-                          <h3 onDoubleClick={() => handleStartRename(roadmap)}>{roadmap.topic}</h3> // Edit on double click
-                      )}
-                      {/* Add edit icon */} {/* Show icon only when not editing */}
-                      {editingRoadmapId !== roadmap.id && (
-                           <button className="edit-icon-button" onClick={() => handleStartRename(roadmap)} title="Rename Roadmap">
-                               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                           </button>
-                      )}
-                  </div>
+                   {renamingRoadmapId === roadmap.id ? (
+                    <div className="rename-input-container">
+                      <input
+                        type="text"
+                        value={newRoadmapName}
+                        onChange={(e) => setNewRoadmapName(e.target.value)}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            handleRenameRoadmap(roadmap.id);
+                          }
+                        }}
+                        className="rename-input"
+                      />
+                      <button className="rename-action-button save" onClick={() => handleRenameRoadmap(roadmap.id)}>
+                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                      </button>
+                      <button className="rename-action-button cancel" onClick={cancelRenaming}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="roadmap-header-with-rename">
+                      <h3>{roadmap.topic}</h3>
+                      <button className="rename-button" onClick={() => startRenamingRoadmap(roadmap)}>
+                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                      </button>
+                    </div>
+                  )}
 
                   <div className="roadmap-details">
                     <p><strong>Goal:</strong> {roadmap.main_outcome}</p>
@@ -293,9 +299,6 @@ export const Roadmap = () => {
                   </div>
 
                   <div className="roadmap-actions">
-                     {/* Removed Edit button */}
-                     {/* Removed Save/Cancel buttons - using blur/enter on input */}
-
                     <button 
                       className="view-button"
                       onClick={() => handleViewSavedRoadmap(roadmap)}

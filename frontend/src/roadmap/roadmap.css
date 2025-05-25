@@ -528,26 +528,18 @@
   color: #b99cff;
 }
 
-.roadmap-title-container {
+.roadmap-header-with-rename {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 7px;
 }
 
-.rename-input {
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  background: #3a2b5a;
-  border: 1px solid #a879ff;
-  border-radius: 4px;
-  padding: 4px 8px;
-  outline: none;
-  flex-grow: 1;
+.roadmap-header-with-rename h3 {
+  margin: 0;
 }
 
-.edit-icon-button {
+.rename-button {
   background: none;
   border: none;
   color: #b99cff;
@@ -559,8 +551,13 @@
   transition: color 0.2s ease;
 }
 
-.edit-icon-button:hover {
+.rename-button:hover {
   color: #a879ff;
+}
+
+.rename-button svg {
+  width: 16px;
+  height: 16px;
 }
 
 .roadmap-details p {
