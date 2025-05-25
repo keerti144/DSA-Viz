@@ -8,9 +8,9 @@ load_dotenv()
 
 # Configuration Class
 class Config:
-    SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key")  # Default value if missing
-    DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1")  # Converts string to boolean
-    FIREBASE_CREDENTIALS_PATH = "firebase_key.json"  # Use the local file directly
+    SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key")
+    DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1")
+    FIREBASE_CREDENTIALS_PATH = os.path.join(os.path.dirname(__file__), "firebase_key.json")  # Use absolute path
     FIREBASE_API_KEY = os.getenv("FIREBASE_API_KEY")
     
     # Groq API Configuration
@@ -27,8 +27,11 @@ class Config:
 
 # Firebase Initialization (Only initialize if not already initialized)
 if not firebase_admin._apps:
-    cred = credentials.Certificate(Config.FIREBASE_CREDENTIALS_PATH)
-    firebase_admin.initialize_app(cred)
+    if os.path.exists(Config.FIREBASE_CREDENTIALS_PATH):
+        cred = credentials.Certificate(Config.FIREBASE_CREDENTIALS_PATH)
+        firebase_admin.initialize_app(cred)
+    else:
+        raise ValueError(f"Firebase credentials file not found at {Config.FIREBASE_CREDENTIALS_PATH}")
 
 # Create Firestore client
 db = firestore.client()

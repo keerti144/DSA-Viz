@@ -412,6 +412,21 @@ function getAVLInsertSteps(root, value) {
     return steps;
 }
 
+// Helper to get tree width (leftmost to rightmost node)
+function getTreeWidth(node, level = 0, positions = { min: Infinity, max: -Infinity }) {
+    if (!node) return positions;
+    
+    // Update min and max positions
+    positions.min = Math.min(positions.min, level);
+    positions.max = Math.max(positions.max, level);
+    
+    // Recursively check children
+    if (node.left) getTreeWidth(node.left, level - 1, positions);
+    if (node.right) getTreeWidth(node.right, level + 1, positions);
+    
+    return positions;
+}
+
 const sidebarData = {
     binary: {
         algorithm: `Insert(node, value):\n  if node is null:\n    return new Node(value)\n  if value < node.value:\n    node.left = Insert(node.left, value)\n  else:\n    node.right = Insert(node.right, value)\n  return node`,
@@ -432,8 +447,19 @@ export default function TreeVisualization({ algorithm, title }) {
     const [stepIdx, setStepIdx] = useState(0);
     const [inserting, setInserting] = useState(false);
     const [pendingValue, setPendingValue] = useState(null);
+    const visualizationRef = useRef(null);
 
     const sidebar = sidebarData[algorithm] || {};
+
+    // Auto-scroll to top when tree changes
+    useEffect(() => {
+        if (visualizationRef.current) {
+            visualizationRef.current.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    }, [root, steps, stepIdx]);
 
     // Start insertion process
     const handleInsert = () => {
@@ -479,8 +505,8 @@ export default function TreeVisualization({ algorithm, title }) {
         if (!node) return null;
         const nodeRadius = 22;
         const yStep = 80;
-        // Dynamically shrink xOffset as tree gets deeper
-        const dynamicXOffset = xOffset / (level + 1.2);
+        // Use a fixed xOffset for better visibility of unbalanced trees
+        const fixedXOffset = 120;
         const children = [];
         if (node.left) {
             children.push(
@@ -488,7 +514,7 @@ export default function TreeVisualization({ algorithm, title }) {
                     key={node.value + '-l'}
                     x1={x}
                     y1={y}
-                    x2={x - dynamicXOffset}
+                    x2={x - fixedXOffset}
                     y2={y + yStep}
                     stroke="#aaa"
                     strokeWidth={2}
@@ -501,7 +527,7 @@ export default function TreeVisualization({ algorithm, title }) {
                     key={node.value + '-r'}
                     x1={x}
                     y1={y}
-                    x2={x + dynamicXOffset}
+                    x2={x + fixedXOffset}
                     y2={y + yStep}
                     stroke="#aaa"
                     strokeWidth={2}
@@ -531,8 +557,8 @@ export default function TreeVisualization({ algorithm, title }) {
                 >
                     {node.value}
                 </text>
-                {node.left && renderTree(node.left, x - dynamicXOffset, y + yStep, level + 1, xOffset, highlightPath)}
-                {node.right && renderTree(node.right, x + dynamicXOffset, y + yStep, level + 1, xOffset, highlightPath)}
+                {node.left && renderTree(node.left, x - fixedXOffset, y + yStep, level - 1, xOffset, highlightPath)}
+                {node.right && renderTree(node.right, x + fixedXOffset, y + yStep, level + 1, xOffset, highlightPath)}
             </g>
         );
     }
@@ -540,10 +566,13 @@ export default function TreeVisualization({ algorithm, title }) {
     // Calculate dynamic SVG size
     const currentTree = inserting ? steps[stepIdx]?.tree : root;
     const treeDepth = getTreeDepth(currentTree);
-    const svgWidth = Math.max(900, Math.pow(2, treeDepth) * 60);
-    const svgHeight = Math.max(500, treeDepth * 100 + 100);
+    const treeWidth = getTreeWidth(currentTree);
+    const actualWidth = Math.abs(treeWidth.max - treeWidth.min) * 120 + 300;
+    const svgWidth = Math.max(900, actualWidth);
+    const svgHeight = Math.max(500, treeDepth * 100 + 200);
+    const centerX = (treeWidth.max + treeWidth.min) * -60 + svgWidth / 2;
+    const startY = 100;
 
-    // Scrollable layout
     return (
         <div style={{ display: 'flex', minHeight: '100vh', background: '#1c0b3a' }}>
             <Sidebar />
@@ -554,7 +583,14 @@ export default function TreeVisualization({ algorithm, title }) {
                         <div className="base-vis-header">
                             <h1>{title}</h1>
                         </div>
-                        <div className="base-vis-controls" style={{ overflowX: 'auto' }}>
+                        <div className="base-vis-controls" style={{ 
+                            display: 'flex', 
+                            gap: '1rem', 
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexWrap: 'wrap',
+                            padding: '1rem'
+                        }}>
                             <input
                                 type="text"
                                 value={input}
@@ -567,26 +603,72 @@ export default function TreeVisualization({ algorithm, title }) {
                             <button onClick={handleInsert} className="base-vis-btn" disabled={inserting || !input.trim()}>Insert</button>
                             <button onClick={handleReset} className="base-vis-btn">Reset</button>
                         </div>
-                        <div className="base-vis-controls" style={{ overflowX: 'auto' }}>
+                        <div className="base-vis-controls" style={{ 
+                            display: 'flex', 
+                            gap: '1rem', 
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '0.5rem 1rem'
+                        }}>
                             <button onClick={handlePrev} className="base-vis-btn" disabled={stepIdx === 0 || !inserting}>Previous</button>
-                            <span style={{ color: '#e879f9', fontWeight: 500, fontSize: 18, margin: '0 1rem' }}>
+                            <span style={{ color: '#e879f9', fontWeight: 500, fontSize: 18 }}>
                                 {inserting ? `Step ${stepIdx + 1} / ${steps.length}` : 'Ready for next insertion'}
                             </span>
                             <button onClick={handleNext} className="base-vis-btn" disabled={!inserting}>Next</button>
                         </div>
-                        <div className="base-vis-visualization" style={{ minHeight: 320, display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto' }}>
+                        <div 
+                            ref={visualizationRef}
+                            className="base-vis-visualization" 
+                            style={{ 
+                                minHeight: 320, 
+                                display: 'flex', 
+                                justifyContent: 'center', 
+                                alignItems: 'flex-start',
+                                overflow: 'auto',
+                                maxWidth: '100%',
+                                position: 'relative',
+                                padding: '1rem',
+                                scrollBehavior: 'smooth'
+                            }}
+                        >
                             {(!root && !inserting) ? (
                                 <div style={{ color: '#e879f9', fontWeight: 500, fontSize: 20, margin: '2rem 0' }}>Insert values to build the tree</div>
                             ) : (
-                                <svg width={svgWidth} height={svgHeight} style={{ background: 'none' }}>
-                                    {inserting
-                                        ? renderTree(steps[stepIdx]?.tree, svgWidth / 2, 50, 0, svgWidth / 4, steps[stepIdx]?.highlight)
-                                        : renderTree(root, svgWidth / 2, 50, 0, svgWidth / 4, null)
-                                    }
-                                </svg>
+                                <div style={{ 
+                                    overflow: 'visible',
+                                    maxWidth: '100%',
+                                    padding: '1rem',
+                                    position: 'relative'
+                                }}>
+                                    <svg 
+                                        width={svgWidth} 
+                                        height={svgHeight} 
+                                        style={{ 
+                                            background: 'none',
+                                            minWidth: '100%',
+                                            display: 'block',
+                                            padding: '40px 0 20px 0'
+                                        }}
+                                        viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+                                        preserveAspectRatio="xMidYMin meet"
+                                    >
+                                        {inserting
+                                            ? renderTree(steps[stepIdx]?.tree, centerX, startY, 0, svgWidth / 4, steps[stepIdx]?.highlight)
+                                            : renderTree(root, centerX, startY, 0, svgWidth / 4, null)
+                                        }
+                                    </svg>
+                                </div>
                             )}
                         </div>
-                        <div style={{ minHeight: 32, marginTop: 8, textAlign: 'center', color: '#e879f9', fontWeight: 500, fontSize: 18, overflowX: 'auto' }}>
+                        <div style={{ 
+                            minHeight: 32, 
+                            marginTop: 8, 
+                            textAlign: 'center', 
+                            color: '#e879f9', 
+                            fontWeight: 500, 
+                            fontSize: 18,
+                            padding: '0.5rem 1rem'
+                        }}>
                             {inserting && steps.length > 0 && (
                                 <>
                                     Inserting: <b>{pendingValue}</b> (Step {stepIdx + 1} of {steps.length})
