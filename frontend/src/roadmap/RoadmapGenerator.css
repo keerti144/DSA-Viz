@@ -455,4 +455,69 @@
 
 .generated-roadmap-header h2 {
      margin: 0; /* Remove default margin */
-} 
+}
+
+.cancel-button {
+    background: linear-gradient(45deg, #8a2be2, #9370db);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 22px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 16px;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px #a879ff33;
+    outline: none;
+    display: inline-block;
+}
+.cancel-button:hover {
+    background: linear-gradient(45deg, #7a1cd2, #8360cb);
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 4px 16px #a879ff55;
+}
+
+.my-roadmaps-section {
+    background: linear-gradient(135deg, #1e1e2f 0%, #2a2a40 100%);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px #a879ff22, 0 1.5px 8px #a879ff11;
+    border: 1.5px solid #22184a;
+    padding: 36px 24px 32px 24px;
+    margin: 0 auto 32px auto;
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-group {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    margin-bottom: 28px;
+}
+
+.focus-areas-grid {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    margin-bottom: 28px;
+}
+
+.form-group {
+    margin-bottom: 36px;
+}
+
+.form-section {
+    padding-top: 18px;
+}
+
+.form-group label:contains('broad overview') + .button-group {
+    margin-left: 40px;
+}
+
+/* If :contains is not supported, use a custom class on the button-group in JSX and target that class instead. */ 

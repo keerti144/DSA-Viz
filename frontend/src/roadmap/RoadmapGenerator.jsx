@@ -405,7 +405,7 @@ const RoadmapGenerator = ({ onClose, savedRoadmapData }) => {
 
                             <div className="form-group">
                                 <label>Do you want a broad overview or an in-depth specialization?</label>
-                                <div className="button-group">
+                                <div className="button-group learning-scope-group">
                                     <button
                                         type="button"
                                         className={`option-button ${learningScope === 'broad' ? 'selected' : ''}`}
