@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../header/header";
 import Sidebar from "../sidebar/sidebar";
 import "./roadmap.css";
 import roadmapImg from '../assets/roadmap.png';
 import { useNavigate } from 'react-router-dom';
+import RoadmapGenerator from './RoadmapGenerator';
+import { useAuth } from '../contexts/AuthContext';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const roadmapData = {
   recommended: [
@@ -111,11 +115,18 @@ const defaultTopics = Object.keys(topicDetails);
 
 export const Roadmap = () => {
   const [expandedCard, setExpandedCard] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedTopics, setSelectedTopics] = useState([]);
-  const [topicLevels, setTopicLevels] = useState({});
-  const [customRoadmap, setCustomRoadmap] = useState(null);
+  const [showRoadmapGenerator, setShowRoadmapGenerator] = useState(false);
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+  const [savedRoadmaps, setSavedRoadmaps] = useState([]);
+  const [toast, setToast] = useState('');
+  
+  // State to hold the roadmap data to be passed to the generator modal
+  const [roadmapToView, setRoadmapToView] = useState(null);
+
+  // State for renaming roadmaps
+  const [editingRoadmapId, setEditingRoadmapId] = useState(null);
+  const [newRoadmapTitle, setNewRoadmapTitle] = useState('');
 
   const toggleCard = (section, index, item) => {
     // On card click, navigate to details page for that topic
@@ -126,36 +137,6 @@ export const Roadmap = () => {
     const id = `${section}-${index}`;
     setExpandedCard(expandedCard === id ? null : id);
   };
-
-  // Modal logic
-  const openModal = () => {
-    setShowModal(true);
-    setSelectedTopics([]);
-    setTopicLevels({});
-    setCustomRoadmap(null);
-  };
-  const closeModal = () => setShowModal(false);
-
-  const handleTopicToggle = (topic) => {
-    setSelectedTopics((prev) =>
-      prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic]
-    );
-  };
-  const handleLevelChange = (topic, level) => {
-    setTopicLevels((prev) => ({ ...prev, [topic]: level }));
-  };
-  const handleCreateRoadmap = () => {
-    if (selectedTopics.length === 0) return;
-    setCustomRoadmap(selectedTopics.map((topic) => {
-      const level = topicLevels[topic] || 'basics';
-      return {
-        topic,
-        level,
-        ...topicDetails[topic][level],
-      };
-    }));
-  };
-  const totalTime = customRoadmap ? customRoadmap.reduce((sum, t) => sum + t.time, 0) : 0;
 
   const renderCards = (data, sectionName) =>
     data.map((item, index) => {
@@ -173,6 +154,93 @@ export const Roadmap = () => {
       );
     });
 
+  const loadSavedRoadmaps = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/get-saved-roadmaps/${currentUser.uid}`);
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to load saved roadmaps');
+      }
+
+      setSavedRoadmaps(data.saved_roadmaps);
+    } catch (err) {
+      console.error('Error loading saved roadmaps:', err);
+    }
+  };
+
+  const handleDeleteRoadmap = async (roadmapId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/delete-roadmap/${currentUser.uid}/${roadmapId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete roadmap');
+      }
+
+      setSavedRoadmaps(prev => prev.filter(r => r.id !== roadmapId));
+      setToast('Roadmap deleted successfully!');
+      setTimeout(() => setToast(''), 2000);
+    } catch (err) {
+      console.error('Error deleting roadmap:', err);
+    }
+  };
+  
+  // Function to handle viewing a saved roadmap
+  const handleViewSavedRoadmap = (roadmap) => {
+    setRoadmapToView(roadmap);
+    setShowRoadmapGenerator(true);
+  };
+
+  // Functions for renaming
+  const handleStartRename = (roadmap) => {
+    setEditingRoadmapId(roadmap.id);
+    setNewRoadmapTitle(roadmap.topic);
+  };
+
+  const handleCancelRename = () => {
+    setEditingRoadmapId(null);
+    setNewRoadmapTitle('');
+  };
+
+  const handleSaveRename = async (roadmapId) => {
+    if (newRoadmapTitle.trim() === '') {
+        // Optionally show an error or prevent saving empty title
+        console.warn('Roadmap title cannot be empty.');
+        return;
+    }
+    // TODO: Implement backend call to update the roadmap title
+    console.log(`Attempting to save rename for ${roadmapId} with new title: ${newRoadmapTitle}`);
+    
+    // For now, update frontend state directly (will be replaced by backend update)
+    setSavedRoadmaps(prevRoadmaps => 
+        prevRoadmaps.map(roadmap => 
+            roadmap.id === roadmapId ? { ...roadmap, topic: newRoadmapTitle } : roadmap
+        )
+    );
+
+    setEditingRoadmapId(null);
+    setNewRoadmapTitle('');
+    setToast('Roadmap renamed (frontend update only)!'); // Temporary toast
+    setTimeout(() => setToast(''), 2000);
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      loadSavedRoadmaps();
+    }
+  }, [currentUser]);
+
+  // Function to close the generator modal and reset roadmapToView state
+  const handleCloseGenerator = () => {
+    setShowRoadmapGenerator(false);
+    setRoadmapToView(null);
+    // Also reset editing state if modal was used to view and then user tries to edit
+    setEditingRoadmapId(null);
+    setNewRoadmapTitle('');
+  };
+
   return (
     <div className="roadmap-page">
       <Header />
@@ -180,65 +248,102 @@ export const Roadmap = () => {
       <div className="roadmap-container">
         <h1 className="text-wrapper">Roadmap</h1>
         <div className="action-buttons">
-          <button className="btn" onClick={openModal}>Generate Roadmap</button>
+          <button className="btn" onClick={() => setShowRoadmapGenerator(true)}>Generate Roadmap with AI</button>
         </div>
+        
+        <div className="saved-roadmaps-section">
+          <h2>My Roadmaps</h2>
+          {savedRoadmaps.length === 0 ? (
+            <p className="no-roadmaps">No saved roadmaps yet. Generate your first roadmap to get started!</p>
+          ) : (
+            <div className="saved-roadmaps-grid">
+              {savedRoadmaps.map(roadmap => (
+                <div key={roadmap.id} className="saved-roadmap-card">
+                  {/* Conditionally render title or input with icon */}
+                  <div className="roadmap-title-container">
+                      {editingRoadmapId === roadmap.id ? (
+                          <input
+                              type="text"
+                              value={newRoadmapTitle}
+                              onChange={(e) => setNewRoadmapTitle(e.target.value)}
+                              onBlur={() => handleSaveRename(roadmap.id)} // Save on blur
+                              onKeyPress={(e) => {
+                                  if (e.key === 'Enter') {
+                                      handleSaveRename(roadmap.id);
+                                  }
+                              }}
+                              autoFocus
+                              className="rename-input"
+                          />
+                      ) : (
+                          <h3 onDoubleClick={() => handleStartRename(roadmap)}>{roadmap.topic}</h3> // Edit on double click
+                      )}
+                      {/* Add edit icon */} {/* Show icon only when not editing */}
+                      {editingRoadmapId !== roadmap.id && (
+                           <button className="edit-icon-button" onClick={() => handleStartRename(roadmap)} title="Rename Roadmap">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                           </button>
+                      )}
+                  </div>
+
+                  <div className="roadmap-details">
+                    <p><strong>Goal:</strong> {roadmap.main_outcome}</p>
+                    <p><strong>Target Date:</strong> {new Date(roadmap.target_date).toLocaleDateString()}</p>
+                    <p><strong>Time Commitment:</strong> {roadmap.time_commitment}</p>
+                  </div>
+
+                  <div className="roadmap-actions">
+                     {/* Removed Edit button */}
+                     {/* Removed Save/Cancel buttons - using blur/enter on input */}
+
+                    <button 
+                      className="view-button"
+                      onClick={() => handleViewSavedRoadmap(roadmap)}
+                    >
+                      View Roadmap
+                    </button>
+                    <button 
+                      className="delete-button"
+                      onClick={() => handleDeleteRoadmap(roadmap.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Recommended Roadmaps Section */}
         <div className="section">
           <h2>Recommended Roadmaps</h2>
           <div className="grid">
             {renderCards(roadmapData.recommended, 'recommended')}
           </div>
         </div>
+
+        {/* Most Used Roadmaps Section */}
         <div className="section">
           <h2>Most Used Roadmaps</h2>
           <div className="grid">
             {renderCards(roadmapData.popular, 'popular')}
           </div>
         </div>
+
       </div>
-      {/* Modal for custom roadmap */}
-      {showModal && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal" onClick={e => e.stopPropagation()}>
-            <button className="close-btn" onClick={closeModal}>&times;</button>
-            <h2>Create Your Custom Roadmap</h2>
-            <div className="topic-list">
-              {defaultTopics.map(topic => (
-                <div key={topic} className={`topic-item${selectedTopics.includes(topic) ? ' selected' : ''}`}
-                  onClick={() => handleTopicToggle(topic)}>
-                  <span>{topic}</span>
-                  {selectedTopics.includes(topic) && (
-                    <div className="level-select">
-                      <button className={topicLevels[topic] === 'basics' ? 'level-btn selected' : 'level-btn'} onClick={e => { e.stopPropagation(); handleLevelChange(topic, 'basics'); }}>Basics</button>
-                      <button className={topicLevels[topic] === 'intermediate' ? 'level-btn selected' : 'level-btn'} onClick={e => { e.stopPropagation(); handleLevelChange(topic, 'intermediate'); }}>Intermediate</button>
-                      <button className={topicLevels[topic] === 'expert' ? 'level-btn selected' : 'level-btn'} onClick={e => { e.stopPropagation(); handleLevelChange(topic, 'expert'); }}>Expert</button>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-            <button className="btn" onClick={handleCreateRoadmap} style={{ marginTop: 16 }}>Generate Roadmap</button>
-            {customRoadmap && (
-              <div className="custom-timeline">
-                <h3>Your Roadmap Plan</h3>
-                <div className="timeline-bar">
-                  {customRoadmap.map((t, i) => (
-                    <div
-                      key={t.topic}
-                      className="timeline-block"
-                      style={{ flex: t.time, background: `hsl(${(i * 40) % 360},70%,60%)` }}
-                    >
-                      <span>{t.topic} <span className="level-label">({t.level})</span></span>
-                      <ul className="subtopic-list">
-                        {t.subtopics.map(sub => <li key={sub}>{sub}</li>)}
-                      </ul>
-                      <span className="timeline-days">~{t.time}d</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="timeline-total">Total: ~{totalTime} days</div>
-              </div>
-            )}
-          </div>
+
+      {/* AI Roadmap Generator */}
+      {showRoadmapGenerator && (
+        <RoadmapGenerator 
+          onClose={handleCloseGenerator} 
+          savedRoadmapData={roadmapToView} // Pass the saved roadmap data here
+        />
+      )}
+
+      {toast && (
+        <div className="toast-notification">
+          {toast}
         </div>
       )}
     </div>
