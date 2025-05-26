@@ -62,7 +62,7 @@ export default function StackVisualizer() {
     const handleStart = () => {
         let tempStack = [];
         const newSteps = [];
-        for (const act of actions.slice().reverse()) {
+        for (const act of actions) {
             if (act.type === "push") {
                 tempStack = [act.value, ...tempStack];
                 newSteps.push({ stack: [...tempStack], highlight: 0, type: "push", value: act.value });
@@ -115,7 +115,7 @@ export default function StackVisualizer() {
     const stepExplanation = started && steps.length > 0 ? getStepExplanation(current.type, current.value) : "Add values and click Start to visualize stack operations.";
 
     // Preview stack before Start
-    const previewStack = actions.slice().reverse().map(a => a.value);
+    const previewStack = actions.map(a => a.value);
     const displayStack = !started ? previewStack : current.stack;
     const stackHeight = Math.max(240, displayStack.length * 60 + 40);
 
