@@ -499,7 +499,10 @@
 }
 
 .saved-roadmap-card {
-  background: #211135 !important;
+  width: 350px;
+  height: 270px;
+  overflow: hidden;
+  background: #23143a;
   padding: 24px 20px 18px 20px;
   border-radius: 18px;
   color: #fff;
@@ -513,7 +516,6 @@
   align-items: flex-start;
   position: relative;
   transition: box-shadow 0.2s, border 0.2s, transform 0.2s, background 0.2s;
-  justify-content: space-between;
 }
 
 .saved-roadmap-card:hover {
@@ -521,6 +523,17 @@
   border: 1.5px solid #a879ff;
   transform: translateY(-3px) scale(1.018);
   background: #2d1850;
+}
+
+.saved-roadmap-card .roadmap-details,
+.saved-roadmap-card .roadmap-actions,
+.saved-roadmap-card h3 {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .saved-roadmap-card h3 {
@@ -606,11 +619,13 @@
   color: #d2cbe6;
 }
 
-.roadmap-actions {
+.saved-roadmap-card .roadmap-actions {
   display: flex;
+  flex-direction: row;
   gap: 10px;
-  margin-top: auto;
   width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .roadmap-actions button {
@@ -624,15 +639,19 @@
 }
 
 .view-button {
-  background-color: #e0e0e0;
-  color: #1a1a1a;
-  border: 1.5px solid #e0e0e0;
+  background: linear-gradient(45deg, #8a2be2, #9370db);
+  color: white !important;
+  border: 1.5px solid transparent;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .view-button:hover {
-  background-color: #cccccc;
-  color: #1a1a1a;
-  border-color: #cccccc;
+  background: linear-gradient(45deg, #7a1cd2, #8360cb);
+  color: white !important;
+  border-color: transparent;
   transform: translateY(-2px);
 }
 
@@ -640,6 +659,10 @@
   background: linear-gradient(45deg, #8a2be2, #9370db);
   color: white;
   border: 1.5px solid transparent;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .delete-button:hover {

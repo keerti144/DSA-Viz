@@ -70,10 +70,12 @@
 }
 
 .saved-roadmaps-section {
-    margin-top: 40px;
+    margin-top: 0;
     padding-top: 0;
     border-top: none;
-    background: none;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .saved-roadmaps-section h2 {
@@ -82,6 +84,7 @@
     margin-bottom: 25px;
     font-weight: 700;
     text-align: center;
+    margin-top: 32px;
 }
 
 .saved-roadmaps-list, .saved-roadmaps-grid {
@@ -516,8 +519,12 @@
     padding-top: 18px;
 }
 
-.form-group label:contains('broad overview') + .button-group {
+.form-group label:contains('What depth level do you want?') + .button-group {
     margin-left: 40px;
 }
 
-/* If :contains is not supported, use a custom class on the button-group in JSX and target that class instead. */ 
+/* If :contains is not supported, use a custom class on the button-group in JSX and target that class instead. */
+
+.option-button {
+    /* No extra margin or z-index */
+} 
