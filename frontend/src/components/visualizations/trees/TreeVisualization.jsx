@@ -427,6 +427,88 @@ function getTreeWidth(node, level = 0, positions = { min: Infinity, max: -Infini
     return positions;
 }
 
+// Helper to calculate the width (number of leaf slots) for each subtree
+function getSubtreeWidths(node) {
+    if (!node) return 0;
+    if (!node.left && !node.right) {
+        node._subtreeWidth = 1;
+        return 1;
+    }
+    const leftWidth = getSubtreeWidths(node.left);
+    const rightWidth = getSubtreeWidths(node.right);
+    node._subtreeWidth = leftWidth + rightWidth;
+    return node._subtreeWidth;
+}
+
+// Assign x-positions to each node using in-order traversal
+function assignXPositions(node, xRef, gap, positions = {}) {
+    if (!node) return;
+    assignXPositions(node.left, xRef, gap, positions);
+    node._xPos = xRef.value;
+    xRef.value += gap;
+    assignXPositions(node.right, xRef, gap, positions);
+}
+
+// Render tree using assigned x-positions
+function renderTreeInOrder(node, y, yStep, highlightPath) {
+    if (!node) return null;
+    const nodeRadius = 22;
+    const children = [];
+    if (node.left) {
+        children.push(
+            <line
+                key={node.value + '-l'}
+                x1={node._xPos}
+                y1={y}
+                x2={node.left._xPos}
+                y2={y + yStep}
+                stroke="#aaa"
+                strokeWidth={2}
+            />
+        );
+    }
+    if (node.right) {
+        children.push(
+            <line
+                key={node.value + '-r'}
+                x1={node._xPos}
+                y1={y}
+                x2={node.right._xPos}
+                y2={y + yStep}
+                stroke="#aaa"
+                strokeWidth={2}
+            />
+        );
+    }
+    const isHighlighted = highlightPath && highlightPath.includes(node.value);
+    return (
+        <g key={node.value + '-' + node._xPos + '-' + y}>
+            {children}
+            <circle
+                cx={node._xPos}
+                cy={y}
+                r={nodeRadius}
+                fill={isHighlighted ? '#e879f9' : '#a879ff'}
+                stroke={isHighlighted ? '#d726a4' : '#5d3d85'}
+                strokeWidth={isHighlighted ? 5 : 3}
+            />
+            <text
+                x={node._xPos}
+                y={y}
+                textAnchor="middle"
+                alignmentBaseline="middle"
+                fontSize="18"
+                fill="#fff"
+                fontWeight="bold"
+            >
+                {node.value}
+            </text>
+            {node.left && renderTreeInOrder(node.left, y + yStep, yStep, highlightPath)}
+            {node.right && renderTreeInOrder(node.right, y + yStep, yStep, highlightPath)}
+        </g>
+    );
+}
+
 const sidebarData = {
     binary: {
         algorithm: `Insert(node, value):\n  if node is null:\n    return new Node(value)\n  if value < node.value:\n    node.left = Insert(node.left, value)\n  else:\n    node.right = Insert(node.right, value)\n  return node`,
@@ -500,77 +582,16 @@ export default function TreeVisualization({ algorithm, title }) {
         setInput("");
     };
 
-    // Tree rendering (SVG)
-    function renderTree(node, x, y, level, xOffset, highlightPath) {
-        if (!node) return null;
-        const nodeRadius = 22;
-        const yStep = 80;
-        // Use a fixed xOffset for better visibility of unbalanced trees
-        const fixedXOffset = 120;
-        const children = [];
-        if (node.left) {
-            children.push(
-                <line
-                    key={node.value + '-l'}
-                    x1={x}
-                    y1={y}
-                    x2={x - fixedXOffset}
-                    y2={y + yStep}
-                    stroke="#aaa"
-                    strokeWidth={2}
-                />
-            );
-        }
-        if (node.right) {
-            children.push(
-                <line
-                    key={node.value + '-r'}
-                    x1={x}
-                    y1={y}
-                    x2={x + fixedXOffset}
-                    y2={y + yStep}
-                    stroke="#aaa"
-                    strokeWidth={2}
-                />
-            );
-        }
-        const isHighlighted = highlightPath && highlightPath.includes(node.value);
-        return (
-            <g key={node.value + '-' + x + '-' + y}>
-                {children}
-                <circle
-                    cx={x}
-                    cy={y}
-                    r={nodeRadius}
-                    fill={isHighlighted ? '#e879f9' : '#a879ff'}
-                    stroke={isHighlighted ? '#d726a4' : '#5d3d85'}
-                    strokeWidth={isHighlighted ? 5 : 3}
-                />
-                <text
-                    x={x}
-                    y={y}
-                    textAnchor="middle"
-                    alignmentBaseline="middle"
-                    fontSize="18"
-                    fill="#fff"
-                    fontWeight="bold"
-                >
-                    {node.value}
-                </text>
-                {node.left && renderTree(node.left, x - fixedXOffset, y + yStep, level - 1, xOffset, highlightPath)}
-                {node.right && renderTree(node.right, x + fixedXOffset, y + yStep, level + 1, xOffset, highlightPath)}
-            </g>
-        );
-    }
-
     // Calculate dynamic SVG size
     const currentTree = inserting ? steps[stepIdx]?.tree : root;
     const treeDepth = getTreeDepth(currentTree);
-    const treeWidth = getTreeWidth(currentTree);
-    const actualWidth = Math.abs(treeWidth.max - treeWidth.min) * 120 + 300;
-    const svgWidth = Math.max(900, actualWidth);
-    const svgHeight = Math.max(500, treeDepth * 100 + 200);
-    const centerX = (treeWidth.max + treeWidth.min) * -60 + svgWidth / 2;
+    const yStep = 100;
+    const minGap = 120; // Increased gap between nodes at the same level
+    // Assign x-positions using in-order traversal
+    let xRef = { value: 100 };
+    if (currentTree) assignXPositions(currentTree, xRef, minGap);
+    const svgWidth = Math.max(900, (xRef.value || 1) + 100);
+    const svgHeight = Math.max(500, treeDepth * yStep + 200);
     const startY = 100;
 
     return (
@@ -653,8 +674,8 @@ export default function TreeVisualization({ algorithm, title }) {
                                         preserveAspectRatio="xMidYMin meet"
                                     >
                                         {inserting
-                                            ? renderTree(steps[stepIdx]?.tree, centerX, startY, 0, svgWidth / 4, steps[stepIdx]?.highlight)
-                                            : renderTree(root, centerX, startY, 0, svgWidth / 4, null)
+                                            ? renderTreeInOrder(steps[stepIdx]?.tree, startY, yStep, steps[stepIdx]?.highlight)
+                                            : renderTreeInOrder(root, startY, yStep, null)
                                         }
                                     </svg>
                                 </div>
