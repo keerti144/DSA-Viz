@@ -63,22 +63,24 @@
   font-weight: 700;
 }
 
-.grid {
+.grid,
+.saved-roadmaps-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
   gap: 28px;
   justify-content: center;
 }
 
-.card {
+.card,
+.saved-roadmap-card {
   background: #23143a;
-  padding: 24px 20px 18px 20px;
-  border-radius: 18px;
+  padding: 18px 16px 14px 16px;
+  border-radius: 16px;
   color: #fff;
   border: 1.5px solid #2d1850;
   box-shadow: 0 2px 10px 0 rgba(20, 20, 40, 0.10);
   min-width: 0;
-  max-width: 350px;
+  max-width: 400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -87,7 +89,8 @@
   transition: box-shadow 0.2s, border 0.2s, transform 0.2s, background 0.2s;
 }
 
-.card:hover {
+.card:hover,
+.saved-roadmap-card:hover {
   box-shadow: 0 6px 18px 0 rgba(168, 121, 255, 0.13);
   border: 1.5px solid #a879ff;
   transform: translateY(-3px) scale(1.018);
@@ -108,16 +111,18 @@
   box-shadow: 0 1px 4px #1a0e2e33;
 }
 
-.card h3 {
+.card h3,
+.saved-roadmap-card h3 {
   font-size: 18px;
   font-weight: 700;
   margin: 0 0 7px 0;
   color: #b99cff;
 }
 
-.card p {
+.card p,
+.saved-roadmap-card .roadmap-details p {
   font-size: 14px;
-  margin: 0 0 12px 0;
+  margin: 0 0 10px 0;
   color: #d2cbe6;
 }
 
@@ -142,7 +147,9 @@
   opacity: 0.13;
 }
 
-.card-action-btn {
+.card-action-btn,
+.saved-roadmap-card .view-button,
+.saved-roadmap-card .delete-button {
   width: 100%;
   background: #2d1850;
   color: #b99cff;
@@ -158,9 +165,12 @@
   justify-content: center;
   gap: 8px;
   box-shadow: none;
+  margin-right: 0;
 }
 
-.card-action-btn:hover {
+.card-action-btn:hover,
+.saved-roadmap-card .view-button:hover,
+.saved-roadmap-card .delete-button:hover {
   background: #a879ff;
   color: #fff;
   border: 1.5px solid #a879ff;
@@ -476,11 +486,11 @@
 
 .saved-roadmaps-section {
   margin-top: 40px;
-  padding: 36px 24px 32px 24px;
-  border-radius: 18px;
-  background: #211135 !important;
-  box-shadow: 0 4px 24px #a879ff22, 0 1.5px 8px #a879ff11;
-  border: 1.5px solid #2d1850;
+  padding: 0;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none;
+  border: none;
 }
 
 .saved-roadmaps-section h2 {
@@ -679,86 +689,102 @@
 
 /* Styles for roadmap header with rename button */
 .roadmap-header-with-rename {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Space between title and icon */
-    margin-bottom: 10px; /* Space below the header */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Space between title and icon */
+  margin-bottom: 10px;
+  /* Space below the header */
 }
 
 .roadmap-header-with-rename h3 {
-    margin: 0; /* Remove default margin to align */
-    flex-grow: 1; /* Allow title to take available space */
+  margin: 0;
+  /* Remove default margin to align */
+  flex-grow: 1;
+  /* Allow title to take available space */
 }
 
 .rename-button {
-    background: none;
-    border: none;
-    color: #b99cff; /* Icon color, consistent with title */
-    cursor: pointer;
-    padding: 0;
-    display: flex; /* Use flex to center the icon */
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s ease;
+  background: none;
+  border: none;
+  color: #b99cff;
+  /* Icon color, consistent with title */
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  /* Use flex to center the icon */
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
 }
 
 .rename-button:hover {
-    color: #a879ff; /* Slightly lighter color on hover */
+  color: #a879ff;
+  /* Slightly lighter color on hover */
 }
 
 .rename-button svg {
-    width: 16px; /* Set icon size */
-    height: 16px; /* Set icon size */
+  width: 16px;
+  /* Set icon size */
+  height: 16px;
+  /* Set icon size */
 }
 
 /* Styles for rename input field and action buttons */
 .rename-input-container {
-    display: flex;
-    align-items: center;
-    gap: 5px; /* Space between input and buttons */
-    margin-bottom: 10px; /* Space below the container */
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  /* Space between input and buttons */
+  margin-bottom: 10px;
+  /* Space below the container */
 }
 
 .rename-input {
-    flex-grow: 1; /* Allow input to take available space */
-    padding: 6px 10px;
-    border-radius: 6px;
-    border: 1px solid #555;
-    background-color: #1a1a1a;
-    color: #fff;
-    font-size: 14px;
+  flex-grow: 1;
+  /* Allow input to take available space */
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
 }
 
 .rename-input:focus {
-    outline: none;
-    border-color: #a879ff;
-    box-shadow: 0 0 0 2px rgba(168, 121, 255, 0.3);
+  outline: none;
+  border-color: #a879ff;
+  box-shadow: 0 0 0 2px rgba(168, 121, 255, 0.3);
 }
 
 .rename-action-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
 .rename-action-button.save {
-    color: #10B981; /* Green color for save */
+  color: #10B981;
+  /* Green color for save */
 }
 
 .rename-action-button.save:hover {
-    background-color: #05966933; /* Subtle green background on hover */
+  background-color: #05966933;
+  /* Subtle green background on hover */
 }
 
 .rename-action-button.cancel {
-    color: #e24a4a; /* Red color for cancel */
+  color: #e24a4a;
+  /* Red color for cancel */
 }
 
 .rename-action-button.cancel:hover {
-    background-color: #e24a4a33; /* Subtle red background on hover */
+  background-color: #e24a4a33;
+  /* Subtle red background on hover */
 }
