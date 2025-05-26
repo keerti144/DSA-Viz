@@ -261,7 +261,7 @@ export const Roadmap = () => {
             <p className="no-roadmaps">No saved roadmaps yet. Generate your first roadmap to get started!</p>
           ) : (
             <div className="saved-roadmaps-grid">
-              {savedRoadmaps.map(roadmap => (
+              {savedRoadmaps.slice().reverse().map(roadmap => (
                 <div key={roadmap.id} className="saved-roadmap-card">
                    {renamingRoadmapId === roadmap.id ? (
                     <div className="rename-input-container">
